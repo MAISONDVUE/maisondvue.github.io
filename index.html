@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maison D'Vue — Hair Elixir</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #0a0e1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    position: relative;
+  }
+  body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #c9a96e; opacity: 0.6; }
+  body::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: #c9a96e; opacity: 0.6; }
+  .corner { position: absolute; width: 20px; height: 20px; opacity: 0.4; }
+  .tl { top: 20px; left: 20px; border-top: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
+  .tr { top: 20px; right: 20px; border-top: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
+  .bl { bottom: 20px; left: 20px; border-bottom: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
+  .br { bottom: 20px; right: 20px; border-bottom: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
+  .eyebrow { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 10px; letter-spacing: 0.35em; color: #c9a96e; text-transform: uppercase; margin-bottom: 2.5rem; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 38px; color: #f0e6d0; letter-spacing: 0.12em; margin-bottom: 0.3rem; text-align: center; }
+  .sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 0.5em; color: #c9a96e; text-transform: uppercase; margin-bottom: 3rem; }
+  .divider { width: 60px; height: 1px; background: #c9a96e; opacity: 0.5; margin: 0 auto 3rem; }
+  .headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 15px; color: #c9a96e; letter-spacing: 0.25em; text-transform: uppercase; text-align: center; margin-bottom: 1.2rem; }
+  .body-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #c8bfa8; line-height: 1.8; text-align: center; max-width: 420px; margin: 0 auto 3rem; }
+  .form-block { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 360px; margin: 0 auto 2.5rem; }
+  input { background: transparent; border: none; border-bottom: 1px solid #c9a96e; color: #f0e6d0; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.15em; padding: 10px 0; width: 100%; outline: none; text-align: center; }
+  input::placeholder { color: #7a6e5e; letter-spacing: 0.2em; }
+  .btn { background: transparent; border: 1px solid #c9a96e; color: #c9a96e; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; padding: 14px 40px; cursor: pointer; margin-top: 8px; transition: all 0.3s; width: 100%; }
+  .btn:hover { background: #c9a96e; color: #0a0e1a; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .error { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 0.2em; color: #8b4a3a; text-transform: uppercase; text-align: center; min-height: 16px; }
+  .ghost { background: transparent; border: none; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 0.3em; color: #5a5040; text-transform: uppercase; cursor: pointer; margin-top: 0.5rem; }
+  .ghost:hover { color: #c9a96e; }
+  .success-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: #c9a96e; text-align: center; line-height: 1.9; }
+  .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
+  .screen.active { display: flex; }
+</style>
+</head>
+<body>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <p class="eyebrow">Maison D'Vue</p>
+  <h1>HAIR ELIXIR</h1>
+  <p class="sub">30 ml &nbsp;·&nbsp; Rare Botanical Oils</p>
+  <div class="divider"></div>
+
+  <!-- Screen 1: Password -->
+  <div class="screen active" id="screen-password">
+    <p class="headline">Enter your access code</p>
+    <p class="body-text">This collection is available by invitation only.</p>
+    <div class="form-block">
+      <input type="password" placeholder="Access code" id="inp-code" onkeydown="if(event.key==='Enter') checkCode()" />
+      <p class="error" id="code-error">&nbsp;</p>
+      <button class="btn" onclick="checkCode()">Enter</button>
+    </div>
+    <button class="ghost" onclick="show('screen-request')">No code? Request an invitation</button>
+  </div>
+
+  <!-- Screen 2: Request -->
+  <div class="screen" id="screen-request">
+    <p class="headline">Request an invitation</p>
+    <p class="body-text">A singular elixir, crafted from the world's rarest botanical oils. Access is not given — it is granted.</p>
+    <div class="form-block">
+      <input type="text" placeholder="Your name" id="inp-name" />
+      <input type="email" placeholder="Your email address" id="inp-email" />
+      <p class="error" id="form-error">&nbsp;</p>
+      <button class="btn" id="submit-btn" onclick="handleSubmit()">Submit request</button>
+    </div>
+    <button class="ghost" onclick="show('screen-password')">Have a code? Enter here</button>
+  </div>
+
+  <!-- Screen 3: Welcome -->
+  <div class="screen" id="screen-welcome">
+    <p class="success-text">Welcome.<br><br>
+      <span style="font-size:13px; letter-spacing:0.2em; font-style:normal; font-family:'Montserrat',sans-serif; font-weight:300;">You have been granted access.</span>
+    </p>
+    <br><br>
+    <button class="btn" style="max-width:360px;" onclick="window.location.href='https://etsy.com'">Shop the Elixir</button>
+  </div>
+
+  <!-- Screen 4: Submitted -->
+  <div class="screen" id="screen-submitted">
+    <p class="success-text">Your request has been received.<br><br>
+      <span style="font-size:13px; letter-spacing:0.15em; font-style:normal; font-family:'Montserrat',sans-serif; font-weight:300; color:#c8bfa8;">We will be in touch.</span>
+    </p>
+  </div>
+
+  <script>
+    const ACCESS_CODE = 'WELCOME26';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybgbtp67CbwGgT8mWTlrG_6K5u5DW4E1G_iG9am0BYuKl7xvg_6m2glvaFD-dkj-CPRg/exec';
+
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function checkCode() {
+      const val = document.getElementById('inp-code').value.trim().toUpperCase();
+      if (val === ACCESS_CODE) {
+        show('screen-welcome');
+      } else {
+        document.getElementById('code-error').textContent = 'Invalid access code';
+        document.getElementById('inp-code').value = '';
+      }
+    }
+
+    async function handleSubmit() {
+      const name = document.getElementById('inp-name').value.trim();
+      const email = document.getElementById('inp-email').value.trim();
+      if (!name || !email) {
+        document.getElementById('form-error').textContent = 'Please enter your name and email';
+        return;
+      }
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, source: 'Website' })
+        });
+      } catch(e) {}
+      show('screen-submitted');
+    }
+  </script>
+</body>
+</html>
