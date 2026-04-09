@@ -21,7 +21,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; font-size: 13px; } /* scale everything down */
 
   body {
     background: var(--warm-white);
@@ -38,7 +38,7 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex;
     align-items: center;
-    padding: 1.5rem 3rem;
+    padding: 1.1rem 2.5rem;
     background: rgba(253,251,248,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 0.5px solid var(--light-border);
@@ -46,7 +46,7 @@
   }
   .nav-logo {
     font-family: var(--font-display);
-    font-size: 1.1rem; font-weight: 400; letter-spacing: 0.2em;
+    font-size: 0.95rem; font-weight: 400; letter-spacing: 0.2em;
     color: var(--dark); text-decoration: none; text-transform: uppercase;
     flex-shrink: 0;
   }
@@ -75,27 +75,24 @@
     min-height: 100vh;
     display: grid;
     grid-template-columns: 46% 54%;
-    padding-top: 5rem;
+    padding-top: 4rem;
     align-items: start;
   }
 
-  /* ─── CAROUSEL WRAPPER: FIX 4 — Chanel breathing room ─── */
   .carousel-wrapper {
     position: sticky;
-    top: 5rem;
-    /* inset padding gives the editorial "float" */
-    padding: 3.5rem 1.5rem 3.5rem 3rem;
+    top: 4rem;
+    padding: 2.5rem 1.25rem 2.5rem 2.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
 
-  /* FIX 4: shorter ratio so image sits with air above/below */
   .carousel-main {
     position: relative;
     width: 100%;
-    aspect-ratio: 3 / 4;   /* was 2/3 — this is more contained */
-    max-height: 72vh;       /* never taller than ~72% of viewport */
+    aspect-ratio: 3 / 4;
+    max-height: 65vh;
     background: transparent;
     border-radius: 4px;
     overflow: hidden;
@@ -161,43 +158,42 @@
   .carousel-thumbs { display: none; }
   .hero-badges { display: none; }
 
-  /* ─── HERO RIGHT ─── */
   .hero-content {
-    padding: 4.5rem 3rem 3rem 2rem;
+    padding: 3.5rem 2.5rem 3rem 1.75rem;
     display: flex; flex-direction: column; justify-content: flex-start;
     width: 100%; overflow-x: hidden;
   }
   /* inner container — everything constrained to desc width */
   .hero-inner {
     width: 100%;
-    max-width: 420px; /* matches product-desc natural width */
+    max-width: 380px;
   }
   .rating-row {
-    display: flex; align-items: center; gap: 0.75rem;
-    margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 1rem;
     opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
   }
-  .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; }
-  .rating-text { font-size: 0.7rem; color: var(--mid); letter-spacing: 0.05em; }
+  .stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 2px; }
+  .rating-text { font-size: 0.65rem; color: var(--mid); letter-spacing: 0.05em; }
   .product-brand {
-    font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.3rem;
+    font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.25rem;
     opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
   }
   .product-title {
     font-family: var(--font-display);
-    font-size: 3rem; font-weight: 300; line-height: 1.05;
-    color: var(--dark); margin-bottom: 0.4rem; letter-spacing: 0.03em;
+    font-size: 2.4rem; font-weight: 300; line-height: 1.05;
+    color: var(--dark); margin-bottom: 0.3rem; letter-spacing: 0.03em;
     opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
   }
   .product-subtitle {
-    font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--mid); margin-bottom: 1.25rem;
+    font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 1rem;
     opacity: 0; animation: fadeUp 0.8s 0.35s forwards;
   }
   .product-desc {
-    font-size: 0.8rem; line-height: 1.85; color: var(--mid);
-    margin-bottom: 1.25rem;
+    font-size: 0.75rem; line-height: 1.8; color: var(--mid);
+    margin-bottom: 1rem;
     opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
   }
   .product-desc strong { color: var(--dark); font-weight: 400; }
