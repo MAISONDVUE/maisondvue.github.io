@@ -880,14 +880,17 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   (function() {
     var current = 0;
-    var total = 5;
+    var slides = document.querySelectorAll('.carousel-slide');
+    var total = slides.length;
     var track = document.getElementById('carousel-slides');
     var dots = document.querySelectorAll('.carousel-dot');
     var thumbs = document.querySelectorAll('.carousel-thumb');
+    var carouselEl = document.querySelector('.carousel-main');
+    var autoplayInterval = null;
+    var autoplayDelay = 4000;
 
     function updateCarousel() {
-      // FIXED: percentage-based translation — each slide is (100/total)% of track width,
-      // so moving N slides = N * (100/total)% of track = N * 20% of track
+      // Each slide = (100/total)% of track width, so offset = current * (100/total)%
       track.style.transform = 'translateX(-' + (current * (100 / total)) + '%)';
       dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
       thumbs.forEach(function(t, i) { t.classList.toggle('active', i === current); });
@@ -903,34 +906,44 @@
       updateCarousel();
     }
 
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayInterval = setInterval(function() { moveCarousel(1); }, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
+    }
+
+    // Arrows
     document.getElementById('prev-btn').addEventListener('click', function(e) {
-      e.stopPropagation();
-      moveCarousel(-1);
+      e.stopPropagation(); stopAutoplay(); moveCarousel(-1);
     });
     document.getElementById('next-btn').addEventListener('click', function(e) {
-      e.stopPropagation();
-      moveCarousel(1);
+      e.stopPropagation(); stopAutoplay(); moveCarousel(1);
     });
 
+    // Dots
     dots.forEach(function(el) {
       el.addEventListener('click', function(e) {
-        e.stopPropagation();
+        e.stopPropagation(); stopAutoplay();
         goToSlide(parseInt(el.getAttribute('data-slide')));
       });
     });
 
+    // Thumbs
     thumbs.forEach(function(el) {
       el.addEventListener('click', function(e) {
-        e.stopPropagation();
+        e.stopPropagation(); stopAutoplay();
         goToSlide(parseInt(el.getAttribute('data-slide')));
       });
     });
 
     // Touch swipe
     var touchStartX = 0, touchStartY = 0, isSwiping = false;
-    var carouselEl = document.querySelector('.carousel-main');
 
     carouselEl.addEventListener('touchstart', function(e) {
+      stopAutoplay();
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       isSwiping = false;
@@ -939,21 +952,27 @@
     carouselEl.addEventListener('touchmove', function(e) {
       var dx = e.touches[0].clientX - touchStartX;
       var dy = e.touches[0].clientY - touchStartY;
-      if (!isSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
-        isSwiping = true;
-      }
+      if (!isSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) isSwiping = true;
     }, { passive: true });
 
     carouselEl.addEventListener('touchend', function(e) {
       var dx = e.changedTouches[0].clientX - touchStartX;
-      if (isSwiping && Math.abs(dx) > 40) {
-        moveCarousel(dx < 0 ? 1 : -1);
-      }
-      touchStartX = 0;
-      isSwiping = false;
+      if (isSwiping && Math.abs(dx) > 40) moveCarousel(dx < 0 ? 1 : -1);
+      touchStartX = 0; isSwiping = false;
+      startAutoplay();
     }, { passive: true });
 
+    // Hover pause (desktop)
+    carouselEl.addEventListener('mouseenter', stopAutoplay);
+    carouselEl.addEventListener('mouseleave', startAutoplay);
+
+    // Pause when tab is hidden
+    document.addEventListener('visibilitychange', function() {
+      document.hidden ? stopAutoplay() : startAutoplay();
+    });
+
     updateCarousel();
+    startAutoplay();
   })();
 
   function toggleNavMenu() {
