@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hair Elixir — Maison D'Vue</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8996A;
+    --gold-light: #D4B97A;
+    --cobalt: #1a2744;
+    --cream: #F9F6F0;
+    --warm-white: #FDFBF8;
+    --dark: #0E0E0E;
+    --mid: #5a5046;
+    --light-border: rgba(184,153,106,0.2);
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Jost', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    background: rgba(253,251,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--light-border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--dark);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    padding-top: 5rem;
+    align-items: start;
+  }
+  .carousel-wrapper {
+    position: sticky; top: 5rem;
+    padding: 2rem 1.5rem 2rem 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .carousel-main {
+    position: relative; width: 100%; aspect-ratio: 3/4;
+    background: var(--cobalt); border-radius: 12px; overflow: hidden;
+  }
+  .carousel-slides {
+    display: flex; width: 100%; height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .carousel-slide {
+    min-width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1rem; position: relative;
+  }
+  .slide-label {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(184,153,106,0.5); position: absolute; bottom: 1rem;
+  }
+  .slide-placeholder {
+    font-family: var(--font-display); font-size: 1.1rem; font-style: italic;
+    color: rgba(184,153,106,0.3); text-align: center; padding: 1rem; line-height: 1.6;
+  }
+  .slide-bottle-visual {
+    width: 120px; height: 160px;
+    background: rgba(26,39,68,0.9);
+    border: 1px solid rgba(184,153,106,0.4);
+    border-radius: 14px 14px 10px 10px;
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
+  }
+  .slide-bottle-cap { position: absolute; top: -22px; width: 24px; height: 24px; background: var(--gold); border-radius: 50%; }
+  .slide-bottle-dropper { position: absolute; top: -54px; width: 6px; height: 40px; background: rgba(240,235,225,0.9); border-radius: 3px 3px 0 0; }
+  .slide-bottle-brand { font-family: var(--font-display); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+  .slide-bottle-monogram { width: 34px; height: 34px; border: 1px solid rgba(184,153,106,0.5); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; color: var(--gold); font-style: italic; }
+  .slide-bottle-name { font-size: 0.4rem; letter-spacing: 0.2em; color: rgba(184,153,106,0.6); text-transform: uppercase; }
+  .carousel-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(253,251,248,0.15); border: 0.5px solid rgba(184,153,106,0.3);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 3; color: var(--gold); font-size: 14px; transition: background 0.2s;
+  }
+  .carousel-arrow:hover { background: rgba(253,251,248,0.25); }
+  .carousel-prev { left: 0.75rem; }
+  .carousel-next { right: 0.75rem; }
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; }
+  .carousel-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(184,153,106,0.25); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .carousel-dot.active { background: var(--gold); transform: scale(1.3); }
+  .carousel-thumbs { display: flex; gap: 8px; }
+  .carousel-thumb {
+    flex: 1; aspect-ratio: 3/4; background: var(--cobalt); border-radius: 6px;
+    border: 1px solid transparent; cursor: pointer; transition: border-color 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(184,153,106,0.4);
+    overflow: hidden;
+  }
+  .carousel-thumb.active { border-color: var(--gold); }
+  .hero-badges { display: flex; gap: 0.75rem; justify-content: center; }
+  .hero-badge { border: 0.5px solid rgba(184,153,106,0.5); border-radius: 2rem; padding: 0.3rem 0.8rem; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(184,153,106,0.9); }
+
+  /* HERO RIGHT */
+  .hero-content {
+    padding: 6rem 4rem 4rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+    max-width: 600px;
+  }
+  .rating-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+  }
+  .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; }
+  .rating-text { font-size: 0.7rem; color: var(--mid); letter-spacing: 0.05em; }
+
+  .product-brand {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .product-title {
+    font-family: var(--font-display);
+    font-size: 3.8rem; font-weight: 300; line-height: 1.0;
+    color: var(--dark); margin-bottom: 0.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .product-subtitle {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s 0.35s forwards;
+  }
+  .product-desc {
+    font-size: 0.9rem; line-height: 1.85; color: var(--mid);
+    margin-bottom: 2rem; max-width: 440px;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .product-desc strong { color: var(--dark); font-weight: 400; }
+
+  .claim-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.75rem; margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .claim-tile {
+    background: var(--cream);
+    border: 0.5px solid var(--light-border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.72rem; line-height: 1.5;
+    color: var(--mid);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .claim-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0; margin-top: 5px;
+  }
+
+  .batch-box {
+    border: 0.5px solid var(--light-border);
+    border-radius: 10px; overflow: hidden;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s 0.55s forwards;
+  }
+  .batch-header {
+    padding: 0.85rem 1.1rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--mid);
+    border-bottom: 0.5px solid var(--light-border);
+    font-style: italic;
+  }
+  .batch-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.75rem 1.1rem;
+    border-bottom: 0.5px solid var(--light-border);
+    font-size: 0.72rem;
+  }
+  .batch-row:last-child { border-bottom: none; background: var(--cream); }
+  .batch-label { color: var(--mid); }
+  .batch-label.dim { opacity: 0.4; }
+  .batch-status { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .sold-out { color: #aaa; }
+  .available { color: var(--gold); font-weight: 400; }
+
+  .supply-section {
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .supply-label {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 0.75rem;
+  }
+  .supply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .supply-card {
+    border: 0.5px solid var(--light-border);
+    border-radius: 10px; padding: 1rem 1.1rem;
+    cursor: pointer; transition: border-color 0.2s;
+  }
+  .supply-card.selected { border: 1.5px solid var(--gold); }
+  .supply-card:hover { border-color: var(--gold-light); }
+  .supply-card-label { font-size: 0.7rem; color: var(--mid); margin-bottom: 0.4rem; }
+  .supply-card-price { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--dark); }
+  .supply-card-sub { font-size: 0.62rem; color: var(--mid); margin-top: 0.25rem; line-height: 1.5; }
+  .popular-badge {
+    float: right;
+    background: var(--cream); border: 0.5px solid var(--light-border);
+    border-radius: 2rem; padding: 2px 8px;
+    font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .add-btn {
+    width: 100%; padding: 1.1rem;
+    background: var(--dark); color: var(--cream);
+    border: none; border-radius: 8px;
+    font-family: var(--font-body); font-size: 0.72rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.3s;
+    margin-bottom: 0.75rem;
+    opacity: 0; animation: fadeUp 0.8s 0.65s forwards;
+  }
+  .add-btn:hover { background: var(--cobalt); }
+
+  .shipping-note {
+    font-size: 0.65rem; color: var(--mid); text-align: center;
+    letter-spacing: 0.05em;
+    opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  /* SECTION WRAPPER */
+  section { padding: 6rem 3rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 2.8rem; font-weight: 300; line-height: 1.15;
+    color: var(--dark); margin-bottom: 1.5rem;
+  }
+
+  /* RITUAL */
+  .ritual-section { background: var(--cobalt); color: var(--cream); }
+  .ritual-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; margin-top: 3rem; }
+  .ritual-step-num {
+    font-family: var(--font-display); font-size: 4rem; font-weight: 300;
+    color: rgba(184,153,106,0.2); line-height: 1; margin-bottom: 0.5rem;
+  }
+  .ritual-step-title {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .ritual-step-text {
+    font-size: 0.85rem; line-height: 1.9; color: rgba(249,246,240,0.7);
+  }
+  .ritual-image-placeholder {
+    width: 100%; height: 280px;
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(184,153,106,0.2);
+    border-radius: 8px; margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(184,153,106,0.4);
+  }
+
+  /* INGREDIENTS */
+  .ingredients-section { background: var(--warm-white); }
+  .ingredient-scroll {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .ingredient-card {
+    border: 0.5px solid var(--light-border);
+    border-radius: 10px; overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .ingredient-card:hover { transform: translateY(-4px); }
+  .ingredient-card-image {
+    height: 160px; background: var(--cobalt);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 2rem;
+    color: rgba(184,153,106,0.5); font-style: italic;
+  }
+  .ingredient-card-body { padding: 1rem; }
+  .ingredient-card-name {
+    font-family: var(--font-display); font-size: 1rem; font-weight: 400;
+    color: var(--dark); margin-bottom: 0.25rem;
+  }
+  .ingredient-card-origin {
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .ingredient-card-text {
+    font-size: 0.72rem; line-height: 1.7; color: var(--mid);
+  }
+  .ingredient-card-fn {
+    margin-top: 0.75rem; padding-top: 0.75rem;
+    border-top: 0.5px solid var(--light-border);
+    font-size: 0.62rem; color: var(--mid);
+  }
+  .ingredient-card-fn strong { color: var(--dark); font-weight: 400; }
+
+  /* STATS */
+  .stats-section { background: var(--cream); }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+  .stat-item { text-align: center; }
+  .stat-number {
+    font-family: var(--font-display); font-size: 4rem; font-weight: 300;
+    color: var(--dark); line-height: 1;
+  }
+  .stat-text { font-size: 0.75rem; line-height: 1.6; color: var(--mid); margin-top: 0.75rem; }
+
+  /* REVIEWS */
+  .reviews-section { background: var(--warm-white); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .review-card {
+    border: 0.5px solid var(--light-border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+  .review-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+  .review-text { font-size: 0.82rem; line-height: 1.85; color: var(--mid); font-style: italic; margin-bottom: 1rem; }
+  .review-author { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark); }
+
+  /* BIOLOGY */
+  .biology-section { background: var(--cobalt); color: var(--cream); }
+  .biology-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .biology-claims { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .biology-claim {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.8rem; line-height: 1.6; color: rgba(249,246,240,0.75);
+  }
+  .biology-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+    flex-shrink: 0; margin-top: 6px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: rgba(249,246,240,0.5);
+    padding: 4rem 3rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream); margin-bottom: 1rem;
+  }
+  .footer-philosophy {
+    font-size: 0.8rem; line-height: 1.9; max-width: 600px;
+    margin: 0 auto 2rem; font-style: italic;
+    color: rgba(249,246,240,0.5);
+  }
+  .footer-bottom {
+    font-size: 0.62rem; letter-spacing: 0.12em;
+    border-top: 0.5px solid rgba(184,153,106,0.15); padding-top: 1.5rem; margin-top: 2rem;
+    color: rgba(249,246,240,0.3);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { min-height: 60vh; }
+    .hero-content { padding: 3rem 1.5rem; }
+    .ritual-grid, .ingredient-scroll, .stats-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .biology-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Maison D'Vue</a>
+  <ul class="nav-links">
+    <li><a href="#ingredients">The Formula</a></li>
+    <li><a href="#ritual">The Ritual</a></li>
+    <li><a href="#science">The Science</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#buy" style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); text-decoration:none;">Reserve Your Batch</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="buy">
+  <div class="carousel-wrapper">
+    <div class="carousel-main">
+      <div class="carousel-slides" id="carousel-slides">
+        <div class="carousel-slide">
+          <div class="slide-bottle-visual">
+            <div class="slide-bottle-dropper"></div>
+            <div class="slide-bottle-cap"></div>
+            <div class="slide-bottle-brand">Maison D’Vue</div>
+            <div class="slide-bottle-monogram">MdV</div>
+            <div class="slide-bottle-name">Hair Elixir</div>
+          </div>
+          <div class="slide-label">Hair Elixir · 30ml</div>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">Replace with<br>texture / oil drop<br>editorial shot</div>
+          <div class="slide-label">The Formula</div>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">Replace with<br>application ritual<br>editorial shot</div>
+          <div class="slide-label">Anoint</div>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">Replace with<br>scalp massage<br>editorial shot</div>
+          <div class="slide-label">Stimulate</div>
+        </div>
+        <div class="carousel-slide">
+          <div class="slide-placeholder">Replace with<br>luminous hair<br>result shot</div>
+          <div class="slide-label">Illuminate</div>
+        </div>
+      </div>
+      <div class="carousel-arrow carousel-prev" onclick="moveCarousel(-1)">&#8592;</div>
+      <div class="carousel-arrow carousel-next" onclick="moveCarousel(1)">&#8594;</div>
+    </div>
+    <div class="carousel-dots" id="carousel-dots">
+      <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+      <div class="carousel-dot" onclick="goToSlide(1)"></div>
+      <div class="carousel-dot" onclick="goToSlide(2)"></div>
+      <div class="carousel-dot" onclick="goToSlide(3)"></div>
+      <div class="carousel-dot" onclick="goToSlide(4)"></div>
+    </div>
+    <div class="carousel-thumbs">
+      <div class="carousel-thumb active" onclick="goToSlide(0)">Bottle</div>
+      <div class="carousel-thumb" onclick="goToSlide(1)">Formula</div>
+      <div class="carousel-thumb" onclick="goToSlide(2)">Anoint</div>
+      <div class="carousel-thumb" onclick="goToSlide(3)">Stimulate</div>
+      <div class="carousel-thumb" onclick="goToSlide(4)">Illuminate</div>
+    </div>
+    <div class="hero-badges">
+      <span class="hero-badge">Best Seller</span>
+      <span class="hero-badge">Limited Batch</span>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text">4.9 &nbsp;·&nbsp; Verified Reviews</span>
+    </div>
+
+    <p class="product-brand">Maison D'Vue</p>
+    <h1 class="product-title">Hair<br>Elixir</h1>
+    <p class="product-subtitle">Rare Botanical Treatment Oil &nbsp;·&nbsp; 30 ml</p>
+
+    <p class="product-desc">Powered by <strong>Vue 14 Rare Oil Complex®</strong> — fourteen rare cold-pressed botanical oils sourced from the Amazon to the Atlas Mountains, formulated to deeply restore, strengthen, and illuminate hair.</p>
+
+    <div class="claim-grid">
+      <div class="claim-tile"><div class="claim-dot"></div>Repairs & restores damaged hair*</div>
+      <div class="claim-tile"><div class="claim-dot"></div>Mirror-like shine, absorbs instantly</div>
+      <div class="claim-tile"><div class="claim-dot"></div>No hormone disruptors</div>
+      <div class="claim-tile"><div class="claim-dot"></div>No silicones, no residue</div>
+    </div>
+
+    <div class="batch-box">
+      <div class="batch-header">The Hair Elixir is produced in small handcrafted batches from the world's rarest botanical oils. Your order reserves the next available batch.</div>
+      <div class="batch-row">
+        <span class="batch-label dim">March Delivery</span>
+        <span class="batch-status sold-out">Sold Out</span>
+      </div>
+      <div class="batch-row">
+        <span class="batch-label dim">April Delivery</span>
+        <span class="batch-status sold-out">Sold Out</span>
+      </div>
+      <div class="batch-row">
+        <span class="batch-label">May Delivery: Spring Harvest</span>
+        <span class="batch-status available">70% Sold</span>
+      </div>
+    </div>
+
+    <div class="supply-section">
+      <p class="supply-label">Select your supply</p>
+      <div class="supply-grid">
+        <div class="supply-card" id="s1" onclick="selectSupply(1)">
+          <div class="supply-card-label">1 Bottle</div>
+          <div class="supply-card-price">$120</div>
+          <div class="supply-card-sub">30 ml / 1 fl oz</div>
+        </div>
+        <div class="supply-card selected" id="s2" onclick="selectSupply(2)">
+          <div class="supply-card-label">2 Bottles <span class="popular-badge">Most Popular</span></div>
+          <div class="supply-card-price">$240</div>
+          <div class="supply-card-sub">+ 1 Mini (0.15 oz) FREE<br>Save $46</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-btn" id="add-btn">Reserve Your Batch — $240</button>
+    <p class="shipping-note">Free shipping on orders over $150 &nbsp;·&nbsp; Secure checkout</p>
+  </div>
+</div>
+
+<!-- RITUAL -->
+<section class="ritual-section" id="ritual">
+  <div class="section-inner">
+    <p class="section-label" style="color:rgba(184,153,106,0.7);">The Application</p>
+    <h2 class="section-title" style="color:var(--cream);">Anoint · Stimulate · Illuminate</h2>
+    <div class="ritual-grid">
+      <div>
+        <div class="ritual-image-placeholder">Editorial Image 1</div>
+        <div class="ritual-step-num">01</div>
+        <div class="ritual-step-title">Anoint</div>
+        <p class="ritual-step-text">Dispense 1–3 drops into fingertips. For daily refinement, work through mid-lengths to ends with slow, deliberate strokes. For the intensive treatment, apply a full dropper section by section — from the hairline to the nape — ensuring every strand is enveloped from root to end.</p>
+      </div>
+      <div>
+        <div class="ritual-image-placeholder">Editorial Image 2</div>
+        <div class="ritual-step-num">02</div>
+        <div class="ritual-step-title">Stimulate</div>
+        <p class="ritual-step-text">With fingertips spread wide, make slow circular movements from the forehead to the back of the head. This motion stimulates circulation, oxygenates the follicles, and drives the Vue 14 Rare Oil Complex® deep into the scalp — maximizing absorption and activating every botanical compound.</p>
+      </div>
+      <div>
+        <div class="ritual-image-placeholder">Editorial Image 3</div>
+        <div class="ritual-step-num">03</div>
+        <div class="ritual-step-title">Illuminate</div>
+        <p class="ritual-step-text">For the overnight ritual, leave the formula to work undisturbed. Wake to deeply restored, luminous hair — the cuticle sealed, the strand fortified, the shine extraordinary. For daily use, style as usual. The results compound with every application.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTS -->
+<section class="ingredients-section" id="ingredients">
+  <div class="section-inner">
+    <p class="section-label">Vue 14 Rare Oil Complex®</p>
+    <h2 class="section-title">The World's Most Precious Botanicals</h2>
+    <div class="ingredient-scroll">
+      <div class="ingredient-card">
+        <div class="ingredient-card-image">U</div>
+        <div class="ingredient-card-body">
+          <div class="ingredient-card-name">Ungurahua Oil</div>
+          <div class="ingredient-card-origin">Amazon Rainforest</div>
+          <p class="ingredient-card-text">Superfine molecules penetrate deeply to fortify each strand and revitalize the scalp from within.</p>
+          <div class="ingredient-card-fn"><strong>Key function:</strong> Fortifies strands & extends color endurance</div>
+        </div>
+      </div>
+      <div class="ingredient-card">
+        <div class="ingredient-card-image">P</div>
+        <div class="ingredient-card-body">
+          <div class="ingredient-card-name">Prickly Pear Seed Oil</div>
+          <div class="ingredient-card-origin">Atlas Mountains, Morocco</div>
+          <p class="ingredient-card-text">One of the rarest oils on Earth. Rich in vitamin E — delivers reflective shine and seals in moisture.</p>
+          <div class="ingredient-card-fn"><strong>Key function:</strong> Mirror-like shine & deep hydration</div>
+        </div>
+      </div>
+      <div class="ingredient-card">
+        <div class="ingredient-card-image">R</div>
+        <div class="ingredient-card-body">
+          <div class="ingredient-card-name">Bulgarian Rose Oil</div>
+          <div class="ingredient-card-origin">Valley of Roses, Bulgaria</div>
+          <p class="ingredient-card-text">Harvested at dawn each spring. Deeply restorative, softening, with a subtle floral warmth.</p>
+          <div class="ingredient-card-fn"><strong>Key function:</strong> Restores softness & luminosity</div>
+        </div>
+      </div>
+      <div class="ingredient-card">
+        <div class="ingredient-card-image">A</div>
+        <div class="ingredient-card-body">
+          <div class="ingredient-card-name">Rosehip Oil</div>
+          <div class="ingredient-card-origin">Andes & Southern Chile</div>
+          <p class="ingredient-card-text">Rich in omega fatty acids and vitamin A. Repairs damage and restores the hair's natural elasticity.</p>
+          <div class="ingredient-card-fn"><strong>Key function:</strong> Repairs damage & restores elasticity</div>
+        </div>
+      </div>
+      <div class="ingredient-card">
+        <div class="ingredient-card-image">M</div>
+        <div class="ingredient-card-body">
+          <div class="ingredient-card-name">Meadowfoam Seed Oil</div>
+          <div class="ingredient-card-origin">Pacific Northwest</div>
+          <p class="ingredient-card-text">Natural silicone alternative. Locks in all other oils and creates an invisible moisture shield.</p>
+          <div class="ingredient-card-fn"><strong>Key function:</strong> Locks in moisture & amplifies the formula</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="section-inner">
+    <p class="section-label">Clinical Results</p>
+    <h2 class="section-title">The Evidence</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">94%</div>
+        <p class="stat-text">said their hair felt less damaged</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">97%</div>
+        <p class="stat-text">said their hair felt softer and more hydrated</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">96%</div>
+        <p class="stat-text">said their hair had more shine and luminosity</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">95%</div>
+        <p class="stat-text">said their scalp felt healthier and less irritated</p>
+      </div>
+    </div>
+    <p style="font-size:0.65rem; color:var(--mid); margin-top:2rem;">*Based on consumer perception study. Results may vary.</p>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="science" style="background: var(--warm-white);">
+  <div class="section-inner">
+    <p class="section-label">Vue 14 Rare Oil Complex®</p>
+    <h2 class="section-title">The Science</h2>
+
+    <div style="background:var(--cobalt); border-radius:12px; padding:2.5rem; margin-top:3rem; margin-bottom:3rem;">
+      <p style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(184,153,106,0.7); margin-bottom:1rem;">Why Most Hair Oils Fail</p>
+      <h3 style="font-family:var(--font-display); font-size:2rem; font-weight:300; color:var(--cream); margin-bottom:1.25rem; line-height:1.2;">Hair cannot heal itself.<br>What it absorbs is everything.</h3>
+      <p style="font-size:0.85rem; line-height:1.9; color:rgba(249,246,240,0.7); margin-bottom:1.25rem;">Most hair oils work on the surface — coating the shaft with silicones or heavy waxes to create the appearance of health. The moment you wash, the illusion disappears.</p>
+      <p style="font-size:0.85rem; line-height:1.9; color:rgba(249,246,240,0.7); margin-bottom:2rem;">The Hair Elixir works differently. Unlike skin, hair has no living cells, no blood supply, no ability to heal itself from within. Once damaged, a strand cannot regenerate. What it can do is absorb — and what it absorbs determines everything.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem; margin-bottom:2rem;">
+        <div style="border:0.5px solid rgba(184,153,106,0.2); border-radius:8px; padding:1.25rem;">
+          <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">The Cuticle</p>
+          <p style="font-size:0.78rem; line-height:1.8; color:rgba(249,246,240,0.65);">The outermost layer — acts as armour. When damaged, it lifts and frays, causing frizz, breakage, and dullness. Vue 14 oils seal and smooth the cuticle on contact.</p>
+        </div>
+        <div style="border:0.5px solid rgba(184,153,106,0.2); border-radius:8px; padding:1.25rem;">
+          <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">The Cortex</p>
+          <p style="font-size:0.78rem; line-height:1.8; color:rgba(249,246,240,0.65);">The structural core — responsible for strength, elasticity, and color. Conventional oils cannot reach it. Their molecules are too large. Ungurahua's superfine structure penetrates through.</p>
+        </div>
+        <div style="border:0.5px solid rgba(184,153,106,0.2); border-radius:8px; padding:1.25rem;">
+          <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">The Medulla</p>
+          <p style="font-size:0.78rem; line-height:1.8; color:rgba(249,246,240,0.65);">The innermost layer — the deepest core of the strand. Reached only by the finest botanical molecules. The final frontier of genuine hair restoration.</p>
+        </div>
+      </div>
+
+      <div style="border-top:0.5px solid rgba(184,153,106,0.2); padding-top:1.5rem;">
+        <p style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(184,153,106,0.7); margin-bottom:0.75rem;">Biologically Identical to Your Hair's Own Lipids</p>
+        <p style="font-size:0.85rem; line-height:1.9; color:rgba(249,246,240,0.7); margin-bottom:0.75rem;">The oils in Vue 14 Rare Oil Complex® share a fatty acid profile that mirrors the hair's own natural lipids — the sebum your scalp produces to protect and nourish each strand. The hair recognizes them. It absorbs them. It does not resist them.</p>
+        <p style="font-size:0.85rem; line-height:1.9; color:rgba(249,246,240,0.7);">The result is not a coating. It is genuine, structural restoration — from the inside out.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:3rem;">
+
+      <div>
+        <p style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem;">The Formula</p>
+        <h3 style="font-family:var(--font-display); font-size:1.8rem; font-weight:300; color:var(--dark); margin-bottom:1rem; line-height:1.2;">As rich as an oil.<br>As light as water.</h3>
+        <p style="font-size:0.85rem; line-height:1.9; color:var(--mid); margin-bottom:1rem;">Born of a precise art of formulation, the Hair Elixir combines apparent paradoxes — as rich as an oil, as light as water. Vue 14 Rare Oil Complex® was designed to deliver high diffusion without weight, residue, or grease.</p>
+        <p style="font-size:0.85rem; line-height:1.9; color:var(--mid); margin-bottom:1rem;">Roots are revitalized without heaviness. Lengths are conditioned without being weighed down. The formula absorbs instantly, leaving only luminosity behind.</p>
+        <p style="font-size:0.72rem; font-weight:400; color:var(--dark); margin-bottom:0.25rem;">100% naturally derived ingredients</p>
+        <p style="font-size:0.68rem; color:var(--mid); line-height:1.6;">Calculated in accordance with ISO standard 16128. Every ingredient is of plant origin — nothing synthetic, nothing superfluous.</p>
+      </div>
+
+      <div>
+        <p style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem;">Ungurahua Penetration Technology</p>
+        <h3 style="font-family:var(--font-display); font-size:1.8rem; font-weight:300; color:var(--dark); margin-bottom:1rem; line-height:1.2;">Superfine molecules.<br>Extraordinary depth.</h3>
+        <p style="font-size:0.85rem; line-height:1.9; color:var(--mid); margin-bottom:1rem;">Vue 14 Rare Oil Complex® combines fourteen of the world's most precious cold-pressed botanical oils, selected through a global search from the Amazon rainforest to the Atlas Mountains.</p>
+        <p style="font-size:0.85rem; line-height:1.9; color:var(--mid);">Together, they work to restore the scalp-hair connection — strengthening each strand from the root, sealing the cuticle, and delivering mirror-like luminosity that lasts. Ungurahua oil's superfine molecules penetrate deeper than conventional oils, fortifying weakened strands and extending color vibrancy from within.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:4rem; border-top:0.5px solid var(--light-border); padding-top:3rem;">
+      <p style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:2rem;">Hero Ingredients — Origin · Function · Effect</p>
+
+      <div style="display:flex; flex-direction:column; gap:2.5rem;">
+
+        <div style="display:grid; grid-template-columns:200px 1fr 1fr 1fr; gap:2rem; align-items:start; padding-bottom:2.5rem; border-bottom:0.5px solid var(--light-border);">
+          <div>
+            <p style="font-family:var(--font-display); font-size:1.3rem; font-weight:300; color:var(--dark); margin-bottom:0.25rem;">Ungurahua Oil</p>
+            <p style="font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Amazon Rainforest</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Origin</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Pressed from the nut of the Amazonian palm, used for centuries by indigenous women to maintain hair of extraordinary length and strength.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Function</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Superfine molecules penetrate deeply into the hair shaft, fortifying each strand, restoring elasticity, and extending color vibrancy and endurance.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Effect</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Hair is visibly stronger, softer, and more luminous. The scalp is restored to balance. Mirror-like shine — sustained.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:200px 1fr 1fr 1fr; gap:2rem; align-items:start; padding-bottom:2.5rem; border-bottom:0.5px solid var(--light-border);">
+          <div>
+            <p style="font-family:var(--font-display); font-size:1.3rem; font-weight:300; color:var(--dark); margin-bottom:0.25rem;">Prickly Pear Seed Oil</p>
+            <p style="font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Atlas Mountains, Morocco</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Origin</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Cold-pressed from ancient cactus groves in Morocco's Atlas Mountains. Thousands of seeds are required to produce a single ounce — among the most labour-intensive oils on Earth.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Function</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Exceptionally rich in vitamin E and linoleic acid. Penetrates the hair shaft to seal the cuticle, lock in moisture, and deliver an almost reflective shine.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Effect</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Hair is visibly smoother, shinier, and more hydrated. Frizz is eliminated. A mirror-like luminosity — sustained.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:200px 1fr 1fr 1fr; gap:2rem; align-items:start; padding-bottom:2.5rem; border-bottom:0.5px solid var(--light-border);">
+          <div>
+            <p style="font-family:var(--font-display); font-size:1.3rem; font-weight:300; color:var(--dark); margin-bottom:0.25rem;">Bulgarian Rose Oil</p>
+            <p style="font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Valley of Roses, Bulgaria</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Origin</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Harvested at dawn during a narrow spring window in Bulgaria's Valley of Roses. Three to five tonnes of hand-picked petals yield a single kilogram of pure oil.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Function</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Rich in flavonoids and antioxidants. Restores elasticity, smooths the cuticle, and neutralizes oxidative damage while soothing the scalp.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Effect</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Hair is visibly softer and deeply conditioned. A subtle, lingering floral warmth — naturally present in every drop.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:200px 1fr 1fr 1fr; gap:2rem; align-items:start; padding-bottom:2.5rem; border-bottom:0.5px solid var(--light-border);">
+          <div>
+            <p style="font-family:var(--font-display); font-size:1.3rem; font-weight:300; color:var(--dark); margin-bottom:0.25rem;">Rosehip Oil</p>
+            <p style="font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Andes & Southern Chile</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Origin</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Cold-pressed from the Rosa Canina in the remote valleys of the Andes. Harvested once a year after the first frost, when seeds reach peak potency.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Function</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Rich in omega-3, omega-6, and vitamin A. Repairs weakened strands, restores the hair's natural protein structure, and protects against environmental stress.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Effect</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Hair is visibly stronger and more elastic. Damage is reduced. The scalp is renewed — creating the foundation for healthier growth.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:200px 1fr 1fr 1fr; gap:2rem; align-items:start;">
+          <div>
+            <p style="font-family:var(--font-display); font-size:1.3rem; font-weight:300; color:var(--dark); margin-bottom:0.25rem;">Meadowfoam Seed Oil</p>
+            <p style="font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Pacific Northwest</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Origin</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Cold-pressed from Limnanthes Alba — a wildflower native to the cool, wet meadows of Oregon and California. One of the most oxidation-resistant plant oils known to science.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Function</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Forms a flexible, breathable film around each strand — sealing in moisture and locking in all other active oils in the Vue 14 Rare Oil Complex®.</p>
+          </div>
+          <div>
+            <p style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:0.5rem;">Effect</p>
+            <p style="font-size:0.78rem; line-height:1.8; color:var(--mid);">Every active ingredient is sealed in and activated. Hair is softer, smoother, frizz-free. The results of every other oil — amplified.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="section-inner">
+    <p class="section-label">What Our Customers Say</p>
+    <h2 class="section-title">★★★★★ &nbsp; 4.9</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I've tried every luxury hair oil on the market. Nothing comes close to this. The shine is unreal — my hairdresser asked what I'd done differently."</p>
+        <p class="review-author">Sophia L.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Used it as an overnight treatment and woke up with the softest hair of my life. The scent is so subtle and beautiful. Already ordered my second bottle."</p>
+        <p class="review-author">Maya R.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Worth every penny. I use 2 drops on dry hair before bed and the difference in the morning is incredible. This is a forever product for me."</p>
+        <p class="review-author">Camille K.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIOLOGY -->
+<section class="biology-section">
+  <div class="section-inner">
+    <div class="biology-grid">
+      <div>
+        <p class="section-label" style="color:rgba(184,153,106,0.7);">The Philosophy</p>
+        <h2 class="section-title" style="color:var(--cream);">Formulated to Mirror Your Biology</h2>
+        <p style="font-size:0.85rem; line-height:1.9; color:rgba(249,246,240,0.65); font-style:italic; margin-bottom:1.5rem;">Ingredients your hair recognizes — not resists.</p>
+        <div class="biology-claims">
+          <div class="biology-claim"><div class="biology-dot"></div>No hormone disruptors</div>
+          <div class="biology-claim"><div class="biology-dot"></div>No parabens, sulfates, or synthetic fragrance</div>
+          <div class="biology-claim"><div class="biology-dot"></div>100% plant-derived, cold-pressed botanicals</div>
+          <div class="biology-claim"><div class="biology-dot"></div>Free from silicones and harsh additives</div>
+          <div class="biology-claim"><div class="biology-dot"></div>Free from over 1,300 restricted EU cosmetic ingredients</div>
+          <div class="biology-claim"><div class="biology-dot"></div>Formulated to exceed EU cosmetic safety standards</div>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:var(--font-display); font-size:1.6rem; font-weight:300; line-height:1.8; color:rgba(249,246,240,0.75); font-style:italic;">"Guided by centuries of indigenous botanical wisdom — from the Amazon to the Atlas Mountains — our formulations are made to work in harmony with your hair's natural biology."</p>
+        <p style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-top:1.5rem;">Nothing more than what's needed.<br>Nothing less than what works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Maison D'Vue</div>
+  <p class="footer-philosophy">Guided by centuries of indigenous botanical wisdom — from the Amazon to the Atlas Mountains — our formulations are made to work in harmony with your hair's natural biology. Each ingredient is chosen with intention: cold-pressed, plant-derived, and biologically attuned.</p>
+  <div class="footer-bottom">
+    © 2026 Maison D'Vue &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac2cfc6c6c5eac7cbc3d9c5c4cedcdfcf84c9c5c7">[email&#160;protected]</a> &nbsp;·&nbsp; maisondvue.com &nbsp;·&nbsp; Made in USA
+  </div>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  let current = 0;
+  const total = 5;
+
+  function updateCarousel() {
+    document.getElementById('carousel-slides').style.transform = 'translateX(-' + (current * 100) + '%)';
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.querySelectorAll('.carousel-thumb').forEach((t, i) => t.classList.toggle('active', i === current));
+  }
+
+  function moveCarousel(dir) {
+    current = (current + dir + total) % total;
+    updateCarousel();
+  }
+
+  function goToSlide(n) {
+    current = n;
+    updateCarousel();
+  }
+
+  function selectSupply(n) {
+    document.getElementById('s1').classList.remove('selected');
+    document.getElementById('s2').classList.remove('selected');
+    document.getElementById('s' + n).classList.add('selected');
+    const btn = document.getElementById('add-btn');
+    btn.textContent = n === 1 ? 'Reserve Your Batch — $120' : 'Reserve Your Batch — $240';
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.ingredient-card, .review-card, .stat-item, .rit
