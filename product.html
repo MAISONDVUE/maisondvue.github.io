@@ -413,32 +413,31 @@
   @media (max-width: 900px) {
     * { box-sizing: border-box; }
     .hero {
-      grid-template-columns: 1fr !important;
-      padding-top: 4rem;
+      grid-template-columns: 44% 56% !important;
+      padding-top: 4.5rem;
       min-height: auto;
+      align-items: start;
     }
     .carousel-wrapper {
-      position: relative; top: 0;
-      padding: 0.75rem 1rem 0.5rem;
+      position: sticky; top: 4.5rem;
+      padding: 0.75rem 0.25rem 0.75rem 0.5rem;
       width: 100%;
     }
     .carousel-main {
-      aspect-ratio: 4/3;
-      border-radius: 0;
+      aspect-ratio: 3/4;
+      border-radius: 8px;
       overflow: hidden !important;
-      width: 100% !important;
-      max-width: 100vw;
-      max-height: 65vw;
+      width: 100%;
     }
-    .carousel-slides { overflow: hidden; border-radius: 10px; }
-    .carousel-prev { left: 0.75rem !important; }
-    .carousel-next { right: 0.75rem !important; }
+    .carousel-slides { overflow: hidden; }
+    .carousel-prev { left: 0.4rem !important; }
+    .carousel-next { right: 0.4rem !important; }
     .carousel-thumbs { display: none; }
-    .carousel-dots { gap: 5px; margin-top: 0.5rem; }
-    .carousel-dot { width: 5px; height: 5px; }
-    .hero-badges { display: flex; margin-top: 0.25rem; }
+    .carousel-dots { gap: 4px; margin-top: 0.4rem; }
+    .carousel-dot { width: 4px; height: 4px; }
+    .hero-badges { display: none; }
     .hero-content {
-      padding: 1rem 1.25rem 3rem;
+      padding: 0.75rem 0.75rem 3rem 0.4rem;
       max-width: 100%;
       overflow: hidden;
     }
@@ -534,13 +533,13 @@
     <div class="carousel-main">
       <div class="carousel-slides" id="carousel-slides">
         <div class="carousel-slide">
-          <img src="hero_1.jpg?v=2" style="width:100%; height:100%; object-fit:cover;">
+          <img src="hero_1.jpg?v=2" style="width:100%; height:100%; object-fit:contain; background:#1a2744;">
         </div>
         <div class="carousel-slide">
-          <img src="hero_2.jpg?v=2" style="width:100%; height:100%; object-fit:cover;">
+          <img src="hero_2.jpg?v=2" style="width:100%; height:100%; object-fit:contain; background:#1a2744;">
         </div>
         <div class="carousel-slide">
-          <img src="hero_3.jpg?v=2" style="width:100%; height:100%; object-fit:cover;">
+          <img src="hero_3.jpg?v=2" style="width:100%; height:100%; object-fit:contain; background:#1a2744;">
         </div>
         <div class="carousel-slide">
           <div class="slide-placeholder">Replace with<br>application ritual<br>editorial shot</div>
