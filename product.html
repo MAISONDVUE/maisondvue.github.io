@@ -17,10 +17,10 @@
     --light-border: rgba(184,153,106,0.2);
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Jost', sans-serif;
+    --total-slides: 5;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -44,21 +44,13 @@
   }
   .nav-logo {
     font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    color: var(--dark);
-    text-decoration: none;
-    text-transform: uppercase;
+    font-size: 1.1rem; font-weight: 400; letter-spacing: 0.2em;
+    color: var(--dark); text-decoration: none; text-transform: uppercase;
   }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mid);
-    text-decoration: none;
-    transition: color 0.3s;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mid); text-decoration: none; transition: color 0.3s;
   }
   .nav-links a:hover { color: var(--gold); }
 
@@ -78,31 +70,38 @@
   }
   .carousel-main {
     position: relative; width: 100%; aspect-ratio: 3/4;
-    background: transparent; border-radius: 10px; overflow: hidden;
+    background: transparent; border-radius: 10px;
+    overflow: hidden; /* CRITICAL: clips the sliding track */
   }
 
-  /* FIX 1 & 3: Single .carousel-slides rule with overflow:hidden */
+  /* FIXED: track is 500% wide (5 slides × 100%), sits flush inside carousel-main */
   .carousel-slides {
-    overflow: hidden;
     display: flex;
-    width: 100%;
+    width: calc(100% * var(--total-slides));
     height: 100%;
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    /* no position:absolute needed — let it flow inside the overflow:hidden parent */
   }
 
+  /* FIXED: each slide is 1/5th of the track = 100% of the visible viewport */
   .carousel-slide {
-    min-width: 100%;
-    width: 100%;
-    height: 100%;
+    width: calc(100% / var(--total-slides));
     flex-shrink: 0;
+    height: 100%;
     display: flex; align-items: center; justify-content: center;
     flex-direction: column; gap: 1rem; position: relative;
     background: transparent;
     overflow: hidden;
   }
+
+  .carousel-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    pointer-events: none;
+    display: block;
+  }
+
   .slide-label {
     font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
     color: rgba(184,153,106,0.5); position: absolute; bottom: 1rem;
@@ -116,32 +115,41 @@
     width: 32px; height: 32px; border-radius: 50%;
     background: rgba(253,251,248,0.15); border: 0.5px solid rgba(184,153,106,0.3);
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 3; color: var(--gold); font-size: 14px; transition: background 0.2s;
+    cursor: pointer; z-index: 3; color: var(--gold); font-size: 14px;
+    transition: background 0.2s;
   }
   .carousel-arrow:hover { background: rgba(253,251,248,0.25); }
   .carousel-prev { left: 0.75rem; }
   .carousel-next { right: 0.75rem; }
   .carousel-dots { display: flex; justify-content: center; gap: 6px; }
-  .carousel-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(184,153,106,0.25); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .carousel-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(184,153,106,0.25); cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
   .carousel-dot.active { background: var(--gold); transform: scale(1.3); }
   .carousel-thumbs { display: flex; gap: 8px; }
   .carousel-thumb {
     flex: 1; aspect-ratio: 3/4; background: var(--cobalt); border-radius: 6px;
-    border: 1px solid transparent; cursor: pointer; transition: border-color 0.2s;
+    border: 1px solid transparent; cursor: pointer; transition: border-color 0.2s, opacity 0.2s;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(184,153,106,0.4);
-    overflow: hidden;
+    font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(184,153,106,0.4); overflow: hidden;
   }
+  .carousel-thumb:hover { opacity: 0.85; }
   .carousel-thumb.active { border-color: var(--gold); }
   .hero-badges { display: flex; gap: 0.75rem; justify-content: center; }
-  .hero-badge { border: 0.5px solid rgba(184,153,106,0.5); border-radius: 2rem; padding: 0.3rem 0.8rem; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(184,153,106,0.9); }
+  .hero-badge {
+    border: 0.5px solid rgba(184,153,106,0.5); border-radius: 2rem;
+    padding: 0.3rem 0.8rem; font-size: 0.58rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(184,153,106,0.9);
+  }
 
   /* HERO RIGHT */
   .hero-content {
     padding: 2rem 3.5rem 3rem 2.5rem;
     display: flex; flex-direction: column; justify-content: center;
-    max-width: 560px;
-    overflow-x: hidden;
+    max-width: 560px; overflow-x: hidden;
   }
   .rating-row {
     display: flex; align-items: center; gap: 0.75rem;
@@ -150,7 +158,6 @@
   }
   .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; }
   .rating-text { font-size: 0.7rem; color: var(--mid); letter-spacing: 0.05em; }
-
   .product-brand {
     font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 0.4rem;
@@ -159,8 +166,7 @@
   .product-title {
     font-family: var(--font-display);
     font-size: 1.75rem; font-weight: 300; line-height: 1.15;
-    color: var(--dark); margin-bottom: 0.35rem;
-    letter-spacing: 0.04em;
+    color: var(--dark); margin-bottom: 0.35rem; letter-spacing: 0.04em;
     opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
   }
   .product-subtitle {
@@ -181,12 +187,9 @@
     opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
   }
   .claim-tile {
-    background: var(--cream);
-    border: 0.5px solid var(--light-border);
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    font-size: 0.72rem; line-height: 1.5;
-    color: var(--mid);
+    background: var(--cream); border: 0.5px solid var(--light-border);
+    border-radius: 8px; padding: 0.85rem 1rem;
+    font-size: 0.72rem; line-height: 1.5; color: var(--mid);
     display: flex; align-items: flex-start; gap: 0.5rem;
   }
   .claim-dot {
@@ -203,8 +206,7 @@
   .batch-header {
     padding: 0.85rem 1.1rem;
     font-size: 0.7rem; line-height: 1.6; color: var(--mid);
-    border-bottom: 0.5px solid var(--light-border);
-    font-style: italic;
+    border-bottom: 0.5px solid var(--light-border); font-style: italic;
   }
   .batch-row {
     display: flex; justify-content: space-between; align-items: center;
@@ -240,11 +242,9 @@
   .supply-card-price { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--dark); }
   .supply-card-sub { font-size: 0.62rem; color: var(--mid); margin-top: 0.25rem; line-height: 1.5; }
   .popular-badge {
-    float: right;
-    background: var(--cream); border: 0.5px solid var(--light-border);
+    float: right; background: var(--cream); border: 0.5px solid var(--light-border);
     border-radius: 2rem; padding: 2px 8px;
-    font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gold);
+    font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
   }
 
   .add-btn {
@@ -265,10 +265,9 @@
     opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
   }
 
-  /* SECTION WRAPPER */
+  /* SECTIONS */
   section { padding: 6rem 3rem; }
   .section-inner { max-width: 1100px; margin: 0 auto; width: 100%; overflow-x: hidden; }
-
   .section-label {
     font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 1rem;
@@ -290,9 +289,7 @@
     font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 1rem;
   }
-  .ritual-step-text {
-    font-size: 0.85rem; line-height: 1.9; color: rgba(249,246,240,0.7);
-  }
+  .ritual-step-text { font-size: 0.85rem; line-height: 1.9; color: rgba(249,246,240,0.7); }
   .ritual-image-placeholder {
     width: 100%; height: 280px;
     background: rgba(255,255,255,0.05);
@@ -311,8 +308,7 @@
   }
   .ingredient-card {
     border: 0.5px solid var(--light-border);
-    border-radius: 10px; overflow: hidden;
-    transition: transform 0.3s;
+    border-radius: 10px; overflow: hidden; transition: transform 0.3s;
   }
   .ingredient-card:hover { transform: translateY(-4px); }
   .ingredient-card-image {
@@ -330,9 +326,7 @@
     font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 0.6rem;
   }
-  .ingredient-card-text {
-    font-size: 0.72rem; line-height: 1.7; color: var(--mid);
-  }
+  .ingredient-card-text { font-size: 0.72rem; line-height: 1.7; color: var(--mid); }
   .ingredient-card-fn {
     margin-top: 0.75rem; padding-top: 0.75rem;
     border-top: 0.5px solid var(--light-border);
@@ -377,8 +371,7 @@
   /* FOOTER */
   footer {
     background: var(--dark); color: rgba(249,246,240,0.5);
-    padding: 4rem 3rem 2rem;
-    text-align: center;
+    padding: 4rem 3rem 2rem; text-align: center;
   }
   .footer-logo {
     font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
@@ -387,8 +380,7 @@
   }
   .footer-philosophy {
     font-size: 0.8rem; line-height: 1.9; max-width: 600px;
-    margin: 0 auto 2rem; font-style: italic;
-    color: rgba(249,246,240,0.5);
+    margin: 0 auto 2rem; font-style: italic; color: rgba(249,246,240,0.5);
   }
   .footer-bottom {
     font-size: 0.62rem; letter-spacing: 0.12em;
@@ -405,32 +397,20 @@
     * { box-sizing: border-box; }
     .hero {
       grid-template-columns: 44% 56% !important;
-      padding-top: 4.5rem;
-      min-height: auto;
-      align-items: start;
+      padding-top: 4.5rem; min-height: auto; align-items: start;
     }
     .carousel-wrapper {
       position: sticky; top: 4.5rem;
-      padding: 0.75rem 0.25rem 0.75rem 0.5rem;
-      width: 100%;
+      padding: 0.75rem 0.25rem 0.75rem 0.5rem; width: 100%;
     }
-    .carousel-main {
-      aspect-ratio: 3/4;
-      border-radius: 8px;
-      overflow: hidden !important;
-      width: 100%;
-    }
+    .carousel-main { aspect-ratio: 3/4; border-radius: 8px; }
     .carousel-prev { left: 0.4rem !important; }
     .carousel-next { right: 0.4rem !important; }
     .carousel-thumbs { display: none; }
     .carousel-dots { gap: 4px; margin-top: 0.4rem; }
     .carousel-dot { width: 4px; height: 4px; }
     .hero-badges { display: none; }
-    .hero-content {
-      padding: 0.75rem 0.75rem 3rem 0.4rem;
-      max-width: 100%;
-      overflow: hidden;
-    }
+    .hero-content { padding: 0.75rem 0.75rem 3rem 0.4rem; max-width: 100%; overflow: hidden; }
     .product-title { font-size: 1.6rem; line-height: 1.15; }
     .claim-grid { grid-template-columns: 1fr; gap: 0.5rem; }
     .supply-grid { grid-template-columns: 1fr; }
@@ -527,21 +507,20 @@
   <div class="carousel-wrapper">
     <div class="carousel-main">
       <div class="carousel-slides" id="carousel-slides">
-        <!-- FIX 2: Added pointer-events:none to all slide images so clicks reach the arrow buttons -->
         <div class="carousel-slide">
-          <img src="hero_1.jpg?v=2" style="width:100%; height:100%; object-fit:cover; object-position:center center; pointer-events:none;">
+          <img src="hero_1.jpg" alt="Hair Elixir – slide 1">
         </div>
         <div class="carousel-slide">
-          <img src="hero_2.jpg?v=2" style="width:100%; height:100%; object-fit:cover; object-position:center center; pointer-events:none;">
+          <img src="hero_2.jpg" alt="Hair Elixir – slide 2">
         </div>
         <div class="carousel-slide">
-          <img src="hero_3.jpg?v=2" style="width:100%; height:100%; object-fit:cover; object-position:center center; pointer-events:none;">
+          <img src="hero_3.jpg" alt="Hair Elixir – slide 3">
         </div>
-        <div class="carousel-slide">
+        <div class="carousel-slide" style="background: var(--cobalt);">
           <div class="slide-placeholder">Replace with<br>application ritual<br>editorial shot</div>
           <div class="slide-label">Anoint</div>
         </div>
-        <div class="carousel-slide">
+        <div class="carousel-slide" style="background: var(--cobalt);">
           <div class="slide-placeholder">Replace with<br>luminous hair<br>result shot</div>
           <div class="slide-label">Illuminate</div>
         </div>
@@ -549,6 +528,7 @@
       <button class="carousel-arrow carousel-prev" id="prev-btn" type="button">&#8592;</button>
       <button class="carousel-arrow carousel-next" id="next-btn" type="button">&#8594;</button>
     </div>
+
     <div class="carousel-dots" id="carousel-dots">
       <div class="carousel-dot active" data-slide="0"></div>
       <div class="carousel-dot" data-slide="1"></div>
@@ -556,13 +536,15 @@
       <div class="carousel-dot" data-slide="3"></div>
       <div class="carousel-dot" data-slide="4"></div>
     </div>
+
     <div class="carousel-thumbs">
-      <div class="carousel-thumb active" data-slide="0" style="background-image:url('hero_1.jpg?v=2'); background-size:cover; background-position:center;"></div>
-      <div class="carousel-thumb" data-slide="1" style="background-image:url('hero_2.jpg?v=2'); background-size:cover; background-position:center;"></div>
-      <div class="carousel-thumb" data-slide="2" style="background-image:url('hero_3.jpg?v=2'); background-size:cover; background-position:center;"></div>
-      <div class="carousel-thumb" data-slide="3">Anoint</div>
-      <div class="carousel-thumb" data-slide="4">Illuminate</div>
+      <div class="carousel-thumb active" data-slide="0" style="background-image:url('hero_1.jpg'); background-size:cover; background-position:center;"></div>
+      <div class="carousel-thumb" data-slide="1" style="background-image:url('hero_2.jpg'); background-size:cover; background-position:center;"></div>
+      <div class="carousel-thumb" data-slide="2" style="background-image:url('hero_3.jpg'); background-size:cover; background-position:center;"></div>
+      <div class="carousel-thumb" data-slide="3" style="background:var(--cobalt);">Anoint</div>
+      <div class="carousel-thumb" data-slide="4" style="background:var(--cobalt);">Illuminate</div>
     </div>
+
     <div class="hero-badges">
       <span class="hero-badge">Best Seller</span>
       <span class="hero-badge">Limited Batch</span>
@@ -574,11 +556,9 @@
       <span class="stars">★★★★★</span>
       <span class="rating-text">4.9 &nbsp;·&nbsp; Verified Reviews</span>
     </div>
-
     <p class="product-brand">Maison D'Vue</p>
     <h1 class="product-title">Hair Elixir</h1>
     <p class="product-subtitle">Rare Botanical Treatment Oil &nbsp;·&nbsp; 30 ml</p>
-
     <p class="product-desc">Powered by <strong>Vue 14 Rare Oil Complex®</strong> — fourteen rare cold-pressed botanical oils sourced from the Amazon to the Atlas Mountains, formulated to deeply restore, strengthen, and illuminate hair.</p>
 
     <div class="claim-grid">
@@ -897,9 +877,9 @@
     var thumbs = document.querySelectorAll('.carousel-thumb');
 
     function updateCarousel() {
-      // Use pixel-based offset: each slide is exactly the track's container width
-      var slideWidth = track.parentElement.offsetWidth;
-      track.style.transform = 'translateX(' + (-current * slideWidth) + 'px)';
+      // FIXED: percentage-based translation — each slide is (100/total)% of track width,
+      // so moving N slides = N * (100/total)% of track = N * 20% of track
+      track.style.transform = 'translateX(-' + (current * (100 / total)) + '%)';
       dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
       thumbs.forEach(function(t, i) { t.classList.toggle('active', i === current); });
     }
@@ -914,10 +894,6 @@
       updateCarousel();
     }
 
-    // Re-calculate on resize so pixel offset stays correct
-    window.addEventListener('resize', function() { updateCarousel(); });
-
-    // Arrows
     document.getElementById('prev-btn').addEventListener('click', function(e) {
       e.stopPropagation();
       moveCarousel(-1);
@@ -927,7 +903,6 @@
       moveCarousel(1);
     });
 
-    // Dots
     dots.forEach(function(el) {
       el.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -935,7 +910,6 @@
       });
     });
 
-    // Thumbs
     thumbs.forEach(function(el) {
       el.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -970,7 +944,6 @@
       isSwiping = false;
     }, { passive: true });
 
-    // Init
     updateCarousel();
   })();
 
