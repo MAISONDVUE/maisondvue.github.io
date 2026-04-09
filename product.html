@@ -69,7 +69,7 @@
     display: grid;
     grid-template-columns: 45% 55%;
     padding-top: 5rem;
-    align-items: start;
+    align-items: center;
     gap: 0;
   }
   .carousel-wrapper {
@@ -143,7 +143,7 @@
   /* HERO RIGHT */
   .hero-content {
     padding: 5rem 4rem 4rem 3rem;
-    display: flex; flex-direction: column; justify-content: flex-start;
+    display: flex; flex-direction: column; justify-content: center;
     max-width: 600px;
     overflow-x: hidden;
   }
@@ -407,22 +407,29 @@
   @media (max-width: 900px) {
     * { box-sizing: border-box; }
     .hero {
-      grid-template-columns: 42% 58%;
+      grid-template-columns: 1fr;
       padding-top: 4rem;
-      align-items: start;
-      overflow: hidden;
     }
     .carousel-wrapper {
-      position: sticky; top: 4rem;
-      padding: 1rem 0.5rem 1rem 0.75rem;
+      position: relative; top: 0;
+      padding: 0.75rem 1rem 0.5rem;
+      width: 100%;
     }
-    .carousel-main { aspect-ratio: 3/4; border-radius: 8px; overflow: visible; }
+    .carousel-main {
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      overflow: hidden !important;
+      width: 100%;
+    }
+    .carousel-slides { overflow: hidden; border-radius: 10px; }
+    .carousel-prev { left: 0.75rem !important; }
+    .carousel-next { right: 0.75rem !important; }
     .carousel-thumbs { display: none; }
-    .carousel-dots { gap: 4px; }
-    .carousel-dot { width: 4px; height: 4px; }
-    .hero-badges { display: none; }
+    .carousel-dots { gap: 5px; margin-top: 0.5rem; }
+    .carousel-dot { width: 5px; height: 5px; }
+    .hero-badges { display: flex; margin-top: 0.25rem; }
     .hero-content {
-      padding: 0.75rem 0.75rem 3rem 0.25rem;
+      padding: 1rem 1.25rem 3rem;
       max-width: 100%;
       overflow: hidden;
     }
@@ -966,18 +973,22 @@
   let touchStartX = 0;
   let touchEndX = 0;
 
-  const slidesEl = document.getElementById('carousel-slides');
-  if (slidesEl) {
-    slidesEl.addEventListener('touchstart', e => {
-      touchStartX = e.changedTouches[0].screenX;
+  const carouselEl = document.querySelector('.carousel-main');
+  if (carouselEl) {
+    carouselEl.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].clientX;
     }, { passive: true });
 
-    slidesEl.addEventListener('touchend', e => {
-      touchEndX = e.changedTouches[0].screenX;
+    carouselEl.addEventListener('touchmove', e => {
+      touchEndX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    carouselEl.addEventListener('touchend', e => {
       const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 40) {
+      if (Math.abs(diff) > 30) {
         moveCarousel(diff > 0 ? 1 : -1);
       }
+      touchEndX = 0;
     }, { passive: true });
   }
 
