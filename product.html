@@ -88,7 +88,7 @@
     padding: 0 var(--sp-lg);
     min-height: calc(100vh - var(--nav-h));
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 5fr 7fr;
     gap: 4rem;
     align-items: center;
   }
@@ -101,13 +101,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.875rem;
     padding: 2.5rem 0;
   }
   .carousel-main {
     position: relative;
-    width: 75%;
+    width: 100%;
     aspect-ratio: 3 / 4;
     border-radius: 6px;
     overflow: hidden;
@@ -154,7 +154,7 @@
   .carousel-arrow:hover { background: rgba(253,251,248,0.38); }
   .carousel-prev { left: 0.875rem; }
   .carousel-next { right: 0.875rem; }
-  .carousel-dots { display: flex; justify-content: flex-start; gap: 6px; width: 75%; }
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; width: 100%; }
   .carousel-dot {
     width: 4px; height: 4px; border-radius: 50%;
     background: rgba(184,153,106,0.25); cursor: pointer;
