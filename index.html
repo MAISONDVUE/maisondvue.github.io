@@ -4,315 +4,228 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Maison D'Vue — Hair Elixir</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body {
-    background: #0a0e1a;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 2rem;
-    position: relative;
-  }
-  body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #c9a96e; opacity: 0.6; }
-  body::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: #c9a96e; opacity: 0.6; }
-  .corner { position: absolute; width: 20px; height: 20px; opacity: 0.4; }
-  .tl { top: 20px; left: 20px; border-top: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
-  .tr { top: 20px; right: 20px; border-top: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
-  .bl { bottom: 20px; left: 20px; border-bottom: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
-  .br { bottom: 20px; right: 20px; border-bottom: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
-  .eyebrow { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 10px; letter-spacing: 0.35em; color: #c9a96e; text-transform: uppercase; margin-bottom: 2.5rem; }
-  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 38px; color: #f0e6d0; letter-spacing: 0.12em; margin-bottom: 0.3rem; text-align: center; }
-  .sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 0.5em; color: #c9a96e; text-transform: uppercase; margin-bottom: 3rem; }
-  .divider { width: 60px; height: 1px; background: #c9a96e; opacity: 0.5; margin: 0 auto 3rem; }
-  .headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 15px; color: #c9a96e; letter-spacing: 0.25em; text-transform: uppercase; text-align: center; margin-bottom: 1.2rem; }
-  .body-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 18px; color: #c8bfa8; line-height: 1.8; text-align: center; max-width: 420px; margin: 0 auto 3rem; }
-  .form-block { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 360px; margin: 0 auto 2.5rem; }
-  input {
-    background: transparent; border: none; border-bottom: 1px solid #c9a96e;
-    color: #f0e6d0; font-family: 'Montserrat', sans-serif; font-weight: 300;
-    font-size: 12px; letter-spacing: 0.15em; padding: 10px 0; width: 100%;
-    outline: none; text-align: center;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-  input::placeholder { color: #7a6e5e; letter-spacing: 0.2em; }
-  .btn {
-    background: transparent; border: 1px solid #c9a96e; color: #c9a96e;
-    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px;
-    letter-spacing: 0.4em; text-transform: uppercase; padding: 14px 40px;
-    cursor: pointer; margin-top: 8px; transition: all 0.3s; width: 100%;
-    -webkit-appearance: none; border-radius: 0;
-    touch-action: manipulation;
-  }
-  .btn:hover { background: #c9a96e; color: #0a0e1a; }
-  .btn:active { background: #c9a96e; color: #0a0e1a; }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .error { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px; letter-spacing: 0.2em; color: #8b4a3a; text-transform: uppercase; text-align: center; min-height: 16px; }
-  .ghost {
-    background: transparent; border: none;
-    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px;
-    letter-spacing: 0.3em; color: #5a5040; text-transform: uppercase;
-    cursor: pointer; margin-top: 0.5rem;
-    touch-action: manipulation; padding: 0.5rem;
-  }
-  .ghost:hover { color: #c9a96e; }
-  .success-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: #c9a96e; text-align: center; line-height: 1.9; }
-  .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
-  .screen.active { display: flex; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── Popup overlay ── */
-  #popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 14, 26, 0.92);
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
-  #popup-overlay.open { display: flex; }
-  #popup-box {
-    background: #0a0e1a;
-    border: 1px solid #c9a96e;
-    max-width: 400px;
-    width: 100%;
-    padding: 3rem 2.5rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: fadeUp 0.5s ease;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .popup-corner { position: absolute; width: 12px; height: 12px; opacity: 0.5; }
-  .popup-corner.tl { top: 10px; left: 10px; border-top: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
-  .popup-corner.tr { top: 10px; right: 10px; border-top: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
-  .popup-corner.bl { bottom: 10px; left: 10px; border-bottom: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
-  .popup-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
-  .popup-eyebrow {
-    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px;
-    letter-spacing: 0.4em; color: #c9a96e; text-transform: uppercase; margin-bottom: 1.5rem;
-  }
-  .popup-headline {
-    font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 32px;
-    color: #f0e6d0; letter-spacing: 0.08em; text-align: center; margin-bottom: 0.5rem;
-  }
-  .popup-sub {
-    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
-    font-size: 15px; color: #c8bfa8; text-align: center; line-height: 1.8;
-    margin-bottom: 2rem; max-width: 280px;
-  }
-  .popup-divider { width: 40px; height: 1px; background: #c9a96e; opacity: 0.4; margin: 0 auto 2rem; }
-  .popup-form { display: flex; flex-direction: column; gap: 14px; width: 100%; }
-  .popup-error {
-    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px;
-    letter-spacing: 0.2em; color: #8b4a3a; text-transform: uppercase;
-    text-align: center; min-height: 14px;
-  }
-  .popup-skip {
-    background: transparent; border: none;
-    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 8px;
-    letter-spacing: 0.3em; color: #3a3428; text-transform: uppercase;
-    cursor: pointer; margin-top: 1rem; padding: 0.5rem;
-    touch-action: manipulation; transition: color 0.3s;
-  }
-  .popup-skip:hover { color: #7a6e5e; }
-  .popup-success {
-    font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 18px; color: #c9a96e; text-align: center; line-height: 1.9;
-  }
-  .popup-code {
-    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 11px;
-    letter-spacing: 0.3em; color: #f0e6d0; text-transform: uppercase;
-    border: 1px solid #c9a96e; padding: 10px 24px; margin: 1.5rem auto 0;
-    display: inline-block;
-  }
+body {
+  background: #0a0e1a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  animation: fadeIn 1.2s ease;
+}
 
-  @media (max-width: 480px) {
-    body { padding: 2rem 1.25rem; }
-    h1 { font-size: 28px; letter-spacing: 0.08em; }
-    .body-text { font-size: 16px; margin-bottom: 2rem; }
-    .eyebrow { margin-bottom: 1.5rem; }
-    .sub { margin-bottom: 2rem; letter-spacing: 0.3em; }
-    .divider { margin-bottom: 2rem; }
-    .headline { font-size: 13px; }
-    .form-block { gap: 16px; margin-bottom: 1.5rem; }
-    input { font-size: 14px; padding: 12px 0; }
-    .btn { font-size: 9px; padding: 16px 20px; letter-spacing: 0.3em; }
-    .success-text { font-size: 18px; }
-    .corner { width: 14px; height: 14px; }
-    .tl, .tr { top: 12px; }
-    .bl, .br { bottom: 12px; }
-    .tl, .bl { left: 12px; }
-    .tr, .br { right: 12px; }
-    #popup-box { padding: 2.5rem 1.75rem; }
-    .popup-headline { font-size: 26px; }
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Floating serif */
+.floating-type {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 0.15em;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  animation: fadeFloatIn 2.5s ease forwards;
+}
+
+.floating-type span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: 300;
+  color: #f0e6d0;
+  animation: floatLuxury 8s ease-in-out infinite;
+}
+
+.floating-type span:nth-child(1){animation-delay:0s;}
+.floating-type span:nth-child(2){animation-delay:.8s;}
+.floating-type span:nth-child(3){animation-delay:1.6s;}
+.floating-type span:nth-child(4){animation-delay:2.4s;}
+.floating-type span:nth-child(5){animation-delay:3.2s;}
+.floating-type span:nth-child(6){animation-delay:4s;}
+
+@keyframes floatLuxury {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes fadeFloatIn {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 0.06; transform: translate(-50%, -50%); }
+}
+
+/* Content above animation */
+body > *:not(.floating-type) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography */
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  color: #f0e6d0;
+  letter-spacing: 0.18em;
+  margin-bottom: .3rem;
+}
+
+.body-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #c8bfa8;
+  text-align: center;
+  max-width: 420px;
+  margin-bottom: 3rem;
+  letter-spacing: .02em;
+}
+
+/* Inputs */
+input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #c9a96e;
+  color: #f0e6d0;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+input:focus {
+  border-bottom: 1px solid #f0e6d0;
+  box-shadow: 0 6px 12px -8px rgba(201,169,110,0.4);
+  outline: none;
+}
+
+/* Buttons */
+.btn {
+  background: transparent;
+  border: 1px solid #c9a96e;
+  color: #c9a96e;
+  padding: 14px 40px;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#c9a96e;
+  opacity:0;
+  transition:.3s;
+}
+
+.btn:hover::after { opacity:.08; }
+
+.btn:hover { color:#0a0e1a; background:#c9a96e; }
+
+/* Screens */
+.screen { display:none; flex-direction:column; align-items:center; }
+.screen.active { display:flex; }
+
+/* Popup */
+#popup-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(10,14,26,.92);
+  align-items:center;
+  justify-content:center;
+}
+
+#popup-overlay.open { display:flex; }
+
+/* Minimal styling kept for clarity */
 </style>
 </head>
+
 <body>
-  <div class="corner tl"></div>
-  <div class="corner tr"></div>
-  <div class="corner bl"></div>
-  <div class="corner br"></div>
 
-  <p class="eyebrow">Maison D'Vue</p>
-  <h1>HAIR ELIXIR</h1>
-  <p class="sub">30 ml &nbsp;·&nbsp; Rare Botanical Oils</p>
-  <div class="divider"></div>
+<!-- Floating background -->
+<div class="floating-type">
+  <span>M</span><span>A</span><span>I</span>
+  <span>S</span><span>O</span><span>N</span>
+</div>
 
-  <!-- Screen 1: Password -->
-  <div class="screen active" id="screen-password">
-    <p class="headline">Enter your access code</p>
-    <p class="body-text">This collection is available by invitation only.</p>
-    <div class="form-block">
-      <input type="password" placeholder="Access code" id="inp-code" onkeydown="if(event.key==='Enter') checkCode()" autocomplete="off" autocorrect="off" autocapitalize="off" />
-      <p class="error" id="code-error">&nbsp;</p>
-      <button class="btn" onclick="checkCode()">Enter</button>
-    </div>
-    <button class="ghost" onclick="show('screen-request')">No code? Request an invitation</button>
+<h1>HAIR ELIXIR</h1>
+
+<!-- Screen -->
+<div class="screen active" id="screen-password">
+  <p class="body-text">Enter your access code</p>
+  <input type="password" id="inp-code" placeholder="Access code">
+  <p id="code-error"></p>
+  <button class="btn" onclick="checkCode()">Enter</button>
+</div>
+
+<div class="screen" id="screen-welcome">
+  <p class="body-text">Welcome. You have been granted access.</p>
+</div>
+
+<!-- Popup -->
+<div id="popup-overlay">
+  <div>
+    <input id="popup-email" placeholder="Email">
+    <button class="btn" onclick="handlePopupSubmit()">Claim</button>
+    <p id="popup-error"></p>
   </div>
+</div>
 
-  <!-- Screen 2: Request -->
-  <div class="screen" id="screen-request">
-    <p class="headline">Request an invitation</p>
-    <p class="body-text">A singular elixir, crafted from the world's rarest botanical oils. Access is not given — it is granted.</p>
-    <div class="form-block">
-      <input type="text" placeholder="Your name" id="inp-name" autocomplete="name" />
-      <input type="email" placeholder="Your email address" id="inp-email" autocomplete="email" inputmode="email" />
-      <p class="error" id="form-error">&nbsp;</p>
-      <button class="btn" id="submit-btn" onclick="handleSubmit()">Submit request</button>
-    </div>
-    <button class="ghost" onclick="show('screen-password')">Have a code? Enter here</button>
-  </div>
+<script>
+const ACCESS_CODE = 'WELCOME26';
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  <!-- Screen 3: Welcome -->
-  <div class="screen" id="screen-welcome">
-    <p class="success-text">Welcome.<br><br>
-      <span style="font-size:13px; letter-spacing:0.2em; font-style:normal; font-family:'Montserrat',sans-serif; font-weight:300;">You have been granted access.</span>
-    </p>
-    <br><br>
-    <button class="btn" style="max-width:360px;" onclick="window.location.href='/product.html'">Shop the Elixir</button>
-  </div>
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-  <!-- Screen 4: Submitted -->
-  <div class="screen" id="screen-submitted">
-    <p class="success-text">Your request has been received.<br><br>
-      <span style="font-size:13px; letter-spacing:0.15em; font-style:normal; font-family:'Montserrat',sans-serif; font-weight:300; color:#c8bfa8;">We will be in touch.</span>
-    </p>
-  </div>
+function checkCode(){
+  const val = document.getElementById('inp-code').value.trim().toUpperCase();
 
-  <!-- ── 10% Off Popup ── -->
-  <div id="popup-overlay">
-    <div id="popup-box">
-      <div class="popup-corner tl"></div>
-      <div class="popup-corner tr"></div>
-      <div class="popup-corner bl"></div>
-      <div class="popup-corner br"></div>
+  if(val === ACCESS_CODE){
+    show('screen-welcome');
+    setTimeout(openPopup,1200);
+  } else {
+    document.getElementById('code-error').textContent='Invalid code';
+  }
+}
 
-      <!-- State A: Form -->
-      <div id="popup-form-state">
-        <p class="popup-eyebrow">A gift for you</p>
-        <p class="popup-headline">10% Off</p>
-        <p class="popup-sub">Your first order. Enter your email to receive your exclusive discount code.</p>
-        <div class="popup-divider"></div>
-        <div class="popup-form">
-          <input type="email" placeholder="Your email address" id="popup-email" autocomplete="email" inputmode="email" />
-          <p class="popup-error" id="popup-error">&nbsp;</p>
-          <button class="btn" id="popup-btn" onclick="handlePopupSubmit()">Claim my 10% off</button>
-        </div>
-        <button class="popup-skip" onclick="closePopup()">No thank you</button>
-      </div>
+function openPopup(){
+  document.getElementById('popup-overlay').classList.add('open');
+}
 
-      <!-- State B: Success -->
-      <div id="popup-success-state" style="display:none; flex-direction:column; align-items:center;">
-        <p class="popup-eyebrow">Your code</p>
-        <p class="popup-success">Thank you.<br>Use this code at checkout.</p>
-        <p class="popup-code">ELIXIR10</p>
-        <br><br>
-        <button class="btn" style="max-width:260px;" onclick="closePopup()">Shop the Elixir</button>
-      </div>
-    </div>
-  </div>
+async function handlePopupSubmit(){
+  const email = document.getElementById('popup-email').value.trim();
 
-  <script>
-    const ACCESS_CODE = 'WELCOME26';
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybgbtp67CbwGgT8mWTlrG_6K5u5DW4E1G_iG9am0BYuKl7xvg_6m2glvaFD-dkj-CPRg/exec';
+  if(!emailRegex.test(email)){
+    document.getElementById('popup-error').textContent='Enter valid email';
+    return;
+  }
 
-    function show(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+  document.getElementById('popup-error').textContent='Thank you.';
+}
 
-    function checkCode() {
-      const val = document.getElementById('inp-code').value.trim().toUpperCase();
-      if (val === ACCESS_CODE) {
-        show('screen-welcome');
-        openPopup();
-      } else {
-        document.getElementById('code-error').textContent = 'Invalid access code';
-        document.getElementById('inp-code').value = '';
-      }
-    }
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    checkCode();
+  }
+});
+</script>
 
-    function openPopup() {
-      document.getElementById('popup-overlay').classList.add('open');
-    }
-
-    function closePopup() {
-      document.getElementById('popup-overlay').classList.remove('open');
-    }
-
-    async function handlePopupSubmit() {
-      const email = document.getElementById('popup-email').value.trim();
-      if (!email || !email.includes('@')) {
-        document.getElementById('popup-error').textContent = 'Please enter a valid email';
-        return;
-      }
-      const btn = document.getElementById('popup-btn');
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: '', email, source: '10% Popup' })
-        });
-      } catch(e) {}
-      document.getElementById('popup-form-state').style.display = 'none';
-      document.getElementById('popup-success-state').style.display = 'flex';
-    }
-
-    async function handleSubmit() {
-      const name = document.getElementById('inp-name').value.trim();
-      const email = document.getElementById('inp-email').value.trim();
-      if (!name || !email) {
-        document.getElementById('form-error').textContent = 'Please enter your name and email';
-        return;
-      }
-      const btn = document.getElementById('submit-btn');
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, source: 'Website' })
-        });
-      } catch(e) {}
-      show('screen-submitted');
-    }
-  </script>
 </body>
 </html>
