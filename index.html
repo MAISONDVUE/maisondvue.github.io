@@ -65,6 +65,78 @@
   .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
   .screen.active { display: flex; }
 
+  /* ── Popup overlay ── */
+  #popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 14, 26, 0.92);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  #popup-overlay.open { display: flex; }
+  #popup-box {
+    background: #0a0e1a;
+    border: 1px solid #c9a96e;
+    max-width: 400px;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeUp 0.5s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .popup-corner { position: absolute; width: 12px; height: 12px; opacity: 0.5; }
+  .popup-corner.tl { top: 10px; left: 10px; border-top: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
+  .popup-corner.tr { top: 10px; right: 10px; border-top: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
+  .popup-corner.bl { bottom: 10px; left: 10px; border-bottom: 1px solid #c9a96e; border-left: 1px solid #c9a96e; }
+  .popup-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid #c9a96e; border-right: 1px solid #c9a96e; }
+  .popup-eyebrow {
+    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px;
+    letter-spacing: 0.4em; color: #c9a96e; text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  .popup-headline {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 32px;
+    color: #f0e6d0; letter-spacing: 0.08em; text-align: center; margin-bottom: 0.5rem;
+  }
+  .popup-sub {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: 15px; color: #c8bfa8; text-align: center; line-height: 1.8;
+    margin-bottom: 2rem; max-width: 280px;
+  }
+  .popup-divider { width: 40px; height: 1px; background: #c9a96e; opacity: 0.4; margin: 0 auto 2rem; }
+  .popup-form { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+  .popup-error {
+    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 9px;
+    letter-spacing: 0.2em; color: #8b4a3a; text-transform: uppercase;
+    text-align: center; min-height: 14px;
+  }
+  .popup-skip {
+    background: transparent; border: none;
+    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 8px;
+    letter-spacing: 0.3em; color: #3a3428; text-transform: uppercase;
+    cursor: pointer; margin-top: 1rem; padding: 0.5rem;
+    touch-action: manipulation; transition: color 0.3s;
+  }
+  .popup-skip:hover { color: #7a6e5e; }
+  .popup-success {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 18px; color: #c9a96e; text-align: center; line-height: 1.9;
+  }
+  .popup-code {
+    font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 11px;
+    letter-spacing: 0.3em; color: #f0e6d0; text-transform: uppercase;
+    border: 1px solid #c9a96e; padding: 10px 24px; margin: 1.5rem auto 0;
+    display: inline-block;
+  }
+
   @media (max-width: 480px) {
     body { padding: 2rem 1.25rem; }
     h1 { font-size: 28px; letter-spacing: 0.08em; }
@@ -82,6 +154,8 @@
     .bl, .br { bottom: 12px; }
     .tl, .bl { left: 12px; }
     .tr, .br { right: 12px; }
+    #popup-box { padding: 2.5rem 1.75rem; }
+    .popup-headline { font-size: 26px; }
   }
 </style>
 </head>
@@ -137,6 +211,39 @@
     </p>
   </div>
 
+  <!-- ── 10% Off Popup ── -->
+  <div id="popup-overlay">
+    <div id="popup-box">
+      <div class="popup-corner tl"></div>
+      <div class="popup-corner tr"></div>
+      <div class="popup-corner bl"></div>
+      <div class="popup-corner br"></div>
+
+      <!-- State A: Form -->
+      <div id="popup-form-state">
+        <p class="popup-eyebrow">A gift for you</p>
+        <p class="popup-headline">10% Off</p>
+        <p class="popup-sub">Your first order. Enter your email to receive your exclusive discount code.</p>
+        <div class="popup-divider"></div>
+        <div class="popup-form">
+          <input type="email" placeholder="Your email address" id="popup-email" autocomplete="email" inputmode="email" />
+          <p class="popup-error" id="popup-error">&nbsp;</p>
+          <button class="btn" id="popup-btn" onclick="handlePopupSubmit()">Claim my 10% off</button>
+        </div>
+        <button class="popup-skip" onclick="closePopup()">No thank you</button>
+      </div>
+
+      <!-- State B: Success -->
+      <div id="popup-success-state" style="display:none; flex-direction:column; align-items:center;">
+        <p class="popup-eyebrow">Your code</p>
+        <p class="popup-success">Thank you.<br>Use this code at checkout.</p>
+        <p class="popup-code">ELIXIR10</p>
+        <br><br>
+        <button class="btn" style="max-width:260px;" onclick="closePopup()">Shop the Elixir</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const ACCESS_CODE = 'WELCOME26';
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybgbtp67CbwGgT8mWTlrG_6K5u5DW4E1G_iG9am0BYuKl7xvg_6m2glvaFD-dkj-CPRg/exec';
@@ -150,10 +257,40 @@
       const val = document.getElementById('inp-code').value.trim().toUpperCase();
       if (val === ACCESS_CODE) {
         show('screen-welcome');
+        openPopup();
       } else {
         document.getElementById('code-error').textContent = 'Invalid access code';
         document.getElementById('inp-code').value = '';
       }
+    }
+
+    function openPopup() {
+      document.getElementById('popup-overlay').classList.add('open');
+    }
+
+    function closePopup() {
+      document.getElementById('popup-overlay').classList.remove('open');
+    }
+
+    async function handlePopupSubmit() {
+      const email = document.getElementById('popup-email').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('popup-error').textContent = 'Please enter a valid email';
+        return;
+      }
+      const btn = document.getElementById('popup-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: '', email, source: '10% Popup' })
+        });
+      } catch(e) {}
+      document.getElementById('popup-form-state').style.display = 'none';
+      document.getElementById('popup-success-state').style.display = 'flex';
     }
 
     async function handleSubmit() {
