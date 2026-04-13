@@ -63,6 +63,7 @@
   /* Desktop: hide mobile reserve, show desktop reserve */
   .nav-reserve--mobile  { display: none; }
   .nav-reserve--desktop { display: inline; }
+  #nav-menu-btn { display: none; } /* hidden on desktop, shown via mobile media query */
   .nav-logo {
     font-family: var(--font-display);
     font-size: 1rem; font-weight: 400; letter-spacing: 0.22em;
@@ -569,7 +570,7 @@
       <a href="#buy" class="nav-reserve nav-reserve--desktop">Reserve Your Batch</a>
       <div class="nav-menu-wrap">
         <button id="nav-menu-btn"
-          style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:var(--t-xxs);letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);padding:0;display:none;align-items:center;gap:6px;line-height:1;"
+          style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:var(--t-xxs);letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);padding:0;align-items:center;gap:6px;line-height:1;"
           onclick="toggleNavMenu()">
           Menu <span id="nav-menu-icon" style="font-size:10px;">&#9660;</span>
         </button>
