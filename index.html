@@ -413,11 +413,11 @@
       .bg-video {
         position: absolute;
         top: 0;
-        left: -100%;     /* shift left by full panel width */
-        width: 200%;     /* span full viewport width */
+        left: -50%;      /* drop sits at 75% across — right quarter */
+        width: 200%;
         height: 100%;
         object-fit: cover;
-        object-position: center center;
+        object-position: center 22%;  /* tip of drop as focal point */
         opacity: 0.82;
         filter: contrast(1.38) brightness(1.12) saturate(1.08);
       }
