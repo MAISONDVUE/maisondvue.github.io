@@ -46,16 +46,15 @@
       position: relative;
     }
 
-    /* Background video */
     .bg-video {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 28%;
-      opacity: 0.46;
-      filter: contrast(1.35) brightness(1.08) saturate(1.08);
+      object-position: 50% 22%;
+      opacity: 0.7;
+      filter: contrast(1.55) brightness(1.2) saturate(1.12);
       z-index: -3;
       pointer-events: none;
       background: var(--bg);
@@ -64,7 +63,7 @@
     .bg-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(4, 9, 20, 0.44);
+      background: rgba(4, 9, 20, 0.24);
       z-index: -2;
       pointer-events: none;
     }
@@ -74,39 +73,12 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at center,
+        radial-gradient(
+          circle at center,
           rgba(4, 9, 20, 0.02) 0%,
-          rgba(4, 9, 20, 0.18) 54%,
-          rgba(4, 9, 20, 0.52) 100%);
-    }
-
-    /* Tap overlay only used if autoplay fails */
-    .video-activate {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(4, 9, 20, 0.18);
-      backdrop-filter: blur(1px);
-      -webkit-backdrop-filter: blur(1px);
-    }
-
-    .video-activate.active {
-      display: flex;
-    }
-
-    .video-activate button {
-      border: 1px solid var(--gold);
-      background: rgba(4, 9, 20, 0.72);
-      color: var(--gold);
-      padding: 14px 24px;
-      font-family: "Montserrat", sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      cursor: pointer;
+          rgba(4, 9, 20, 0.14) 56%,
+          rgba(4, 9, 20, 0.48) 100%
+        );
     }
 
     .corner {
@@ -147,62 +119,61 @@
     }
 
     .wrap {
-      width: min(92vw, 640px);
+      width: min(84vw, 520px);
       text-align: center;
       position: relative;
       z-index: 5;
-      padding: 2rem 0;
+      padding: 1rem 0 2rem;
     }
 
     .eyebrow {
-      font-size: 10px;
-      letter-spacing: 0.42em;
+      font-size: 8px;
+      letter-spacing: 0.34em;
       color: var(--gold);
-      margin-bottom: 2rem;
+      margin-bottom: 1.55rem;
     }
 
     h1 {
       font-family: "Cormorant Garamond", serif;
       font-weight: 300;
-      font-size: 46px;
+      font-size: 34px;
       line-height: 1;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       color: var(--ivory);
     }
 
     .sub {
-      font-size: 9px;
-      letter-spacing: 0.35em;
+      font-size: 8px;
+      letter-spacing: 0.32em;
       color: var(--gold);
-      margin: 0.55rem 0 2.45rem;
+      margin: 0.65rem 0 2.2rem;
     }
 
     .divider {
       width: 50px;
       height: 1px;
       background: var(--gold-soft);
-      margin: 0 auto 2.45rem;
+      margin: 0 auto 2.2rem;
     }
 
     .headline {
-      font-size: 10px;
-      letter-spacing: 0.35em;
+      font-size: 9px;
+      letter-spacing: 0.3em;
       color: var(--gold);
-      margin-bottom: 1rem;
-      text-transform: none;
+      margin-bottom: 0.95rem;
     }
 
     .body-text {
       font-family: "Cormorant Garamond", serif;
       font-style: italic;
-      font-size: 20px;
+      font-size: 17px;
       color: var(--ivory);
-      margin-bottom: 2.35rem;
+      margin-bottom: 2.2rem;
     }
 
     .form-block {
       width: 100%;
-      max-width: 500px;
+      max-width: 100%;
       margin: 0 auto;
     }
 
@@ -213,26 +184,26 @@
       border-bottom: 1px solid var(--gold);
       color: var(--ivory);
       text-align: center;
-      padding: 12px 0;
+      padding: 14px 0 13px;
       letter-spacing: 0.18em;
       outline: none;
       font-family: "Montserrat", sans-serif;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     input::placeholder {
       color: var(--gold);
-      opacity: 0.78;
+      opacity: 0.82;
     }
 
     .btn {
-      margin-top: 1.6rem;
-      min-width: 230px;
+      width: 78%;
+      margin-top: 1.45rem;
       border: 1px solid var(--gold);
       background: transparent;
       color: var(--gold);
-      padding: 15px 40px;
-      letter-spacing: 0.42em;
+      padding: 15px 20px;
+      letter-spacing: 0.34em;
       font-family: "Montserrat", sans-serif;
       font-size: 10px;
       cursor: pointer;
@@ -246,9 +217,9 @@
 
     .request-link {
       display: inline-block;
-      margin-top: 2rem;
-      font-size: 10px;
-      letter-spacing: 0.35em;
+      margin-top: 1.85rem;
+      font-size: 9px;
+      letter-spacing: 0.28em;
       color: var(--gold);
       border-bottom: 1px solid var(--gold-soft);
       padding-bottom: 6px;
@@ -272,123 +243,78 @@
     .success-text {
       font-family: "Cormorant Garamond", serif;
       font-style: italic;
-      font-size: 22px;
+      font-size: 20px;
       color: var(--ivory-soft);
     }
 
-    @media (max-width: 768px) {
+    @media (min-width: 769px) {
       .bg-video {
-        object-position: 50% 24%;
-        opacity: 0.58;
-        filter: contrast(1.45) brightness(1.16) saturate(1.12);
+        object-position: 50% 26%;
+        opacity: 0.46;
+        filter: contrast(1.35) brightness(1.08) saturate(1.08);
       }
 
       .bg-overlay {
-        background: rgba(4, 9, 20, 0.34);
+        background: rgba(4, 9, 20, 0.42);
       }
 
       .wrap {
-        width: min(84vw, 520px);
-        padding: 1rem 0 2rem;
+        width: min(92vw, 640px);
+        padding: 2rem 0;
       }
 
       .eyebrow {
-        font-size: 8px;
-        letter-spacing: 0.34em;
-        margin-bottom: 1.55rem;
+        font-size: 10px;
+        letter-spacing: 0.42em;
+        margin-bottom: 2rem;
       }
 
       h1 {
-        font-size: 42px;
-        letter-spacing: 0.1em;
+        font-size: 46px;
+        letter-spacing: 0.12em;
       }
 
       .sub {
-        font-size: 8px;
-        margin: 0.65rem 0 2.2rem;
+        font-size: 9px;
+        margin: 0.55rem 0 2.45rem;
       }
 
       .divider {
-        margin-bottom: 2.2rem;
+        margin-bottom: 2.45rem;
       }
 
       .headline {
-        font-size: 9px;
-        letter-spacing: 0.3em;
-        margin-bottom: 0.95rem;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        margin-bottom: 1rem;
       }
 
       .body-text {
-        font-size: 18px;
-        margin-bottom: 2.2rem;
+        font-size: 20px;
+        margin-bottom: 2.35rem;
+      }
+
+      .form-block {
+        max-width: 500px;
       }
 
       input {
-        font-size: 11px;
-        padding: 14px 0 13px;
+        font-size: 12px;
+        padding: 12px 0;
       }
 
       .btn {
-        width: 72%;
-        min-width: 0;
+        width: auto;
+        min-width: 230px;
         font-size: 10px;
-        padding: 15px 20px;
-        margin-top: 1.45rem;
+        padding: 15px 40px;
+        margin-top: 1.6rem;
       }
 
       .request-link {
-        font-size: 9px;
-        letter-spacing: 0.28em;
-        margin-top: 1.85rem;
-      }
-
-      .corner {
-        width: 18px;
-        height: 18px;
-      }
-
-      .tl, .tr {
-        top: 14px;
-      }
-
-      .bl, .br {
-        bottom: 14px;
-      }
-
-      .tl, .bl {
-        left: 14px;
-      }
-
-      .tr, .br {
-        right: 14px;
-      }
-    }
-
-    @media (max-width: 430px) {
-      .bg-video {
-        object-position: 50% 22%;
-        opacity: 0.68;
-        filter: contrast(1.55) brightness(1.22) saturate(1.14);
-      }
-
-      .bg-overlay {
-        background: rgba(4, 9, 20, 0.26);
-      }
-
-      .wrap {
-        width: min(82vw, 420px);
-      }
-
-      h1 {
-        font-size: 34px;
-      }
-
-      .body-text {
-        font-size: 17px;
-      }
-
-      .btn {
-        width: 78%;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        margin-top: 2rem;
       }
     }
   </style>
@@ -409,10 +335,6 @@
   </video>
 
   <div class="bg-overlay"></div>
-
-  <div class="video-activate" id="videoActivate">
-    <button id="videoActivateBtn">Tap to begin</button>
-  </div>
 
   <div class="corner tl"></div>
   <div class="corner tr"></div>
@@ -454,9 +376,7 @@
     </div>
 
     <div class="screen" id="screen-success">
-      <div class="success-text">
-        Your request has been received.
-      </div>
+      <div class="success-text">Your request has been received.</div>
     </div>
   </div>
 
@@ -473,65 +393,34 @@
     }
 
     const video = document.getElementById("bgVideo");
-    const activate = document.getElementById("videoActivate");
-    const activateBtn = document.getElementById("videoActivateBtn");
 
     async function tryPlayVideo() {
-      if (!video) return false;
+      if (!video) return;
       try {
         video.muted = true;
         video.defaultMuted = true;
         video.setAttribute("muted", "");
         video.setAttribute("playsinline", "");
-        video.setAttribute("autoplay", "");
         await video.play();
-        activate.classList.remove("active");
-        return true;
-      } catch (err) {
-        activate.classList.add("active");
-        return false;
-      }
+      } catch (e) {}
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       tryPlayVideo();
-
-      setTimeout(() => {
-        if (video.paused) tryPlayVideo();
-      }, 400);
-
-      setTimeout(() => {
-        if (video.paused) tryPlayVideo();
-      }, 1200);
+      setTimeout(tryPlayVideo, 400);
+      setTimeout(tryPlayVideo, 1200);
     });
 
-    window.addEventListener("load", () => {
-      if (video.paused) tryPlayVideo();
-    });
+    window.addEventListener("load", tryPlayVideo);
 
-    document.addEventListener(
-      "touchstart",
-      () => {
-        if (video.paused) {
-          tryPlayVideo();
-        }
-      },
-      { passive: true, once: true }
-    );
+    const firstInteractionPlay = () => {
+      if (video && video.paused) {
+        tryPlayVideo();
+      }
+    };
 
-    document.addEventListener(
-      "click",
-      () => {
-        if (video.paused) {
-          tryPlayVideo();
-        }
-      },
-      { once: true }
-    );
-
-    activateBtn.addEventListener("click", async () => {
-      await tryPlayVideo();
-    });
+    document.addEventListener("touchstart", firstInteractionPlay, { passive: true });
+    document.addEventListener("click", firstInteractionPlay);
   </script>
 </body>
 </html>
