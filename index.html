@@ -83,7 +83,10 @@
     /* ── Video panel — mobile: full screen ── */
     .video-panel {
       position: fixed;
-      inset: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       overflow: hidden;
       z-index: 0;
     }
@@ -400,14 +403,13 @@
         padding: 2rem 0;
       }
 
-      /* Video panel: right 50% — video positioned so
-         its center aligns with the panel's left edge,
-         showing only the right half of the drop */
+      /* Video panel: right 50% only — explicit override */
       .video-panel {
-        inset: unset;
-        top: 0; right: 0;
-        width: 50%;
-        height: 100%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 50%;   /* pushes panel to right half */
+        width: auto; /* width follows left/right */
       }
 
       .bg-video {
@@ -417,7 +419,7 @@
         width: 200%;
         height: 100%;
         object-fit: cover;
-        object-position: center 22%;  /* tip of drop as focal point */
+        object-position: center 55%;  /* mid-drop, bottle pushed off screen top */
         opacity: 0.82;
         filter: contrast(1.38) brightness(1.12) saturate(1.08);
       }
