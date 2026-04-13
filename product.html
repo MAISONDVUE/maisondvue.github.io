@@ -439,7 +439,9 @@
   @media (max-width: 900px) {
     .nav-links { display: none; }
     #nav-menu-btn { display: flex !important; }
-    .nav-logo, .nav-right { width: auto; }
+    .nav-logo  { width: auto; flex: 1; }
+    .nav-right { width: auto; flex: 0 0 auto; display: flex; align-items: center; gap: 1.25rem; }
+    .nav-inner { justify-content: space-between; padding: 0 1.25rem; }
   }
   @media (max-width: 900px) {
     :root { --nav-h: 4rem; }
