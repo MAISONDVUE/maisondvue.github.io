@@ -56,10 +56,13 @@
     height: 100%;
     display: flex; align-items: center;
   }
-  /* 3-cell nav structure */
-  .nav-cell-left  { flex: 1; display: flex; align-items: center; }
-  .nav-cell-center{ flex: 1; display: flex; align-items: center; justify-content: center; }
-  .nav-cell-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; }
+  /* 3-cell nav */
+  .nav-cell-left   { flex: 1; display: flex; align-items: center; }
+  .nav-cell-center { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .nav-cell-right  { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem; }
+  /* Desktop: hide mobile reserve, show desktop reserve */
+  .nav-reserve--mobile  { display: none; }
+  .nav-reserve--desktop { display: inline; }
   .nav-logo {
     font-family: var(--font-display);
     font-size: 1rem; font-weight: 400; letter-spacing: 0.22em;
@@ -451,8 +454,11 @@
     /* equal-flex 3 cells = true center */
     .nav-cell-left   { flex: 1; }
     .nav-cell-center { flex: 1; justify-content: center; }
-    .nav-cell-right  { flex: 1; justify-content: flex-end; }
-    .nav-reserve {
+    .nav-cell-right  { flex: 1; justify-content: flex-end; gap: 0; }
+    /* Mobile: hide desktop reserve, show mobile reserve centered */
+    .nav-reserve--desktop { display: none; }
+    .nav-reserve--mobile  {
+      display: inline !important;
       font-size: 0.6rem;
       letter-spacing: 0.2em;
       color: var(--gold) !important;
@@ -544,9 +550,11 @@
 
 <nav>
   <div class="nav-inner">
+    <!-- Left: logo -->
     <div class="nav-cell-left">
       <a href="#" class="nav-logo">Maison D'Vue</a>
     </div>
+    <!-- Center: nav links (desktop) / Reserve Your Batch (mobile) -->
     <div class="nav-cell-center">
       <ul class="nav-links">
         <li><a href="#ingredients">The Formula</a></li>
@@ -554,10 +562,11 @@
         <li><a href="#science">The Science</a></li>
         <li><a href="#reviews">Reviews</a></li>
       </ul>
-      <a href="#buy" class="nav-reserve">Reserve Your Batch</a>
+      <a href="#buy" class="nav-reserve nav-reserve--mobile">Reserve Your Batch</a>
     </div>
+    <!-- Right: Reserve (desktop) / Menu (mobile) -->
     <div class="nav-cell-right">
-    <div class="nav-right">
+      <a href="#buy" class="nav-reserve nav-reserve--desktop">Reserve Your Batch</a>
       <div class="nav-menu-wrap">
         <button id="nav-menu-btn"
           style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:var(--t-xxs);letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);padding:0;display:none;align-items:center;gap:6px;line-height:1;"
@@ -572,7 +581,6 @@
           <a href="#reviews"     onclick="toggleNavMenu()" style="display:block;padding:0.7rem 1.25rem;font-size:var(--t-xxs);letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);text-decoration:none;">Reviews</a>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </nav>
