@@ -80,12 +80,12 @@
       100% { transform: translate(0,    0);   }
     }
 
-    /* ── Video panel (mobile: full screen) ── */
+    /* ── Video panel — mobile: full screen ── */
     .video-panel {
       position: fixed;
       inset: 0;
       overflow: hidden;
-      z-index: -1;
+      z-index: 0;
     }
 
     .bg-video {
@@ -95,24 +95,23 @@
       height: 100%;
       object-fit: cover;
       object-position: center center;
-      opacity: 0.64;
+      opacity: 0.55;
       filter: contrast(1.45) brightness(1.15) saturate(1.1);
     }
 
-    /* Edge fade — hidden on mobile */
     .video-edge-fade {
       display: none;
     }
 
-    /* ── Overlay (mobile: covers full screen) ── */
+    /* ── Overlay ── */
     .bg-overlay {
       position: fixed;
       inset: 0;
-      z-index: 0;
+      z-index: 1;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 80% 85% at 50% 50%, transparent 0%, rgba(4, 9, 20, 0.15) 50%, rgba(4, 9, 20, 0.65) 100%),
-        linear-gradient(to bottom, rgba(4, 9, 20, 0.38) 0%, rgba(4, 9, 20, 0.05) 35%, rgba(4, 9, 20, 0.05) 65%, rgba(4, 9, 20, 0.48) 100%);
+        radial-gradient(ellipse 80% 85% at 50% 50%, transparent 0%, rgba(4, 9, 20, 0.2) 50%, rgba(4, 9, 20, 0.72) 100%),
+        linear-gradient(to bottom, rgba(4, 9, 20, 0.45) 0%, rgba(4, 9, 20, 0.05) 30%, rgba(4, 9, 20, 0.05) 70%, rgba(4, 9, 20, 0.5) 100%);
     }
 
     /* ── Corner marks ── */
@@ -391,21 +390,19 @@
     }
 
     /* ════════════════════════════════
-       DESKTOP — split layout
+       DESKTOP
     ════════════════════════════════ */
     @media (min-width: 769px) {
 
-      body {
-        justify-content: flex-start;
-      }
-
+      /* Content stays centered on the full page */
       .wrap {
-        width: min(40vw, 500px);
-        margin-left: clamp(3rem, 7vw, 7rem);
+        width: min(92vw, 560px);
         padding: 2rem 0;
       }
 
-      /* Video panel: right 50% only */
+      /* Video panel: right 50% — video positioned so
+         its center aligns with the panel's left edge,
+         showing only the right half of the drop */
       .video-panel {
         inset: unset;
         top: 0; right: 0;
@@ -414,28 +411,34 @@
       }
 
       .bg-video {
+        position: absolute;
+        top: 0;
+        left: -100%;     /* shift left by full panel width */
+        width: 200%;     /* span full viewport width */
+        height: 100%;
+        object-fit: cover;
         object-position: center center;
-        opacity: 0.78;
+        opacity: 0.82;
         filter: contrast(1.38) brightness(1.12) saturate(1.08);
       }
 
-      /* Left-edge bleed from dark bg into video */
+      /* Soft bleed at the split line */
       .video-edge-fade {
         display: block;
         position: absolute;
         top: 0; left: 0;
-        width: 180px;
+        width: 160px;
         height: 100%;
         background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
         z-index: 1;
         pointer-events: none;
       }
 
-      /* Overlay: only left half */
+      /* Lighter overlay on desktop — video does the work */
       .bg-overlay {
         background:
-          linear-gradient(to right, var(--bg) 0%, rgba(4, 9, 20, 0.6) 40%, transparent 60%),
-          linear-gradient(to bottom, rgba(4, 9, 20, 0.3) 0%, transparent 25%, transparent 75%, rgba(4, 9, 20, 0.3) 100%);
+          linear-gradient(to right, rgba(4, 9, 20, 0.85) 0%, rgba(4, 9, 20, 0.4) 45%, transparent 65%),
+          linear-gradient(to bottom, rgba(4, 9, 20, 0.3) 0%, transparent 20%, transparent 80%, rgba(4, 9, 20, 0.3) 100%);
       }
 
       .eyebrow {
@@ -466,7 +469,7 @@
       }
 
       .form-block {
-        max-width: 380px;
+        max-width: 400px;
         margin: 0 auto;
       }
 
@@ -476,9 +479,9 @@
       }
 
       .btn {
-        min-width: 220px;
+        min-width: 240px;
         font-size: 10px;
-        padding: 16px 48px;
+        padding: 16px 52px;
         margin-top: 1.8rem;
       }
 
@@ -508,7 +511,7 @@
       preload="auto"
       disablepictureinpicture
     >
-      <source src="https://maisondvue.github.io/oildrop.mp4" type="video/mp4" />
+      <source src="oildrop.mp4" type="video/mp4" />
     </video>
   </div>
 
