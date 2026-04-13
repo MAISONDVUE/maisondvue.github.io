@@ -4,678 +4,254 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Maison D'Vue — Hair Elixir</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
 <style>
-  :root {
-    --bg: #070d1a;
-    --bg-soft: rgba(7, 13, 26, 0.92);
-    --gold: #b89a68;
-    --gold-soft: rgba(184, 154, 104, 0.52);
-    --gold-faint: rgba(184, 154, 104, 0.24);
-    --ivory: #efe6d4;
-    --ivory-soft: #d7ccb7;
-    --muted: #8b7a61;
-    --muted-deep: #625543;
-    --error: #9a5a48;
-  }
+:root {
+  --bg: #070d1a;
+  --gold: #b89a68;
+  --gold-soft: rgba(184,154,104,0.45);
+  --gold-faint: rgba(184,154,104,0.2);
+  --ivory: #efe6d4;
+  --ivory-soft: #d7ccb7;
+  --muted: #8b7a61;
+  --error: #9a5a48;
+}
 
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
 
-  html, body {
-    height: 100%;
-  }
+body {
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+}
 
-  body {
-    background: var(--bg);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 2rem;
-    position: relative;
-    color: var(--ivory);
-    overflow: hidden;
-  }
+/* VIDEO BACKGROUND */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  filter: contrast(1.05) brightness(0.85);
+  z-index: -2;
+}
 
-  body::before,
-  body::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--gold-soft);
-  }
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0.82;
+  z-index: -1;
+}
 
-  body::before { top: 0; }
-  body::after { bottom: 0; }
+.bg-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(7,13,26,0) 0%,
+    rgba(7,13,26,0.25) 60%,
+    rgba(7,13,26,0.6) 100%
+  );
+}
 
-  .corner {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    opacity: 0.5;
-  }
+/* FRAME */
+.corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  opacity: 0.5;
+}
 
-  .tl { top: 18px; left: 18px; border-top: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
-  .tr { top: 18px; right: 18px; border-top: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
-  .bl { bottom: 18px; left: 18px; border-bottom: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
-  .br { bottom: 18px; right: 18px; border-bottom: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
+.tl { top: 18px; left: 18px; border-top: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
+.tr { top: 18px; right: 18px; border-top: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
+.bl { bottom: 18px; left: 18px; border-bottom: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
+.br { bottom: 18px; right: 18px; border-bottom: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
 
-  .wrap {
-    width: 100%;
-    max-width: 640px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+/* CONTENT */
+.wrap {
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+}
 
-  .eyebrow {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 2.15rem;
-  }
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
 
-  h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 44px;
-    line-height: 1;
-    letter-spacing: 0.13em;
-    color: var(--ivory);
-    text-align: center;
-    margin-bottom: 0.45rem;
-  }
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  letter-spacing: 0.12em;
+  color: var(--ivory);
+}
 
-  .sub {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 9px;
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 2.7rem;
-  }
+.sub {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  margin: 0.5rem 0 2.5rem;
+}
 
-  .divider {
-    width: 54px;
-    height: 1px;
-    background: var(--gold-soft);
-    margin: 0 auto 2.7rem;
-  }
+.divider {
+  width: 50px;
+  height: 1px;
+  background: var(--gold-soft);
+  margin: 0 auto 2.5rem;
+}
 
-  .headline {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: 1rem;
-  }
+.headline {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
 
-  .body-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 1.65;
-    text-align: center;
-    color: var(--ivory-soft);
-    max-width: 460px;
-    margin: 0 auto 2.75rem;
-  }
+.body-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ivory-soft);
+  margin-bottom: 2.5rem;
+}
 
-  .form-block {
-    width: 100%;
-    max-width: 390px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    margin: 0 auto;
-  }
+/* INPUT */
+input {
+  width: 100%;
+  max-width: 360px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--gold);
+  color: var(--ivory);
+  text-align: center;
+  padding: 12px 0;
+  letter-spacing: 0.18em;
+}
 
-  input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--gold);
-    color: var(--ivory);
-    text-align: center;
-    outline: none;
-    padding: 12px 0 11px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
+input::placeholder {
+  color: var(--muted);
+}
 
-  input::placeholder {
-    color: var(--muted);
-    letter-spacing: 0.22em;
-    text-transform: none;
-  }
+/* BUTTON */
+.btn {
+  margin-top: 1rem;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  padding: 14px 40px;
+  letter-spacing: 0.4em;
+  cursor: pointer;
+  transition: 0.25s;
+}
 
-  .btn {
-    width: 100%;
-    margin-top: 10px;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 15px 36px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 9px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-    -webkit-appearance: none;
-    border-radius: 0;
-    touch-action: manipulation;
-  }
+.btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
 
-  .btn:hover,
-  .btn:active {
-    background: var(--gold);
-    color: var(--bg);
-  }
+/* REQUEST LINK (UPGRADED) */
+.request-link {
+  margin-top: 2rem;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold-faint);
+  padding-bottom: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
 
-  .btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
+.request-link:hover {
+  color: var(--ivory);
+  border-color: var(--gold);
+}
 
-  .error {
-    min-height: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 8px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--error);
-    text-align: center;
-  }
+/* SCREENS */
+.screen { display: none; }
+.screen.active { display: block; }
 
-  .request-link {
-    margin-top: 2rem;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--gold-faint);
-    color: var(--gold);
-    padding: 0 0 6px 0;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
-  }
-
-  .request-link:hover {
-    color: var(--ivory);
-    border-color: var(--gold);
-  }
-
-  .secondary-link {
-    margin-top: 1.1rem;
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 9px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: color 0.25s ease;
-  }
-
-  .secondary-link:hover {
-    color: var(--gold);
-  }
-
-  .success-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 23px;
-    line-height: 1.8;
-    text-align: center;
-    color: var(--ivory-soft);
-  }
-
-  .success-sub {
-    display: inline-block;
-    margin-top: 1.35rem;
-    font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 9px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .screen {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .screen.active {
-    display: flex;
-  }
-
-  /* Popup */
-  #popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(7, 13, 26, 0.94);
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
-
-  #popup-overlay.open {
-    display: flex;
-  }
-
-  #popup-box {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    background: var(--bg);
-    border: 1px solid var(--gold-soft);
-    padding: 3rem 2.5rem 2.6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: fadeUp 0.45s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .popup-corner {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    opacity: 0.5;
-  }
-
-  .popup-corner.tl { top: 10px; left: 10px; border-top: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
-  .popup-corner.tr { top: 10px; right: 10px; border-top: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
-  .popup-corner.bl { bottom: 10px; left: 10px; border-bottom: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
-  .popup-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
-
-  .popup-eyebrow {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 9px;
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.15rem;
-  }
-
-  .popup-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 34px;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-align: center;
-    color: var(--ivory);
-    margin-bottom: 0.65rem;
-  }
-
-  .popup-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 1.7;
-    text-align: center;
-    color: var(--ivory-soft);
-    max-width: 290px;
-    margin-bottom: 1.7rem;
-  }
-
-  .popup-divider {
-    width: 42px;
-    height: 1px;
-    background: var(--gold-soft);
-    margin: 0 auto 1.75rem;
-  }
-
-  .popup-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .popup-error {
-    min-height: 14px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 8px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--error);
-    text-align: center;
-  }
-
-  .popup-skip {
-    margin-top: 1rem;
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 8px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: color 0.25s ease;
-  }
-
-  .popup-skip:hover {
-    color: var(--gold);
-  }
-
-  .popup-success {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 1.8;
-    text-align: center;
-    color: var(--ivory-soft);
-  }
-
-  .popup-code {
-    display: inline-block;
-    margin: 1.4rem auto 0;
-    padding: 10px 22px;
-    border: 1px solid var(--gold);
-    color: var(--ivory);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 480px) {
-    body {
-      padding: 2rem 1.25rem;
-    }
-
-    .corner {
-      width: 14px;
-      height: 14px;
-    }
-
-    .tl, .tr { top: 12px; }
-    .bl, .br { bottom: 12px; }
-    .tl, .bl { left: 12px; }
-    .tr, .br { right: 12px; }
-
-    .eyebrow {
-      margin-bottom: 1.5rem;
-    }
-
-    h1 {
-      font-size: 31px;
-      letter-spacing: 0.1em;
-    }
-
-    .sub {
-      letter-spacing: 0.28em;
-      margin-bottom: 2rem;
-    }
-
-    .divider {
-      margin-bottom: 2rem;
-    }
-
-    .body-text {
-      font-size: 17px;
-      margin-bottom: 2rem;
-    }
-
-    input {
-      font-size: 13px;
-      padding: 13px 0 12px;
-    }
-
-    .btn {
-      padding: 16px 20px;
-      letter-spacing: 0.32em;
-    }
-
-    .request-link {
-      font-size: 9px;
-      letter-spacing: 0.24em;
-      text-align: center;
-    }
-
-    #popup-box {
-      padding: 2.5rem 1.75rem 2.25rem;
-    }
-
-    .popup-headline {
-      font-size: 28px;
-    }
-
-    .popup-sub {
-      font-size: 15px;
-    }
-  }
+.success-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ivory-soft);
+}
 </style>
 </head>
+
 <body>
-  <div class="corner tl"></div>
-  <div class="corner tr"></div>
-  <div class="corner bl"></div>
-  <div class="corner br"></div>
 
-  <div class="wrap">
-    <p class="eyebrow">Maison D'Vue</p>
-    <h1>HAIR ELIXIR</h1>
-    <p class="sub">30 ml</p>
-    <div class="divider"></div>
+<!-- VIDEO -->
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="oildrop.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay"></div>
 
-    <!-- Screen 1: Password -->
-    <div class="screen active" id="screen-password">
-      <p class="headline">Private access</p>
-      <p class="body-text">Enter your code to continue.</p>
+<!-- CORNERS -->
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
 
-      <div class="form-block">
-        <input
-          type="password"
-          placeholder="Enter your code"
-          id="inp-code"
-          onkeydown="if(event.key==='Enter') checkCode()"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-        />
-        <p class="error" id="code-error">&nbsp;</p>
-        <button class="btn" onclick="checkCode()">Enter</button>
-      </div>
+<div class="wrap">
+  <div class="eyebrow">Maison D'Vue</div>
+  <h1>HAIR ELIXIR</h1>
+  <div class="sub">30 ml</div>
+  <div class="divider"></div>
 
-      <button class="request-link" onclick="show('screen-request')">Request an invitation</button>
-    </div>
+  <div class="screen active" id="screen-password">
+    <div class="headline">Private access</div>
+    <div class="body-text">Enter your code to continue.</div>
 
-    <!-- Screen 2: Request -->
-    <div class="screen" id="screen-request">
-      <p class="headline">Request an invitation</p>
-      <p class="body-text">Leave your details for consideration.</p>
+    <input id="code" placeholder="Enter your code">
+    <br>
+    <button class="btn" onclick="check()">Enter</button>
 
-      <div class="form-block">
-        <input type="text" placeholder="Your name" id="inp-name" autocomplete="name" />
-        <input type="email" placeholder="Your email address" id="inp-email" autocomplete="email" inputmode="email" />
-        <p class="error" id="form-error">&nbsp;</p>
-        <button class="btn" id="submit-btn" onclick="handleSubmit()">Submit</button>
-      </div>
-
-      <button class="secondary-link" onclick="show('screen-password')">Back to access</button>
-    </div>
-
-    <!-- Screen 3: Submitted -->
-    <div class="screen" id="screen-submitted">
-      <p class="success-text">
-        Your request has been received.
-        <span class="success-sub">We will be in touch</span>
-      </p>
+    <div class="request-link" onclick="show('screen-request')">
+      Request an invitation
     </div>
   </div>
 
-  <!-- Popup -->
-  <div id="popup-overlay">
-    <div id="popup-box">
-      <div class="popup-corner tl"></div>
-      <div class="popup-corner tr"></div>
-      <div class="popup-corner bl"></div>
-      <div class="popup-corner br"></div>
+  <div class="screen" id="screen-request">
+    <div class="headline">Request an invitation</div>
+    <div class="body-text">Leave your details for consideration.</div>
 
-      <div id="popup-form-state">
-        <p class="popup-eyebrow">Private offer</p>
-        <p class="popup-headline">10% Off</p>
-        <p class="popup-sub">Enter your email to receive your private code.</p>
-        <div class="popup-divider"></div>
+    <input placeholder="Your name"><br>
+    <input placeholder="Your email"><br>
 
-        <div class="popup-form">
-          <input type="email" placeholder="Your email address" id="popup-email" autocomplete="email" inputmode="email" />
-          <p class="popup-error" id="popup-error">&nbsp;</p>
-          <button class="btn" id="popup-btn" onclick="handlePopupSubmit()">Receive code</button>
-        </div>
-
-        <button class="popup-skip" onclick="closePopup()">Continue without code</button>
-      </div>
-
-      <div id="popup-success-state" style="display:none; flex-direction:column; align-items:center;">
-        <p class="popup-eyebrow">Your code</p>
-        <p class="popup-success">Use this code at checkout.</p>
-        <p class="popup-code">ELIXIR10</p>
-        <br><br>
-        <button class="btn" style="max-width:260px;" onclick="closePopup()">Continue</button>
-      </div>
-    </div>
+    <button class="btn">Submit</button>
   </div>
 
-  <script>
-    const ACCESS_CODE = 'WELCOME26';
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybgbtp67CbwGgT8mWTlrG_6K5u5DW4E1G_iG9am0BYuKl7xvg_6m2glvaFD-dkj-CPRg/exec';
+  <div class="screen" id="screen-success">
+    <div class="success-text">
+      Your request has been received.
+    </div>
+  </div>
+</div>
 
-    function show(id) {
-      document.querySelectorAll('.screen').forEach((screen) => {
-        screen.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
-    }
+<script>
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-    function checkCode() {
-      const input = document.getElementById('inp-code');
-      const error = document.getElementById('code-error');
-      const val = input.value.trim().toUpperCase();
+function check(){
+  if(document.getElementById('code').value === "WELCOME26"){
+    show('screen-success');
+  }
+}
+</script>
 
-      if (val === ACCESS_CODE) {
-        error.innerHTML = '&nbsp;';
-        openPopup();
-      } else {
-        error.textContent = 'Invalid access code';
-        input.value = '';
-      }
-    }
-
-    function openPopup() {
-      document.getElementById('popup-overlay').classList.add('open');
-    }
-
-    function closePopup() {
-      window.location.href = 'product.html';
-    }
-
-    async function handlePopupSubmit() {
-      const email = document.getElementById('popup-email').value.trim();
-      const error = document.getElementById('popup-error');
-      const btn = document.getElementById('popup-btn');
-
-      if (!email || !email.includes('@')) {
-        error.textContent = 'Please enter a valid email';
-        return;
-      }
-
-      error.innerHTML = '&nbsp;';
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: '', email, source: '10% Popup' })
-        });
-      } catch (e) {
-        // no-op
-      }
-
-      document.getElementById('popup-form-state').style.display = 'none';
-      document.getElementById('popup-success-state').style.display = 'flex';
-    }
-
-    async function handleSubmit() {
-      const name = document.getElementById('inp-name').value.trim();
-      const email = document.getElementById('inp-email').value.trim();
-      const error = document.getElementById('form-error');
-      const btn = document.getElementById('submit-btn');
-
-      if (!name || !email) {
-        error.textContent = 'Please enter your name and email';
-        return;
-      }
-
-      error.innerHTML = '&nbsp;';
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, source: 'Website' })
-        });
-      } catch (e) {
-        // no-op
-      }
-
-      show('screen-submitted');
-    }
-  </script>
 </body>
 </html>
