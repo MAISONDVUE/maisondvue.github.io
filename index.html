@@ -16,9 +16,9 @@
   --ivory: #efe6d4;
   --ivory-soft: #d7ccb7;
   --muted: #8b7a61;
-  --error: #9a5a48;
 }
 
+/* RESET */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 
@@ -27,8 +27,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Montserrat', sans-serif;
   overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* VIDEO BACKGROUND */
@@ -38,8 +38,9 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.18;
-  filter: contrast(1.05) brightness(0.85);
+  object-position: 50% 35%;
+  opacity: 0.24;
+  filter: contrast(1.18) brightness(0.85) saturate(1.05);
   z-index: -2;
 }
 
@@ -47,7 +48,7 @@ body {
   position: fixed;
   inset: 0;
   background: var(--bg);
-  opacity: 0.82;
+  opacity: 0.78;
   z-index: -1;
 }
 
@@ -58,12 +59,12 @@ body {
   background: radial-gradient(
     circle at center,
     rgba(7,13,26,0) 0%,
-    rgba(7,13,26,0.25) 60%,
-    rgba(7,13,26,0.6) 100%
+    rgba(7,13,26,0.3) 60%,
+    rgba(7,13,26,0.65) 100%
   );
 }
 
-/* FRAME */
+/* CORNERS */
 .corner {
   position: absolute;
   width: 22px;
@@ -76,13 +77,14 @@ body {
 .bl { bottom: 18px; left: 18px; border-bottom: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
 .br { bottom: 18px; right: 18px; border-bottom: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
 
-/* CONTENT */
+/* LAYOUT */
 .wrap {
-  width: 100%;
-  max-width: 640px;
   text-align: center;
+  max-width: 600px;
+  width: 100%;
 }
 
+/* TYPE */
 .eyebrow {
   font-size: 10px;
   letter-spacing: 0.42em;
@@ -92,7 +94,8 @@ body {
 
 h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 44px;
+  font-weight: 300;
+  font-size: 46px;
   letter-spacing: 0.12em;
   color: var(--ivory);
 }
@@ -137,6 +140,7 @@ input {
   text-align: center;
   padding: 12px 0;
   letter-spacing: 0.18em;
+  outline: none;
 }
 
 input::placeholder {
@@ -145,14 +149,14 @@ input::placeholder {
 
 /* BUTTON */
 .btn {
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   border: 1px solid var(--gold);
   background: transparent;
   color: var(--gold);
-  padding: 14px 40px;
+  padding: 14px 42px;
   letter-spacing: 0.4em;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.3s;
 }
 
 .btn:hover {
@@ -160,7 +164,7 @@ input::placeholder {
   color: var(--bg);
 }
 
-/* REQUEST LINK (UPGRADED) */
+/* REQUEST LINK */
 .request-link {
   margin-top: 2rem;
   font-size: 10px;
@@ -169,7 +173,7 @@ input::placeholder {
   border-bottom: 1px solid var(--gold-faint);
   padding-bottom: 6px;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.3s;
 }
 
 .request-link:hover {
@@ -196,6 +200,7 @@ input::placeholder {
 <video class="bg-video" autoplay muted loop playsinline>
   <source src="oildrop.mp4" type="video/mp4">
 </video>
+
 <div class="bg-overlay"></div>
 
 <!-- CORNERS -->
@@ -205,25 +210,34 @@ input::placeholder {
 <div class="corner br"></div>
 
 <div class="wrap">
+
   <div class="eyebrow">Maison D'Vue</div>
+
   <h1>HAIR ELIXIR</h1>
+
   <div class="sub">30 ml</div>
+
   <div class="divider"></div>
 
+  <!-- SCREEN 1 -->
   <div class="screen active" id="screen-password">
+
     <div class="headline">Private access</div>
     <div class="body-text">Enter your code to continue.</div>
 
     <input id="code" placeholder="Enter your code">
-    <br>
+
     <button class="btn" onclick="check()">Enter</button>
 
     <div class="request-link" onclick="show('screen-request')">
       Request an invitation
     </div>
+
   </div>
 
+  <!-- SCREEN 2 -->
   <div class="screen" id="screen-request">
+
     <div class="headline">Request an invitation</div>
     <div class="body-text">Leave your details for consideration.</div>
 
@@ -231,13 +245,18 @@ input::placeholder {
     <input placeholder="Your email"><br>
 
     <button class="btn">Submit</button>
+
   </div>
 
+  <!-- SUCCESS -->
   <div class="screen" id="screen-success">
+
     <div class="success-text">
       Your request has been received.
     </div>
+
   </div>
+
 </div>
 
 <script>
