@@ -409,6 +409,16 @@
     }
 
     /* ════════════════════════════════
+       MOBILE — video adjustments
+    ════════════════════════════════ */
+    @media (max-width: 768px) {
+      .bg-video {
+        left: -100%;          /* drop center at screen midpoint — sliced in half */
+        object-position: center 52%;  /* avoid bottle top, show the falling drop */
+      }
+    }
+
+    /* ════════════════════════════════
        DESKTOP
     ════════════════════════════════ */
     @media (min-width: 769px) {
