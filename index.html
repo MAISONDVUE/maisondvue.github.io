@@ -32,7 +32,7 @@
       color: var(--ivory);
       overflow: hidden;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       position: relative;
       cursor: none;
@@ -86,9 +86,10 @@
       top: 0;
       right: 0;
       bottom: 0;
-      left: 50%;          /* right half universally */
+      left: 50%;
       overflow: hidden;
       z-index: 0;
+      background: var(--bg); /* dark areas of video show navy, not black */
     }
 
     .bg-video {
@@ -114,23 +115,37 @@
       pointer-events: none;
     }
 
-    /* ── Overlay — left-weighted to protect content ── */
+    /* ── Overlay ── */
     .bg-overlay {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background:
-        linear-gradient(to right,
-          rgba(4, 9, 20, 0.96) 0%,
-          rgba(4, 9, 20, 0.75) 38%,
-          rgba(4, 9, 20, 0.18) 58%,
-          transparent 72%),
-        linear-gradient(to bottom,
-          rgba(4, 9, 20, 0.35) 0%,
-          transparent 18%,
-          transparent 82%,
-          rgba(4, 9, 20, 0.35) 100%);
+      /* Base: uniform navy tint so both halves read the same tone */
+      background: rgba(4, 9, 20, 0.58);
+    }
+
+    /* Left side: heavier tint for text legibility */
+    .bg-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+        rgba(4, 9, 20, 0.45) 0%,
+        rgba(4, 9, 20, 0.10) 48%,
+        transparent 60%);
+    }
+
+    /* Top + bottom vignette */
+    .bg-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(4, 9, 20, 0.35) 0%,
+        transparent 18%,
+        transparent 80%,
+        rgba(4, 9, 20, 0.45) 100%);
     }
 
     /* ── Corner marks ── */
@@ -159,7 +174,7 @@
       text-align: center;
       position: relative;
       z-index: 5;
-      padding: 1rem 0 2rem;
+      padding: 13vh 0 2rem;
     }
 
     /* ── Staggered entrance ── */
@@ -266,7 +281,7 @@
       width: 100%;
       background: transparent;
       border: none;
-      border-bottom: 1px solid var(--gold-faint);
+      border-bottom: 1px solid var(--gold-mid);
       color: var(--ivory);
       text-align: center;
       padding: 14px 0 13px;
@@ -409,12 +424,18 @@
     }
 
     /* ════════════════════════════════
-       MOBILE — video adjustments
+       MOBILE
     ════════════════════════════════ */
     @media (max-width: 768px) {
+      body {
+        align-items: center;   /* vertically center content on tall phone screens */
+      }
+      .wrap {
+        padding: 3rem 0 4rem;  /* balanced top/bottom breathing room */
+      }
       .bg-video {
-        left: -100%;          /* drop center at screen midpoint — sliced in half */
-        object-position: center 52%;  /* avoid bottle top, show the falling drop */
+        left: -100%;
+        object-position: center 52%;
       }
     }
 
@@ -423,10 +444,9 @@
     ════════════════════════════════ */
     @media (min-width: 769px) {
 
-      /* Content stays centered on the full page */
       .wrap {
         width: min(92vw, 560px);
-        padding: 2rem 0;
+        padding: 11vh 0 2rem;
       }
 
       /* video panel, video + overlay all handled globally */
@@ -527,12 +547,11 @@
           <input id="code" placeholder="Enter your code" autocomplete="off" spellcheck="false" />
           <div class="field-line"></div>
         </div>
-        <div class="error-msg" id="error-msg">
-          That code isn't recognised.<br>
-          <span class="error-invite" onclick="show('screen-request')">Request an invitation</span>
-        </div>
+        <div class="error-msg" id="error-msg">That code isn't recognised.</div>
       </div>
       <button class="btn" onclick="check()">Enter</button>
+      <br />
+      <span class="request-link" onclick="show('screen-request')">Request an invitation</span>
     </div>
 
     <!-- Request screen -->
