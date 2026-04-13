@@ -80,26 +80,35 @@
       100% { transform: translate(0,    0);   }
     }
 
-    /* ── Background video ── */
-    .bg-video {
+    /* ── Video panel (mobile: full screen) ── */
+    .video-panel {
       position: fixed;
       inset: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .bg-video {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 22%;
+      object-position: center center;
       opacity: 0.64;
       filter: contrast(1.45) brightness(1.15) saturate(1.1);
-      z-index: -3;
-      pointer-events: none;
-      background: var(--bg);
     }
 
-    /* ── Layered depth overlay ── */
+    /* Edge fade — hidden on mobile */
+    .video-edge-fade {
+      display: none;
+    }
+
+    /* ── Overlay (mobile: covers full screen) ── */
     .bg-overlay {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: 0;
       pointer-events: none;
       background:
         radial-gradient(ellipse 80% 85% at 50% 50%, transparent 0%, rgba(4, 9, 20, 0.15) 50%, rgba(4, 9, 20, 0.65) 100%),
@@ -121,14 +130,14 @@
       to { opacity: 0.4; }
     }
 
-    .tl { top: 20px; left: 20px;   border-top: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
-    .tr { top: 20px; right: 20px;  border-top: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
+    .tl { top: 20px; left: 20px;     border-top: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
+    .tr { top: 20px; right: 20px;    border-top: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
     .bl { bottom: 20px; left: 20px;  border-bottom: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
     .br { bottom: 20px; right: 20px; border-bottom: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
 
-    /* ── Wrap ── */
+    /* ── Content wrap ── */
     .wrap {
-      width: min(88vw, 520px);
+      width: min(88vw, 480px);
       text-align: center;
       position: relative;
       z-index: 5;
@@ -256,7 +265,6 @@
       letter-spacing: 0.26em;
     }
 
-    /* Expanding underline on focus */
     .field-line {
       position: absolute;
       bottom: 0;
@@ -273,7 +281,7 @@
       width: 100%;
     }
 
-    /* ── Error / nudge message ── */
+    /* ── Error / nudge ── */
     .error-msg {
       font-size: 7.5px;
       letter-spacing: 0.24em;
@@ -325,7 +333,7 @@
         background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
         color      0.5s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.5s ease,
-        box-shadow 0.5s ease;
+        box-shadow   0.5s ease;
     }
 
     .btn:hover {
@@ -355,9 +363,7 @@
     }
 
     /* ── Success ── */
-    .success-wrap {
-      padding: 0.5rem 0;
-    }
+    .success-wrap { padding: 0.5rem 0; }
 
     .success-eyebrow {
       font-size: 8px;
@@ -384,17 +390,52 @@
       margin: 1.8rem auto 0;
     }
 
-    /* ── Desktop ── */
+    /* ════════════════════════════════
+       DESKTOP — split layout
+    ════════════════════════════════ */
     @media (min-width: 769px) {
-      .bg-video {
-        object-position: 50% 26%;
-        opacity: 0.48;
-        filter: contrast(1.35) brightness(1.1) saturate(1.08);
+
+      body {
+        justify-content: flex-start;
       }
 
       .wrap {
-        width: min(92vw, 600px);
+        width: min(40vw, 500px);
+        margin-left: clamp(3rem, 7vw, 7rem);
         padding: 2rem 0;
+      }
+
+      /* Video panel: right 50% only */
+      .video-panel {
+        inset: unset;
+        top: 0; right: 0;
+        width: 50%;
+        height: 100%;
+      }
+
+      .bg-video {
+        object-position: center center;
+        opacity: 0.78;
+        filter: contrast(1.38) brightness(1.12) saturate(1.08);
+      }
+
+      /* Left-edge bleed from dark bg into video */
+      .video-edge-fade {
+        display: block;
+        position: absolute;
+        top: 0; left: 0;
+        width: 180px;
+        height: 100%;
+        background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* Overlay: only left half */
+      .bg-overlay {
+        background:
+          linear-gradient(to right, var(--bg) 0%, rgba(4, 9, 20, 0.6) 40%, transparent 60%),
+          linear-gradient(to bottom, rgba(4, 9, 20, 0.3) 0%, transparent 25%, transparent 75%, rgba(4, 9, 20, 0.3) 100%);
       }
 
       .eyebrow {
@@ -425,7 +466,7 @@
       }
 
       .form-block {
-        max-width: 400px;
+        max-width: 380px;
         margin: 0 auto;
       }
 
@@ -435,9 +476,9 @@
       }
 
       .btn {
-        min-width: 240px;
+        min-width: 220px;
         font-size: 10px;
-        padding: 16px 52px;
+        padding: 16px 48px;
         margin-top: 1.8rem;
       }
 
@@ -447,9 +488,7 @@
         margin-top: 2.2rem;
       }
 
-      .success-text {
-        font-size: 24px;
-      }
+      .success-text { font-size: 24px; }
     }
   </style>
 </head>
@@ -458,16 +497,20 @@
   <div class="cursor" id="cursor"></div>
   <div class="grain"></div>
 
-  <video
-    class="bg-video"
-    id="bgVideo"
-    autoplay muted loop playsinline
-    webkit-playsinline="true"
-    preload="auto"
-    disablepictureinpicture
-  >
-    <source src="oildrop.mp4" type="video/mp4" />
-  </video>
+  <!-- Video panel -->
+  <div class="video-panel">
+    <div class="video-edge-fade"></div>
+    <video
+      class="bg-video"
+      id="bgVideo"
+      autoplay muted loop playsinline
+      webkit-playsinline="true"
+      preload="auto"
+      disablepictureinpicture
+    >
+      <source src="https://maisondvue.github.io/oildrop.mp4" type="video/mp4" />
+    </video>
+  </div>
 
   <div class="bg-overlay"></div>
 
