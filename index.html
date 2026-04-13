@@ -2,36 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Maison D'Vue — Hair Elixir</title>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap"
-    rel="stylesheet"
-  />
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #040914;
-      --gold: #b89a68;
-      --gold-soft: rgba(184, 154, 104, 0.45);
-      --gold-faint: rgba(184, 154, 104, 0.22);
-      --ivory: #efe6d4;
-      --ivory-soft: #d7ccb7;
+      --gold: #c4a97a;
+      --gold-mid: rgba(196, 169, 122, 0.52);
+      --gold-faint: rgba(196, 169, 122, 0.18);
+      --ivory: #f0e8d8;
+      --ivory-soft: #cfc4ad;
       --muted: #8b7a61;
     }
 
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html,
-    body {
+    html, body {
       height: 100%;
       background: var(--bg);
     }
@@ -44,8 +35,52 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      cursor: none;
     }
 
+    /* ── Custom cursor ── */
+    .cursor {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      opacity: 0.65;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ── Film grain ── */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px 180px;
+      animation: grain 9s steps(1) infinite;
+    }
+
+    @keyframes grain {
+      0%   { transform: translate(0,    0);   }
+      11%  { transform: translate(-2%,  3%);  }
+      22%  { transform: translate(3%,  -1%);  }
+      33%  { transform: translate(-1%, -4%);  }
+      44%  { transform: translate(4%,   2%);  }
+      55%  { transform: translate(-3%,  1%);  }
+      66%  { transform: translate(2%,  -3%);  }
+      77%  { transform: translate(-4%,  4%);  }
+      88%  { transform: translate(1%,  -2%);  }
+      100% { transform: translate(0,    0);   }
+    }
+
+    /* ── Background video ── */
     .bg-video {
       position: fixed;
       inset: 0;
@@ -53,280 +88,380 @@
       height: 100%;
       object-fit: cover;
       object-position: 50% 22%;
-      opacity: 0.7;
-      filter: contrast(1.55) brightness(1.2) saturate(1.12);
+      opacity: 0.64;
+      filter: contrast(1.45) brightness(1.15) saturate(1.1);
       z-index: -3;
       pointer-events: none;
       background: var(--bg);
     }
 
+    /* ── Layered depth overlay ── */
     .bg-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(4, 9, 20, 0.24);
-      z-index: -2;
+      z-index: -1;
       pointer-events: none;
-    }
-
-    .bg-overlay::after {
-      content: "";
-      position: absolute;
-      inset: 0;
       background:
-        radial-gradient(
-          circle at center,
-          rgba(4, 9, 20, 0.02) 0%,
-          rgba(4, 9, 20, 0.14) 56%,
-          rgba(4, 9, 20, 0.48) 100%
-        );
+        radial-gradient(ellipse 80% 85% at 50% 50%, transparent 0%, rgba(4, 9, 20, 0.15) 50%, rgba(4, 9, 20, 0.65) 100%),
+        linear-gradient(to bottom, rgba(4, 9, 20, 0.38) 0%, rgba(4, 9, 20, 0.05) 35%, rgba(4, 9, 20, 0.05) 65%, rgba(4, 9, 20, 0.48) 100%);
     }
 
+    /* ── Corner marks ── */
     .corner {
       position: fixed;
-      width: 22px;
-      height: 22px;
-      opacity: 0.5;
-      z-index: 3;
+      width: 24px;
+      height: 24px;
+      z-index: 4;
       pointer-events: none;
+      opacity: 0;
+      animation: corner-in 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
     }
 
-    .tl {
-      top: 18px;
-      left: 18px;
-      border-top: 1px solid var(--gold-soft);
-      border-left: 1px solid var(--gold-soft);
+    @keyframes corner-in {
+      to { opacity: 0.4; }
     }
 
-    .tr {
-      top: 18px;
-      right: 18px;
-      border-top: 1px solid var(--gold-soft);
-      border-right: 1px solid var(--gold-soft);
-    }
+    .tl { top: 20px; left: 20px;   border-top: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
+    .tr { top: 20px; right: 20px;  border-top: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
+    .bl { bottom: 20px; left: 20px;  border-bottom: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
+    .br { bottom: 20px; right: 20px; border-bottom: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
 
-    .bl {
-      bottom: 18px;
-      left: 18px;
-      border-bottom: 1px solid var(--gold-soft);
-      border-left: 1px solid var(--gold-soft);
-    }
-
-    .br {
-      bottom: 18px;
-      right: 18px;
-      border-bottom: 1px solid var(--gold-soft);
-      border-right: 1px solid var(--gold-soft);
-    }
-
+    /* ── Wrap ── */
     .wrap {
-      width: min(84vw, 520px);
+      width: min(88vw, 520px);
       text-align: center;
       position: relative;
       z-index: 5;
       padding: 1rem 0 2rem;
     }
 
+    /* ── Staggered entrance ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fade-up 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fade-up {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .r1 { animation-delay: 0.15s; }
+    .r2 { animation-delay: 0.4s;  }
+    .r3 { animation-delay: 0.65s; }
+    .r4 { animation-delay: 1.05s; }
+    .r5 { animation-delay: 1.25s; }
+    .r6 { animation-delay: 1.45s; }
+
+    /* ── Typography ── */
     .eyebrow {
-      font-size: 8px;
-      letter-spacing: 0.34em;
+      font-size: 8.5px;
+      letter-spacing: 0.44em;
       color: var(--gold);
-      margin-bottom: 1.55rem;
+      margin-bottom: 1.6rem;
+      text-transform: uppercase;
     }
 
     h1 {
       font-family: "Cormorant Garamond", serif;
       font-weight: 300;
-      font-size: 34px;
+      font-size: 36px;
       line-height: 1;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--ivory);
     }
 
     .sub {
       font-size: 8px;
-      letter-spacing: 0.32em;
+      letter-spacing: 0.38em;
       color: var(--gold);
-      margin: 0.65rem 0 2.2rem;
+      margin: 0.7rem 0 2.4rem;
+      opacity: 0.78;
     }
 
+    /* ── Animated divider ── */
     .divider {
-      width: 50px;
       height: 1px;
-      background: var(--gold-soft);
-      margin: 0 auto 2.2rem;
+      width: 0;
+      background: linear-gradient(to right, transparent, var(--gold-mid), transparent);
+      margin: 0 auto 2.4rem;
+      animation: divider-grow 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+    }
+
+    @keyframes divider-grow {
+      to { width: 58px; }
+    }
+
+    /* ── Screen system ── */
+    .screen {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      position: absolute;
+      left: 0; right: 0;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
     }
 
     .headline {
       font-size: 9px;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.38em;
       color: var(--gold);
-      margin-bottom: 0.95rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
     }
 
     .body-text {
       font-family: "Cormorant Garamond", serif;
       font-style: italic;
-      font-size: 17px;
+      font-size: 18px;
       color: var(--ivory);
-      margin-bottom: 2.2rem;
+      line-height: 1.55;
+      margin-bottom: 2.4rem;
+      opacity: 0.88;
     }
 
+    /* ── Form ── */
     .form-block {
       width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
+    }
+
+    .field-wrap {
+      position: relative;
+      margin-bottom: 1.6rem;
     }
 
     input {
       width: 100%;
       background: transparent;
       border: none;
-      border-bottom: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold-faint);
       color: var(--ivory);
       text-align: center;
       padding: 14px 0 13px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       outline: none;
       font-family: "Montserrat", sans-serif;
       font-size: 11px;
+      cursor: none;
     }
 
     input::placeholder {
       color: var(--gold);
-      opacity: 0.82;
+      opacity: 0.55;
+      letter-spacing: 0.26em;
     }
 
+    /* Expanding underline on focus */
+    .field-line {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    input:focus ~ .field-line {
+      width: 100%;
+    }
+
+    /* ── Error / nudge message ── */
+    .error-msg {
+      font-size: 7.5px;
+      letter-spacing: 0.24em;
+      color: rgba(196, 169, 122, 0.6);
+      margin-top: 0.7rem;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      text-transform: uppercase;
+      line-height: 1.9;
+    }
+
+    .error-msg.visible {
+      opacity: 1;
+    }
+
+    .error-invite {
+      display: inline-block;
+      margin-top: 0.25rem;
+      font-size: 7.5px;
+      letter-spacing: 0.24em;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold-faint);
+      padding-bottom: 2px;
+      cursor: none;
+      text-transform: uppercase;
+      transition: color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .error-invite:hover {
+      color: var(--ivory-soft);
+      border-color: var(--gold-mid);
+    }
+
+    /* ── Button ── */
     .btn {
-      width: 78%;
-      margin-top: 1.45rem;
-      border: 1px solid var(--gold);
+      display: inline-block;
+      min-width: 200px;
+      margin-top: 1.6rem;
+      border: 1px solid var(--gold-mid);
       background: transparent;
       color: var(--gold);
-      padding: 15px 20px;
-      letter-spacing: 0.34em;
+      padding: 15px 40px;
+      letter-spacing: 0.4em;
       font-family: "Montserrat", sans-serif;
-      font-size: 10px;
-      cursor: pointer;
-      transition: background 0.25s ease, color 0.25s ease;
+      font-size: 9px;
+      text-transform: uppercase;
+      cursor: none;
+      transition:
+        background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        color      0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
     }
 
     .btn:hover {
       background: var(--gold);
       color: var(--bg);
+      border-color: var(--gold);
+      box-shadow: 0 0 32px rgba(196, 169, 122, 0.16);
     }
 
+    /* ── Request link ── */
     .request-link {
       display: inline-block;
-      margin-top: 1.85rem;
-      font-size: 9px;
-      letter-spacing: 0.28em;
-      color: var(--gold);
-      border-bottom: 1px solid var(--gold-soft);
-      padding-bottom: 6px;
-      cursor: pointer;
-      transition: color 0.25s ease, border-color 0.25s ease;
+      margin-top: 2rem;
+      font-size: 8.5px;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(139, 122, 97, 0.3);
+      padding-bottom: 5px;
+      cursor: none;
+      text-transform: uppercase;
+      transition: color 0.4s ease, border-color 0.4s ease;
     }
 
     .request-link:hover {
-      color: var(--ivory);
-      border-color: var(--gold);
+      color: var(--ivory-soft);
+      border-color: var(--gold-mid);
     }
 
-    .screen {
-      display: none;
+    /* ── Success ── */
+    .success-wrap {
+      padding: 0.5rem 0;
     }
 
-    .screen.active {
-      display: block;
+    .success-eyebrow {
+      font-size: 8px;
+      letter-spacing: 0.44em;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      text-transform: uppercase;
+      opacity: 0.75;
     }
 
     .success-text {
       font-family: "Cormorant Garamond", serif;
       font-style: italic;
-      font-size: 20px;
-      color: var(--ivory-soft);
+      font-size: 21px;
+      color: var(--ivory);
+      line-height: 1.65;
+      opacity: 0.9;
     }
 
+    .success-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--gold-mid);
+      margin: 1.8rem auto 0;
+    }
+
+    /* ── Desktop ── */
     @media (min-width: 769px) {
       .bg-video {
         object-position: 50% 26%;
-        opacity: 0.46;
-        filter: contrast(1.35) brightness(1.08) saturate(1.08);
-      }
-
-      .bg-overlay {
-        background: rgba(4, 9, 20, 0.42);
+        opacity: 0.48;
+        filter: contrast(1.35) brightness(1.1) saturate(1.08);
       }
 
       .wrap {
-        width: min(92vw, 640px);
+        width: min(92vw, 600px);
         padding: 2rem 0;
       }
 
       .eyebrow {
         font-size: 10px;
-        letter-spacing: 0.42em;
+        letter-spacing: 0.5em;
         margin-bottom: 2rem;
       }
 
       h1 {
-        font-size: 46px;
-        letter-spacing: 0.12em;
+        font-size: 52px;
+        letter-spacing: 0.14em;
       }
 
       .sub {
         font-size: 9px;
-        margin: 0.55rem 0 2.45rem;
-      }
-
-      .divider {
-        margin-bottom: 2.45rem;
+        margin: 0.6rem 0 2.6rem;
       }
 
       .headline {
         font-size: 10px;
-        letter-spacing: 0.35em;
-        margin-bottom: 1rem;
+        letter-spacing: 0.44em;
+        margin-bottom: 1.1rem;
       }
 
       .body-text {
-        font-size: 20px;
-        margin-bottom: 2.35rem;
+        font-size: 21px;
+        margin-bottom: 2.5rem;
       }
 
       .form-block {
-        max-width: 500px;
+        max-width: 400px;
+        margin: 0 auto;
       }
 
       input {
-        font-size: 12px;
-        padding: 12px 0;
+        font-size: 11px;
+        padding: 14px 0;
       }
 
       .btn {
-        width: auto;
-        min-width: 230px;
+        min-width: 240px;
         font-size: 10px;
-        padding: 15px 40px;
-        margin-top: 1.6rem;
+        padding: 16px 52px;
+        margin-top: 1.8rem;
       }
 
       .request-link {
-        font-size: 10px;
-        letter-spacing: 0.35em;
-        margin-top: 2rem;
+        font-size: 9px;
+        letter-spacing: 0.36em;
+        margin-top: 2.2rem;
+      }
+
+      .success-text {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="grain"></div>
+
   <video
     class="bg-video"
     id="bgVideo"
-    autoplay
-    muted
-    loop
-    playsinline
+    autoplay muted loop playsinline
     webkit-playsinline="true"
     preload="auto"
     disablepictureinpicture
@@ -342,85 +477,125 @@
   <div class="corner br"></div>
 
   <div class="wrap">
-    <div class="eyebrow">Maison D'Vue</div>
-    <h1>HAIR ELIXIR</h1>
-    <div class="sub">30 ml</div>
+    <div class="eyebrow reveal r1">Maison D'Vue</div>
+    <h1 class="reveal r2">HAIR ELIXIR</h1>
+    <div class="sub reveal r3">30 ml</div>
     <div class="divider"></div>
 
+    <!-- Password screen -->
     <div class="screen active" id="screen-password">
-      <div class="headline">Private access</div>
-      <div class="body-text">Enter your code to continue.</div>
-
-      <div class="form-block">
-        <input id="code" placeholder="Enter your code" />
+      <div class="headline reveal r4">Private access</div>
+      <div class="body-text reveal r5">Enter your code to continue.</div>
+      <div class="form-block reveal r6">
+        <div class="field-wrap">
+          <input id="code" placeholder="Enter your code" autocomplete="off" spellcheck="false" />
+          <div class="field-line"></div>
+        </div>
+        <div class="error-msg" id="error-msg">
+          That code isn't recognised.<br>
+          <span class="error-invite" onclick="show('screen-request')">Request an invitation</span>
+        </div>
       </div>
-
       <button class="btn" onclick="check()">Enter</button>
-
-      <div class="request-link" onclick="show('screen-request')">
-        Request an invitation
-      </div>
+      <br />
+      <span class="request-link" onclick="show('screen-request')">Request an invitation</span>
     </div>
 
+    <!-- Request screen -->
     <div class="screen" id="screen-request">
-      <div class="headline">Request an invitation</div>
+      <div class="headline">Seek an invitation</div>
       <div class="body-text">Leave your details for consideration.</div>
-
       <div class="form-block">
-        <input placeholder="Your name" />
-        <br /><br />
-        <input placeholder="Your email" />
+        <div class="field-wrap">
+          <input id="req-name" placeholder="Your name" autocomplete="off" />
+          <div class="field-line"></div>
+        </div>
+        <div class="field-wrap">
+          <input id="req-email" placeholder="Your email" type="email" autocomplete="off" />
+          <div class="field-line"></div>
+        </div>
       </div>
-
-      <button class="btn">Submit</button>
+      <button class="btn" onclick="submitRequest()">Submit</button>
+      <br />
+      <span class="request-link" onclick="show('screen-password')">Return</span>
     </div>
 
+    <!-- Success screen -->
     <div class="screen" id="screen-success">
-      <div class="success-text">Your request has been received.</div>
+      <div class="success-wrap">
+        <div class="success-eyebrow">Thank you</div>
+        <div class="success-text">
+          Your request has been received.<br>We will be in touch.
+        </div>
+        <div class="success-rule"></div>
+      </div>
     </div>
   </div>
 
   <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY  + 'px';
+    });
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '0.65');
+
+    // Screen transitions
     function show(id) {
-      document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.getElementById(id).classList.add('active');
+      }));
     }
 
+    // Password check
     function check() {
-      if (document.getElementById("code").value === "WELCOME26") {
-        show("screen-success");
+      const val = document.getElementById('code').value.trim().toUpperCase();
+      const err = document.getElementById('error-msg');
+      if (val === 'WELCOME26') {
+        err.classList.remove('visible');
+        show('screen-success');
+      } else {
+        err.classList.add('visible');
+        document.getElementById('code').value = '';
       }
     }
 
-    const video = document.getElementById("bgVideo");
+    // Request submission
+    function submitRequest() {
+      const name  = document.getElementById('req-name').value.trim();
+      const email = document.getElementById('req-email').value.trim();
+      if (name && email) show('screen-success');
+    }
 
+    // Enter key
+    document.getElementById('code').addEventListener('keydown', e => {
+      if (e.key === 'Enter') check();
+    });
+
+    // Video playback
+    const video = document.getElementById('bgVideo');
     async function tryPlayVideo() {
       if (!video) return;
       try {
         video.muted = true;
         video.defaultMuted = true;
-        video.setAttribute("muted", "");
-        video.setAttribute("playsinline", "");
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
         await video.play();
-      } catch (e) {}
+      } catch(e) {}
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
       tryPlayVideo();
       setTimeout(tryPlayVideo, 400);
       setTimeout(tryPlayVideo, 1200);
     });
-
-    window.addEventListener("load", tryPlayVideo);
-
-    const firstInteractionPlay = () => {
-      if (video && video.paused) {
-        tryPlayVideo();
-      }
-    };
-
-    document.addEventListener("touchstart", firstInteractionPlay, { passive: true });
-    document.addEventListener("click", firstInteractionPlay);
+    window.addEventListener('load', tryPlayVideo);
+    const firstPlay = () => { if (video?.paused) tryPlayVideo(); };
+    document.addEventListener('touchstart', firstPlay, { passive: true });
+    document.addEventListener('click', firstPlay);
   </script>
 </body>
 </html>
