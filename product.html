@@ -93,7 +93,6 @@
     align-items: center;
   }
 
-  /* CAROUSEL — reduced to 75% width, aligned with text column */
   .carousel-wrapper {
     position: sticky;
     top: var(--nav-h);
@@ -453,12 +452,19 @@
     }
     .carousel-wrapper {
       position: relative; top: auto;
-      height: auto; padding: 1.75rem 0 1rem;
+      height: auto; padding: 1.75rem 0 0.75rem;
       align-items: center;
     }
-    .carousel-main { width: 100%; }
+    /* KEY FIX: constrain carousel image height on mobile */
+    .carousel-main {
+      width: 100%;
+      aspect-ratio: unset;
+      height: 52vw;
+      max-height: 320px;
+      min-height: 220px;
+    }
     .carousel-dots { width: 100%; justify-content: center; }
-    .hero-content { padding: 1.5rem 0 3.5rem; min-height: auto; }
+    .hero-content { padding: 1.25rem 0 3.5rem; min-height: auto; }
     .hero-inner { max-width: 100%; }
     .rating-row   { justify-content: center; }
     .product-brand, .product-title, .product-subtitle, .product-desc { text-align: center; }
@@ -484,6 +490,12 @@
     .nav-logo     { font-size: 0.9rem; letter-spacing: 0.16em; }
     .section-inner { padding: 0 1.25rem; }
     .hero         { padding: 0 1.25rem; }
+    /* Even tighter on small phones */
+    .carousel-main {
+      height: 56vw;
+      max-height: 280px;
+      min-height: 200px;
+    }
     .product-title { font-size: 2.1rem; }
     .stat-number  { font-size: var(--t-3xl); }
     .claim-grid   { gap: 0.375rem; margin-bottom: 1rem; }
