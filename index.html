@@ -428,14 +428,27 @@
     ════════════════════════════════ */
     @media (max-width: 768px) {
       body {
-        align-items: center;   /* vertically center content on tall phone screens */
+        align-items: center;
+        overflow-y: auto;       /* allow scroll if needed, never clips content */
       }
       .wrap {
-        padding: 3rem 0 4rem;  /* balanced top/bottom breathing room */
+        padding: 2.5rem 0 3rem;
       }
+      /* Tighter spacing so everything fits without scrolling */
+      .eyebrow        { margin-bottom: 1rem; }
+      .sub            { margin: 0.4rem 0 1.4rem; }
+      .divider        { margin-bottom: 1.4rem; }
+      .body-text      { font-size: 16px; margin-bottom: 1.4rem; }
+      .field-wrap     { margin-bottom: 1rem; }
+      .btn            { margin-top: 1.1rem; min-width: 180px; padding: 13px 32px; }
+      .request-link   { margin-top: 1.2rem; }
       .bg-video {
         left: -100%;
         object-position: center 52%;
+      }
+      /* Prevent iOS auto-zoom on input focus */
+      input {
+        font-size: 16px;
       }
     }
 
