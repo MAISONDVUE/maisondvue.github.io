@@ -1,277 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Maison D'Vue — Hair Elixir</title>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <title>Maison D'Vue — Hair Elixir</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
 
-<style>
-:root {
-  --bg: #070d1a;
-  --gold: #b89a68;
-  --gold-soft: rgba(184,154,104,0.45);
-  --gold-faint: rgba(184,154,104,0.2);
-  --ivory: #efe6d4;
-  --ivory-soft: #d7ccb7;
-  --muted: #8b7a61;
-}
+  <style>
+    :root {
+      --bg: #040914;
+      --gold: #b89a68;
+      --gold-soft: rgba(184, 154, 104, 0.45);
+      --gold-faint: rgba(184, 154, 104, 0.22);
+      --ivory: #efe6d4;
+      --ivory-soft: #d7ccb7;
+      --muted: #8b7a61;
+    }
 
-/* RESET */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font-family: 'Montserrat', sans-serif;
-}
+    html,
+    body {
+      height: 100%;
+      background: var(--bg);
+    }
 
-/* VIDEO BACKGROUND (refined visibility) */
-.bg-video {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 30%;
-  opacity: 0.32;
-  filter: contrast(1.25) brightness(1.0) saturate(1.08);
-  z-index: -2;
-}
+    body {
+      font-family: "Montserrat", sans-serif;
+      color: var(--ivory);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
 
-/* OVERLAY (lighter so video shows) */
-.bg-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  opacity: 0.68;
-  z-index: -1;
-}
+    /* Background video */
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 28%;
+      opacity: 0.46;
+      filter: contrast(1.35) brightness(1.08) saturate(1.08);
+      z-index: -3;
+      pointer-events: none;
+      background: var(--bg);
+    }
 
-.bg-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(7,13,26,0) 0%,
-    rgba(7,13,26,0.25) 60%,
-    rgba(7,13,26,0.6) 100%
-  );
-}
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 9, 20, 0.44);
+      z-index: -2;
+      pointer-events: none;
+    }
 
-/* CORNERS */
-.corner {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  opacity: 0.5;
-}
+    .bg-overlay::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center,
+          rgba(4, 9, 20, 0.02) 0%,
+          rgba(4, 9, 20, 0.18) 54%,
+          rgba(4, 9, 20, 0.52) 100%);
+    }
 
-.tl { top: 18px; left: 18px; border-top: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
-.tr { top: 18px; right: 18px; border-top: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
-.bl { bottom: 18px; left: 18px; border-bottom: 1px solid var(--gold-soft); border-left: 1px solid var(--gold-soft); }
-.br { bottom: 18px; right: 18px; border-bottom: 1px solid var(--gold-soft); border-right: 1px solid var(--gold-soft); }
+    /* Tap overlay only used if autoplay fails */
+    .video-activate {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(4, 9, 20, 0.18);
+      backdrop-filter: blur(1px);
+      -webkit-backdrop-filter: blur(1px);
+    }
 
-/* LAYOUT */
-.wrap {
-  text-align: center;
-  max-width: 600px;
-  width: 100%;
-}
+    .video-activate.active {
+      display: flex;
+    }
 
-/* TYPE */
-.eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.42em;
-  color: var(--gold);
-  margin-bottom: 2rem;
-}
+    .video-activate button {
+      border: 1px solid var(--gold);
+      background: rgba(4, 9, 20, 0.72);
+      color: var(--gold);
+      padding: 14px 24px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
 
-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: 46px;
-  letter-spacing: 0.12em;
-  color: var(--ivory);
-}
+    .corner {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      opacity: 0.5;
+      z-index: 3;
+      pointer-events: none;
+    }
 
-.sub {
-  font-size: 9px;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  margin: 0.5rem 0 2.5rem;
-}
+    .tl {
+      top: 18px;
+      left: 18px;
+      border-top: 1px solid var(--gold-soft);
+      border-left: 1px solid var(--gold-soft);
+    }
 
-.divider {
-  width: 50px;
-  height: 1px;
-  background: var(--gold-soft);
-  margin: 0 auto 2.5rem;
-}
+    .tr {
+      top: 18px;
+      right: 18px;
+      border-top: 1px solid var(--gold-soft);
+      border-right: 1px solid var(--gold-soft);
+    }
 
-.headline {
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  margin-bottom: 1rem;
-}
+    .bl {
+      bottom: 18px;
+      left: 18px;
+      border-bottom: 1px solid var(--gold-soft);
+      border-left: 1px solid var(--gold-soft);
+    }
 
-.body-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 20px;
-  color: var(--ivory-soft);
-  margin-bottom: 2.5rem;
-}
+    .br {
+      bottom: 18px;
+      right: 18px;
+      border-bottom: 1px solid var(--gold-soft);
+      border-right: 1px solid var(--gold-soft);
+    }
 
-/* INPUT */
-input {
-  width: 100%;
-  max-width: 360px;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--gold);
-  color: var(--ivory);
-  text-align: center;
-  padding: 12px 0;
-  letter-spacing: 0.18em;
-  outline: none;
-}
+    .wrap {
+      width: min(92vw, 640px);
+      text-align: center;
+      position: relative;
+      z-index: 5;
+      padding: 2rem 0;
+    }
 
-input::placeholder {
-  color: var(--muted);
-}
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.42em;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
 
-/* BUTTON */
-.btn {
-  margin-top: 1.2rem;
-  border: 1px solid var(--gold);
-  background: transparent;
-  color: var(--gold);
-  padding: 14px 42px;
-  letter-spacing: 0.4em;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: 46px;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      color: var(--ivory);
+    }
 
-.btn:hover {
-  background: var(--gold);
-  color: var(--bg);
-}
+    .sub {
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      margin: 0.55rem 0 2.45rem;
+    }
 
-/* REQUEST LINK (more presence) */
-.request-link {
-  margin-top: 2rem;
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  border-bottom: 1px solid var(--gold-soft);
-  padding-bottom: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: var(--gold-soft);
+      margin: 0 auto 2.45rem;
+    }
 
-.request-link:hover {
-  color: var(--ivory);
-  border-color: var(--gold);
-}
+    .headline {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      text-transform: none;
+    }
 
-/* SCREENS */
-.screen { display: none; }
-.screen.active { display: block; }
+    .body-text {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--ivory);
+      margin-bottom: 2.35rem;
+    }
 
-.success-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 22px;
-  color: var(--ivory-soft);
-}
-</style>
+    .form-block {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--gold);
+      color: var(--ivory);
+      text-align: center;
+      padding: 12px 0;
+      letter-spacing: 0.18em;
+      outline: none;
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+    }
+
+    input::placeholder {
+      color: var(--gold);
+      opacity: 0.78;
+    }
+
+    .btn {
+      margin-top: 1.6rem;
+      min-width: 230px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      padding: 15px 40px;
+      letter-spacing: 0.42em;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .btn:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .request-link {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold-soft);
+      padding-bottom: 6px;
+      cursor: pointer;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .request-link:hover {
+      color: var(--ivory);
+      border-color: var(--gold);
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .success-text {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--ivory-soft);
+    }
+
+    @media (max-width: 768px) {
+      .bg-video {
+        object-position: 50% 24%;
+        opacity: 0.58;
+        filter: contrast(1.45) brightness(1.16) saturate(1.12);
+      }
+
+      .bg-overlay {
+        background: rgba(4, 9, 20, 0.34);
+      }
+
+      .wrap {
+        width: min(84vw, 520px);
+        padding: 1rem 0 2rem;
+      }
+
+      .eyebrow {
+        font-size: 8px;
+        letter-spacing: 0.34em;
+        margin-bottom: 1.55rem;
+      }
+
+      h1 {
+        font-size: 42px;
+        letter-spacing: 0.1em;
+      }
+
+      .sub {
+        font-size: 8px;
+        margin: 0.65rem 0 2.2rem;
+      }
+
+      .divider {
+        margin-bottom: 2.2rem;
+      }
+
+      .headline {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        margin-bottom: 0.95rem;
+      }
+
+      .body-text {
+        font-size: 18px;
+        margin-bottom: 2.2rem;
+      }
+
+      input {
+        font-size: 11px;
+        padding: 14px 0 13px;
+      }
+
+      .btn {
+        width: 72%;
+        min-width: 0;
+        font-size: 10px;
+        padding: 15px 20px;
+        margin-top: 1.45rem;
+      }
+
+      .request-link {
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        margin-top: 1.85rem;
+      }
+
+      .corner {
+        width: 18px;
+        height: 18px;
+      }
+
+      .tl, .tr {
+        top: 14px;
+      }
+
+      .bl, .br {
+        bottom: 14px;
+      }
+
+      .tl, .bl {
+        left: 14px;
+      }
+
+      .tr, .br {
+        right: 14px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .bg-video {
+        object-position: 50% 22%;
+        opacity: 0.68;
+        filter: contrast(1.55) brightness(1.22) saturate(1.14);
+      }
+
+      .bg-overlay {
+        background: rgba(4, 9, 20, 0.26);
+      }
+
+      .wrap {
+        width: min(82vw, 420px);
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .body-text {
+        font-size: 17px;
+      }
+
+      .btn {
+        width: 78%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <video
+    class="bg-video"
+    id="bgVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline="true"
+    preload="auto"
+    disablepictureinpicture
+  >
+    <source src="oildrop.mp4" type="video/mp4" />
+  </video>
 
-<!-- VIDEO -->
-<video class="bg-video" autoplay muted loop playsinline>
-  <source src="oildrop.mp4" type="video/mp4">
-</video>
+  <div class="bg-overlay"></div>
 
-<div class="bg-overlay"></div>
+  <div class="video-activate" id="videoActivate">
+    <button id="videoActivateBtn">Tap to begin</button>
+  </div>
 
-<!-- CORNERS -->
-<div class="corner tl"></div>
-<div class="corner tr"></div>
-<div class="corner bl"></div>
-<div class="corner br"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
 
-<div class="wrap">
+  <div class="wrap">
+    <div class="eyebrow">Maison D'Vue</div>
+    <h1>HAIR ELIXIR</h1>
+    <div class="sub">30 ml</div>
+    <div class="divider"></div>
 
-  <div class="eyebrow">Maison D'Vue</div>
+    <div class="screen active" id="screen-password">
+      <div class="headline">Private access</div>
+      <div class="body-text">Enter your code to continue.</div>
 
-  <h1>HAIR ELIXIR</h1>
+      <div class="form-block">
+        <input id="code" placeholder="Enter your code" />
+      </div>
 
-  <div class="sub">30 ml</div>
+      <button class="btn" onclick="check()">Enter</button>
 
-  <div class="divider"></div>
-
-  <!-- SCREEN 1 -->
-  <div class="screen active" id="screen-password">
-
-    <div class="headline">Private access</div>
-    <div class="body-text">Enter your code to continue.</div>
-
-    <input id="code" placeholder="Enter your code">
-
-    <button class="btn" onclick="check()">Enter</button>
-
-    <div class="request-link" onclick="show('screen-request')">
-      Request an invitation
+      <div class="request-link" onclick="show('screen-request')">
+        Request an invitation
+      </div>
     </div>
 
-  </div>
+    <div class="screen" id="screen-request">
+      <div class="headline">Request an invitation</div>
+      <div class="body-text">Leave your details for consideration.</div>
 
-  <!-- SCREEN 2 -->
-  <div class="screen" id="screen-request">
+      <div class="form-block">
+        <input placeholder="Your name" />
+        <br /><br />
+        <input placeholder="Your email" />
+      </div>
 
-    <div class="headline">Request an invitation</div>
-    <div class="body-text">Leave your details for consideration.</div>
-
-    <input placeholder="Your name"><br>
-    <input placeholder="Your email"><br>
-
-    <button class="btn">Submit</button>
-
-  </div>
-
-  <!-- SUCCESS -->
-  <div class="screen" id="screen-success">
-
-    <div class="success-text">
-      Your request has been received.
+      <button class="btn">Submit</button>
     </div>
 
+    <div class="screen" id="screen-success">
+      <div class="success-text">
+        Your request has been received.
+      </div>
+    </div>
   </div>
 
-</div>
+  <script>
+    function show(id) {
+      document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
 
-<script>
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+    function check() {
+      if (document.getElementById("code").value === "WELCOME26") {
+        show("screen-success");
+      }
+    }
 
-function check(){
-  if(document.getElementById('code').value === "WELCOME26"){
-    show('screen-success');
-  }
-}
-</script>
+    const video = document.getElementById("bgVideo");
+    const activate = document.getElementById("videoActivate");
+    const activateBtn = document.getElementById("videoActivateBtn");
 
+    async function tryPlayVideo() {
+      if (!video) return false;
+      try {
+        video.muted = true;
+        video.defaultMuted = true;
+        video.setAttribute("muted", "");
+        video.setAttribute("playsinline", "");
+        video.setAttribute("autoplay", "");
+        await video.play();
+        activate.classList.remove("active");
+        return true;
+      } catch (err) {
+        activate.classList.add("active");
+        return false;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      tryPlayVideo();
+
+      setTimeout(() => {
+        if (video.paused) tryPlayVideo();
+      }, 400);
+
+      setTimeout(() => {
+        if (video.paused) tryPlayVideo();
+      }, 1200);
+    });
+
+    window.addEventListener("load", () => {
+      if (video.paused) tryPlayVideo();
+    });
+
+    document.addEventListener(
+      "touchstart",
+      () => {
+        if (video.paused) {
+          tryPlayVideo();
+        }
+      },
+      { passive: true, once: true }
+    );
+
+    document.addEventListener(
+      "click",
+      () => {
+        if (video.paused) {
+          tryPlayVideo();
+        }
+      },
+      { once: true }
+    );
+
+    activateBtn.addEventListener("click", async () => {
+      await tryPlayVideo();
+    });
+  </script>
 </body>
 </html>
