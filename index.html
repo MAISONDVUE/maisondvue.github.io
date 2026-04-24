@@ -1,664 +1,450 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Maison D'Vue — Hair Elixir</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #040914;
-      --gold: #c4a97a;
-      --gold-mid: rgba(196, 169, 122, 0.52);
-      --gold-faint: rgba(196, 169, 122, 0.18);
-      --ivory: #f0e8d8;
-      --ivory-soft: #cfc4ad;
-      --muted: #8b7a61;
-    }
+<meta charset="utf-8">
+<title>MAISON D'VUE &mdash; Hair Elixir</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Rare by origin. Refined by design. Hand-sealed in Beverly Hills.">
+<meta property="og:title" content="MAISON D'VUE">
+<meta property="og:description" content="Rare by origin. Refined by design.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+  :root {
+    --navy: #0B1F3A;             /* Pantone 2747C approximation */
+    --navy-deep: #070D22;
+    --gold: #C9A96E;             /* antique gold */
+    --gold-soft: #D9BE8B;
+    --cream: #F0E6D0;            /* parchment cream */
+    --cream-muted: rgba(240, 230, 208, 0.55);
+    --cream-dim: rgba(240, 230, 208, 0.75);
+  }
 
-    html, body {
-      height: 100%;
-      background: var(--bg);
-    }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: "Montserrat", sans-serif;
-      color: var(--ivory);
-      overflow: hidden;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      position: relative;
-      cursor: none;
-    }
+  html, body {
+    height: 100%;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'EB Garamond', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
 
-    /* ── Custom cursor ── */
-    .cursor {
-      position: fixed;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--gold);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      opacity: 0.65;
-      transition: opacity 0.3s ease;
-    }
+  /* Background video layer */
+  .video-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.35;
+  }
 
-    /* ── Film grain ── */
-    .grain {
-      position: fixed;
-      inset: -50%;
-      width: 200%;
-      height: 200%;
-      z-index: 2;
-      pointer-events: none;
-      opacity: 0.028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 180px 180px;
-      animation: grain 9s steps(1) infinite;
-    }
+  .video-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, rgba(11,31,58,0.4) 0%, rgba(7,13,34,0.85) 100%);
+    z-index: 1;
+  }
 
-    @keyframes grain {
-      0%   { transform: translate(0,    0);   }
-      11%  { transform: translate(-2%,  3%);  }
-      22%  { transform: translate(3%,  -1%);  }
-      33%  { transform: translate(-1%, -4%);  }
-      44%  { transform: translate(4%,   2%);  }
-      55%  { transform: translate(-3%,  1%);  }
-      66%  { transform: translate(2%,  -3%);  }
-      77%  { transform: translate(-4%,  4%);  }
-      88%  { transform: translate(1%,  -2%);  }
-      100% { transform: translate(0,    0);   }
-    }
+  /* Ornamental frame */
+  .frame {
+    position: fixed;
+    top: 20px; left: 20px; right: 20px; bottom: 20px;
+    border: 1px solid var(--gold);
+    box-shadow:
+      inset 0 0 0 4px var(--navy),
+      inset 0 0 0 5px rgba(201, 169, 110, 0.4);
+    z-index: 2;
+    pointer-events: none;
+  }
 
-    /* ── Video panel — right half on ALL screens ── */
-    .video-panel {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 50%;
-      overflow: hidden;
-      z-index: 0;
-      background: var(--bg); /* dark areas of video show navy, not black */
-    }
+  /* Main container */
+  .container {
+    position: relative;
+    z-index: 3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 40px 40px;
+  }
 
-    .bg-video {
-      position: absolute;
-      top: 0;
-      left: -60%;         /* drop sits at ~70% across the screen, clearly right */
-      width: 200%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 38%;
-      opacity: 0.92;
-      filter: contrast(1.4) brightness(1.12) saturate(1.08);
-    }
+  /* ─── Wordmark header ─── */
+  .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(18px, 2vw, 24px);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 8px;
+  }
 
-    /* Left-edge bleed */
-    .video-edge-fade {
-      position: absolute;
-      top: 0; left: 0;
-      width: 80px;
-      height: 100%;
-      background: linear-gradient(to right, var(--bg), transparent);
-      z-index: 1;
-      pointer-events: none;
-    }
+  .tagline {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(11px, 1vw, 13px);
+    letter-spacing: 0.08em;
+    color: var(--cream-dim);
+    text-align: center;
+    margin-top: 4px;
+  }
 
-    /* ── Overlay ── */
-    .bg-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      /* Base: uniform navy tint so both halves read the same tone */
-      background: rgba(4, 9, 20, 0.58);
-    }
+  /* ─── Rule element ─── */
+  .rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 24px auto;
+  }
 
-    /* Left side: heavier tint for text legibility */
-    .bg-overlay::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right,
-        rgba(4, 9, 20, 0.45) 0%,
-        rgba(4, 9, 20, 0.10) 48%,
-        transparent 60%);
-    }
+  .rule-double {
+    width: 60px;
+    height: 5px;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    margin: 32px auto;
+  }
 
-    /* Top + bottom vignette */
-    .bg-overlay::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom,
-        rgba(4, 9, 20, 0.35) 0%,
-        transparent 18%,
-        transparent 80%,
-        rgba(4, 9, 20, 0.45) 100%);
-    }
+  /* ─── Hero section ─── */
+  .hero {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+  }
 
-    /* ── Corner marks ── */
-    .corner {
-      position: fixed;
-      width: 24px;
-      height: 24px;
-      z-index: 4;
-      pointer-events: none;
-      opacity: 0;
-      animation: corner-in 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-    }
+  .volume {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 32px;
+  }
 
-    @keyframes corner-in {
-      to { opacity: 0.4; }
-    }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(44px, 7vw, 88px);
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    line-height: 1;
+    margin: 0;
+  }
 
-    .tl { top: 20px; left: 20px;     border-top: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
-    .tr { top: 20px; right: 20px;    border-top: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
-    .bl { bottom: 20px; left: 20px;  border-bottom: 1px solid var(--gold-mid); border-left:  1px solid var(--gold-mid); }
-    .br { bottom: 20px; right: 20px; border-bottom: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
+  .vue-blend {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(11px, 1vw, 13px);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 32px;
+  }
 
-    /* ── Content wrap ── */
-    .wrap {
-      width: min(88vw, 480px);
-      text-align: center;
-      position: relative;
-      z-index: 5;
-      padding: 13vh 0 2rem;
-    }
+  .volume-size {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-top: 12px;
+  }
 
-    /* ── Staggered entrance ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fade-up 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
+  /* ─── Access section ─── */
+  .access {
+    text-align: center;
+    max-width: 440px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
-    @keyframes fade-up {
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .access-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
 
-    .r1 { animation-delay: 0.15s; }
-    .r2 { animation-delay: 0.4s;  }
-    .r3 { animation-delay: 0.65s; }
-    .r4 { animation-delay: 1.05s; }
-    .r5 { animation-delay: 1.25s; }
-    .r6 { animation-delay: 1.45s; }
+  .access-instruction {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--cream-dim);
+    margin-bottom: 20px;
+  }
 
-    /* ── Typography ── */
-    .eyebrow {
-      font-size: 8.5px;
-      letter-spacing: 0.44em;
-      color: var(--gold);
-      margin-bottom: 1.6rem;
-      text-transform: uppercase;
-    }
+  .input {
+    width: 100%;
+    padding: 14px 16px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    outline: none;
+    border-radius: 2px;
+    text-align: center;
+    transition: border-color 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
 
-    h1 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 300;
-      font-size: 36px;
-      line-height: 1;
-      letter-spacing: 0.12em;
-      color: var(--ivory);
-    }
+  .input:focus {
+    border-color: var(--gold-soft);
+  }
 
-    .sub {
-      font-size: 8px;
-      letter-spacing: 0.38em;
-      color: var(--gold);
-      margin: 0.7rem 0 2.4rem;
-      opacity: 0.78;
-    }
+  .input::placeholder {
+    color: rgba(240, 230, 208, 0.35);
+  }
 
-    /* ── Animated divider ── */
-    .divider {
-      height: 1px;
-      width: 0;
-      background: linear-gradient(to right, transparent, var(--gold-mid), transparent);
-      margin: 0 auto 2.4rem;
-      animation: divider-grow 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-    }
+  .btn {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 14px 32px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
 
-    @keyframes divider-grow {
-      to { width: 58px; }
-    }
+  .btn:hover {
+    background: var(--gold-soft);
+    border-color: var(--gold-soft);
+  }
 
-    /* ── Screen system ── */
-    .screen {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-      position: absolute;
-      left: 0; right: 0;
-    }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gold);
+  }
 
-    .screen.active {
-      opacity: 1;
-      pointer-events: auto;
-      position: relative;
-    }
+  .btn-ghost:hover {
+    background: rgba(201, 169, 110, 0.1);
+    color: var(--gold-soft);
+  }
 
-    .headline {
-      font-size: 9px;
-      letter-spacing: 0.38em;
-      color: var(--gold);
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
+  .link-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 24px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 240ms;
+  }
 
-    .body-text {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 18px;
-      color: var(--ivory);
-      line-height: 1.55;
-      margin-bottom: 2.4rem;
-      opacity: 0.88;
-    }
+  .link-text:hover {
+    border-bottom-color: var(--gold);
+  }
 
-    /* ── Form ── */
-    .form-block {
-      width: 100%;
-    }
+  .error-msg {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--gold-soft);
+    margin-top: 12px;
+    opacity: 0;
+    transition: opacity 240ms;
+  }
 
-    .field-wrap {
-      position: relative;
-      margin-bottom: 1.6rem;
-    }
+  .error-msg.visible { opacity: 1; }
 
-    input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--gold-mid);
-      color: var(--ivory);
-      text-align: center;
-      padding: 14px 0 13px;
-      letter-spacing: 0.22em;
-      outline: none;
-      font-family: "Montserrat", sans-serif;
-      font-size: 16px; /* iOS: prevents auto-zoom on focus */
-      touch-action: manipulation;
-      cursor: none;
-    }
+  /* ─── Footer ─── */
+  .footer {
+    text-align: center;
+    padding-top: 40px;
+  }
 
-    input::placeholder {
-      color: var(--gold);
-      opacity: 0.55;
-      letter-spacing: 0.26em;
-    }
+  .footer-social {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
 
-    .field-line {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-    }
+  .footer-social a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 240ms;
+  }
 
-    input:focus ~ .field-line {
-      width: 100%;
-    }
+  .footer-social a:hover {
+    color: var(--gold-soft);
+  }
 
-    /* ── Error / nudge ── */
-    .error-msg {
-      font-size: 7.5px;
-      letter-spacing: 0.24em;
-      color: rgba(196, 169, 122, 0.6);
-      margin-top: 0.7rem;
-      opacity: 0;
-      transition: opacity 0.45s ease;
-      text-transform: uppercase;
-      line-height: 1.9;
-    }
+  .footer-provenance {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+  }
 
-    .error-msg.visible {
-      opacity: 1;
-    }
+  /* ─── Panel switching ─── */
+  .panel { display: none; }
+  .panel.active { display: block; }
 
-    .error-invite {
-      display: inline-block;
-      margin-top: 0.25rem;
-      font-size: 7.5px;
-      letter-spacing: 0.24em;
-      color: var(--gold);
-      border-bottom: 1px solid var(--gold-faint);
-      padding-bottom: 2px;
-      cursor: none;
-      text-transform: uppercase;
-      transition: color 0.35s ease, border-color 0.35s ease;
-    }
+  /* ─── Responsive adjustments ─── */
+  @media (max-width: 640px) {
+    .container { padding: 40px 24px 24px; }
+    .frame { top: 12px; left: 12px; right: 12px; bottom: 12px; }
+    .product-name { letter-spacing: 0.06em; }
+  }
 
-    .error-invite:hover {
-      color: var(--ivory-soft);
-      border-color: var(--gold-mid);
-    }
+  /* ─── Fade-in on load ─── */
+  .fade-in {
+    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
 
-    /* ── Button ── */
-    .btn {
-      display: inline-block;
-      min-width: 200px;
-      margin-top: 1.6rem;
-      border: 1px solid var(--gold-mid);
-      background: transparent;
-      color: var(--gold);
-      padding: 15px 40px;
-      letter-spacing: 0.4em;
-      font-family: "Montserrat", sans-serif;
-      font-size: 9px;
-      text-transform: uppercase;
-      cursor: none;
-      transition:
-        background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        color      0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.5s ease,
-        box-shadow   0.5s ease;
-    }
-
-    .btn:hover {
-      background: var(--gold);
-      color: var(--bg);
-      border-color: var(--gold);
-      box-shadow: 0 0 32px rgba(196, 169, 122, 0.16);
-    }
-
-    /* ── Request link ── */
-    .request-link {
-      display: inline-block;
-      margin-top: 2rem;
-      font-size: 8.5px;
-      letter-spacing: 0.3em;
-      color: var(--muted);
-      border-bottom: 1px solid rgba(139, 122, 97, 0.3);
-      padding-bottom: 5px;
-      cursor: none;
-      text-transform: uppercase;
-      transition: color 0.4s ease, border-color 0.4s ease;
-    }
-
-    .request-link:hover {
-      color: var(--ivory-soft);
-      border-color: var(--gold-mid);
-    }
-
-    /* ── Success ── */
-    .success-wrap { padding: 0.5rem 0; }
-
-    .success-eyebrow {
-      font-size: 8px;
-      letter-spacing: 0.44em;
-      color: var(--gold);
-      margin-bottom: 1.4rem;
-      text-transform: uppercase;
-      opacity: 0.75;
-    }
-
-    .success-text {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 21px;
-      color: var(--ivory);
-      line-height: 1.65;
-      opacity: 0.9;
-    }
-
-    .success-rule {
-      width: 28px;
-      height: 1px;
-      background: var(--gold-mid);
-      margin: 1.8rem auto 0;
-    }
-
-    /* ════════════════════════════════
-       MOBILE
-    ════════════════════════════════ */
-    @media (max-width: 768px) {
-      body {
-        align-items: center;
-        overflow-y: auto;       /* allow scroll if needed, never clips content */
-      }
-      .wrap {
-        padding: 2.5rem 0 3rem;
-      }
-      /* Tighter spacing so everything fits without scrolling */
-      .eyebrow        { margin-bottom: 1rem; }
-      .sub            { margin: 0.4rem 0 1.4rem; }
-      .divider        { margin-bottom: 1.4rem; }
-      .body-text      { font-size: 16px; margin-bottom: 1.4rem; }
-      .field-wrap     { margin-bottom: 1rem; }
-      .btn            { margin-top: 1.1rem; min-width: 180px; padding: 13px 32px; }
-      .request-link   { margin-top: 1.2rem; }
-      .bg-video {
-        left: -100%;
-        object-position: center 52%;
-      }
-    }
-
-    /* ════════════════════════════════
-       DESKTOP
-    ════════════════════════════════ */
-    @media (min-width: 769px) {
-
-      .wrap {
-        width: min(92vw, 560px);
-        padding: 11vh 0 2rem;
-      }
-
-      /* video panel, video + overlay all handled globally */
-
-      .eyebrow {
-        font-size: 10px;
-        letter-spacing: 0.5em;
-        margin-bottom: 2rem;
-      }
-
-      h1 {
-        font-size: 52px;
-        letter-spacing: 0.14em;
-      }
-
-      .sub {
-        font-size: 9px;
-        margin: 0.6rem 0 2.6rem;
-      }
-
-      .headline {
-        font-size: 10px;
-        letter-spacing: 0.44em;
-        margin-bottom: 1.1rem;
-      }
-
-      .body-text {
-        font-size: 21px;
-        margin-bottom: 2.5rem;
-      }
-
-      .form-block {
-        max-width: 400px;
-        margin: 0 auto;
-      }
-
-      input {
-        font-size: 11px;
-        padding: 14px 0;
-      }
-
-      .btn {
-        min-width: 240px;
-        font-size: 10px;
-        padding: 16px 52px;
-        margin-top: 1.8rem;
-      }
-
-      .request-link {
-        font-size: 9px;
-        letter-spacing: 0.36em;
-        margin-top: 2.2rem;
-      }
-
-      .success-text { font-size: 24px; }
-    }
-  </style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 </head>
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="grain"></div>
+<!-- Background video (replace src with your oil drop video) -->
+<video class="video-bg" autoplay muted loop playsinline>
+  <source src="oildrop.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
 
-  <!-- Video panel -->
-  <div class="video-panel">
-    <div class="video-edge-fade"></div>
-    <video
-      class="bg-video"
-      id="bgVideo"
-      autoplay muted loop playsinline
-      webkit-playsinline="true"
-      preload="auto"
-      disablepictureinpicture
-    >
-      <source src="oildrop.mp4" type="video/mp4" />
-    </video>
-  </div>
+<!-- Ornamental frame -->
+<div class="frame"></div>
 
-  <div class="bg-overlay"></div>
+<!-- Main content -->
+<div class="container fade-in">
 
-  <div class="corner tl"></div>
-  <div class="corner tr"></div>
-  <div class="corner bl"></div>
-  <div class="corner br"></div>
+  <!-- Top: Wordmark -->
+  <header>
+    <div class="wordmark">Maison d&rsquo;Vue</div>
+    <div class="tagline">Rare by origin. Refined by design.</div>
+  </header>
 
-  <div class="wrap">
-    <div class="eyebrow reveal r1">Maison D'Vue</div>
-    <h1 class="reveal r2">HAIR ELIXIR</h1>
-    <div class="sub reveal r3">30 ml</div>
-    <div class="divider"></div>
+  <!-- Middle: Hero + Access -->
+  <main class="hero">
+    <div class="volume">Volume I</div>
+    <h1 class="product-name">Hair Elixir</h1>
+    <div class="vue-blend">Vue 14&trade; &middot; Fourteen Cold-Pressed Oils</div>
+    <div class="volume-size">30 ML</div>
 
-    <!-- Password screen -->
-    <div class="screen active" id="screen-password">
-      <div class="headline reveal r4">Private access</div>
-      <div class="body-text reveal r5">Enter your code.</div>
-      <div class="form-block reveal r6">
-        <div class="field-wrap">
-          <input id="code" placeholder="Enter your code" autocomplete="off" spellcheck="false" />
-          <div class="field-line"></div>
+    <div class="rule-double"></div>
+
+    <!-- Access panel (default visible) -->
+    <section class="access panel active" id="panel-access">
+      <div class="access-label">Private Access</div>
+      <div class="access-instruction">Enter your code.</div>
+      <form id="access-form" onsubmit="return handleAccess(event)">
+        <input type="text" class="input" id="access-code" placeholder="Code" autocomplete="off" required>
+        <div>
+          <button type="submit" class="btn">Enter</button>
         </div>
-        <div class="error-msg" id="error-msg">That code isn't recognised.</div>
+        <div class="error-msg" id="access-error">That code isn&rsquo;t recognised.</div>
+      </form>
+      <a class="link-text" onclick="showPanel('invite')">Seek an invitation</a>
+    </section>
+
+    <!-- Invitation request panel -->
+    <section class="access panel" id="panel-invite">
+      <div class="access-label">Seek an Invitation</div>
+      <div class="access-instruction">Leave your details for consideration.</div>
+      <form id="invite-form" onsubmit="return handleInvite(event)">
+        <input type="email" class="input" id="invite-email" placeholder="Your email" autocomplete="email" required style="margin-bottom: 12px;">
+        <input type="text" class="input" id="invite-name" placeholder="Your name" autocomplete="name" required>
+        <div>
+          <button type="submit" class="btn">Submit</button>
+        </div>
+      </form>
+      <a class="link-text" onclick="showPanel('access')">Return</a>
+    </section>
+
+    <!-- Confirmation panel -->
+    <section class="access panel" id="panel-thanks">
+      <div class="access-label">Thank You</div>
+      <div class="access-instruction" style="font-size: 16px;">
+        Your request has been received.<br>We will be in touch.
       </div>
-      <button class="btn" onclick="check()">Enter</button>
-      <br />
-      <span class="request-link" onclick="show('screen-request')">Request an invitation</span>
+      <div class="rule" style="margin-top: 32px;"></div>
+    </section>
+  </main>
+
+  <!-- Bottom: Footer -->
+  <footer class="footer">
+    <div class="footer-social">
+      <a href="https://instagram.com/maisondvue" target="_blank" rel="noopener">@maisondvue</a>
     </div>
+    <div class="footer-provenance">Hand-sealed &middot; Beverly Hills</div>
+  </footer>
 
-    <!-- Request screen -->
-    <div class="screen" id="screen-request">
-      <div class="headline">Seek an invitation</div>
-      <div class="body-text">Leave your details for consideration.</div>
-      <div class="form-block">
-        <div class="field-wrap">
-          <input id="req-name" placeholder="Your name" autocomplete="off" />
-          <div class="field-line"></div>
-        </div>
-        <div class="field-wrap">
-          <input id="req-email" placeholder="Your email" type="email" autocomplete="off" />
-          <div class="field-line"></div>
-        </div>
-      </div>
-      <button class="btn" onclick="submitRequest()">Submit</button>
-      <br />
-      <span class="request-link" onclick="show('screen-password')">Return</span>
-    </div>
+</div>
 
-    <!-- Success screen -->
-    <div class="screen" id="screen-success">
-      <div class="success-wrap">
-        <div class="success-eyebrow">Thank you</div>
-        <div class="success-text">
-          Your request has been received.<br>We will be in touch.
-        </div>
-        <div class="success-rule"></div>
-      </div>
-    </div>
-  </div>
+<script>
+  const WELCOME_CODE = 'WELCOME26'; // Current invitation code
 
-  <script>
-    // Custom cursor
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY  + 'px';
-    });
-    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-    document.addEventListener('mouseenter', () => cursor.style.opacity = '0.65');
+  function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.getElementById('access-error').classList.remove('visible');
+  }
 
-    // Screen transitions
-    function show(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        document.getElementById(id).classList.add('active');
-      }));
+  function handleAccess(e) {
+    e.preventDefault();
+    const code = document.getElementById('access-code').value.trim().toUpperCase();
+    if (code === WELCOME_CODE) {
+      // Redirect to product page when access is granted
+      window.location.href = 'product.html';
+    } else {
+      document.getElementById('access-error').classList.add('visible');
     }
+    return false;
+  }
 
-    // Password check
-    function check() {
-      const val = document.getElementById('code').value.trim().toUpperCase();
-      const err = document.getElementById('error-msg');
-      if (val === 'WELCOME26') {
-        err.classList.remove('visible');
-        window.location.href = 'https://maisondvue.github.io/product.html';
-      } else {
-        err.classList.add('visible');
-        document.getElementById('code').value = '';
-      }
-    }
+  function handleInvite(e) {
+    e.preventDefault();
+    const email = document.getElementById('invite-email').value.trim();
+    const name = document.getElementById('invite-name').value.trim();
 
-    // Request submission
-    function submitRequest() {
-      const name  = document.getElementById('req-name').value.trim();
-      const email = document.getElementById('req-email').value.trim();
-      if (name && email) show('screen-success');
-    }
+    // Replace this URL with your Google Apps Script endpoint
+    const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
-    // Enter key
-    document.getElementById('code').addEventListener('keydown', e => {
-      if (e.key === 'Enter') check();
-    });
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name, timestamp: new Date().toISOString() })
+    }).catch(() => { /* silent fail; no-cors doesn't give feedback */ });
 
-    // Video playback
-    const video = document.getElementById('bgVideo');
-    async function tryPlayVideo() {
-      if (!video) return;
-      try {
-        video.muted = true;
-        video.defaultMuted = true;
-        video.setAttribute('muted', '');
-        video.setAttribute('playsinline', '');
-        await video.play();
-      } catch(e) {}
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      tryPlayVideo();
-      setTimeout(tryPlayVideo, 400);
-      setTimeout(tryPlayVideo, 1200);
-    });
-    window.addEventListener('load', tryPlayVideo);
-    const firstPlay = () => { if (video?.paused) tryPlayVideo(); };
-    document.addEventListener('touchstart', firstPlay, { passive: true });
-    document.addEventListener('click', firstPlay);
-  </script>
+    showPanel('thanks');
+    return false;
+  }
+</script>
+
 </body>
 </html>
