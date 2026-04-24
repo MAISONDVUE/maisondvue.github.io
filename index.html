@@ -15,12 +15,12 @@
 
 <style>
   :root {
-    --navy: #0B1F3A;             /* Pantone 2747C approximation */
+    --navy: #0B1F3A;
     --navy-deep: #070D22;
-    --navy-center: #122749;      /* slightly lighter center for vignette */
-    --gold: #C9A96E;             /* antique gold */
+    --navy-center: #122749;
+    --gold: #C9A96E;
     --gold-soft: #D9BE8B;
-    --cream: #F0E6D0;            /* parchment cream */
+    --cream: #F0E6D0;
     --cream-muted: rgba(240, 230, 208, 0.55);
     --cream-dim: rgba(240, 230, 208, 0.75);
   }
@@ -28,8 +28,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
-    min-height: 100vh;
-    min-height: 100dvh;
     background: var(--navy-deep);
     color: var(--cream);
     font-family: 'EB Garamond', Georgia, serif;
@@ -38,48 +36,36 @@
     overflow-x: hidden;
   }
 
-  /* ─── Subtle radial vignette background ─── */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: radial-gradient(
-      ellipse at center,
-      var(--navy-center) 0%,
-      var(--navy) 45%,
-      var(--navy-deep) 100%
-    );
-    z-index: 0;
-    pointer-events: none;
+  /* Subtle radial vignette fills the entire document background */
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(
+        ellipse at center,
+        var(--navy-center) 0%,
+        var(--navy) 45%,
+        var(--navy-deep) 100%
+      );
+    background-attachment: fixed;
+    padding: 20px;
   }
 
-  /* ─── Ornamental frame ─── */
+  /* ─── Ornamental frame wraps the content as a normal block element ─── */
+  /* Because it's in normal flow, it naturally sizes to content length */
+  /* and scrolls with the page — no viewport math, no Instagram issues */
   .frame {
-    position: fixed;
-    top: calc(20px + env(safe-area-inset-top));
-    left: 20px;
-    right: 20px;
-    bottom: calc(40px + env(safe-area-inset-bottom));
     border: 1px solid var(--gold);
     box-shadow:
       inset 0 0 0 4px var(--navy),
       inset 0 0 0 5px rgba(201, 169, 110, 0.4);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* ─── Main container ─── */
-  .container {
-    position: relative;
-    z-index: 3;
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: calc(100vh - 40px);
+    min-height: calc(100dvh - 40px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: calc(60px + env(safe-area-inset-top)) 40px calc(80px + env(safe-area-inset-bottom));
+    padding: 60px 40px;
+    position: relative;
   }
 
   /* ─── Wordmark header ─── */
@@ -129,6 +115,7 @@
     justify-content: center;
     align-items: center;
     padding: 40px 0;
+    width: 100%;
   }
 
   .volume {
@@ -158,16 +145,6 @@
     letter-spacing: 0.04em;
     color: var(--cream-dim);
     margin-top: 28px;
-  }
-
-  .vue-blend {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: clamp(11px, 1vw, 13px);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-top: 32px;
   }
 
   .volume-size {
@@ -274,6 +251,7 @@
   .footer {
     text-align: center;
     padding-top: 40px;
+    width: 100%;
   }
 
   .footer-social {
@@ -307,12 +285,11 @@
 
   /* ─── Responsive adjustments ─── */
   @media (max-width: 640px) {
-    .container { padding: calc(40px + env(safe-area-inset-top)) 24px calc(64px + env(safe-area-inset-bottom)); }
+    body { padding: 12px; }
     .frame {
-      top: calc(12px + env(safe-area-inset-top));
-      left: 12px;
-      right: 12px;
-      bottom: calc(40px + env(safe-area-inset-bottom));
+      min-height: calc(100vh - 24px);
+      min-height: calc(100dvh - 24px);
+      padding: 40px 24px;
     }
     .product-name { letter-spacing: 0.14em; }
   }
@@ -330,11 +307,8 @@
 </head>
 <body>
 
-<!-- Ornamental frame -->
-<div class="frame"></div>
-
-<!-- Main content -->
-<div class="container fade-in">
+<!-- Frame now wraps content as a natural flow element -->
+<div class="frame fade-in">
 
   <!-- Top: Wordmark -->
   <header>
