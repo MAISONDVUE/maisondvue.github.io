@@ -88,9 +88,19 @@
     max-width: var(--page);
     margin: 0 auto;
     padding: 0 40px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .nav-logo {
@@ -101,12 +111,6 @@
     text-transform: uppercase;
     color: var(--cream);
     white-space: nowrap;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
   }
 
   .nav-links a,
@@ -1110,15 +1114,15 @@
 <body>
 
 <nav>
+  <ul class="nav-links">
+    <li><a href="#formulation">The Formula</a></li>
+    <li><a href="#ritual">The Ritual</a></li>
+    <li><a href="#origins">Origins</a></li>
+    <li><a href="#reserve">Reserve</a></li>
+  </ul>
+
   <div class="nav-inner">
     <a href="#top" class="nav-logo">MAISON D&rsquo;VUE</a>
-
-    <ul class="nav-links">
-      <li><a href="#formulation">The Formula</a></li>
-      <li><a href="#ritual">The Ritual</a></li>
-      <li><a href="#origins">Origins</a></li>
-      <li><a href="#reserve">Reserve</a></li>
-    </ul>
 
     <div class="nav-right">
       <a href="#reserve" class="nav-reserve">Reserve</a>
