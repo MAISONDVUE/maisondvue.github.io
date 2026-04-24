@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Navy background -->
+  <rect width="64" height="64" fill="#0B1F3A"/>
+
+  <!-- Refined serif M -->
+  <g fill="#C9A96E">
+    <!-- Main M shape with classical serifs -->
+    <path d="M 12 18
+             L 12 47
+             L 16 47
+             L 16 24
+             L 30 47
+             L 32 47
+             L 46 24
+             L 46 47
+             L 50 47
+             L 50 18
+             L 44 18
+             L 31 39
+             L 18 18
+             Z"/>
+    <!-- Top serifs -->
+    <rect x="10" y="17" width="8" height="2"/>
+    <rect x="44" y="17" width="8" height="2"/>
+    <!-- Bottom serifs -->
+    <rect x="10" y="46" width="8" height="2"/>
+    <rect x="44" y="46" width="8" height="2"/>
+  </g>
+</svg>
