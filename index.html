@@ -77,7 +77,7 @@
     text-transform: uppercase;
     color: var(--gold);
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
   }
 
   .tagline {
@@ -87,7 +87,7 @@
     letter-spacing: 0.08em;
     color: var(--cream-dim);
     text-align: center;
-    margin-top: 4px;
+    margin-top: 0;
   }
 
   /* ─── Rule element ─── */
@@ -103,7 +103,7 @@
     height: 5px;
     border-top: 1px solid var(--gold);
     border-bottom: 1px solid var(--gold);
-    margin: 32px auto;
+    margin: 56px auto 48px;
   }
 
   /* ─── Hero section ─── */
@@ -124,7 +124,7 @@
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--gold-soft);
-    margin-bottom: 32px;
+    margin-bottom: 56px;
   }
 
   .product-name {
@@ -144,7 +144,7 @@
     font-size: clamp(14px, 1.4vw, 18px);
     letter-spacing: 0.04em;
     color: var(--cream-dim);
-    margin-top: 28px;
+    margin-top: 48px;
   }
 
   .volume-size {
@@ -153,7 +153,7 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-top: 20px;
+    margin-top: 36px;
   }
 
   /* ─── Access section ─── */
@@ -170,7 +170,7 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   .access-instruction {
@@ -178,14 +178,14 @@
     font-style: italic;
     font-size: 14px;
     color: var(--cream-dim);
-    margin-bottom: 20px;
+    margin-bottom: 32px;
   }
 
   .input {
     width: 100%;
-    padding: 14px 16px;
+    padding: 18px 20px;
     background: transparent;
-    border: 1px solid var(--gold);
+    border: 1px solid rgba(201, 169, 110, 0.55);
     color: var(--cream);
     font-family: 'EB Garamond', serif;
     font-size: 15px;
@@ -194,24 +194,25 @@
     border-radius: 2px;
     text-align: center;
     transition: border-color 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    letter-spacing: 0.04em;
   }
 
-  .input:focus { border-color: var(--gold-soft); }
-  .input::placeholder { color: rgba(240, 230, 208, 0.35); }
+  .input:focus { border-color: var(--gold); }
+  .input::placeholder { color: rgba(240, 230, 208, 0.3); letter-spacing: 0.12em; text-transform: uppercase; font-style: normal; font-size: 11px; }
 
   .btn {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
     font-size: 11px;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--navy);
     background: var(--gold);
     border: 1px solid var(--gold);
-    padding: 14px 32px;
+    padding: 16px 36px;
     border-radius: 2px;
     cursor: pointer;
-    margin-top: 16px;
+    margin-top: 24px;
     transition: all 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
@@ -294,9 +295,58 @@
     .product-name { letter-spacing: 0.14em; }
   }
 
-  /* ─── Fade-in on load ─── */
+  /* ─── Fade-in animations with staggered delays ─── */
   .fade-in {
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
+
+  .fade-wordmark {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
+
+  .fade-tagline-1 {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 700ms forwards;
+  }
+
+  .fade-tagline-2 {
+    opacity: 0;
+    display: inline-block;
+    margin-left: 4px;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 1400ms forwards;
+  }
+
+  .fade-hero-1 {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 1800ms forwards;
+  }
+
+  .fade-hero-2 {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 2100ms forwards;
+  }
+
+  .fade-hero-3 {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 2500ms forwards;
+  }
+
+  .fade-hero-4 {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 2800ms forwards;
+  }
+
+  .fade-access {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 3200ms forwards;
+  }
+
+  .fade-footer {
+    opacity: 0;
+    animation: fadeIn 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) 3600ms forwards;
   }
 
   @keyframes fadeIn {
@@ -308,31 +358,34 @@
 <body>
 
 <!-- Frame now wraps content as a natural flow element -->
-<div class="frame fade-in">
+<div class="frame">
 
   <!-- Top: Wordmark -->
   <header>
-    <div class="wordmark">Maison d&rsquo;Vue</div>
-    <div class="tagline">Rare by origin. Refined by design.</div>
+    <div class="wordmark fade-wordmark">Maison d&rsquo;Vue</div>
+    <div class="tagline">
+      <span class="fade-tagline-1">Rare by origin.</span>
+      <span class="fade-tagline-2">Refined by design.</span>
+    </div>
   </header>
 
   <!-- Middle: Hero + Access -->
   <main class="hero">
-    <div class="volume">Volume I</div>
-    <h1 class="product-name">Hair Elixir</h1>
-    <div class="elixir-line">An elixir of fourteen essences.</div>
-    <div class="volume-size">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML</div>
+    <div class="volume fade-hero-1">Volume I</div>
+    <h1 class="product-name fade-hero-2">Hair Elixir</h1>
+    <div class="elixir-line fade-hero-3">An elixir of fourteen essences.</div>
+    <div class="volume-size fade-hero-4">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML</div>
 
-    <div class="rule-double"></div>
+    <div class="rule-double fade-access"></div>
 
     <!-- Access panel (default visible) -->
-    <section class="access panel active" id="panel-access">
+    <section class="access panel active fade-access" id="panel-access">
       <div class="access-label">Private Access</div>
       <div class="access-instruction">Enter your code.</div>
       <form id="access-form" onsubmit="return handleAccess(event)">
         <input type="text" class="input" id="access-code" placeholder="Code" autocomplete="off" required>
         <div>
-          <button type="submit" class="btn">Enter</button>
+          <button type="submit" class="btn">Proceed</button>
         </div>
         <div class="error-msg" id="access-error">That code isn&rsquo;t recognised.</div>
       </form>
@@ -347,7 +400,7 @@
         <input type="email" class="input" id="invite-email" placeholder="Your email" autocomplete="email" required style="margin-bottom: 12px;">
         <input type="text" class="input" id="invite-name" placeholder="Your name" autocomplete="name" required>
         <div>
-          <button type="submit" class="btn">Submit</button>
+          <button type="submit" class="btn">Request</button>
         </div>
       </form>
       <a class="link-text" onclick="showPanel('access')">Return</a>
@@ -364,7 +417,7 @@
   </main>
 
   <!-- Bottom: Footer -->
-  <footer class="footer">
+  <footer class="footer fade-footer">
     <div class="footer-social">
       <a href="https://instagram.com/maisondvue" target="_blank" rel="noopener">@maisondvue</a>
     </div>
