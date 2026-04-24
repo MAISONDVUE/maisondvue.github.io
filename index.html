@@ -60,7 +60,7 @@
     top: calc(20px + env(safe-area-inset-top));
     left: 20px;
     right: 20px;
-    bottom: calc(20px + env(safe-area-inset-bottom));
+    bottom: calc(40px + env(safe-area-inset-bottom));
     border: 1px solid var(--gold);
     box-shadow:
       inset 0 0 0 4px var(--navy),
@@ -79,7 +79,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: calc(60px + env(safe-area-inset-top)) 40px calc(40px + env(safe-area-inset-bottom));
+    padding: calc(60px + env(safe-area-inset-top)) 40px calc(80px + env(safe-area-inset-bottom));
   }
 
   /* ─── Wordmark header ─── */
@@ -307,12 +307,12 @@
 
   /* ─── Responsive adjustments ─── */
   @media (max-width: 640px) {
-    .container { padding: calc(40px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom)); }
+    .container { padding: calc(40px + env(safe-area-inset-top)) 24px calc(64px + env(safe-area-inset-bottom)); }
     .frame {
       top: calc(12px + env(safe-area-inset-top));
       left: 12px;
       right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
+      bottom: calc(40px + env(safe-area-inset-bottom));
     }
     .product-name { letter-spacing: 0.14em; }
   }
