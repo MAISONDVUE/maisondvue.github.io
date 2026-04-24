@@ -15,11 +15,12 @@
 
 <style>
   :root {
-    --navy: #0B1F3A;
+    --navy: #0B1F3A;             /* Pantone 2747C approximation */
     --navy-deep: #070D22;
-    --gold: #C9A96E;
+    --navy-center: #122749;      /* slightly lighter center for vignette */
+    --gold: #C9A96E;             /* antique gold */
     --gold-soft: #D9BE8B;
-    --cream: #F0E6D0;
+    --cream: #F0E6D0;            /* parchment cream */
     --cream-muted: rgba(240, 230, 208, 0.55);
     --cream-dim: rgba(240, 230, 208, 0.75);
   }
@@ -27,8 +28,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
-    height: 100%;
-    background: var(--navy);
+    min-height: 100%;
+    background: var(--navy-deep);
     color: var(--cream);
     font-family: 'EB Garamond', Georgia, serif;
     -webkit-font-smoothing: antialiased;
@@ -36,35 +37,19 @@
     overflow-x: hidden;
   }
 
-  /* ─── Background video layer ─── */
-  .video-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    opacity: 0.35;
-    pointer-events: none;
-  }
-
-  /* Hide any native video controls on mobile */
-  .video-bg::-webkit-media-controls,
-  .video-bg::-webkit-media-controls-panel,
-  .video-bg::-webkit-media-controls-start-playback-button,
-  .video-bg::-webkit-media-controls-play-button,
-  .video-bg::-webkit-media-controls-overlay-play-button {
-    display: none !important;
-    -webkit-appearance: none !important;
-    opacity: 0 !important;
-  }
-
-  .video-overlay {
+  /* ─── Subtle radial vignette background ─── */
+  body::before {
+    content: "";
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: radial-gradient(ellipse at center, rgba(11,31,58,0.4) 0%, rgba(7,13,34,0.85) 100%);
-    z-index: 1;
+    background: radial-gradient(
+      ellipse at center,
+      var(--navy-center) 0%,
+      var(--navy) 45%,
+      var(--navy-deep) 100%
+    );
+    z-index: 0;
     pointer-events: none;
   }
 
@@ -76,7 +61,7 @@
     box-shadow:
       inset 0 0 0 4px var(--navy),
       inset 0 0 0 5px rgba(201, 169, 110, 0.4);
-    z-index: 2;
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -326,25 +311,6 @@
 </head>
 <body>
 
-<!-- Background video with bulletproof autoplay attributes for iOS Safari, Chrome mobile, and Instagram in-app browser -->
-<video
-  class="video-bg"
-  id="bg-video"
-  autoplay
-  muted
-  loop
-  playsinline
-  webkit-playsinline
-  preload="auto"
-  disablepictureinpicture
-  disableremoteplayback
-  x5-playsinline
-  x5-video-player-type="h5"
-  x5-video-player-fullscreen="false">
-  <source src="oildrop.mp4" type="video/mp4">
-</video>
-<div class="video-overlay"></div>
-
 <!-- Ornamental frame -->
 <div class="frame"></div>
 
@@ -417,43 +383,6 @@
 <script>
   const WELCOME_CODE = 'WELCOME26';
 
-  // ─── Force video autoplay on mobile ───
-  (function forceVideoPlay() {
-    const video = document.getElementById('bg-video');
-    if (!video) return;
-
-    // Ensure muted is set via JS as well (some browsers require both)
-    video.muted = true;
-    video.defaultMuted = true;
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-
-    // Attempt playback immediately
-    const tryPlay = () => {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // If autoplay was blocked, start video on first user interaction
-          const startOnInteraction = () => {
-            video.play().catch(() => {});
-            document.removeEventListener('touchstart', startOnInteraction);
-            document.removeEventListener('click', startOnInteraction);
-            document.removeEventListener('scroll', startOnInteraction);
-          };
-          document.addEventListener('touchstart', startOnInteraction, { once: true, passive: true });
-          document.addEventListener('click', startOnInteraction, { once: true });
-          document.addEventListener('scroll', startOnInteraction, { once: true, passive: true });
-        });
-      }
-    };
-
-    // Try immediately and also after the video metadata loads
-    tryPlay();
-    video.addEventListener('loadedmetadata', tryPlay);
-    video.addEventListener('canplay', tryPlay);
-  })();
-
-  // ─── Panel logic ───
   function showPanel(name) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + name).classList.add('active');
