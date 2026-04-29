@@ -497,6 +497,34 @@
     color: var(--navy);
   }
 
+  /* Voyage secondary purchase block */
+  .voyage-divider {
+    margin: 32px 0 24px;
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: rgba(249, 246, 240, 0.45);
+  }
+
+  .voyage-divider.dark {
+    color: var(--muted);
+  }
+
+  .price-row.voyage {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .price-row.voyage .price-title {
+    font-size: 22px;
+  }
+
+  .price-row.voyage .price {
+    font-size: 28px;
+  }
+
   .shipping-note {
     text-align: center;
     font-family: var(--font-display);
@@ -1101,6 +1129,8 @@
     .allocation-row { gap: 18px; font-size: 11px; }
     .price-title { font-size: 22px; }
     .price { font-size: 28px; }
+    .price-row.voyage .price-title { font-size: 18px; }
+    .price-row.voyage .price { font-size: 22px; }
     .cta { letter-spacing: 0.24em; }
     .footer-logo { letter-spacing: 0.28em; font-size: 15px; }
     .fourteen { font-size: 19px; }
@@ -1169,7 +1199,7 @@
         <p class="product-brand fade-up">MAISON D&rsquo;VUE</p>
         <h1 class="product-title fade-up">Hair Elixir</h1>
         <p class="product-line fade-up">A ritual of fourteen essences.</p>
-        <p class="product-meta fade-up">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML</p>
+        <p class="product-meta fade-up">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML &nbsp;&amp;&nbsp; 10&thinsp;ML</p>
 
         <div class="allocation fade-up">
           <div class="allocation-row muted"><span>April Allocation</span><span class="status">Closed</span></div>
@@ -1180,12 +1210,24 @@
         <div class="purchase fade-up">
           <div class="price-row">
             <div>
-              <div class="price-title">The Elixir</div>
+              <div class="price-title">The Signature</div>
               <div class="price-sub">30 ML &nbsp;&middot;&nbsp; 1 FL OZ</div>
             </div>
             <div class="price">$120</div>
           </div>
-          <button class="cta" type="button">Reserve Your Bottle</button>
+          <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="cta" style="display:block; text-align:center; text-decoration:none;">Reserve the Signature</a>
+
+          <div class="voyage-divider">or begin with</div>
+
+          <div class="price-row voyage">
+            <div>
+              <div class="price-title">The Voyage</div>
+              <div class="price-sub">10 ML &nbsp;&middot;&nbsp; 0.33 FL OZ</div>
+            </div>
+            <div class="price">$68</div>
+          </div>
+          <a href="https://shop.maisondvue.com/cart/48287241371896:1?checkout" class="cta cta-ghost" style="display:block; text-align:center; text-decoration:none;">Reserve the Voyage</a>
+
           <p class="shipping-note">Hand-sealed &middot; Beverly Hills</p>
         </div>
       </div>
@@ -1331,17 +1373,29 @@
     <div class="section-inner">
       <p class="label">June Allocation</p>
       <h2 class="display">Reserve the Elixir.</h2>
-      <p class="copy">Each bottle is hand-sealed in limited volume. When the allocation closes, the next batch begins.</p>
+      <p class="copy">The Signature, in 30ml. The Voyage, in 10ml. Each bottle hand-sealed in limited volume. When the allocation closes, the next batch begins.</p>
 
       <div class="final-card">
         <div class="price-row">
           <div style="text-align:left;">
-            <div class="price-title">The Elixir</div>
+            <div class="price-title">The Signature</div>
             <div class="price-sub">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML</div>
           </div>
           <div class="price">$120</div>
         </div>
-        <button class="cta" type="button">Reserve Your Bottle</button>
+        <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="cta" style="display:block; text-align:center; text-decoration:none;">Reserve the Signature</a>
+
+        <div class="voyage-divider">or begin with</div>
+
+        <div class="price-row voyage">
+          <div style="text-align:left;">
+            <div class="price-title">The Voyage</div>
+            <div class="price-sub">Vue 14&trade; &nbsp;&middot;&nbsp; 10&thinsp;ML</div>
+          </div>
+          <div class="price">$68</div>
+        </div>
+        <a href="https://shop.maisondvue.com/cart/48287241371896:1?checkout" class="cta cta-ghost" style="display:block; text-align:center; text-decoration:none;">Reserve the Voyage</a>
+
         <p class="shipping-note">Hand-sealed &middot; Beverly Hills</p>
       </div>
     </div>
