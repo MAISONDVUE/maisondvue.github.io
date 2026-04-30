@@ -83,20 +83,21 @@
      ============================================================ */
   main{
     position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr 1.05fr;
     min-height: 100vh;
-    align-items: stretch;
+    overflow: hidden;
   }
 
   /* ============================================================
      RESERVATION PANE (left)
      ============================================================ */
   .reservation-pane{
+    position: relative;
+    z-index: 3;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 50%;
+    min-height: 100vh;
     padding: 80px 56px;
   }
   .reservation-frame{
@@ -250,7 +251,9 @@
      PHOTOGRAPH PANE (right)
      ============================================================ */
   .photograph-pane{
-    position: relative;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     overflow: hidden;
     background: var(--mdv-black-800);
   }
@@ -260,7 +263,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 82% 32%;
+    object-position: 72% 30%;
   }
   /* Soft left-edge fade so the photo merges with the dark page */
   .photograph-pane::after{
@@ -268,10 +271,12 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(90deg,
-      rgba(16,10,6,0.92) 0%,
-      rgba(16,10,6,0.55) 8%,
-      rgba(16,10,6,0.18) 18%,
-      rgba(16,10,6,0) 32%);
+      rgba(16,10,6,0.94) 0%,
+      rgba(16,10,6,0.88) 25%,
+      rgba(16,10,6,0.70) 40%,
+      rgba(16,10,6,0.35) 55%,
+      rgba(16,10,6,0.10) 70%,
+      rgba(16,10,6,0) 85%);
     pointer-events: none;
   }
   .photo-fallback{
@@ -312,20 +317,20 @@
      RESPONSIVE
      ============================================================ */
   @media (max-width: 960px){
-    main{ grid-template-columns: 1fr; }
-    .photograph-pane{
-      order: 1;
-      aspect-ratio: 4/5;
-      max-height: 60vh;
+    .reservation-pane{
+      width: 100%;
+      padding: 56px 22px 72px;
+      min-height: auto;
     }
     .photograph-pane::after{
+      /* Heavier full-page tint on mobile so text is readable over the photo */
       background: linear-gradient(180deg,
-        rgba(16,10,6,0) 60%,
-        rgba(16,10,6,0.6) 100%);
+        rgba(16,10,6,0.55) 0%,
+        rgba(16,10,6,0.75) 40%,
+        rgba(16,10,6,0.92) 100%);
     }
-    .reservation-pane{
-      order: 2;
-      padding: 56px 22px 72px;
+    .photograph-pane img{
+      object-position: 60% 30%;
     }
     .reservation-frame{ padding: 56px 28px 40px; }
     form.reservation{ max-width: 100%; }
