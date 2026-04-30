@@ -3,25 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maison d&rsquo;Vue &mdash; Power Is In Your Nature</title>
-<meta name="description" content="An intensive elixir of fourteen rare plant oils. Hand-sealed in Beverly Hills. Reservations open by request.">
+<title>Maison d&rsquo;Vue &mdash; Exclusive Early Reservations</title>
+<meta name="description" content="Maison d'Vue is not released. It is revealed. Submit your reservation to be among the first to receive early access to our limited launch.">
 
 <!--
   ============================================================
-  MAISON D'VUE  ·  Reservation homepage (pre-launch)
+  MAISON D'VUE  ·  Reservation page (minimal)
   ============================================================
 
-  HERO IMAGE:
-    Save the editorial photograph (the cat / sphinx / cobalt-bottle image)
-    as a JPG at this path:
-        /Users/.../Maison d'Vue/assets/hero.jpg
-    Recommended export: 1600px wide, JPG quality 80, sRGB.
-    If the file isn't found, a graceful typographic fallback shows.
+  Layout: photograph (right) + framed reservation block (left).
+  Palette: warm black + foil gold + soft brown. No cobalt.
 
-  RESERVATION FORM:
-    The form posts to the same Google Apps Script Web App as
-    landing-waitlist.html. Paste the deployed /exec URL into the
-    WAITLIST_ENDPOINT constant in the <script> at the bottom.
+  Configure: paste the deployed Apps Script Web App /exec URL into the
+  WAITLIST_ENDPOINT constant in the <script> at the bottom.
   ============================================================
 -->
 
@@ -31,14 +25,22 @@
 
 <style>
   :root{
-    --mdv-cobalt-950:#070D22;
-    --mdv-cobalt-900:#0B1433;
-    --mdv-cobalt-800:#0F1C3F;
-    --mdv-cobalt-700:#13264F;
+    /* Warm-black palette (replaces cobalt) */
+    --mdv-black-950:#0A0604;
+    --mdv-black-900:#100A06;
+    --mdv-black-800:#1A130D;
+    --mdv-black-700:#241A12;
+    --mdv-black-600:#2E2218;
+
+    /* Foil gold (kept) */
     --mdv-gold-400:#D9BE8B;
     --mdv-gold-500:#C9A96E;
     --mdv-gold-600:#A88A52;
     --mdv-gold-700:#856B3C;
+
+    /* Soft brown / cream */
+    --mdv-brown-500:#8B6F4E;
+    --mdv-brown-400:#A88A6E;
     --mdv-cream:#F0E6D0;
     --mdv-warm-stone:#C8BFA8;
 
@@ -50,292 +52,68 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
   html,body{
-    background: var(--mdv-cobalt-900);
+    background: var(--mdv-black-900);
     color: var(--mdv-cream);
     font-family: var(--sans-body);
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
   }
   body{
     position: relative;
     background:
-      radial-gradient(ellipse at 50% 30%, rgba(255, 235, 200, 0.020), transparent 60%),
-      var(--mdv-cobalt-900);
+      radial-gradient(ellipse at 50% 30%, rgba(217,190,139,0.04), transparent 60%),
+      var(--mdv-black-900);
   }
   body::before{
+    /* Paper grain — barely visible, soft-light blended */
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.04;
+    opacity: 0.045;
     mix-blend-mode: soft-light;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .foil{
-    background: var(--gold-foil);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    opacity: 0.96;
-    text-shadow: 0 0 0.4px rgba(255, 224, 170, 0.18);
-  }
-
   /* ============================================================
-     NAV
+     LAYOUT
      ============================================================ */
-  .site-nav{
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 24px 48px;
-    background: rgba(7, 13, 34, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(201,169,110,0.22);
-  }
-  .nav-left, .nav-right{ display: flex; gap: 40px; align-items: center; }
-  .nav-right{ justify-content: flex-end; }
-
-  .nav-link{
-    font-family: var(--sans-body);
-    font-weight: 400;
-    font-size: 11px;
-    letter-spacing: 0.36em;
-    text-transform: uppercase;
-    color: var(--mdv-cream);
-    text-decoration: none;
-    opacity: 0.78;
-    transition: opacity 320ms ease, color 320ms ease;
-    padding-left: 0.36em;
-  }
-  .nav-link:hover{ opacity: 1; color: var(--mdv-gold-400); }
-  .nav-link.cta{
-    color: var(--mdv-gold-500);
-    opacity: 1;
-    border: 1px solid;
-    border-image: linear-gradient(180deg, #DCB67E, #C9A96E 50%, #A78B52) 1;
-    padding: 9px 22px;
-  }
-  .nav-link.cta:hover{
-    background: var(--gold-foil);
-    color: var(--mdv-cobalt-900);
-  }
-
-  .site-nav .wordmark{
-    font-family: var(--serif-display);
-    font-weight: 400;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    font-size: 18px;
-    text-align: center;
-    line-height: 1;
-    padding-left: 0.42em;
-    text-decoration: none;
-  }
-
-  /* ============================================================
-     HERO  —  split panel: text left, photograph right
-     ============================================================ */
-  .hero{
+  main{
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    min-height: calc(100vh - 76px);
+    grid-template-columns: 1fr 1.05fr;
+    min-height: 100vh;
     align-items: stretch;
   }
-  .hero-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 56px 96px 80px;
-    max-width: 640px;
-  }
-  .kicker{
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: var(--mdv-gold-500);
-    margin-bottom: 32px;
-    padding-left: 0.5em;
-  }
-  h1.display{
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-size: clamp(56px, 7vw, 104px);
-    line-height: 1.02;
-    letter-spacing: 0.005em;
-    color: var(--mdv-cream);
-    margin: 0;
-  }
-  h1.display em{ font-style: italic; font-weight: 300; color: var(--mdv-gold-400); }
-
-  .hero-rule{
-    width: 48px;
-    height: 1px;
-    background: linear-gradient(90deg,
-      rgba(201,169,110,0.18) 0%,
-      rgba(217,190,139,0.7) 50%,
-      rgba(133,107,60,0.18) 100%);
-    margin: 32px 0;
-  }
-  .sub-label{
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--mdv-gold-500);
-    margin-bottom: 26px;
-    padding-left: 0.42em;
-  }
-  .hero-body{
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(17px, 1.6vw, 21px);
-    line-height: 1.55;
-    letter-spacing: 0.01em;
-    color: var(--mdv-cream);
-    margin-bottom: 44px;
-    max-width: 36ch;
-  }
-
-  .btn-primary{
-    display: inline-block;
-    background: transparent;
-    color: var(--mdv-gold-500);
-    border: 1px solid;
-    border-image: linear-gradient(180deg, #DCB67E 0%, #C9A96E 50%, #A78B52 100%) 1;
-    font-family: var(--sans-body);
-    font-weight: 400;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    font-size: 11px;
-    padding: 18px 40px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 380ms cubic-bezier(0.22,0.61,0.36,1),
-                color 380ms cubic-bezier(0.22,0.61,0.36,1);
-    opacity: 0.96;
-    text-shadow: 0 0 0.4px rgba(255, 224, 170, 0.18);
-    align-self: flex-start;
-  }
-  .btn-primary:hover{
-    background: var(--gold-foil);
-    color: var(--mdv-cobalt-900);
-    text-shadow: none;
-  }
-
-  /* Hero figure — photograph or graceful fallback */
-  .hero-figure{
-    position: relative;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.06), transparent 70%),
-      var(--mdv-cobalt-800);
-    overflow: hidden;
-  }
-  .hero-img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 78% 32%;
-  }
-  .hero-fallback{
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 24px;
-  }
-  .hero-fallback::after{
-    content: "";
-    position: absolute;
-    inset: 24px;
-    border: 1px solid rgba(201,169,110,0.22);
-    pointer-events: none;
-  }
-  .figure-mark{
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(96px, 14vw, 220px);
-    line-height: 1;
-    letter-spacing: 0.04em;
-    background: var(--gold-foil);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    opacity: 0.92;
-  }
-  .figure-label{
-    margin-top: 24px;
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: rgba(201,169,110,0.7);
-    padding-left: 0.5em;
-  }
-  .figure-todo{
-    margin-top: 18px;
-    font-family: var(--sans-body);
-    font-style: italic;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(240,230,208,0.22);
-  }
-
-  /* Slight darkening overlay on the photo so text on the page reads consistently */
-  .hero-figure::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(11,20,51,0.55) 0%, rgba(11,20,51,0.15) 18%, rgba(11,20,51,0) 35%);
-    pointer-events: none;
-  }
 
   /* ============================================================
-     RESERVATION BLOCK  —  the framed centerpiece
+     RESERVATION PANE (left)
      ============================================================ */
-  .reservation-section{
-    position: relative;
-    z-index: 2;
-    padding: 96px 32px;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(15,28,63,0.6), rgba(11,20,51,1) 80%);
-    border-top: 1px solid rgba(201,169,110,0.22);
-    border-bottom: 1px solid rgba(201,169,110,0.22);
+  .reservation-pane{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 56px;
   }
   .reservation-frame{
     position: relative;
-    max-width: 980px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 580px;
     padding: 72px 56px 56px;
     border: 1px solid;
     border-image: linear-gradient(180deg, #DCB67E, #C9A96E 50%, #A78B52) 1;
     text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(36, 26, 18, 0.5), rgba(16, 10, 6, 0.85) 90%);
   }
   /* corner ornaments */
   .reservation-frame::before,
-  .reservation-frame::after{
+  .reservation-frame::after,
+  .res-corner-tr, .res-corner-bl{
     content: "";
     position: absolute;
     width: 22px;
@@ -349,12 +127,6 @@
   .reservation-frame::after{
     bottom: -1px; right: -1px;
     border-left: none; border-top: none;
-  }
-  .res-corner-tr, .res-corner-bl{
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    border: 1px solid rgba(217,190,139,0.7);
   }
   .res-corner-tr{ top: -1px; right: -1px; border-left: none; border-bottom: none; }
   .res-corner-bl{ bottom: -1px; left: -1px; border-right: none; border-top: none; }
@@ -373,50 +145,49 @@
     width: 14px;
     height: 1px;
     background: var(--mdv-gold-500);
-    margin: 14px auto 22px;
+    margin: 14px auto 24px;
     opacity: 0.7;
   }
   .res-headline{
     font-family: var(--serif-display);
     font-weight: 300;
-    font-size: clamp(36px, 4.5vw, 60px);
+    font-size: clamp(34px, 4vw, 52px);
     line-height: 1.08;
     letter-spacing: 0.01em;
     color: var(--mdv-cream);
     margin-bottom: 32px;
   }
+  .res-headline em{ font-style: italic; color: var(--mdv-gold-400); }
+
   .res-body{
     font-family: var(--serif-display);
     font-style: italic;
     font-weight: 300;
-    font-size: clamp(16px, 1.5vw, 19px);
+    font-size: clamp(15px, 1.4vw, 18px);
     line-height: 1.65;
     color: var(--mdv-cream);
-    max-width: 50ch;
-    margin: 0 auto 44px;
+    max-width: 44ch;
+    margin: 0 auto 40px;
   }
 
-  /* form layout */
+  /* form */
   form.reservation{
     display: flex;
-    gap: 14px;
-    max-width: 720px;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 420px;
     margin: 0 auto;
-    flex-wrap: wrap;
   }
-  form.reservation .field{
-    flex: 1 1 200px;
-    position: relative;
-  }
+  form.reservation .field{ position: relative; }
   form.reservation input[type="text"],
   form.reservation input[type="email"]{
     width: 100%;
-    background: rgba(7,13,34,0.55);
-    border: 1px solid rgba(201,169,110,0.35);
+    background: rgba(10,6,4,0.55);
+    border: 1px solid rgba(201,169,110,0.32);
     color: var(--mdv-cream);
     font-family: var(--sans-body);
     font-weight: 400;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     padding: 18px 18px;
@@ -424,26 +195,26 @@
     transition: border-color 320ms ease, background 320ms ease;
   }
   form.reservation input::placeholder{
-    color: rgba(240,230,208,0.45);
+    color: rgba(240,230,208,0.4);
     text-transform: uppercase;
     letter-spacing: 0.32em;
     font-weight: 400;
   }
   form.reservation input:focus{
     border-color: var(--mdv-gold-400);
-    background: rgba(7,13,34,0.85);
+    background: rgba(10,6,4,0.85);
   }
   form.reservation .hp{ position: absolute; left: -9999px; opacity: 0; }
 
   form.reservation button{
-    flex: 0 0 auto;
+    margin-top: 8px;
     background: var(--gold-foil);
-    color: var(--mdv-cobalt-900);
+    color: var(--mdv-black-900);
     border: 1px solid;
     border-image: linear-gradient(180deg, #DCB67E, #C9A96E 50%, #A78B52) 1;
     font-family: var(--sans-body);
     font-weight: 500;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.36em;
     text-transform: uppercase;
     font-size: 11px;
     padding: 18px 32px;
@@ -454,425 +225,167 @@
   form.reservation button:disabled{ opacity: 0.55; cursor: not-allowed; }
 
   .res-tag{
-    margin-top: 36px;
+    margin-top: 32px;
     font-family: var(--sans-body);
     font-weight: 500;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.5em;
     text-transform: uppercase;
     color: rgba(201,169,110,0.75);
     padding-left: 0.5em;
   }
-
   .res-message{
-    margin-top: 24px;
+    margin-top: 22px;
     min-height: 24px;
     font-family: var(--serif-display);
     font-style: italic;
     font-weight: 300;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.5;
   }
   .res-message.success{ color: var(--mdv-gold-400); }
   .res-message.error{   color: #D8AAAA; }
 
   /* ============================================================
-     PILLARS
+     PHOTOGRAPH PANE (right)
      ============================================================ */
-  .pillars{
+  .photograph-pane{
     position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    padding: 96px 56px;
-    max-width: 1320px;
-    margin: 0 auto;
+    overflow: hidden;
+    background: var(--mdv-black-800);
   }
-  .pillar{
-    text-align: center;
-    padding: 0 32px;
-    border-left: 1px solid rgba(201,169,110,0.14);
-  }
-  .pillar:first-child{ border-left: none; }
-
-  .pillar .icon{
-    margin: 0 auto 22px;
-    width: 36px;
-    height: 36px;
-    color: var(--mdv-gold-500);
-  }
-  .pillar .icon svg{
+  .photograph-pane img{
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.2;
+    object-fit: cover;
+    object-position: 65% 30%;
   }
-  .pillar h3{
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--mdv-cream);
-    margin-bottom: 16px;
-    padding-left: 0.42em;
+  /* Soft left-edge fade so the photo merges with the dark page */
+  .photograph-pane::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+      rgba(16,10,6,0.45) 0%,
+      rgba(16,10,6,0.10) 12%,
+      rgba(16,10,6,0) 28%);
+    pointer-events: none;
   }
-  .pillar p{
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.65;
-    color: rgba(240,230,208,0.7);
-    max-width: 24ch;
-    margin: 0 auto;
-  }
-
-  /* ============================================================
-     FOUNDER QUOTE
-     ============================================================ */
-  .founder-quote{
-    position: relative;
-    z-index: 2;
+  .photo-fallback{
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 120px 32px;
-    max-width: 760px;
-    margin: 0 auto;
-    border-top: 1px solid rgba(201,169,110,0.22);
+    padding: 24px;
   }
-  .quote-mark{
+  .photo-fallback .mark{
     font-family: var(--serif-display);
     font-weight: 300;
     font-style: italic;
-    font-size: 96px;
-    line-height: 0.4;
+    font-size: clamp(96px, 14vw, 220px);
+    line-height: 1;
     background: var(--gold-foil);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    opacity: 0.85;
-    margin-bottom: 8px;
-    user-select: none;
+    opacity: 0.92;
   }
-  .founder-quote blockquote{
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(22px, 2.3vw, 30px);
-    line-height: 1.55;
-    letter-spacing: 0.015em;
-    color: var(--mdv-cream);
-    margin: 24px 0 32px;
-  }
-  .founder-quote .signature{
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 28px;
-    color: var(--mdv-gold-500);
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
-  }
-  .founder-quote cite{
-    display: block;
+  .photo-fallback .label{
+    margin-top: 24px;
     font-family: var(--sans-body);
-    font-style: normal;
     font-weight: 500;
     font-size: 11px;
-    letter-spacing: 0.42em;
+    letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: rgba(201,169,110,0.8);
-    padding-left: 0.42em;
-  }
-
-  /* ============================================================
-     FOOTER
-     ============================================================ */
-  .site-footer{
-    position: relative;
-    z-index: 2;
-    padding: 56px 48px 32px;
-    border-top: 1px solid rgba(201,169,110,0.18);
-    background: rgba(7, 13, 34, 0.55);
-  }
-  .footer-grid{
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
-    gap: 48px;
-    max-width: 1320px;
-    margin: 0 auto 40px;
-  }
-  .footer-col h4{
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 10px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--mdv-gold-500);
-    margin-bottom: 16px;
-    padding-left: 0.42em;
-  }
-  .footer-col a, .footer-col p{
-    display: block;
-    font-family: var(--sans-body);
-    font-weight: 300;
-    font-size: 13px;
-    color: rgba(240,230,208,0.7);
-    text-decoration: none;
-    line-height: 1.9;
-    transition: color 320ms ease;
-  }
-  .footer-col a:hover{ color: var(--mdv-gold-400); }
-  .footer-wordmark{
-    font-family: var(--serif-display);
-    font-weight: 400;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    font-size: 16px;
-    margin-bottom: 18px;
-    padding-left: 0.42em;
-  }
-  .footer-tag{
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 14px;
-    color: rgba(240,230,208,0.55);
-    line-height: 1.7;
-  }
-  .footer-bar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 28px;
-    border-top: 1px solid rgba(201,169,110,0.12);
-    font-family: var(--sans-body);
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.36em;
-    text-transform: uppercase;
-    color: rgba(240,230,208,0.4);
+    color: rgba(201,169,110,0.7);
+    padding-left: 0.5em;
   }
 
   /* ============================================================
      RESPONSIVE
      ============================================================ */
   @media (max-width: 960px){
-    .site-nav{ grid-template-columns: 1fr; gap: 14px; padding: 18px 22px; text-align: center; }
-    .nav-left, .nav-right{ justify-content: center; gap: 22px; flex-wrap: wrap; }
-    .nav-right{ justify-content: center; }
-    .site-nav .wordmark{ font-size: 14px; letter-spacing: 0.36em; }
-
-    .hero{ grid-template-columns: 1fr; min-height: auto; }
-    .hero-content{ padding: 56px 24px 40px; max-width: 100%; }
-    .hero-figure{ aspect-ratio: 4/5; }
-
-    .reservation-section{ padding: 64px 22px; }
+    main{ grid-template-columns: 1fr; }
+    .photograph-pane{
+      order: 1;
+      aspect-ratio: 4/5;
+      max-height: 60vh;
+    }
+    .photograph-pane::after{
+      background: linear-gradient(180deg,
+        rgba(16,10,6,0) 60%,
+        rgba(16,10,6,0.6) 100%);
+    }
+    .reservation-pane{
+      order: 2;
+      padding: 56px 22px 72px;
+    }
     .reservation-frame{ padding: 56px 28px 40px; }
-
-    .pillars{ grid-template-columns: repeat(2, 1fr); gap: 56px 0; padding: 64px 24px; }
-    .pillar{ border-left: none; padding: 0 16px; }
-    .pillar:nth-child(odd){ border-left: none; }
-
-    .founder-quote{ padding: 80px 24px; }
-
-    .footer-grid{ grid-template-columns: 1fr 1fr; gap: 28px; }
-    .footer-bar{ flex-direction: column; gap: 12px; padding-top: 20px; text-align: center; }
-
-    form.reservation{ flex-direction: column; gap: 12px; }
-    form.reservation button{ width: 100%; padding: 18px; }
+    form.reservation{ max-width: 100%; }
   }
 
-  @media (max-width: 560px){
-    .pillars{ grid-template-columns: 1fr; }
-    .footer-grid{ grid-template-columns: 1fr; }
-  }
-
-  .reveal{ opacity: 0; transform: translateY(8px); transition: opacity 700ms ease, transform 700ms ease; }
+  /* Reveal */
+  .reveal{ opacity: 0; transform: translateY(8px); transition: opacity 800ms ease, transform 800ms ease; }
   .reveal.in{ opacity: 1; transform: translateY(0); }
 </style>
 </head>
 
 <body>
+  <main>
 
-  <!-- =================== NAV =================== -->
-  <header class="site-nav">
-    <div class="nav-left">
-      <a class="nav-link" href="#elixir">The Elixir</a>
-      <a class="nav-link" href="#legacy">The Legacy</a>
-    </div>
-    <a class="wordmark foil" href="#top">Maison d&rsquo;Vue</a>
-    <div class="nav-right">
-      <a class="nav-link" href="#ritual">The Ritual</a>
-      <a class="nav-link cta" href="#reservations">Reservations</a>
-    </div>
-  </header>
+    <!-- ============ RESERVATION PANE (left) ============ -->
+    <section class="reservation-pane">
+      <div class="reservation-frame reveal">
+        <span class="res-corner-tr" aria-hidden="true"></span>
+        <span class="res-corner-bl" aria-hidden="true"></span>
 
-  <!-- =================== HERO =================== -->
-  <section class="hero" id="top">
-    <div class="hero-content reveal">
-      <div class="kicker">The Hair Elixir</div>
+        <div class="res-kicker">Be the First</div>
+        <div class="res-mini-rule" aria-hidden="true"></div>
 
-      <h1 class="display">
-        Power is<br>
-        in <em>your</em> nature.
-      </h1>
+        <h1 class="res-headline">Exclusive Early <em>Reservations</em></h1>
 
-      <div class="hero-rule" aria-hidden="true"></div>
-
-      <div class="sub-label">A Dynasty in Every Drop.</div>
-
-      <p class="hero-body">
-        Maison d&rsquo;Vue is more than a hair elixir. It is a legacy of
-        science, ritual, and timeless beauty &mdash; crafted for those
-        who lead, inspire, and endure.
-      </p>
-
-      <a class="btn-primary" href="#reservations">Discover the Elixir</a>
-    </div>
-
-    <!-- HERO PHOTOGRAPH
-         Save the editorial image as: assets/hero.jpg
-         If the file is missing, the typographic fallback below is shown. -->
-    <div class="hero-figure reveal">
-      <img class="hero-img"
-           src="assets/hero.jpg"
-           alt="Maison d&rsquo;Vue Hair Elixir"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="hero-fallback" style="display:none;">
-        <div class="figure-mark">XIV</div>
-        <div class="figure-label">Essences</div>
-        <div class="figure-todo">[ Save photograph as assets/hero.jpg ]</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== RESERVATION BLOCK =================== -->
-  <section class="reservation-section" id="reservations">
-    <div class="reservation-frame reveal">
-      <span class="res-corner-tr" aria-hidden="true"></span>
-      <span class="res-corner-bl" aria-hidden="true"></span>
-
-      <div class="res-kicker">Be the First</div>
-      <div class="res-mini-rule" aria-hidden="true"></div>
-
-      <h2 class="res-headline">Exclusive Early <em>Reservations</em></h2>
-
-      <p class="res-body">
-        Maison d&rsquo;Vue is not released. It is revealed. Submit your
-        reservation to be among the first to receive early access to our
-        limited launch.
-      </p>
-
-      <form id="reservationForm" class="reservation" novalidate>
-        <div class="field">
-          <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
-        </div>
-        <div class="field">
-          <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
-        </div>
-        <div class="hp" aria-hidden="true">
-          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-        </div>
-        <button type="submit" id="submitBtn">Reserve My Access</button>
-      </form>
-
-      <div class="res-tag">Reservations Are Limited &nbsp;&middot;&nbsp; Legacy Is Not.</div>
-
-      <div class="res-message" id="message" role="status" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <!-- =================== PILLARS =================== -->
-  <section class="pillars reveal" id="elixir">
-    <div class="pillar">
-      <div class="icon" aria-hidden="true">
-        <!-- crown -->
-        <svg viewBox="0 0 32 32"><path d="M4 22 L8 10 L13 18 L16 8 L19 18 L24 10 L28 22 Z M5 26 L27 26"/></svg>
-      </div>
-      <h3>Royal Heritage</h3>
-      <p>Inspired by centuries of royal beauty rituals and botanical wisdom.</p>
-    </div>
-
-    <div class="pillar">
-      <div class="icon" aria-hidden="true">
-        <!-- droplet -->
-        <svg viewBox="0 0 32 32"><path d="M16 4 C 10 14, 7 18, 7 22 a9 9 0 0 0 18 0 C 25 18, 22 14, 16 4 Z"/></svg>
-      </div>
-      <h3>Science of Power</h3>
-      <p>Advanced, clean technology delivers visible transformation from root to crown.</p>
-    </div>
-
-    <div class="pillar">
-      <div class="icon" aria-hidden="true">
-        <!-- six-petal flower -->
-        <svg viewBox="0 0 32 32">
-          <circle cx="16" cy="16" r="3"/>
-          <ellipse cx="16" cy="8"  rx="3" ry="5"/>
-          <ellipse cx="16" cy="24" rx="3" ry="5"/>
-          <ellipse cx="8"  cy="16" rx="5" ry="3"/>
-          <ellipse cx="24" cy="16" rx="5" ry="3"/>
-        </svg>
-      </div>
-      <h3>Ritual, Elevated</h3>
-      <p>A daily ritual that restores, strengthens, and awakens your natural power.</p>
-    </div>
-
-    <div class="pillar">
-      <div class="icon" aria-hidden="true">
-        <!-- gem -->
-        <svg viewBox="0 0 32 32"><path d="M16 4 L26 12 L16 28 L6 12 Z M6 12 L26 12 M16 4 L11 12 L16 28 M16 4 L21 12 L16 28"/></svg>
-      </div>
-      <h3>Made to Endure</h3>
-      <p>Timeless results for those who demand more than temporary beauty.</p>
-    </div>
-  </section>
-
-  <!-- =================== FOUNDER QUOTE =================== -->
-  <section class="founder-quote reveal" id="legacy">
-    <div class="quote-mark" aria-hidden="true">&ldquo;</div>
-    <blockquote>
-      Everything unnecessary was removed.
-    </blockquote>
-    <div class="signature">&mdash;&nbsp;&nbsp;M.</div>
-  </section>
-
-  <!-- =================== FOOTER =================== -->
-  <footer class="site-footer">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-wordmark foil">Maison d&rsquo;Vue</div>
-        <p class="footer-tag">
-          An intensive elixir of fourteen rare plant oils.
-          Hand-sealed in Beverly Hills.
+        <p class="res-body">
+          Maison d&rsquo;Vue is not released. It is revealed. Submit your
+          reservation to be among the first to receive early access to our
+          limited launch.
         </p>
+
+        <form id="reservationForm" class="reservation" novalidate>
+          <div class="field">
+            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
+          </div>
+          <div class="field">
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
+          </div>
+          <div class="hp" aria-hidden="true">
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" id="submitBtn">Reserve My Access</button>
+        </form>
+
+        <div class="res-tag">Reservations Are Limited &nbsp;&middot;&nbsp; Legacy Is Not.</div>
+        <div class="res-message" id="message" role="status" aria-live="polite"></div>
       </div>
-      <div class="footer-col">
-        <h4>The House</h4>
-        <a href="#elixir">The Elixir</a>
-        <a href="#ritual">The Ritual</a>
-        <a href="#legacy">The Legacy</a>
+    </section>
+
+    <!-- ============ PHOTOGRAPH PANE (right) ============ -->
+    <aside class="photograph-pane reveal" aria-hidden="true">
+      <img src="assets/hero.jpg"
+           alt=""
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="photo-fallback">
+        <div class="mark">XIV</div>
+        <div class="label">Essences</div>
       </div>
-      <div class="footer-col">
-        <h4>Care</h4>
-        <a href="#contact">Contact</a>
-        <a href="#shipping">Shipping</a>
-        <a href="#returns">Returns</a>
-      </div>
-      <div class="footer-col">
-        <h4>Correspondence</h4>
-        <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a>
-        <a href="https://instagram.com/maisondvue" rel="noopener">Instagram</a>
-      </div>
-    </div>
-    <div class="footer-bar">
-      <span>&copy; <span id="year"></span> &nbsp;&middot;&nbsp; MDV Group, LLC</span>
-      <span>Hand-sealed in Beverly Hills</span>
-    </div>
-  </footer>
+    </aside>
+
+  </main>
 
 <script>
   /* =====================================================
@@ -881,20 +394,14 @@
   const WAITLIST_ENDPOINT = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
   /* ----------------------------------------------------- */
 
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // Reveal on load
+  document.querySelectorAll('.reveal').forEach(function(el, i){
+    setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
+  });
 
-  // Reveal on scroll
-  var revs = document.querySelectorAll('.reveal');
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  revs.forEach(function(el){ io.observe(el); });
-
-  var form = document.getElementById('reservationForm');
-  var btn  = document.getElementById('submitBtn');
-  var msg  = document.getElementById('message');
+  var form    = document.getElementById('reservationForm');
+  var btn     = document.getElementById('submitBtn');
+  var msg     = document.getElementById('message');
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function setMsg(text, type){
@@ -932,12 +439,11 @@
       var fd = new FormData();
       fd.append('email', email);
       fd.append('firstName', firstName);
-      fd.append('source', 'home-reservations');
+      fd.append('source', 'home-reservation-minimal');
       fd.append('userAgent', navigator.userAgent || '');
       fd.append('referrer', document.referrer || '');
 
       var res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', body: fd });
-
       var ok = res.ok;
       try { var data = await res.json(); ok = ok && data && data.ok !== false; } catch(_){}
 
