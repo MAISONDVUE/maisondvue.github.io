@@ -2,466 +2,554 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>MAISON D'VUE &mdash; Hair Elixir</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Rare by origin. Refined by design. Hand-sealed in Beverly Hills.">
-<meta property="og:title" content="MAISON D'VUE">
-<meta property="og:description" content="Rare by origin. Refined by design.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://maisondvue.com">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison d&rsquo;Vue &mdash; The Inaugural Edition</title>
+<meta name="description" content="The First Placement of The Elixir. Those selected are granted first access to the inaugural edition, ahead of public release.">
 
-<!-- Favicon and Apple Touch Icon -->
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0B1F3A">
+<!--
+  ============================================================
+  MAISON D'VUE  ·  Founders' Privilege landing page
+  ============================================================
+
+  WIRING TO THE GOOGLE SHEET:
+
+  1. Paste your deployed Apps Script Web App /exec URL into the
+     WAITLIST_ENDPOINT constant in the <script> block below.
+     (See waitlist-apps-script.gs in this folder if a fresh
+     deployment is needed.)
+
+  2. Rename to index.html and upload to your host when ready.
+  ============================================================
+-->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  :root {
-    --navy: #0B1F3A;
-    --navy-deep: #070D22;
-    --navy-center: #122749;
-    --gold: #C9A96E;
-    --gold-soft: #D9BE8B;
-    --cream: #F0E6D0;
-    --cream-muted: rgba(240, 230, 208, 0.55);
-    --cream-dim: rgba(240, 230, 208, 0.75);
+  /* ---------- TOKENS ---------- */
+  :root{
+    --mdv-cobalt-950:#070D22;
+    --mdv-cobalt-900:#0B1433;
+    --mdv-cobalt-800:#0F1C3F;
+    --mdv-cobalt-700:#13264F;
+    --mdv-gold-400:#D9BE8B;
+    --mdv-gold-500:#C9A96E;
+    --mdv-gold-700:#856B3C;
+    --mdv-cream:#F0E6D0;
+    --mdv-warm-stone:#C8BFA8;
+
+    --serif-display: 'Cormorant Garamond', 'EB Garamond', Garamond, Georgia, serif;
+    --sans-body:     'Jost', 'Helvetica Neue', Arial, sans-serif;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
-  html, body {
-    background: var(--navy-deep);
-    color: var(--cream);
-    font-family: 'EB Garamond', Georgia, serif;
+  html,body{
+    background: var(--mdv-cobalt-900);
+    color: var(--mdv-cream);
+    font-family: var(--sans-body);
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    min-height: 100vh;
   }
 
-  /* Subtle radial vignette fills the entire document background */
-  body {
-    min-height: 100vh;
-    background:
-      radial-gradient(
-        ellipse at center,
-        var(--navy-center) 0%,
-        var(--navy) 45%,
-        var(--navy-deep) 100%
-      );
-    background-attachment: fixed;
-  }
-
-  /* ─── Content wrapper — no visible frame, just layout structure ─── */
-  .frame {
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 60px 40px;
+  body{
     position: relative;
+    /* dyed-paper tonality: center slightly warm/lighter, edges hold the cobalt */
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(255, 235, 200, 0.028), transparent 55%),
+      radial-gradient(ellipse at 50% 0%,   rgba(201,169,110,0.045), transparent 70%),
+      var(--mdv-cobalt-900);
   }
 
-  /* ─── Wordmark header ─── */
-  .wordmark {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: clamp(18px, 2vw, 24px);
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: 20px;
+  /* Paper grain — fractal-noise SVG, near-invisible, soft-lit over the cobalt */
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.045;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .tagline {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    font-size: clamp(11px, 1vw, 13px);
-    letter-spacing: 0.08em;
-    color: var(--cream-dim);
-    text-align: center;
-    margin-top: 0;
+  /* Quiet vignette — corners ~6-7% darker, center untouched */
+  body::after{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at 50% 50%, transparent 38%, rgba(0,0,0,0.22) 100%);
   }
 
-  /* ─── Rule element ─── */
-  .rule {
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-    margin: 24px auto;
+  /* Quiet inner gold frame */
+  .frame{
+    position: fixed;
+    inset: 24px;
+    border: 1px solid rgba(201,169,110,0.55);
+    border-image: linear-gradient(180deg,
+      rgba(217,190,139,0.62) 0%,
+      rgba(201,169,110,0.55) 50%,
+      rgba(133,107,60,0.50) 100%) 1;
+    pointer-events: none;
+    z-index: 1;
   }
 
-  .rule-double {
-    width: 60px;
-    height: 5px;
-    border-top: 1px solid var(--gold);
-    border-bottom: 1px solid var(--gold);
-    margin: 56px auto 48px;
-  }
-
-  /* ─── Hero section ─── */
-  .hero {
-    text-align: center;
-    flex: 1;
+  main{
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 40px 0;
-    width: 100%;
+    padding: 88px 32px 72px;
+    gap: 96px;
   }
 
-  .volume {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 10px;
+  /* ---------- WORDMARK ---------- */
+  .wordmark{
+    font-family: var(--serif-display);
+    font-weight: 400;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    font-size: clamp(20px, 2.6vw, 30px);
+    text-align: center;
+    line-height: 1.1;
+    padding-left: 0.38em;
+    /* Foil treatment: warmer at top, slightly muted toward bottom */
+    color: var(--mdv-gold-500); /* fallback */
+    background: linear-gradient(180deg, #E0C188 0%, #C9A96E 55%, #A88A52 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.96;
+    text-shadow: 0 0 0.4px rgba(255, 224, 170, 0.18);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+    margin-top: -10px;
+  }
+
+  .kicker{
+    font-family: var(--sans-body);
+    font-weight: 500;
+    font-size: clamp(14px, 1.6vw, 18px);
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--mdv-gold-500);
+    margin-bottom: 64px;
+    padding-left: 0.55em;
+  }
+
+  h1.headline{
+    font-family: var(--serif-display);
+    font-weight: 300;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.12;
+    letter-spacing: 0.025em;
+    color: var(--mdv-cream);
+    margin: 0 auto;
+    max-width: 18ch;
+  }
+  h1.headline em{
+    font-style: italic;
+    font-weight: 300;
+    color: var(--mdv-cream);
+  }
+
+  .rule{
+    width: 32px;
+    height: 1px;
+    background: var(--mdv-gold-500);
+    margin: 56px auto;
+    opacity: 0.7;
+  }
+
+  .body-copy{
+    font-family: var(--serif-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(21px, 2.1vw, 26px);
+    line-height: 1.55;
+    letter-spacing: 0.015em;
+    color: var(--mdv-cream);
+    max-width: 44ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+
+  .body-copy + .supporting{
+    margin-top: 40px;
+  }
+
+  .whisper{
+    font-family: var(--serif-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: rgba(240,230,208,0.62);
+    margin: 44px auto 0;
+    max-width: 36ch;
+    text-align: center;
+  }
+
+
+  .supporting{
+    font-family: var(--sans-body);
+    font-weight: 400;
+    font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--gold-soft);
-    margin-bottom: 56px;
-  }
-
-  .product-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: clamp(32px, 6vw, 72px);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--cream);
-    line-height: 1;
-    margin: 0;
-  }
-
-  .elixir-line {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    font-size: clamp(14px, 1.4vw, 18px);
-    letter-spacing: 0.04em;
-    color: var(--cream-dim);
-    margin-top: 48px;
-  }
-
-  .volume-size {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(10px, 1vw, 12px);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-top: 36px;
-  }
-
-  /* ─── Access section ─── */
-  .access {
-    text-align: center;
-    max-width: 440px;
-    width: 100%;
+    color: rgba(240,230,208,0.55);
+    line-height: 1.9;
+    max-width: 48ch;
     margin: 0 auto;
   }
 
-  .access-label {
-    font-family: 'Cormorant Garamond', serif;
+  /* ---------- FORM ---------- */
+  .form-wrap{
+    max-width: 540px;
+    width: 100%;
+    text-align: center;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .field-row{
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .field{ flex: 1 1 220px; position: relative; text-align: left; }
+
+  label{
+    display: block;
+    font-family: var(--sans-body);
+    font-weight: 400;
     font-size: 10px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
+    color: var(--mdv-gold-500);
+    margin-bottom: 14px;
   }
-
-  .access-instruction {
-    font-family: 'EB Garamond', serif;
+  label .optional{
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
     font-style: italic;
-    font-size: 14px;
-    color: var(--cream-dim);
-    margin-bottom: 32px;
+    font-weight: 300;
+    font-size: 11px;
+    color: rgba(201,169,110,0.55);
+    margin-left: 6px;
   }
 
-  .input {
+  input[type="text"], input[type="email"]{
     width: 100%;
-    padding: 18px 20px;
     background: transparent;
-    border: 1px solid rgba(201, 169, 110, 0.55);
-    color: var(--cream);
-    font-family: 'EB Garamond', serif;
+    border: 0;
+    border-bottom: 1px solid rgba(201,169,110,0.45);
+    color: var(--mdv-cream);
+    font-family: var(--sans-body);
+    font-weight: 300;
     font-size: 15px;
-    font-style: italic;
+    letter-spacing: 0.02em;
+    padding: 8px 2px 12px;
     outline: none;
-    border-radius: 2px;
-    text-align: center;
-    transition: border-color 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
-    letter-spacing: 0.04em;
+    transition: border-color 320ms ease;
   }
+  input::placeholder{
+    color: rgba(240,230,208,0.28);
+    font-style: normal;
+    font-weight: 300;
+  }
+  input:focus{ border-bottom-color: var(--mdv-gold-400); }
 
-  .input:focus { border-color: var(--gold); }
-  .input::placeholder { color: rgba(240, 230, 208, 0.3); letter-spacing: 0.12em; text-transform: uppercase; font-style: normal; font-size: 11px; }
+  /* Honeypot */
+  .hp{ position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
 
-  .btn {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
+  button[type="submit"]{
+    margin-top: 32px;
+    align-self: center;
+    background: transparent;
+    color: var(--mdv-gold-500);
+    border: 1px solid;
+    border-image: linear-gradient(180deg, #DCB67E 0%, #C9A96E 50%, #A78B52 100%) 1;
+    font-family: var(--sans-body);
+    font-weight: 400;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
     font-size: 11px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: var(--gold);
-    border: 1px solid var(--gold);
-    padding: 16px 36px;
-    border-radius: 2px;
+    padding: 18px 44px;
     cursor: pointer;
-    margin-top: 24px;
-    transition: all 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: background 380ms cubic-bezier(0.22,0.61,0.36,1),
+                color 380ms cubic-bezier(0.22,0.61,0.36,1),
+                opacity 380ms ease;
+    border-radius: 0;
+    opacity: 0.96;
+    text-shadow: 0 0 0.4px rgba(255, 224, 170, 0.20);
   }
-
-  .btn:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold-soft);
+  button[type="submit"]:hover{
+    background: linear-gradient(180deg, #DCB67E 0%, #C9A96E 55%, #A88A52 100%);
+    color: var(--mdv-cobalt-900);
+    text-shadow: none;
+    opacity: 1;
   }
+  button[type="submit"]:disabled{ opacity: 0.45; cursor: not-allowed; }
 
-  .link-text {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--gold);
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 24px;
-    border-bottom: 1px solid transparent;
-    transition: border-color 240ms;
-  }
-
-  .link-text:hover { border-bottom-color: var(--gold); }
-
-  .error-msg {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    font-size: 12px;
-    color: var(--gold-soft);
-    margin-top: 12px;
-    opacity: 0;
-    transition: opacity 240ms;
-  }
-
-  .error-msg.visible { opacity: 1; }
-
-  /* ─── Footer ─── */
-  .footer {
+  .helper{
     text-align: center;
-    padding-top: 40px;
-    width: 100%;
-  }
-
-  .footer-social {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
-    letter-spacing: 0.28em;
+    margin-top: 44px;
+    font-family: var(--sans-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.36em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
+    color: rgba(240,230,208,0.4);
   }
 
-  .footer-social a {
-    color: var(--gold);
+  .message{
+    text-align: center;
+    margin-top: 20px;
+    min-height: 22px;
+    font-family: var(--serif-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+  }
+  .message.success{ color: var(--mdv-gold-400); }
+  .message.error{   color: #D8AAAA; }
+
+
+
+  /* ---------- INVITATION LINK ---------- */
+  .invitation-divider{
+    width: 24px;
+    height: 1px;
+    background: linear-gradient(90deg,
+      rgba(201,169,110,0.18) 0%,
+      rgba(217,190,139,0.55) 50%,
+      rgba(133,107,60,0.18) 100%);
+    margin: 56px auto 36px;
+  }
+  .invitation-link{
+    text-align: center;
+    font-family: var(--serif-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(16px, 1.55vw, 18px);
+    letter-spacing: 0.03em;
+    color: var(--mdv-cream);
+    margin: 0 auto;
+  }
+  .invitation-link a{
+    color: var(--mdv-gold-500);
     text-decoration: none;
-    transition: color 240ms;
+    border-bottom: 1px solid rgba(201,169,110,0.45);
+    padding-bottom: 3px;
+    transition: color 320ms ease, border-color 320ms ease, letter-spacing 320ms ease;
+  }
+  .invitation-link a:hover{
+    color: var(--mdv-gold-400);
+    border-bottom-color: var(--mdv-gold-400);
+    letter-spacing: 0.05em;
   }
 
-  .footer-social a:hover { color: var(--gold-soft); }
-
-  .footer-provenance {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 9px;
-    letter-spacing: 0.32em;
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align: center;
+    color: rgba(240,230,208,0.35);
+    font-family: var(--sans-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: var(--cream-muted);
+    line-height: 2;
+    margin-top: 48px;
+  }
+  footer .row{ display: block; }
+  footer a{ color: inherit; text-decoration: none; }
+  footer a:hover{ color: var(--mdv-gold-400); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 640px){
+    .frame{ inset: 14px; }
+    main{ padding: 64px 22px 48px; gap: 72px; }
+    .kicker{ font-size: 13px; letter-spacing: 0.42em; margin-bottom: 44px; padding-left: 0.42em; }
+    .rule{ margin: 44px auto; }
+    .body-copy{ font-size: 19px; line-height: 1.5; }
+    .whisper{ font-size: 14px; margin-top: 32px; }
+    .supporting{ font-size: 10px; letter-spacing: 0.28em; }
+    button[type="submit"]{ padding: 16px 32px; letter-spacing: 0.36em; }
   }
 
-  /* ─── Panel switching ─── */
-  .panel { display: none; }
-  .panel.active { display: block; }
-
-  /* ─── Responsive adjustments ─── */
-  @media (max-width: 640px) {
-    .frame {
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 40px 24px;
-    }
-    .product-name { letter-spacing: 0.14em; }
-  }
-
-  /* ─── Fade-in animations with staggered delays ─── */
-  .fade-in {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  }
-
-  .fade-wordmark {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  }
-
-  .fade-tagline-1 {
-    opacity: 0;
-    display: inline-block;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 550ms forwards;
-  }
-
-  .fade-tagline-2 {
-    opacity: 0;
-    display: inline-block;
-    margin-left: 4px;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 1150ms forwards;
-  }
-
-  .fade-hero-1 {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 1450ms forwards;
-  }
-
-  .fade-hero-2 {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 1700ms forwards;
-  }
-
-  .fade-hero-3 {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 2050ms forwards;
-  }
-
-  .fade-hero-4 {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 2300ms forwards;
-  }
-
-  .fade-access {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 2600ms forwards;
-  }
-
-  .fade-footer {
-    opacity: 0;
-    animation: fadeIn 1200ms cubic-bezier(0.22, 0.61, 0.36, 1) 2950ms forwards;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* Reveal */
+  .reveal{ opacity: 0; transition: opacity 800ms ease; }
+  .reveal.in{ opacity: 1; }
 </style>
 </head>
+
 <body>
 
-<!-- Frame now wraps content as a natural flow element -->
-<div class="frame">
+  <div class="frame" aria-hidden="true"></div>
 
-  <!-- Top: Wordmark -->
-  <header>
-    <div class="wordmark fade-wordmark">Maison d&rsquo;Vue</div>
-    <div class="tagline">
-      <span class="fade-tagline-1">Rare by origin.</span>
-      <span class="fade-tagline-2">Refined by design.</span>
-    </div>
-  </header>
+  <main>
 
-  <!-- Middle: Hero + Access -->
-  <main class="hero">
-    <div class="volume fade-hero-1">Volume I</div>
-    <h1 class="product-name fade-hero-2">Hair Elixir</h1>
-    <div class="elixir-line fade-hero-3">A ritual of fourteen essences.</div>
-    <div class="volume-size fade-hero-4">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML</div>
+    <div class="wordmark">Maison d&rsquo;Vue</div>
 
-    <div class="rule-double fade-access"></div>
+    <section class="hero reveal">
+      <p class="body-copy">
+        Those selected are granted first access<br>
+        to the inaugural edition&mdash;<br>
+        ahead of public release.
+      </p>
 
-    <!-- Access panel (default visible) -->
-    <section class="access panel active fade-access" id="panel-access">
-      <div class="access-label">Private Access</div>
-      <div class="access-instruction">Enter your code.</div>
-      <form id="access-form" onsubmit="return handleAccess(event)">
-        <input type="text" class="input" id="access-code" placeholder="Code" autocomplete="off" required>
-        <div>
-          <button type="submit" class="btn">Proceed</button>
+      <p class="whisper">A handwritten note accompanies each.</p>
+
+    </section>
+
+    <section class="form-wrap reveal">
+      <form id="waitlist" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="firstName">First Name <span class="optional">(optional)</span></label>
+            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@somewhere.com">
+          </div>
         </div>
-        <div class="error-msg" id="access-error">Access not granted.</div>
-      </form>
-      <a class="link-text" onclick="showPanel('invite')">Seek an invitation</a>
-    </section>
 
-    <!-- Invitation request panel -->
-    <section class="access panel" id="panel-invite">
-      <div class="access-label">Seek an Invitation</div>
-      <div class="access-instruction">Leave your details for consideration.</div>
-      <form id="invite-form" onsubmit="return handleInvite(event)">
-        <input type="email" class="input" id="invite-email" placeholder="Your email" autocomplete="email" required style="margin-bottom: 12px;">
-        <input type="text" class="input" id="invite-name" placeholder="Your name" autocomplete="name" required>
-        <div>
-          <button type="submit" class="btn">Request</button>
+        <div class="hp" aria-hidden="true">
+          <label for="website">Do not fill</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
         </div>
+
+        <button type="submit" id="submitBtn">Request Consideration</button>
+
+        <div class="helper">Private correspondence only</div>
+
+        <div class="message" id="message" role="status" aria-live="polite"></div>
       </form>
-      <a class="link-text" onclick="showPanel('access')">Return</a>
+
+      <div class="invitation-divider" aria-hidden="true"></div>
+
+      <!-- TODO: replace href with the live store URL when Shopify is public -->
+      <p class="invitation-link">
+        <a href="https://maisondvue.com" rel="noopener">Already have an invitation?</a>
+      </p>
     </section>
 
-    <!-- Confirmation panel -->
-    <section class="access panel" id="panel-thanks">
-      <div class="access-label">Thank You</div>
-      <div class="access-instruction" style="font-size: 16px;">
-        Your request has been received.<br>We will be in touch.
-      </div>
-      <div class="rule" style="margin-top: 32px;"></div>
-    </section>
+
+
+    <footer>
+      <span class="row">Hand-sealed in Beverly Hills</span>
+      <span class="row">&copy; <span id="year"></span> &nbsp;&middot;&nbsp; MDV Group, LLC &nbsp;&middot;&nbsp; <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></span>
+    </footer>
+
   </main>
 
-  <!-- Bottom: Footer -->
-  <footer class="footer fade-footer">
-    <div class="footer-social">
-      <a href="https://instagram.com/maisondvue" target="_blank" rel="noopener">@maisondvue</a>
-    </div>
-    <div class="footer-provenance">Hand-sealed &middot; Beverly Hills</div>
-  </footer>
-
-</div>
-
 <script>
-  const WELCOME_CODE = 'WELCOME26';
+  /* ============================================================
+     CONFIGURE: paste your deployed Apps Script Web App /exec URL.
+     ============================================================ */
+  const WAITLIST_ENDPOINT = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
+  /* ------------------------------------------------------------ */
 
-  function showPanel(name) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-' + name).classList.add('active');
-    document.getElementById('access-error').classList.remove('visible');
+  const form    = document.getElementById('waitlist');
+  const btn     = document.getElementById('submitBtn');
+  const message = document.getElementById('message');
+  const reveals = document.querySelectorAll('.reveal');
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Stagger the reveal so the page settles in quietly
+  reveals.forEach(function(el, i){
+    setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
+  });
+
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setMessage(text, type){
+    message.textContent = text || '';
+    message.classList.remove('success','error');
+    if (type) message.classList.add(type);
   }
 
-  function handleAccess(e) {
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
-    const code = document.getElementById('access-code').value.trim().toUpperCase();
-    if (code === WELCOME_CODE) {
-      window.location.href = 'product.html';
-    } else {
-      document.getElementById('access-error').classList.add('visible');
+    setMessage('');
+
+    var email     = form.email.value.trim();
+    var firstName = form.firstName.value.trim();
+    var honey     = form.website.value.trim();
+
+    if (honey) {
+      setMessage('Your request has been received.', 'success');
+      form.reset();
+      return;
     }
-    return false;
-  }
 
-  function handleInvite(e) {
-    e.preventDefault();
-    const email = document.getElementById('invite-email').value.trim();
-    const name = document.getElementById('invite-name').value.trim();
+if (!emailRe.test(email)) {
+      setMessage('A complete email, please.', 'error');
+      form.email.focus();
+      return;
+    }
 
-    const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+    if (WAITLIST_ENDPOINT.indexOf('REPLACE_') === 0) {
+      setMessage('The list is not yet wired to the sheet. Paste your Apps Script URL into WAITLIST_ENDPOINT to begin collecting names.', 'error');
+      return;
+    }
 
-    fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name, timestamp: new Date().toISOString() })
-    }).catch(() => {});
+    btn.disabled = true;
+    var originalLabel = btn.textContent;
+    btn.textContent = 'A moment';
 
-    showPanel('thanks');
-    return false;
-  }
+    try {
+      var fd = new FormData();
+      fd.append('email', email);
+      fd.append('firstName', firstName);
+      fd.append('source', 'landing-waitlist');
+      fd.append('userAgent', navigator.userAgent || '');
+      fd.append('referrer', document.referrer || '');
+
+      var res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', body: fd });
+
+      var ok = res.ok;
+      try {
+        var data = await res.json();
+        ok = ok && data && data.ok !== false;
+      } catch (_) { /* treat HTTP 2xx as success */ }
+
+      if (ok) {
+        setMessage('Your request has been received. A letter will follow.', 'success');
+        form.reset();
+      } else {
+        throw new Error('Server returned an error');
+      }
+    } catch (err) {
+      setMessage('Forgive us — something faltered in transit. Write to hello@maisondvue.com.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+  });
 </script>
 
 </body>
