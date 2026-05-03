@@ -3,368 +3,455 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
-<title>Maison d&rsquo;Vue &mdash; Exclusive Early Reservations</title>
-<meta name="description" content="Maison d'Vue is not released. It is revealed. Submit your reservation to be among the first to receive early access to our limited launch.">
-
-<!--
-  ============================================================
-  MAISON D'VUE  ·  Reservation page (minimal)
-  ============================================================
-
-  Layout: photograph (right) + framed reservation block (left).
-  Palette: warm black + foil gold + soft brown. No cobalt.
-
-  Configure: paste the deployed Apps Script Web App /exec URL into the
-  WAITLIST_ENDPOINT constant in the <script> at the bottom.
-  ============================================================
--->
-
+<meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
+<title>Maison d&rsquo;Vue &mdash; The June Allocation</title>
+<meta name="description" content="The current Maison d'Vue edition has been placed. Reserve for the June allocation or secure your bottle in advance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
   :root{
-    /* Warm-black palette (replaces cobalt) */
     --mdv-black-950:#0A0604;
     --mdv-black-900:#100A06;
     --mdv-black-800:#1A130D;
     --mdv-black-700:#241A12;
     --mdv-black-600:#2E2218;
-
-    /* Foil gold (kept) */
     --mdv-gold-400:#D9BE8B;
     --mdv-gold-500:#C9A96E;
     --mdv-gold-600:#A88A52;
     --mdv-gold-700:#856B3C;
-
-    /* Soft brown / cream */
     --mdv-brown-500:#8B6F4E;
     --mdv-brown-400:#A88A6E;
     --mdv-cream:#F0E6D0;
     --mdv-warm-stone:#C8BFA8;
-
-    --serif-display: 'Cormorant Garamond', 'EB Garamond', Garamond, Georgia, serif;
-    --sans-body:     'Jost', 'Helvetica Neue', Arial, sans-serif;
-    --gold-foil:     linear-gradient(180deg, #E0C188 0%, #C9A96E 55%, #A88A52 100%);
+    --serif-display:'Cormorant Garamond','EB Garamond',Garamond,Georgia,serif;
+    --sans-body:'Jost','Helvetica Neue',Arial,sans-serif;
+    --gold-foil:linear-gradient(180deg,#E0C188 0%,#C9A96E 55%,#A88A52 100%);
   }
-
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-
   html,body{
-    background: var(--mdv-black-900);
-    color: var(--mdv-cream);
-    font-family: var(--sans-body);
-    font-weight: 300;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh;
+    background:var(--mdv-black-900);
+    color:var(--mdv-cream);
+    font-family:var(--sans-body);
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
   }
   body{
-    position: relative;
+    position:relative;
     background:
       radial-gradient(ellipse at 50% 30%, rgba(217,190,139,0.04), transparent 60%),
       var(--mdv-black-900);
   }
   body::before{
-    /* Paper grain — barely visible, soft-light blended */
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.045;
-    mix-blend-mode: soft-light;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    opacity:0.045;
+    mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-
-  /* ============================================================
-     LAYOUT
-     ============================================================ */
   main{
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
   }
-
-  /* ============================================================
-     RESERVATION PANE (left)
-     ============================================================ */
   .reservation-pane{
-    position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    min-height: 100vh;
-    padding: 80px 56px;
+    position:relative;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:50%;
+    min-height:100vh;
+    padding:80px 56px;
   }
   .reservation-frame{
-    position: relative;
-    width: 100%;
-    max-width: 580px;
-    padding: 72px 56px 56px;
-    border: 1px solid;
-    border-image: linear-gradient(180deg, #DCB67E, #C9A96E 50%, #A78B52) 1;
-    text-align: center;
+    position:relative;
+    width:100%;
+    max-width:580px;
+    padding:72px 56px 56px;
+    border:1px solid;
+    border-image:linear-gradient(180deg,#DCB67E,#C9A96E 50%,#A78B52) 1;
+    text-align:center;
     background:
-      radial-gradient(ellipse at 50% 50%, rgba(36, 26, 18, 0.5), rgba(16, 10, 6, 0.85) 90%);
+      radial-gradient(ellipse at 50% 50%, rgba(36,26,18,0.5), rgba(16,10,6,0.85) 90%);
   }
-  /* corner ornaments */
   .reservation-frame::before,
   .reservation-frame::after,
-  .res-corner-tr, .res-corner-bl{
-    content: "";
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    border: 1px solid rgba(217,190,139,0.7);
+  .res-corner-tr,
+  .res-corner-bl{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+    border:1px solid rgba(217,190,139,0.7);
   }
   .reservation-frame::before{
-    top: -1px; left: -1px;
-    border-right: none; border-bottom: none;
+    top:-1px;
+    left:-1px;
+    border-right:none;
+    border-bottom:none;
   }
   .reservation-frame::after{
-    bottom: -1px; right: -1px;
-    border-left: none; border-top: none;
+    bottom:-1px;
+    right:-1px;
+    border-left:none;
+    border-top:none;
   }
-  .res-corner-tr{ top: -1px; right: -1px; border-left: none; border-bottom: none; }
-  .res-corner-bl{ bottom: -1px; left: -1px; border-right: none; border-top: none; }
-
+  .res-corner-tr{
+    top:-1px;
+    right:-1px;
+    border-left:none;
+    border-bottom:none;
+  }
+  .res-corner-bl{
+    bottom:-1px;
+    left:-1px;
+    border-right:none;
+    border-top:none;
+  }
   .res-kicker{
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: var(--mdv-cream);
-    margin-bottom: 14px;
-    padding-left: 0.5em;
+    font-family:var(--sans-body);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:var(--mdv-cream);
+    margin-bottom:14px;
+    padding-left:0.5em;
   }
   .res-mini-rule{
-    width: 14px;
-    height: 1px;
-    background: var(--mdv-gold-500);
-    margin: 14px auto 24px;
-    opacity: 0.7;
+    width:14px;
+    height:1px;
+    background:var(--mdv-gold-500);
+    margin:14px auto 24px;
+    opacity:0.7;
   }
   .res-headline{
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-size: clamp(34px, 4vw, 52px);
-    line-height: 1.08;
-    letter-spacing: 0.01em;
-    color: var(--mdv-cream);
-    margin-bottom: 32px;
+    font-family:var(--serif-display);
+    font-weight:300;
+    font-size:clamp(38px,4.8vw,64px);
+    line-height:1.04;
+    letter-spacing:0.01em;
+    color:var(--mdv-cream);
+    margin-bottom:34px;
   }
-  .res-headline em{ font-style: italic; color: var(--mdv-gold-400); }
-
+  .res-headline em{
+    display:block;
+    font-style:italic;
+    color:var(--mdv-gold-400);
+  }
   .res-body{
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(15px, 1.4vw, 18px);
-    line-height: 1.65;
-    color: var(--mdv-cream);
-    max-width: 44ch;
-    margin: 0 auto 40px;
+    font-family:var(--serif-display);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(16px,1.45vw,20px);
+    line-height:1.7;
+    color:var(--mdv-cream);
+    max-width:44ch;
+    margin:0 auto 40px;
   }
-
-  /* form */
+  .inline-shop{
+    color:var(--mdv-gold-400);
+    text-decoration:none;
+    border-bottom:1px solid rgba(217,190,139,0.45);
+  }
+  .inline-shop:hover{
+    border-bottom-color:var(--mdv-gold-400);
+  }
   form.reservation{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 420px;
-    margin: 0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-width:420px;
+    margin:0 auto;
   }
-  form.reservation .field{ position: relative; }
+  form.reservation .field{position:relative;}
   form.reservation input[type="text"],
   form.reservation input[type="email"]{
-    width: 100%;
-    background: rgba(10,6,4,0.55);
-    border: 1px solid rgba(201,169,110,0.32);
-    color: var(--mdv-cream);
-    font-family: var(--sans-body);
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    padding: 18px 18px;
-    outline: none;
-    transition: border-color 320ms ease, background 320ms ease;
+    width:100%;
+    background:rgba(10,6,4,0.55);
+    border:1px solid rgba(201,169,110,0.32);
+    color:var(--mdv-cream);
+    font-family:var(--sans-body);
+    font-weight:400;
+    font-size:12px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    padding:18px;
+    outline:none;
+    transition:border-color 320ms ease, background 320ms ease;
   }
   form.reservation input::placeholder{
-    color: rgba(240,230,208,0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.32em;
-    font-weight: 400;
+    color:rgba(240,230,208,0.4);
+    text-transform:uppercase;
+    letter-spacing:0.32em;
+    font-weight:400;
   }
   form.reservation input:focus{
-    border-color: var(--mdv-gold-400);
-    background: rgba(10,6,4,0.85);
+    border-color:var(--mdv-gold-400);
+    background:rgba(10,6,4,0.85);
   }
-  form.reservation .hp{ position: absolute; left: -9999px; opacity: 0; }
-
+  form.reservation .hp{
+    position:absolute;
+    left:-9999px;
+    opacity:0;
+  }
   form.reservation button{
-    margin-top: 8px;
-    background: var(--gold-foil);
-    color: var(--mdv-black-900);
-    border: 1px solid;
-    border-image: linear-gradient(180deg, #DCB67E, #C9A96E 50%, #A78B52) 1;
-    font-family: var(--sans-body);
-    font-weight: 500;
-    letter-spacing: 0.36em;
-    text-transform: uppercase;
-    font-size: 11px;
-    padding: 18px 32px;
-    cursor: pointer;
-    transition: opacity 320ms ease, transform 320ms ease;
+    margin-top:8px;
+    background:var(--gold-foil);
+    color:var(--mdv-black-900);
+    border:1px solid;
+    border-image:linear-gradient(180deg,#DCB67E,#C9A96E 50%,#A78B52) 1;
+    font-family:var(--sans-body);
+    font-weight:500;
+    letter-spacing:0.36em;
+    text-transform:uppercase;
+    font-size:11px;
+    padding:18px 32px;
+    cursor:pointer;
+    transition:opacity 320ms ease, transform 320ms ease;
   }
-  form.reservation button:hover{ opacity: 0.92; }
-  form.reservation button:disabled{ opacity: 0.55; cursor: not-allowed; }
+  form.reservation button:hover{opacity:0.92;}
+  form.reservation button:disabled{opacity:0.55;cursor:not-allowed;}
+  .preorder-button{
+    display:block;
+    margin:14px auto 0;
+    max-width:420px;
+    padding:17px 28px;
+    border:1px solid rgba(201,169,110,0.45);
+    color:var(--mdv-gold-400);
+    text-decoration:none;
+    font-family:var(--sans-body);
+    font-weight:500;
+    font-size:10px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    transition:background 320ms ease, color 320ms ease;
+  }
+  .preorder-button:hover{
+    background:rgba(201,169,110,0.08);
+  }
 
-  .res-tag{
-    margin-top: 32px;
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 10px;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: rgba(201,169,110,0.75);
-    padding-left: 0.5em;
+  /* ---------- INVITATION CODE ---------- */
+  .invitation-block{
+    margin-top:32px;
+    max-width:420px;
+    margin-left:auto;
+    margin-right:auto;
   }
+  .invitation-trigger{
+    background:none;
+    border:0;
+    padding:0;
+    margin:0;
+    cursor:pointer;
+    font-family:var(--sans-body);
+    font-weight:500;
+    font-size:10px;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:rgba(201,169,110,0.75);
+    padding-left:0.5em;
+    transition:color 320ms ease;
+  }
+  .invitation-trigger:hover{
+    color:var(--mdv-gold-400);
+  }
+  .invitation-form{
+    display:none;
+    margin-top:16px;
+    align-items:stretch;
+    gap:0;
+    width:100%;
+  }
+  .invitation-form.open{
+    display:flex;
+    animation:invitation-fade 380ms ease both;
+  }
+  @keyframes invitation-fade{
+    from{opacity:0; transform:translateY(-4px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .invitation-form input{
+    flex:1;
+    background:rgba(10,6,4,0.55);
+    border:1px solid rgba(201,169,110,0.32);
+    border-right:0;
+    color:var(--mdv-cream);
+    font-family:var(--sans-body);
+    font-weight:400;
+    font-size:12px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    padding:14px 16px;
+    outline:none;
+    transition:border-color 320ms ease, background 320ms ease;
+  }
+  .invitation-form input::placeholder{
+    color:rgba(240,230,208,0.4);
+    text-transform:uppercase;
+    letter-spacing:0.32em;
+  }
+  .invitation-form input:focus{
+    border-color:var(--mdv-gold-400);
+    background:rgba(10,6,4,0.85);
+  }
+  .invitation-form button{
+    background:var(--gold-foil);
+    color:var(--mdv-black-900);
+    border:1px solid;
+    border-image:linear-gradient(180deg,#DCB67E,#C9A96E 50%,#A78B52) 1;
+    font-family:var(--sans-body);
+    font-weight:500;
+    font-size:14px;
+    padding:14px 22px;
+    cursor:pointer;
+    transition:opacity 320ms ease;
+  }
+  .invitation-form button:hover{opacity:0.92;}
+  .invitation-feedback{
+    display:block;
+    margin-top:10px;
+    min-height:18px;
+    font-family:var(--serif-display);
+    font-style:italic;
+    font-weight:300;
+    font-size:14px;
+    letter-spacing:0.01em;
+    color:rgba(216,170,170,0.9);
+  }
+
   .res-message{
-    margin-top: 28px;
-    padding-top: 24px;
-    min-height: 24px;
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 22px;
-    letter-spacing: 0.015em;
-    line-height: 1.55;
-    border-top: 0.5px solid rgba(201,169,110,0.25);
+    margin-top:28px;
+    padding-top:24px;
+    min-height:24px;
+    font-family:var(--serif-display);
+    font-style:italic;
+    font-weight:400;
+    font-size:22px;
+    letter-spacing:0.015em;
+    line-height:1.55;
+    border-top:0.5px solid rgba(201,169,110,0.25);
   }
-  .res-message.success{ color: var(--mdv-gold-400); }
-  .res-message.error{   color: #D8AAAA; }
-
-  /* ============================================================
-     PHOTOGRAPH PANE (right)
-     ============================================================ */
+  .res-message.success{color:var(--mdv-gold-400);}
+  .res-message.error{color:#D8AAAA;}
   .photograph-pane{
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    overflow: hidden;
-    background: var(--mdv-black-800);
+    position:absolute;
+    inset:0;
+    z-index:1;
+    overflow:hidden;
+    background:var(--mdv-black-800);
   }
   .photograph-pane img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 72% 30%;
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:72% 30%;
   }
-  /* Soft left-edge fade so the photo merges with the dark page */
   .photograph-pane::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg,
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,
       rgba(16,10,6,0.94) 0%,
       rgba(16,10,6,0.88) 25%,
       rgba(16,10,6,0.70) 40%,
       rgba(16,10,6,0.35) 55%,
       rgba(16,10,6,0.10) 70%,
       rgba(16,10,6,0) 85%);
-    pointer-events: none;
+    pointer-events:none;
   }
   .photo-fallback{
-    position: absolute;
-    inset: 0;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 24px;
+    position:absolute;
+    inset:0;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
   }
   .photo-fallback .mark{
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(96px, 14vw, 220px);
-    line-height: 1;
-    background: var(--gold-foil);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    opacity: 0.92;
+    font-family:var(--serif-display);
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(96px,14vw,220px);
+    line-height:1;
+    background:var(--gold-foil);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+    opacity:0.92;
   }
   .photo-fallback .label{
-    margin-top: 24px;
-    font-family: var(--sans-body);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: rgba(201,169,110,0.7);
-    padding-left: 0.5em;
+    margin-top:24px;
+    font-family:var(--sans-body);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:rgba(201,169,110,0.7);
+    padding-left:0.5em;
   }
-
-  /* ============================================================
-     RESPONSIVE
-     ============================================================ */
-  @media (max-width: 960px){
+  @media (max-width:960px){
     .reservation-pane{
-      width: 100%;
-      padding: 56px 22px 72px;
-      min-height: auto;
+      width:100%;
+      padding:56px 22px 72px;
+      min-height:auto;
     }
     .photograph-pane::after{
-      /* Heavier full-page tint on mobile so text is readable over the photo */
-      background: linear-gradient(180deg,
+      background:linear-gradient(180deg,
         rgba(16,10,6,0.55) 0%,
         rgba(16,10,6,0.75) 40%,
         rgba(16,10,6,0.92) 100%);
     }
     .photograph-pane img{
-      object-position: 60% 30%;
+      object-position:60% 30%;
     }
-    .reservation-frame{ padding: 56px 28px 40px; }
-    form.reservation{ max-width: 100%; }
+    .reservation-frame{
+      padding:56px 28px 40px;
+    }
+    form.reservation,
+    .preorder-button,
+    .invitation-block{
+      max-width:100%;
+    }
   }
-
-  /* Reveal */
-  .reveal{ opacity: 0; transform: translateY(8px); transition: opacity 800ms ease, transform 800ms ease; }
-  .reveal.in{ opacity: 1; transform: translateY(0); }
+  .reveal{
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity 800ms ease, transform 800ms ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
 </style>
 </head>
-
 <body>
   <main>
-
-    <!-- ============ RESERVATION PANE (left) ============ -->
     <section class="reservation-pane">
       <div class="reservation-frame reveal">
         <span class="res-corner-tr" aria-hidden="true"></span>
         <span class="res-corner-bl" aria-hidden="true"></span>
-
-        <div class="res-kicker">Be the First</div>
+        <div class="res-kicker">Maison d&rsquo;Vue</div>
         <div class="res-mini-rule" aria-hidden="true"></div>
-
-        <h1 class="res-headline">Exclusive Early <em>Reservations</em></h1>
-
+        <h1 class="res-headline">The June <em>Allocation</em></h1>
         <p class="res-body">
-          Submit your reservation to be among the first to receive
-          early access to our inaugural launch.
+          The current edition has been placed.<br>
+          The next elixirs arrive in June.
+          <br><br>
+          Reserve your place for availability updates &mdash; or
+          <a href="#" id="shopLink" class="inline-shop">secure your bottle in advance.</a>
         </p>
-
         <form id="reservationForm" class="reservation" novalidate>
           <div class="field">
             <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
@@ -375,15 +462,24 @@
           <div class="hp" aria-hidden="true">
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
-          <button type="submit" id="submitBtn">Reserve My Access</button>
+          <button type="submit" id="submitBtn">Reserve for June</button>
         </form>
+        <a href="#" id="preorderBtn" class="preorder-button">Pre-order the June Release</a>
 
-        <div class="res-tag">Reservations Are Limited.</div>
+        <div class="invitation-block">
+          <button type="button" class="invitation-trigger" id="invitationTrigger" aria-expanded="false" aria-controls="invitationForm">
+            By Invitation
+          </button>
+          <form id="invitationForm" class="invitation-form" novalidate>
+            <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <button type="submit" aria-label="Submit invitation code">&rarr;</button>
+          </form>
+          <span class="invitation-feedback" id="invitationFeedback" role="status" aria-live="polite"></span>
+        </div>
+
         <div class="res-message" id="message" role="status" aria-live="polite"></div>
       </div>
     </section>
-
-    <!-- ============ PHOTOGRAPH PANE (right) ============ -->
     <aside class="photograph-pane reveal" aria-hidden="true">
       <img src="assets/hero.jpg"
            alt=""
@@ -393,24 +489,24 @@
         <div class="label">Essences</div>
       </div>
     </aside>
-
   </main>
-
 <script>
-  /* =====================================================
-     CONFIGURE: paste deployed Apps Script Web App /exec URL
-     ===================================================== */
   const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
-  /* ----------------------------------------------------- */
+  const SHOP_URL = "https://shop.maisondvue.com/products/vue-14-hair-elixir";
+  const INVITATION_CODE = "WELCOME26";
+  const INVITATION_REDIRECT = SHOP_URL + "?discount=" + INVITATION_CODE;
 
-  // Reveal on load
+  document.getElementById('shopLink').href = SHOP_URL;
+  document.getElementById('preorderBtn').href = SHOP_URL;
+
   document.querySelectorAll('.reveal').forEach(function(el, i){
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
 
-  var form    = document.getElementById('reservationForm');
-  var btn     = document.getElementById('submitBtn');
-  var msg     = document.getElementById('message');
+  /* ---------- RESERVATION FORM ---------- */
+  var form = document.getElementById('reservationForm');
+  var btn = document.getElementById('submitBtn');
+  var msg = document.getElementById('message');
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function setMsg(text, type){
@@ -422,40 +518,39 @@
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     setMsg('');
-
-    var email     = form.email.value.trim();
+    var email = form.email.value.trim();
     var firstName = form.firstName.value.trim();
-    var honey     = form.website.value.trim();
-
-    if (honey) { setMsg('Your reservation has been received.', 'success'); form.reset(); return; }
-
+    var honey = form.website.value.trim();
+    if (honey) {
+      setMsg('Your reservation has been received.', 'success');
+      form.reset();
+      return;
+    }
     if (!emailRe.test(email)) {
       setMsg('A complete email, please.', 'error');
       form.email.focus();
       return;
     }
-
     if (WAITLIST_ENDPOINT.indexOf('REPLACE_') === 0) {
       setMsg('The reservation list is not yet wired. Paste your Apps Script URL into WAITLIST_ENDPOINT.', 'error');
       return;
     }
-
     btn.disabled = true;
     var origLabel = btn.textContent;
     btn.textContent = 'Reserving...';
-
     try {
       var fd = new FormData();
       fd.append('email', email);
       fd.append('firstName', firstName);
-      fd.append('source', 'home-reservation-minimal');
+      fd.append('source', 'june-allocation-homepage');
       fd.append('userAgent', navigator.userAgent || '');
       fd.append('referrer', document.referrer || '');
-
       var res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', body: fd });
       var ok = res.ok;
-      try { var data = await res.json(); ok = ok && data && data.ok !== false; } catch(_){}
-
+      try {
+        var data = await res.json();
+        ok = ok && data && data.ok !== false;
+      } catch(_){}
       if (ok) {
         setMsg('Your reservation has been received. A letter will follow.', 'success');
         form.reset();
@@ -469,7 +564,39 @@
       btn.textContent = origLabel;
     }
   });
-</script>
 
+  /* ---------- INVITATION CODE ---------- */
+  var invTrigger = document.getElementById('invitationTrigger');
+  var invForm = document.getElementById('invitationForm');
+  var invInput = document.getElementById('invitationCode');
+  var invFeedback = document.getElementById('invitationFeedback');
+
+  invTrigger.addEventListener('click', function(){
+    var open = invForm.classList.toggle('open');
+    invTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      setTimeout(function(){ invInput.focus(); }, 60);
+    } else {
+      invFeedback.textContent = '';
+    }
+  });
+
+  invForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    invFeedback.textContent = '';
+    var entered = (invInput.value || '').trim().toUpperCase();
+    if (!entered) {
+      invFeedback.textContent = 'A code, please.';
+      invInput.focus();
+      return;
+    }
+    if (entered === INVITATION_CODE) {
+      window.location.href = INVITATION_REDIRECT;
+    } else {
+      invFeedback.textContent = 'This code is not recognized.';
+      invInput.select();
+    }
+  });
+</script>
 </body>
 </html>
