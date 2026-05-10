@@ -207,7 +207,19 @@
     line-height:1.7;
     color:var(--mdv-cream);
     max-width:44ch;
-    margin:0 auto 40px;
+    margin:0 auto 24px;
+  }
+  .res-scent{
+    font-family:var(--serif-display);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(13px,1.05vw,15px);
+    letter-spacing:0.04em;
+    line-height:1.6;
+    color:var(--mdv-gold-400);
+    margin:0 auto 36px;
+    max-width:44ch;
+    opacity:0.92;
   }
   .inline-shop{
     color:var(--mdv-gold-400);
@@ -496,7 +508,7 @@
       <div class="reservation-frame reveal">
         <span class="res-corner-tr" aria-hidden="true"></span>
         <span class="res-corner-bl" aria-hidden="true"></span>
-        <div class="res-kicker">Maison d&rsquo;Vue</div>
+        <div class="res-kicker">MAISON D&rsquo;VUE</div>
         <div class="res-mini-rule" aria-hidden="true"></div>
         <h1 class="res-headline">The June <em>Allocation</em></h1>
         <p class="res-body">
@@ -506,6 +518,7 @@
           Reserve your place for availability updates &mdash; or
           <a href="#" id="shopLink" class="inline-shop">secure your bottle in advance.</a>
         </p>
+        <p class="res-scent">Every elixir scented in &Acirc;me de Vue&trade;.</p>
         <form id="reservationForm" class="reservation" novalidate>
           <div class="field">
             <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
