@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Hair Elixir — MAISON D'VUE</title>
-<meta name="description" content="MAISON D'VUE Hair Elixir. Vue 14™. A ritual of fourteen essences. Hand-sealed in Beverly Hills.">
+<meta name="description" content="MAISON D'VUE Hair Elixir. Vue 14™. A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
 <meta property="og:title" content="MAISON D'VUE — Hair Elixir">
-<meta property="og:description" content="A ritual of fourteen essences. Hand-sealed in Beverly Hills.">
+<meta property="og:description" content="A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
 <meta property="og:type" content="product">
 <meta property="og:url" content="https://maisondvue.com/product.html">
   <!-- Facebook domain verification (same as homepage) -->
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:url" content="https://maisondvue.com/product.html">
 <meta name="twitter:title" content="MAISON D'VUE — Hair Elixir">
-<meta name="twitter:description" content="A ritual of fourteen essences. Hand-sealed in Beverly Hills.">
+<meta name="twitter:description" content="A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
 
 <!-- Schema.org Product structured data -->
 <script type="application/ld+json">
@@ -36,7 +36,7 @@
  "@type": "Brand",
  "name": "MAISON D'VUE"
  },
- "description": "A ritual of fourteen essences. The Hair Elixir is composed of fourteen plant-derived botanicals — including Ungurahua from the Amazon, Prickly Pear from the Atlas Mountains, Bulgarian Rose, Rosehip, and Meadowfoam — formulated to integrate with the hair fiber. Anhydrous. Hand-sealed in Beverly Hills.",
+ "description": "A ritual of fourteen essences, scented in Âme de Vue™. The Hair Elixir is composed of fourteen plant-derived botanicals — including Ungurahua from the Amazon, Prickly Pear from the Atlas Mountains, Bulgarian Rose, Rosehip, and Meadowfoam. Anhydrous. Hand-sealed in Beverly Hills.",
  "image": "https://maisondvue.com/hero_1.jpg",
  "url": "https://maisondvue.com/product.html",
  "category": "Haircare",
@@ -452,8 +452,21 @@
     font-style: italic;
     line-height: 1.5;
     color: rgba(249, 246, 240, 0.9);
-    margin-bottom: 40px;
+    margin-bottom: 18px;
     animation-delay: 240ms;
+  }
+
+  .product-scent {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--gold-soft);
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+    animation-delay: 280ms;
+    opacity: 0.95;
   }
 
   .product-meta {
@@ -494,6 +507,21 @@
   }
 
   .allocation-row.muted { opacity: 0.55; }
+
+  .allocation-row.spec {
+    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    padding-bottom: 22px;
+    margin-bottom: 6px;
+  }
+
+  .allocation-row.spec .status {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--gold-soft);
+  }
 
   .purchase {
     animation-delay: 480ms;
@@ -1140,6 +1168,7 @@
     .product-brand { font-size: 24px; letter-spacing: 0.22em; white-space: nowrap; }
     .product-title { font-size: 10px; letter-spacing: 0.32em; }
     .product-line { font-size: 18px; }
+    .product-scent { font-size: 15px; }
 
     .section { padding: 84px 0; }
     .section-inner { padding: 0 24px; }
@@ -1189,7 +1218,9 @@
     .product-brand { font-size: 20px; letter-spacing: 0.18em; }
     .product-title { font-size: 10px; letter-spacing: 0.28em; }
     .product-line { font-size: 17px; }
+    .product-scent { font-size: 14px; }
     .allocation-row { gap: 18px; font-size: 11px; }
+    .allocation-row.spec .status { font-size: 14px; }
     .price-title { font-size: 22px; }
     .price { font-size: 28px; }
     .price-row.voyage .price-title { font-size: 18px; }
@@ -1262,9 +1293,11 @@
         <p class="product-brand fade-up">MAISON D&rsquo;VUE</p>
         <h1 class="product-title fade-up">Hair Elixir</h1>
         <p class="product-line fade-up">A ritual of fourteen essences.</p>
+        <p class="product-scent fade-up">Scented in &Acirc;me de Vue&trade;.</p>
         <p class="product-meta fade-up">Vue 14&trade; &nbsp;&middot;&nbsp; 30&thinsp;ML &nbsp;&amp;&nbsp; 10&thinsp;ML</p>
 
         <div class="allocation fade-up">
+          <div class="allocation-row spec"><span>Scent</span><span class="status">&Acirc;me de Vue&trade;</span></div>
           <div class="allocation-row muted"><span>April Allocation</span><span class="status">Closed</span></div>
           <div class="allocation-row muted"><span>May Allocation</span><span class="status">Closed</span></div>
           <div class="allocation-row"><span>June Allocation</span><span class="status">70% Reserved</span></div>
@@ -1412,13 +1445,13 @@
     <div class="section-inner philosophy-grid">
       <div>
         <p class="label">The Principle</p>
-        <h2 class="display">Formulated to mirror your biology.</h2>
+        <h2 class="display">Composed to integrate.</h2>
       </div>
 
       <div class="principles">
         <div class="principle"><span>Nothing synthetic</span>Plant-derived essences, selected with intention.</div>
         <div class="principle"><span>Nothing excessive</span>No silicones. No residue. No unnecessary weight.</div>
-        <div class="principle"><span>Nothing that remains</span>Only what integrates into the ritual, the fiber, and the finish.</div>
+        <div class="principle"><span>Nothing left behind</span>A finish that disappears into the ritual, the fiber, and the light.</div>
       </div>
     </div>
   </section>
@@ -1436,7 +1469,7 @@
     <div class="section-inner">
       <p class="label">June Allocation</p>
       <h2 class="display">Reserve the Elixir.</h2>
-      <p class="copy">The Signature, in 30ml. The Voyage, in 10ml. Each bottle hand-sealed in limited volume. When the allocation closes, the next batch begins.</p>
+      <p class="copy">The Signature, in 30ml. The Voyage, in 10ml. Each bottle hand-sealed in limited volume, scented in &Acirc;me de Vue&trade;. When the allocation closes, the next batch begins.</p>
 
       <div class="final-card">
         <div class="price-row">
