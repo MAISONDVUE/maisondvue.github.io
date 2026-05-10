@@ -140,7 +140,8 @@
     background: var(--navy);
     border-bottom: 1px solid rgba(201, 169, 110, 0.28);
   }
-.nav-inner {
+
+  .nav-inner {
     height: 100%;
     max-width: var(--page);
     margin: 0 auto;
@@ -1174,6 +1175,192 @@
     display: none;
   }
 
+  /* ─── LETTERS POPUP ─── */
+  .letters-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 31, 58, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .letters-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .letters-modal {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    background: var(--cream);
+    border: 1px solid rgba(201, 169, 110, 0.35);
+    padding: 56px 44px 44px;
+    text-align: center;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .letters-overlay.visible .letters-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .letters-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--gold-muted);
+    font-size: 18px;
+    line-height: 1;
+    transition: color 200ms ease;
+  }
+
+  .letters-close:hover {
+    color: var(--navy);
+  }
+
+  .letters-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+
+  .letters-headline {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  .letters-sub {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .letters-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .letters-input {
+    width: 100%;
+    background: var(--warm-white);
+    border: 1px solid rgba(201, 169, 110, 0.4);
+    color: var(--dark);
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 15px;
+    padding: 14px 16px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 240ms ease;
+    text-align: center;
+  }
+
+  .letters-input:focus {
+    border-color: var(--gold);
+  }
+
+  .letters-input::placeholder {
+    color: rgba(14, 14, 14, 0.35);
+    font-style: italic;
+  }
+
+  .letters-submit {
+    background: var(--navy);
+    color: var(--cream);
+    border: 1px solid var(--navy);
+    padding: 16px 28px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transition: background 240ms ease, color 240ms ease;
+  }
+
+  .letters-submit:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  .letters-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .letters-decline {
+    margin-top: 18px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--mid);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(98, 88, 78, 0.3);
+    text-underline-offset: 4px;
+    transition: color 200ms ease;
+  }
+
+  .letters-decline:hover {
+    color: var(--navy);
+  }
+
+  .letters-feedback {
+    margin-top: 16px;
+    min-height: 20px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold-muted);
+    line-height: 1.5;
+  }
+
+  .letters-feedback.error {
+    color: #B26A6A;
+  }
+
+  .letters-modal.submitted .letters-form,
+  .letters-modal.submitted .letters-decline,
+  .letters-modal.submitted .letters-sub {
+    display: none;
+  }
+
+  .letters-hp {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+
   /* ─── FINAL BUY (NAVY) ─── */
   .final-buy {
     background: var(--navy);
@@ -1404,7 +1591,6 @@
 
     .nav-inner {
       padding: 0 22px;
-      grid-template-columns: 1fr auto;
     }
 
     .nav-logo { font-size: 15px; letter-spacing: 0.32em; }
@@ -1510,11 +1696,14 @@
     .reviews-summary { gap: 10px; }
     .reviews-summary .stars-large { font-size: 18px; }
     .reviews-summary .summary-text { font-size: 11px; }
+    .letters-modal { padding: 48px 28px 36px; }
+    .letters-headline { font-size: 26px; }
   }
 </style>
 </head>
 
 <body>
+
 <nav>
   <div class="nav-inner">
     <a href="#top" class="nav-logo">MAISON D&rsquo;VUE</a>
@@ -1527,11 +1716,6 @@
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#reserve">Reserve</a></li>
     </ul>
-
-    <div class="nav-right">
-      <a href="#reserve" class="nav-reserve">Reserve</a>
-      
-    <a href="#top" class="nav-logo">MAISON D&rsquo;VUE</a>
 
     <div class="nav-right">
       <a href="#reserve" class="nav-reserve">Reserve</a>
@@ -1934,6 +2118,30 @@
 
   </div>
 </footer>
+<!-- ═══ LETTERS POPUP ═══ -->
+<div class="letters-overlay" id="lettersOverlay" aria-hidden="true" role="dialog" aria-labelledby="lettersHeadline">
+  <div class="letters-modal" id="lettersModal">
+    <button class="letters-close" type="button" onclick="closeLetters()" aria-label="Close">&times;</button>
+
+    <p class="letters-label">From the Maison</p>
+    <h3 class="letters-headline" id="lettersHeadline">Letters, sent rarely.</h3>
+    <p class="letters-sub">On scent, ritual, and the slow refinement of a single bottle. Brief letters from MAISON D&rsquo;VUE, sent only when there is something worth saying.</p>
+
+    <form class="letters-form" id="lettersForm" novalidate>
+      <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Your email" autocomplete="email" required>
+
+      <div class="letters-hp" aria-hidden="true">
+        <input type="text" id="lettersHp" name="lettersHp" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="letters-submit" id="lettersSubmit">Subscribe</button>
+    </form>
+
+    <button class="letters-decline" type="button" onclick="closeLetters()">Or, no thank you.</button>
+
+    <p class="letters-feedback" id="lettersFeedback" role="status" aria-live="polite"></p>
+  </div>
+</div>
 
 <script>
   // Same waitlist endpoint your landing page uses
@@ -2039,7 +2247,7 @@
 
     // Honeypot
     if (honey) {
-      setReviewMsg('Thank you. Your review will be reviewed by the maison.', 'success');
+      setReviewMsg('Thank you. Your words have reached the maison.', 'success');
       reviewFormWrap.classList.add('submitted');
       return;
     }
@@ -2080,7 +2288,7 @@
       } catch (_) {}
 
       if (ok) {
-        setReviewMsg('Thank you. Your review will be reviewed by the maison and added upon approval.', 'success');
+        setReviewMsg('Thank you. Your words have reached the maison.', 'success');
         reviewFormWrap.classList.add('submitted');
         reviewForm.reset();
       } else {
@@ -2091,6 +2299,117 @@
     } finally {
       reviewSubmit.disabled = false;
       reviewSubmit.textContent = origLabel;
+    }
+  });
+
+  /* ─── LETTERS POPUP ─── */
+  const LETTERS_COOKIE = 'mdv_letters_seen';
+  const LETTERS_COOKIE_DAYS = 365;
+  const LETTERS_DELAY_MS = 25000;
+
+  function getCookie(name) {
+    const value = '; ' + document.cookie;
+    const parts = value.split('; ' + name + '=');
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
+
+  function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/;SameSite=Lax';
+  }
+
+  function showLetters() {
+    if (getCookie(LETTERS_COOKIE)) return;
+    const overlay = document.getElementById('lettersOverlay');
+    overlay.classList.add('visible');
+    overlay.setAttribute('aria-hidden', 'false');
+    setCookie(LETTERS_COOKIE, 'shown', LETTERS_COOKIE_DAYS);
+  }
+
+  function closeLetters() {
+    const overlay = document.getElementById('lettersOverlay');
+    overlay.classList.remove('visible');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  // Trigger after delay
+  setTimeout(showLetters, LETTERS_DELAY_MS);
+
+  // ESC key closes the popup
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const overlay = document.getElementById('lettersOverlay');
+      if (overlay.classList.contains('visible')) closeLetters();
+    }
+  });
+
+  // Click outside the modal to close
+  document.getElementById('lettersOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeLetters();
+  });
+
+  // Submit handler
+  const lettersForm = document.getElementById('lettersForm');
+  const lettersSubmit = document.getElementById('lettersSubmit');
+  const lettersFeedback = document.getElementById('lettersFeedback');
+  const lettersModal = document.getElementById('lettersModal');
+
+  function setLettersMsg(text, type) {
+    lettersFeedback.textContent = text || '';
+    lettersFeedback.classList.remove('error');
+    if (type === 'error') lettersFeedback.classList.add('error');
+  }
+
+  lettersForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    setLettersMsg('');
+
+    const email = document.getElementById('lettersEmail').value.trim();
+    const honey = document.getElementById('lettersHp').value.trim();
+
+    if (honey) {
+      setLettersMsg('Thank you. Your name is on the list.');
+      lettersModal.classList.add('submitted');
+      setTimeout(closeLetters, 2400);
+      return;
+    }
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setLettersMsg('A valid email, please.', 'error');
+      document.getElementById('lettersEmail').focus();
+      return;
+    }
+
+    lettersSubmit.disabled = true;
+    const origLabel = lettersSubmit.textContent;
+    lettersSubmit.textContent = 'Subscribing...';
+
+    try {
+      const fd = new FormData();
+      fd.append('source', 'letters');
+      fd.append('email', email);
+
+      const res = await fetch(REVIEW_ENDPOINT, { method: 'POST', body: fd });
+      let ok = res.ok;
+      try {
+        const data = await res.json();
+        ok = ok && data && data.ok !== false;
+      } catch (_) {}
+
+      if (ok) {
+        setLettersMsg('Thank you. Your name is on the list.');
+        lettersModal.classList.add('submitted');
+        setTimeout(closeLetters, 2800);
+      } else {
+        throw new Error('Server returned an error');
+      }
+    } catch (err) {
+      setLettersMsg('Forgive us — something faltered. Try again, or write to hello@maisondvue.com.', 'error');
+    } finally {
+      lettersSubmit.disabled = false;
+      lettersSubmit.textContent = origLabel;
     }
   });
 </script>
