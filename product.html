@@ -2127,7 +2127,7 @@
 
   </div>
 </footer>
-</div><!-- ═══ LETTERS POPUP ═══ -->
+<!-- ═══ LETTERS POPUP ═══ -->
 <div class="letters-overlay" id="lettersOverlay" aria-hidden="true" role="dialog" aria-labelledby="lettersHeadline">
   <div class="letters-modal" id="lettersModal">
     <button class="letters-close" type="button" onclick="closeLetters()" aria-label="Close">&times;</button>
@@ -2372,11 +2372,11 @@
     lettersFeedback.classList.remove('error');
     if (type === 'error') lettersFeedback.classList.add('error');
   }
-
-  lettersForm.addEventListener('submit', async function(e) {
+lettersForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     setLettersMsg('');
 
+    const name = document.getElementById('lettersName').value.trim();
     const email = document.getElementById('lettersEmail').value.trim();
     const honey = document.getElementById('lettersHp').value.trim();
 
@@ -2384,6 +2384,12 @@
       setLettersMsg('Thank you. Your name is on the list.');
       lettersModal.classList.add('submitted');
       setTimeout(closeLetters, 2400);
+      return;
+    }
+
+    if (!name) {
+      setLettersMsg('A first name, please.', 'error');
+      document.getElementById('lettersName').focus();
       return;
     }
 
@@ -2400,6 +2406,7 @@
     try {
       const fd = new FormData();
       fd.append('source', 'letters');
+      fd.append('firstName', name);
       fd.append('email', email);
 
       const res = await fetch(REVIEW_ENDPOINT, { method: 'POST', body: fd });
