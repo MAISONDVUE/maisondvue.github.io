@@ -140,8 +140,7 @@
     background: var(--navy);
     border-bottom: 1px solid rgba(201, 169, 110, 0.28);
   }
-
-  .nav-inner {
+.nav-inner {
     height: 100%;
     max-width: var(--page);
     margin: 0 auto;
@@ -149,16 +148,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 40px;
   }
 
   .nav-links {
     display: flex;
-    gap: 28px;
+    gap: 26px;
     list-style: none;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
   }
 
   .nav-logo {
@@ -1518,18 +1515,22 @@
 </head>
 
 <body>
-
 <nav>
-  <ul class="nav-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="#formulation">The Formula</a></li>
-    <li><a href="#ritual">The Ritual</a></li>
-    <li><a href="#origins">Origins</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#reserve">Reserve</a></li>
-  </ul>
-
   <div class="nav-inner">
+    <a href="#top" class="nav-logo">MAISON D&rsquo;VUE</a>
+
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="#formulation">The Formula</a></li>
+      <li><a href="#ritual">The Ritual</a></li>
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="#reserve" class="nav-reserve">Reserve</a>
+      
     <a href="#top" class="nav-logo">MAISON D&rsquo;VUE</a>
 
     <div class="nav-right">
@@ -1820,7 +1821,7 @@
       <div class="review-form-wrap" id="reviewFormWrap">
         <p class="review-form-label">Leave a Review</p>
         <h3 class="review-form-headline">Share your experience.</h3>
-        <p class="review-form-sub">Reviews are read by the maison and added to this page upon approval.</p>
+        <p class="review-form-sub">Tell us how you have lived with the elixir.</p>
 
         <form class="review-form" id="reviewForm" novalidate>
           <div class="review-stars-input" id="reviewStarsInput" role="radiogroup" aria-label="Rating">
