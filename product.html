@@ -1519,7 +1519,8 @@
 
 <body>
 
-<<ul class="nav-links">
+<nav>
+  <ul class="nav-links">
     <li><a href="about.html">About</a></li>
     <li><a href="#formulation">The Formula</a></li>
     <li><a href="#ritual">The Ritual</a></li>
@@ -1536,6 +1537,7 @@
       <div class="nav-menu">
         <button class="nav-menu-btn" type="button" onclick="toggleMenu()">Menu</button>
         <div class="nav-dropdown" id="navDropdown">
+          <a href="about.html" onclick="toggleMenu(false)">About</a>
           <a href="#formulation" onclick="toggleMenu(false)">The Formula</a>
           <a href="#ritual" onclick="toggleMenu(false)">The Ritual</a>
           <a href="#origins" onclick="toggleMenu(false)">Origins</a>
@@ -1896,8 +1898,7 @@
 
         <div class="footer-col">
           <div class="footer-col-label">The House</div>
-          <a href="#about-founder">About the Founder</a>
-          <a href="#vision">Our Vision</a>
+          <a href="about.html">About</a>
         </div>
 
         <div class="footer-col">
