@@ -559,12 +559,12 @@
   </main>
 <script>
   const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
-  const SHOP_URL = "https://shop.maisondvue.com/products/vue-14-hair-elixir";
+  const PRODUCT_URL = "/product.html";
   const INVITATION_CODE = "WELCOME26";
-  const INVITATION_REDIRECT = SHOP_URL + "?discount=" + INVITATION_CODE;
+  const INVITATION_REDIRECT = PRODUCT_URL;
 
-  document.getElementById('shopLink').href = SHOP_URL;
-  document.getElementById('preorderBtn').href = SHOP_URL;
+  document.getElementById('shopLink').href = PRODUCT_URL;
+  document.getElementById('preorderBtn').href = PRODUCT_URL;
 
   document.querySelectorAll('.reveal').forEach(function(el, i){
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
