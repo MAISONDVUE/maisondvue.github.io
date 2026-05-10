@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Maison — MAISON D'VUE</title>
+<meta name="description" content="MAISON D'VUE is a hair house, hand-sealed in Beverly Hills. A composition of fourteen rare botanical essences, signed in Âme de Vue™. The maison composes what is rare, and trusts her to recognize it.">
+<meta property="og:title" content="MAISON D'VUE — The Maison">
+<meta property="og:description" content="A maison composes what is rare, and trusts her to recognize it. MAISON D'VUE is a hair house, hand-sealed in Beverly Hills.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com/about.html">
+<meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
+
+<link rel="canonical" href="https://maisondvue.com/about.html">
+
+<meta property="og:site_name" content="MAISON D'VUE">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:url" content="https://maisondvue.com/about.html">
+<meta name="twitter:title" content="MAISON D'VUE — The Maison">
+<meta name="twitter:description" content="A maison composes what is rare, and trusts her to recognize it.">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0B1F3A">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --navy-deep: #070D22;
+    --navy-center: #122749;
+    --cobalt: #1A2744;
+
+    --gold: #C9A96E;
+    --gold-soft: #D9BE8B;
+    --gold-muted: #B8996A;
+
+    --cream: #F0E6D0;
+    --warm-white: #FDFBF8;
+    --ivory: #F9F6F0;
+
+    --dark: #0E0E0E;
+    --mid: #62584E;
+    --muted: rgba(14, 14, 14, 0.48);
+
+    --line: rgba(201, 169, 110, 0.22);
+    --line-dark: rgba(249, 246, 240, 0.16);
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-italic: 'EB Garamond', Georgia, serif;
+    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+
+    --page: 1180px;
+    --nav-h: 88px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; background: var(--navy); }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--dark);
+    background: var(--warm-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: var(--nav-h);
+    background: var(--navy);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.28);
+  }
+
+  .nav-inner {
+    height: 100%;
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--cream);
+    white-space: nowrap;
+  }
+
+  .nav-links a,
+  .nav-reserve,
+  .nav-menu-btn {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.78);
+    line-height: 1;
+    transition: color 240ms ease;
+  }
+
+  .nav-links a:hover,
+  .nav-reserve:hover,
+  .nav-menu-btn:hover { color: var(--gold); }
+
+  .nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .nav-reserve { color: var(--gold); }
+  .nav-menu { display: none; position: relative; }
+
+  .nav-menu-btn {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    min-width: 200px;
+    background: var(--navy);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+    overflow: hidden;
+  }
+
+  .nav-dropdown a {
+    display: block;
+    padding: 16px 20px;
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.72);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.14);
+  }
+
+  .nav-dropdown a:last-child { border-bottom: 0; }
+  .nav-dropdown a:hover { color: var(--gold); }
+
+  /* ─── HERO (NAVY) ─── */
+  .about-hero {
+    min-height: 70vh;
+    padding-top: var(--nav-h);
+    background: var(--navy);
+    background:
+      radial-gradient(
+        ellipse at center,
+        var(--navy-center) 0%,
+        var(--navy) 50%,
+        var(--navy-deep) 100%
+      );
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 60px;
+  }
+
+  .about-hero-inner {
+    max-width: 700px;
+    padding: 80px 40px;
+    text-align: center;
+  }
+
+  .about-hero .label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 36px;
+    line-height: 1;
+    animation: fadeUp 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .about-hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    margin-bottom: 0;
+    animation: fadeUp 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 100ms forwards;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── ABOUT BODY ─── */
+  .about-body {
+    background: var(--warm-white);
+    padding: 130px 0;
+  }
+
+  .about-body-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Opening thesis — feels suspended */
+  .about-thesis {
+    text-align: center;
+    margin-bottom: 100px;
+  }
+
+  .about-thesis p {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.5;
+    color: var(--navy);
+    margin-bottom: 0;
+    letter-spacing: 0.005em;
+  }
+
+  .about-thesis .closer {
+    margin-top: 38px;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-size: clamp(15px, 1.4vw, 18px);
+    color: var(--mid);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+
+  /* Section dividers — gold ornament */
+  .ornament {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 84px 0;
+    gap: 12px;
+  }
+
+  .ornament .line {
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .ornament .diamond {
+    width: 4px;
+    height: 4px;
+    transform: rotate(45deg);
+    background: var(--gold);
+  }
+
+  /* Body sections */
+  .about-section {
+    margin-bottom: 0;
+  }
+
+  .about-section h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(20px, 1.9vw, 26px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    text-align: center;
+    margin-bottom: 36px;
+    line-height: 1;
+  }
+
+  .about-section p {
+    font-family: var(--font-italic);
+    font-size: 18px;
+    line-height: 1.85;
+    color: var(--navy);
+    margin-bottom: 22px;
+    letter-spacing: 0.005em;
+  }
+
+  .about-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Closing — the house */
+  .about-house {
+    text-align: center;
+    padding: 130px 0 110px;
+    background: var(--cream);
+  }
+
+  .about-house-monogram {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 44px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  .about-house-monogram-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 60px;
+  }
+
+  .about-house h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(20px, 1.9vw, 26px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    margin-bottom: 36px;
+    line-height: 1;
+  }
+
+  .about-house p {
+    font-family: var(--font-italic);
+    font-size: 18px;
+    line-height: 1.85;
+    color: var(--navy);
+    margin-bottom: 36px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0.005em;
+  }
+
+  .about-house .signature {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 0;
+  }
+
+  .about-tagline {
+    margin-top: 52px;
+    padding-top: 44px;
+    border-top: 1px solid var(--line);
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-tagline-line {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--mid);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .about-tagline-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-tagline-provenance {
+    margin-top: 22px;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    line-height: 1;
+  }
+
+  /* CTA — quiet link to the elixir */
+  .about-cta {
+    background: var(--navy);
+    background:
+      radial-gradient(
+        ellipse at center,
+        var(--navy-center) 0%,
+        var(--navy) 60%,
+        var(--navy-deep) 100%
+      );
+    color: var(--cream);
+    text-align: center;
+    padding: 110px 40px;
+  }
+
+  .about-cta-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .about-cta h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    margin-bottom: 36px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-cta a.cta-link {
+    display: inline-block;
+    margin-top: 12px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    padding: 18px 44px;
+    border-radius: 2px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transition: background 260ms ease, color 260ms ease;
+  }
+
+  .about-cta a.cta-link:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy-deep);
+    color: var(--cream);
+    padding: 96px 0 40px;
+  }
+
+  .footer-inner {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 2.6fr;
+    gap: 80px;
+    padding-bottom: 72px;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    margin-bottom: 56px;
+  }
+
+  .footer-brand .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--cream);
+  }
+
+  .footer-brand .footer-line {
+    font-family: var(--font-italic);
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(249, 246, 240, 0.65);
+    font-style: italic;
+    max-width: 280px;
+    margin: 0 0 22px 0;
+  }
+
+  .footer-brand .footer-provenance {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.5);
+    margin: 0;
+  }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-col-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+  }
+
+  .footer-col a {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: rgba(249, 246, 240, 0.75);
+    margin-bottom: 14px;
+    transition: color 240ms ease;
+    line-height: 1.5;
+  }
+
+  .footer-col a:hover {
+    color: var(--gold);
+  }
+
+  .footer-bottom {
+    padding-top: 28px;
+    border-top: 1px solid rgba(201, 169, 110, 0.18);
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: rgba(249, 246, 240, 0.35);
+    text-align: center;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    :root { --nav-h: 72px; }
+
+    .nav-inner {
+      padding: 0 22px;
+    }
+
+    .nav-logo { font-size: 15px; letter-spacing: 0.32em; }
+    .nav-links, .nav-reserve { display: none; }
+    .nav-menu { display: block; }
+
+    .about-hero {
+      min-height: 50vh;
+    }
+    .about-hero-inner {
+      padding: 56px 24px;
+    }
+
+    .about-body { padding: 84px 0; }
+    .about-body-inner { padding: 0 24px; }
+
+    .about-thesis { margin-bottom: 64px; }
+    .ornament { margin: 56px 0; }
+
+    .about-house { padding: 84px 24px; }
+    .about-cta { padding: 84px 24px; }
+
+    footer { padding: 64px 0 36px; }
+    .footer-inner { padding: 0 24px; }
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 56px;
+      padding-bottom: 56px;
+      margin-bottom: 40px;
+    }
+    .footer-nav {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+    .footer-brand .footer-logo { font-size: 18px; }
+  }
+
+  @media (max-width: 520px) {
+    .about-hero-title { font-size: 36px; }
+    .about-thesis p { font-size: 20px; }
+    .about-section p { font-size: 17px; }
+    .about-house p { font-size: 17px; }
+    .about-tagline-line { font-size: 15px; }
+    .footer-nav { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+
+<body>
+
+<nav>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="product.html#formulation">The Formula</a></li>
+    <li><a href="product.html#ritual">The Ritual</a></li>
+    <li><a href="product.html#origins">Origins</a></li>
+    <li><a href="product.html#reviews">Reviews</a></li>
+    <li><a href="product.html#reserve">Reserve</a></li>
+  </ul>
+
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+
+    <div class="nav-right">
+      <a href="product.html#reserve" class="nav-reserve">Reserve</a>
+      <div class="nav-menu">
+        <button class="nav-menu-btn" type="button" onclick="toggleMenu()">Menu</button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="about.html" onclick="toggleMenu(false)">About</a>
+          <a href="product.html#formulation" onclick="toggleMenu(false)">The Formula</a>
+          <a href="product.html#ritual" onclick="toggleMenu(false)">The Ritual</a>
+          <a href="product.html#origins" onclick="toggleMenu(false)">Origins</a>
+          <a href="product.html#reviews" onclick="toggleMenu(false)">Reviews</a>
+          <a href="product.html#reserve" onclick="toggleMenu(false)">Reserve</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="about-hero">
+    <div class="about-hero-inner">
+      <p class="label">The Maison</p>
+      <h1 class="about-hero-title">A house, by hand.</h1>
+    </div>
+  </section>
+
+  <!-- ═══ BODY ═══ -->
+  <section class="about-body">
+    <div class="about-body-inner">
+
+      <!-- Thesis -->
+      <div class="about-thesis">
+        <p>A brand tells a woman what to want.<br>
+        A maison composes what is rare,<br>
+        and trusts her to recognize it.</p>
+        <p class="closer">This is the difference, and the whole of it.</p>
+      </div>
+
+      <div class="ornament">
+        <span class="line"></span>
+        <span class="diamond"></span>
+        <span class="line"></span>
+      </div>
+
+      <!-- The Composition -->
+      <div class="about-section">
+        <h2>The Composition</h2>
+        <p>The Hair Elixir is formed of fourteen rare botanical essences, composed in a single bottle, signed in a single scent. No mass producer attempts this. The economics do not permit it. The patience is not available to them.</p>
+        <p>It exists because we declined to compromise.</p>
+        <p>The maison continues, on the same terms.</p>
+      </div>
+
+      <div class="ornament">
+        <span class="line"></span>
+        <span class="diamond"></span>
+        <span class="line"></span>
+      </div>
+
+      <!-- Heritage -->
+      <div class="about-section">
+        <h2>Heritage</h2>
+        <p>The lineage of the maison is older than haircare. It belongs to the apothecary and the parfumeur &mdash; houses that composed slowly, that signed for their work, that understood scent as memory and formula as discipline.</p>
+        <p>TThese are old practices. They have been refined for centuries. They are returned to without apology.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ THE HOUSE — closing ═══ -->
+  <section class="about-house">
+    <div class="about-house-monogram">M&rsquo;dV</div>
+    <div class="about-house-monogram-rule"></div>
+
+    <h2>The House</h2>
+
+    <p>The maison is signed by its founder.</p>
+
+    <p class="signature">Masiela Lusha</p>
+
+    <div class="about-tagline">
+      <p class="about-tagline-line">Rare by origin. Refined by design.</p>
+      <p class="about-tagline-provenance">Hand-sealed &middot; Beverly Hills</p>
+    </div>
+  </section>
+
+  <!-- ═══ CTA — quiet invitation to the elixir ═══ -->
+  <section class="about-cta">
+    <p class="about-cta-label">The First Composition</p>
+    <h3>Begin with the Hair Elixir.</h3>
+    <a href="product.html" class="cta-link">View the Elixir</a>
+  </section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <div class="footer-logo">MAISON D&rsquo;VUE</div>
+        <p class="footer-line">Rare by origin. Refined by design.</p>
+        <div class="footer-provenance">Hand-sealed &middot; Beverly Hills</div>
+      </div>
+
+      <div class="footer-nav">
+
+        <div class="footer-col">
+          <div class="footer-col-label">The House</div>
+          <a href="about.html">About</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-label">The Product</div>
+          <a href="product.html#formulation">The Elixir</a>
+          <a href="product.html#ritual">The Ritual</a>
+          <a href="product.html#origins">Origins</a>
+          <a href="product.html#reviews">Reviews</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-label">Access</div>
+          <a href="product.html#reserve">Reserve</a>
+          <a href="mailto:press@maisondvue.com">Press Inquiries</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">&copy; 2026 MAISON D&rsquo;VUE &nbsp;&middot;&nbsp; hello@maisondvue.com &nbsp;&middot;&nbsp; Made in USA</div>
+
+  </div>
+</footer>
+
+<script>
+  const dropdown = document.getElementById('navDropdown');
+
+  function toggleMenu(force) {
+    const shouldOpen = typeof force === 'boolean' ? force : dropdown.style.display !== 'block';
+    dropdown.style.display = shouldOpen ? 'block' : 'none';
+  }
+
+  document.addEventListener('click', function(event) {
+    const menu = document.querySelector('.nav-menu');
+    if (menu && !menu.contains(event.target)) dropdown.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
