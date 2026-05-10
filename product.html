@@ -1257,7 +1257,16 @@
     font-size: 15px;
     line-height: 1.65;
     color: var(--mid);
+    margin-bottom: 16px;
+  }
+ .letters-perk {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
     margin-bottom: 28px;
+    line-height: 1.5;
   }
 
   .letters-form {
@@ -2118,17 +2127,19 @@
 
   </div>
 </footer>
-<!-- ═══ LETTERS POPUP ═══ -->
+</div><!-- ═══ LETTERS POPUP ═══ -->
 <div class="letters-overlay" id="lettersOverlay" aria-hidden="true" role="dialog" aria-labelledby="lettersHeadline">
   <div class="letters-modal" id="lettersModal">
     <button class="letters-close" type="button" onclick="closeLetters()" aria-label="Close">&times;</button>
 
-    <p class="letters-label">From the Maison</p>
-    <h3 class="letters-headline" id="lettersHeadline">Letters, sent rarely.</h3>
-    <p class="letters-sub">On scent, ritual, and the slow refinement of a single bottle. Brief letters from MAISON D&rsquo;VUE, sent only when there is something worth saying.</p>
+   <p class="letters-label">From the Maison</p>
+<h3 class="letters-headline" id="lettersHeadline">Letters, sent rarely.</h3>
+<p class="letters-sub">On scent, ritual, and the slow refinement of a single bottle.</p>
+<p class="letters-perk">Subscribers receive first access to each allocation.</p>
 
-    <form class="letters-form" id="lettersForm" novalidate>
-      <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Your email" autocomplete="email" required>
+<form class="letters-form" id="lettersForm" novalidate>
+  <input type="text" class="letters-input" id="lettersName" name="lettersName" placeholder="First name" autocomplete="given-name" required>
+  <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Your email" autocomplete="email" required>
 
       <div class="letters-hp" aria-hidden="true">
         <input type="text" id="lettersHp" name="lettersHp" tabindex="-1" autocomplete="off">
