@@ -31,7 +31,7 @@
     "@type": "Brand",
     "name": "MAISON D\u2019VUE"
   },
-  "description": "A ritual of fourteen essences, scented in \u00C2me de Vue. The Hair Elixir is composed of fourteen plant-derived botanicals — including Ungurahua from the Amazon, Prickly Pear from the Atlas Mountains, Bulgarian Rose, Rosehip, and Meadowfoam. Anhydrous. Hand-sealed in Beverly Hills.",
+  "description": "A ritual of fourteen essences, scented in \u00C2me de Vue. The Hair Elixir is composed of fourteen plant-derived botanicals — including Ungurahua from the Amazon, Prickly Pear from the Atlas Mountains, Camellia from Japan, Rosehip, and Meadowfoam. Anhydrous. Hand-sealed in Beverly Hills.",
   "image": "https://maisondvue.com/hero_1.jpg",
   "url": "https://maisondvue.com/product.html",
   "category": "Haircare",
@@ -1331,7 +1331,8 @@
     color: var(--mid);
     margin-bottom: 16px;
   }
- .letters-perk {
+
+  .letters-perk {
     font-family: var(--font-display);
     font-size: 12px;
     letter-spacing: 0.18em;
@@ -1816,16 +1817,18 @@
 </nav>
 
 <main id="top">
-<!-- ═══ HERO (navy) ═══ -->
+
+  <!-- ═══ HERO (navy) ═══ -->
   <section class="hero" id="buy">
     <div class="hero-media">
       <div class="image-stage" id="imageStage">
-        <div<div class="slide"><img src="hero_1.jpg" alt="MAISON D'VUE Hair Elixir bottle on marble"></div>
-<div class="slide"><img src="MAISON%20DVUE%20SHINY%20BRUNETTE.PNG" alt="Glass-like luminosity — Vue 14 result"></div>
-<div class="slide"><img src="single%20drop.png" alt="A single drop of MAISON D'VUE Hair Elixir"></div>
-<div class="slide"><img src="Glass%20petri%20dish%20on%20warm%20cream.jpg" alt="Prickly pear botanical — Vue 14 essence"></div> class="slides" id="slides">
-       
+        <div class="slides" id="slides">
+          <div class="slide"><img src="hero_1.jpg" alt="MAISON D'VUE Hair Elixir bottle on marble"></div>
+          <div class="slide"><img src="MAISON%20DVUE%20SHINY%20BRUNETTE.PNG" alt="Glass-like luminosity — Vue 14 result"></div>
+          <div class="slide"><img src="single%20drop.png" alt="A single drop of MAISON D'VUE Hair Elixir"></div>
+          <div class="slide"><img src="Glass%20petri%20dish%20on%20warm%20cream.jpg" alt="Prickly pear botanical — Vue 14 essence"></div>
         </div>
+
         <button class="carousel-control prev" type="button" aria-label="Previous image" onclick="prevSlide()">&larr;</button>
         <button class="carousel-control next" type="button" aria-label="Next image" onclick="nextSlide()">&rarr;</button>
 
@@ -2197,19 +2200,20 @@
 
   </div>
 </footer>
+
 <!-- ═══ LETTERS POPUP ═══ -->
 <div class="letters-overlay" id="lettersOverlay" aria-hidden="true" role="dialog" aria-labelledby="lettersHeadline">
   <div class="letters-modal" id="lettersModal">
     <button class="letters-close" type="button" onclick="closeLetters()" aria-label="Close">&times;</button>
 
-   <p class="letters-label">From the Maison</p>
-<h3 class="letters-headline" id="lettersHeadline">Letters, sent rarely.</h3>
-<p class="letters-sub">On scent, ritual, and the slow refinement of a single bottle.</p>
-<p class="letters-perk">Subscribers receive first access to each allocation.</p>
+    <p class="letters-label">From the Maison</p>
+    <h3 class="letters-headline" id="lettersHeadline">Letters, sent rarely.</h3>
+    <p class="letters-sub">On scent, ritual, and the slow refinement of a single bottle.</p>
+    <p class="letters-perk">Subscribers receive first access to each allocation.</p>
 
-<form class="letters-form" id="lettersForm" novalidate>
-  <input type="text" class="letters-input" id="lettersName" name="lettersName" placeholder="First name" autocomplete="given-name" required>
-  <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Your email" autocomplete="email" required>
+    <form class="letters-form" id="lettersForm" novalidate>
+      <input type="text" class="letters-input" id="lettersName" name="lettersName" placeholder="First name" autocomplete="given-name" required>
+      <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Your email" autocomplete="email" required>
 
       <div class="letters-hp" aria-hidden="true">
         <input type="text" id="lettersHp" name="lettersHp" tabindex="-1" autocomplete="off">
@@ -2442,7 +2446,8 @@
     lettersFeedback.classList.remove('error');
     if (type === 'error') lettersFeedback.classList.add('error');
   }
-lettersForm.addEventListener('submit', async function(e) {
+
+  lettersForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     setLettersMsg('');
 
