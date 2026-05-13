@@ -2620,5 +2620,113 @@
   });
 </script>
 
-</body>
+<!-- ═══ REVIEWS CAROUSEL (CSS + JS upgrade) ═══ -->
+<style>
+  #reviews .reviews-grid {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 24px;
+    padding: 8px 4px 24px;
+    margin-bottom: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #reviews .reviews-grid::-webkit-scrollbar { display: none; }
+  #reviews .review-card {
+    flex: 0 0 360px;
+    scroll-snap-align: start;
+  }
+  #reviews .review-card.empty {
+    flex: 0 0 240px;
+  }
+  @media (max-width: 600px) {
+    #reviews .review-card { flex: 0 0 85%; }
+    #reviews .review-card.empty { flex: 0 0 70%; }
+  }
+  .reviews-carousel-wrap {
+    position: relative;
+    margin-bottom: 96px;
+  }
+  .reviews-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 169, 110, 0.5);
+    background: var(--warm-white);
+    color: var(--gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 240ms ease, border-color 240ms ease, opacity 240ms ease;
+    font-size: 18px;
+    line-height: 1;
+    box-shadow: 0 2px 12px rgba(11, 31, 58, 0.08);
+  }
+  .reviews-arrow:hover {
+    background: var(--gold);
+    color: var(--cream);
+    border-color: var(--gold);
+  }
+  .reviews-arrow.prev { left: -12px; }
+  .reviews-arrow.next { right: -12px; }
+  .reviews-arrow[disabled] {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .reviews-arrow { display: none; }
+    .reviews-carousel-wrap { margin-bottom: 64px; }
+  }
+</style>
+<script>
+  (function() {
+    var grid = document.querySelector('#reviews .reviews-grid');
+    if (!grid) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'reviews-carousel-wrap';
+    grid.parentNode.insertBefore(wrap, grid);
+    wrap.appendChild(grid);
+    var prev = document.createElement('button');
+    prev.type = 'button';
+    prev.className = 'reviews-arrow prev';
+    prev.setAttribute('aria-label', 'Previous reviews');
+    prev.innerHTML = '&larr;';
+    var next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'reviews-arrow next';
+    next.setAttribute('aria-label', 'Next reviews');
+    next.innerHTML = '&rarr;';
+    wrap.appendChild(prev);
+    wrap.appendChild(next);
+    function getStep() {
+      var card = grid.querySelector('.review-card');
+      if (!card) return 360;
+      var cs = getComputedStyle(grid);
+      var gap = parseInt(cs.gap || cs.columnGap || '24', 10);
+      return card.getBoundingClientRect().width + gap;
+    }
+    prev.addEventListener('click', function() {
+      grid.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', function() {
+      grid.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+    function updateArrows() {
+      prev.disabled = grid.scrollLeft <= 4;
+      next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4;
+    }
+    grid.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    setTimeout(updateArrows, 100);
+  })();
+</script></body>
 </html>
