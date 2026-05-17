@@ -726,25 +726,68 @@
      ═══════════════════════════════════════════════════════════ */
   .sec-founder {
     background: var(--cream);
-    padding: 140px 0;
+    padding: 140px 0 160px;
   }
 
+  /* Section header — centered, full-width */
+  .founder-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 100px;
+  }
+
+  .founder-header .section-eyebrow {
+    display: block;
+  }
+
+  .founder-header .section-title {
+    margin-bottom: 16px;
+    font-size: clamp(36px, 5vw, 64px);
+  }
+
+  .founder-role-display {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    margin-bottom: 36px;
+    line-height: 1;
+  }
+
+  .founder-header-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto;
+  }
+
+  /* Two-column spread */
   .sec-founder-grid {
     display: grid;
-    grid-template-columns: 0.9fr 1.2fr;
-    gap: 80px;
-    align-items: center;
+    grid-template-columns: 0.85fr 1.4fr;
+    gap: 90px;
+    align-items: start;
   }
 
-  .sec-founder-text {
-    text-align: left;
+  .sec-founder-portrait {
+    position: sticky;
+    top: calc(var(--nav-h) + 40px);
+  }
+
+  /* Monogram block beneath portrait */
+  .founder-monogram-block {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    text-align: center;
   }
 
   .founder-monogram {
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 400;
-    font-size: 48px;
+    font-size: 56px;
     color: var(--gold);
     line-height: 1;
     margin-bottom: 18px;
@@ -752,42 +795,187 @@
   }
 
   .founder-monogram-rule {
-    width: 40px;
+    width: 36px;
     height: 1px;
     background: var(--gold);
-    margin: 0 0 36px;
+    margin: 0 auto 22px;
   }
 
-  .founder-name {
+  .founder-monogram-caption {
     font-family: var(--font-italic);
     font-style: italic;
-    font-size: 28px;
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+
+  /* Biography column */
+  .sec-founder-text {
+    text-align: left;
+    max-width: 640px;
+  }
+
+  /* Lede with drop cap */
+  .bio-lede {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.55;
     color: var(--navy);
-    margin-bottom: 12px;
+    letter-spacing: 0.005em;
+    margin-bottom: 72px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bio-lede .dropcap {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 4.6em;
+    line-height: 0.85;
+    float: left;
+    margin: 8px 14px -4px 0;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+
+  .bio-lede .tm {
+    font-size: 0.5em;
+    vertical-align: super;
+    letter-spacing: 0.05em;
+    margin-left: 2px;
+    color: var(--gold-muted);
+    font-style: normal;
+  }
+
+  /* Chapters within bio */
+  .bio-chapter {
+    margin-bottom: 56px;
+  }
+
+  .bio-chapter:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .bio-chapter-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+    line-height: 1;
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bio-chapter p {
+    font-family: var(--font-italic);
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--navy);
+    margin-bottom: 22px;
+    letter-spacing: 0.005em;
+  }
+
+  .bio-chapter p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bio-chapter em {
+    font-style: italic;
+    font-family: var(--font-display);
+    color: var(--navy);
+  }
+
+  /* Founder voice — inline quotation in her words */
+  .bio-founder-voice {
+    font-family: var(--font-italic) !important;
+    font-style: italic !important;
+    font-size: clamp(19px, 1.9vw, 23px) !important;
+    line-height: 1.6 !important;
+    color: var(--navy) !important;
+    margin: 36px 0 !important;
+    padding: 6px 0 6px 24px !important;
+    border-left: 2px solid var(--gold) !important;
+    letter-spacing: 0.005em !important;
+    position: relative;
+  }
+
+  .bio-founder-voice .voice-mark,
+  .bio-founder-voice .voice-mark-close {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.15em;
+    line-height: 1;
+    margin: 0 1px;
+  }
+
+  /* Pull quote — inset from text flow */
+  .bio-pullquote {
+    margin: 64px -40px;
+    padding: 36px 40px;
+    border-left: 2px solid var(--gold);
+    border-right: 0;
+    background: rgba(201, 169, 110, 0.05);
+  }
+
+  .bio-pullquote p {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.45;
+    color: var(--navy);
+    letter-spacing: 0.005em;
+    margin: 0;
+  }
+
+  /* Signature block at end */
+  .bio-signature {
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+
+  .bio-signature-rule {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 0 24px;
+  }
+
+  .bio-signature-name {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 26px;
+    color: var(--navy);
+    margin-bottom: 8px;
     line-height: 1.2;
   }
 
-  .founder-role {
+  .bio-signature-role {
     font-family: var(--font-display);
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--gold-muted);
-    margin-bottom: 32px;
+    margin-bottom: 8px;
     line-height: 1;
   }
 
-  .founder-bio p {
-    font-family: var(--font-italic);
-    font-size: 17px;
-    line-height: 1.85;
+  .bio-signature-house {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
     color: var(--navy);
-    margin-bottom: 20px;
-    letter-spacing: 0.005em;
-  }
-
-  .founder-bio p:last-child {
-    margin-bottom: 0;
+    line-height: 1;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -1096,6 +1284,35 @@
       order: -1;
     }
 
+    /* Founder bio adjustments for mobile */
+    .founder-header {
+      margin-bottom: 64px;
+    }
+
+    .sec-founder-portrait {
+      position: static;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .sec-founder-text {
+      max-width: 100%;
+    }
+
+    .bio-pullquote {
+      margin: 48px -24px;
+      padding: 28px 24px;
+    }
+
+    .bio-lede {
+      margin-bottom: 56px;
+      padding-bottom: 36px;
+    }
+
+    .bio-chapter {
+      margin-bottom: 48px;
+    }
+
     .sec-quote {
       padding: 84px 0;
     }
@@ -1135,7 +1352,11 @@
     .sec-category-statement { font-size: 19px; }
     .sec-quote blockquote p { font-size: 21px; }
     .section-body p { font-size: 16px; }
-    .founder-bio p { font-size: 16px; }
+    .bio-chapter p { font-size: 16px; }
+    .bio-lede { font-size: 18px; }
+    .bio-lede .dropcap { font-size: 4em; margin-right: 10px; }
+    .bio-pullquote p { font-size: 19px; }
+    .founder-monogram { font-size: 48px; }
     .stack-line { font-size: 16px; }
     .ledger-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
     .ledger-row .descriptor { text-align: left; }
@@ -1333,12 +1554,23 @@
     </div>
   </section>
 
-  <!-- ═══ 06 — FOUNDER (image-left, text-right) ═══ -->
+  <!-- ═══ 06 — FOUNDER BIOGRAPHY (full editorial spread) ═══ -->
   <section class="sec-founder">
     <div class="container">
+
+      <!-- Section header -->
+      <div class="founder-header">
+        <p class="section-eyebrow"><span class="num">04</span> The Founder</p>
+        <h2 class="section-title">Masiela Lusha</h2>
+        <p class="founder-role-display">Founder &amp; Creative Director</p>
+        <div class="founder-header-rule"></div>
+      </div>
+
+      <!-- Two-column editorial spread -->
       <div class="sec-founder-grid">
 
-        <div class="sec-founder-image">
+        <!-- Portrait column (sticky on desktop) -->
+        <aside class="sec-founder-portrait">
           <div class="img-frame">
             <div class="placeholder-label">
               <span class="ornament-mark"></span>
@@ -1346,18 +1578,70 @@
               <span class="dimensions">Portrait &middot; 4:5</span>
             </div>
           </div>
-        </div>
+          <p class="img-caption">Beverly Hills, 2026.</p>
 
-        <div class="sec-founder-text">
-          <p class="section-eyebrow"><span class="num">04</span> The House</p>
-          <div class="founder-monogram">M&rsquo;dV</div>
-          <div class="founder-monogram-rule"></div>
-          <p class="founder-name">Masiela Lusha</p>
-          <p class="founder-role">Founder &amp; Creative Director</p>
-          <div class="founder-bio">
-            <p>The maison is signed by its founder. Every composition is approved by her hand before it leaves the house.</p>
-            <p>The discipline of the parfumeur, returned to. The patience of the apothecary, kept.</p>
+          <!-- Monogram block under portrait -->
+          <div class="founder-monogram-block">
+            <div class="founder-monogram">M&rsquo;dV</div>
+            <div class="founder-monogram-rule"></div>
+            <p class="founder-monogram-caption">The maison is signed by its founder.</p>
           </div>
+        </aside>
+
+        <!-- Biography column -->
+        <div class="sec-founder-text">
+
+          <!-- Lede paragraph (drop-cap, distinguished) -->
+          <p class="bio-lede"><span class="dropcap">M</span>asiela Lusha is the Founder and Creative Director of MAISON D&rsquo;VUE, the House of Affinity Compositions<span class="tm">&trade;</span>.</p>
+
+          <!-- Chapter: Origin -->
+          <div class="bio-chapter">
+            <p class="bio-chapter-label">Origin</p>
+            <p>She was born in Tirana, Albania, in 1985, and left as a child refugee with her family during the country&rsquo;s political turbulence. They moved through Budapest and Vienna before settling in Michigan. By the time she arrived, she had already lived inside three languages. English was the fourth. The slowness of becoming fluent &mdash; of learning a place by learning its words &mdash; is the formative discipline of her working life.</p>
+          </div>
+
+          <!-- Chapter: Writer -->
+          <div class="bio-chapter">
+            <p class="bio-chapter-label">The Writer</p>
+            <p>She began writing early. Her first book of poetry, <em>Inner Thoughts</em>, was published when she was twelve, in two languages. The book made her, by the Michigan press&rsquo;s account, the youngest author in the world to publish in two languages simultaneously. She was named among North America&rsquo;s Top Ten Talented Poets and received recognition from President Bill Clinton before graduating high school at fifteen. She was admitted to UCLA as a junior at eighteen and graduated with a degree in English.</p>
+            <p>Five books of poetry followed <em>Inner Thoughts</em>: <em>Drinking the Moon</em>, <em>Amore Celeste</em>, <em>The Call</em>, and <em>The Living Air</em>. A novel, <em>The Besa</em>, written in a single month and named for the ancient Albanian code of honor and hospitality that predates her nation. Two children&rsquo;s books, <em>Boopity Boop! Writes Her First Poem</em> and <em>Boopity Boop! Goes To Hawaii</em>, written in three languages. And, in a labor she has called the most precious of her career, translations of Mother Teresa&rsquo;s poems and prayers from their original Albanian.</p>
+            <p>Her most recent work, <em>The 12 Veils of Hope</em>, is a sequence of one hundred and thirty-seven haiku arranged in twelve movements &mdash; a meditation on the passage of light and loss, composed in the most withholding form the language offers. The book became an Amazon best seller in modern poetry and in female writers. Its architecture &mdash; movements, not chapters &mdash; would later inform the structure of MAISON D&rsquo;VUE itself.</p>
+          </div>
+
+          <!-- Pull quote -->
+          <blockquote class="bio-pullquote">
+            <p>A poet composes by selection &mdash; the right word in the right line, the right silence between them. A maison composes the same way.</p>
+          </blockquote>
+
+          <!-- Chapter: Actress -->
+          <div class="bio-chapter">
+            <p class="bio-chapter-label">The Actress</p>
+            <p>Audiences recognize Masiela as an actress. She made her television debut at fifteen and went on to portray Carmen Lopez in the Warner Bros. Television series <em>George Lopez</em>, which aired on ABC for five seasons and was globally syndicated across more than seventy countries. The role earned her two consecutive Young Artist Awards. She has appeared in over thirty film and television projects, including Sony Pictures&rsquo; <em>Blood: The Last Vampire</em> and SyFy&rsquo;s <em>Sharknado</em> franchise. She has lent her voice, in <em>Clifford&rsquo;s Puppy Days</em> on PBS, to a generation of children who learned to read alongside her.</p>
+          </div>
+
+          <!-- Chapter: Humanitarian -->
+          <div class="bio-chapter">
+            <p class="bio-chapter-label">The Humanitarian</p>
+            <p>Her humanitarian work has been continuous since her early twenties. She has served as ambassador to Prince Harry&rsquo;s Sentebale, the World Assembly of Youth, and Athgo International. She founded her own organization, Children of the World. She is an active advocate for UN Women.</p>
+          </div>
+
+          <!-- Chapter: The Maison -->
+          <div class="bio-chapter">
+            <p class="bio-chapter-label">The Maison</p>
+            <p>MAISON D&rsquo;VUE is, in her telling, a seventh book &mdash; a composition. A poet selects the right word and places it in the right line. A maison selects the right botanical and places it in the right composition. The two disciplines are, she believes, the same discipline.</p>
+            <p class="bio-founder-voice"><span class="voice-mark">&ldquo;</span>If a word in poetry can be replaced, it should. I live by the same discipline in formulating.<span class="voice-mark-close">&rdquo;</span></p>
+            <p>Fourteen rare essences, signed in a single scent, made in the patience that the work requires.</p>
+            <p>She lives in Los Angeles with her two children and her dog, Hemingway.</p>
+          </div>
+
+          <!-- Signature -->
+          <div class="bio-signature">
+            <div class="bio-signature-rule"></div>
+            <p class="bio-signature-name">Masiela Lusha</p>
+            <p class="bio-signature-role">Founder &amp; Creative Director</p>
+            <p class="bio-signature-house">MAISON D&rsquo;VUE</p>
+          </div>
+
         </div>
 
       </div>
