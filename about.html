@@ -1259,7 +1259,7 @@
       padding: 0 24px;
     }
 
-    /* All asymmetric grids collapse to single column */
+    /* Most asymmetric grids collapse to single column on mobile */
     .sec-category,
     .sec-composition,
     .sec-heritage,
@@ -1269,8 +1269,7 @@
 
     .sec-category-grid,
     .sec-composition-grid,
-    .sec-heritage-grid,
-    .sec-founder-grid {
+    .sec-heritage-grid {
       grid-template-columns: 1fr;
       gap: 56px;
     }
@@ -1284,33 +1283,101 @@
       order: -1;
     }
 
-    /* Founder bio adjustments for mobile */
+    /* Override container padding for founder section on mobile —
+       split layout needs every pixel of horizontal room */
+    .sec-founder .container {
+      padding: 0 16px;
+    }
+
+    /* FOUNDER SECTION — keeps split-screen layout on mobile
+       Small sticky portrait on left, biography text on right.
+       This is the editorial "running portrait" treatment. */
     .founder-header {
-      margin-bottom: 64px;
+      margin-bottom: 56px;
+    }
+
+    .sec-founder-grid {
+      grid-template-columns: 0.85fr 1.6fr;
+      gap: 24px;
+      align-items: start;
     }
 
     .sec-founder-portrait {
-      position: static;
-      max-width: 480px;
-      margin: 0 auto;
+      position: sticky;
+      top: calc(var(--nav-h) + 16px);
+      align-self: start;
+    }
+
+    /* Hide the monogram block on mobile — it lives in the
+       header on small screens, doesn't need to repeat */
+    .sec-founder-portrait .founder-monogram-block {
+      display: none;
+    }
+
+    .sec-founder-portrait .img-caption {
+      font-size: 10px;
+      letter-spacing: 0.02em;
+      margin-top: 8px;
+      line-height: 1.4;
     }
 
     .sec-founder-text {
       max-width: 100%;
     }
 
-    .bio-pullquote {
-      margin: 48px -24px;
-      padding: 28px 24px;
+    /* Tighten typography on mobile bio */
+    .bio-lede {
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 44px;
+      padding-bottom: 32px;
     }
 
-    .bio-lede {
-      margin-bottom: 56px;
-      padding-bottom: 36px;
+    .bio-lede .dropcap {
+      font-size: 3.8em;
+      margin: 6px 10px -4px 0;
     }
 
     .bio-chapter {
-      margin-bottom: 48px;
+      margin-bottom: 44px;
+    }
+
+    .bio-chapter-label {
+      font-size: 9px;
+      letter-spacing: 0.36em;
+      margin-bottom: 16px;
+    }
+
+    .bio-chapter p {
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .bio-pullquote {
+      margin: 40px -8px;
+      padding: 20px 16px;
+    }
+
+    .bio-pullquote p {
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .bio-founder-voice {
+      font-size: 16px !important;
+      line-height: 1.6 !important;
+      padding-left: 14px !important;
+      margin: 24px 0 !important;
+    }
+
+    .bio-signature {
+      margin-top: 56px;
+      padding-top: 32px;
+    }
+
+    .bio-signature-name {
+      font-size: 20px;
     }
 
     .sec-quote {
@@ -1352,16 +1419,68 @@
     .sec-category-statement { font-size: 19px; }
     .sec-quote blockquote p { font-size: 21px; }
     .section-body p { font-size: 16px; }
-    .bio-chapter p { font-size: 16px; }
-    .bio-lede { font-size: 18px; }
-    .bio-lede .dropcap { font-size: 4em; margin-right: 10px; }
-    .bio-pullquote p { font-size: 19px; }
-    .founder-monogram { font-size: 48px; }
     .stack-line { font-size: 16px; }
     .ledger-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
     .ledger-row .descriptor { text-align: left; }
     .ledger-row .name { font-size: 12px; }
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
+
+    /* Founder section — keep split layout but give portrait less weight */
+    .sec-founder-grid {
+      grid-template-columns: 0.7fr 1.8fr;
+      gap: 18px;
+    }
+
+    .sec-founder-portrait {
+      top: calc(var(--nav-h) + 12px);
+    }
+
+    .sec-founder-portrait .img-caption {
+      display: none; /* hide caption on smallest screens to save space */
+    }
+
+    .bio-lede {
+      font-size: 16px;
+      margin-bottom: 36px;
+      padding-bottom: 28px;
+    }
+
+    .bio-lede .dropcap {
+      font-size: 3.2em;
+      margin: 4px 8px -2px 0;
+    }
+
+    .bio-chapter p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .bio-chapter-label {
+      font-size: 8.5px;
+      letter-spacing: 0.32em;
+    }
+
+    .bio-pullquote {
+      margin: 32px -4px;
+      padding: 16px 14px;
+    }
+
+    .bio-pullquote p {
+      font-size: 15px;
+    }
+
+    .bio-founder-voice {
+      font-size: 14px !important;
+      padding-left: 12px !important;
+    }
+
+    .founder-header {
+      margin-bottom: 44px;
+    }
+
+    .founder-header .section-title {
+      font-size: 32px;
+    }
   }
 </style>
 </head>
@@ -1629,9 +1748,9 @@
           <div class="bio-chapter">
             <p class="bio-chapter-label">The Maison</p>
             <p>MAISON D&rsquo;VUE is, in her telling, a seventh book &mdash; a composition. A poet selects the right word and places it in the right line. A maison selects the right botanical and places it in the right composition. The two disciplines are, she believes, the same discipline.</p>
-            <p class="bio-founder-voice"><span class="voice-mark">&ldquo;</span>If a word in poetry can be replaced, it should. I live by the same discipline in formulating.<span class="voice-mark-close">&rdquo;</span></p>
+            <p class="bio-founder-voice"><span class="voice-mark">&ldquo;</span>If a word in poetry can be replaced or entirely removed, it should. I live by the same discipline in formulating.<span class="voice-mark-close">&rdquo;</span></p>
             <p>Fourteen rare essences, signed in a single scent, made in the patience that the work requires.</p>
-            <p>She lives in Los Angeles with her two children and her dog, Hemingway.</p>
+            <p>She lives in Los Angeles with her husband, two children, and their dog, Hemingway.</p>
           </div>
 
           <!-- Signature -->
