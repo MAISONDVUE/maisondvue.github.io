@@ -33,7 +33,7 @@
     "name": "MAISON D\u2019VUE"
   },
   "description": "A ritual of fourteen essences, scented in \u00C2me de Vue. The Hair Elixir is composed of fourteen plant-derived botanicals — including Ungurahua from the Amazon, Prickly Pear from the Atlas Mountains, Camellia from Japan, Rosehip, and Meadowfoam. Anhydrous. Hand-sealed in Beverly Hills.",
-  "image": "https://maisondvue.com/hero_1.jpg",
+  "image": "https://maisondvue.com/paparazzi-elixir.jpg",
   "url": "https://maisondvue.com/product.html",
   "category": "Haircare",
   "manufacturer": {
@@ -62,42 +62,7 @@
       "priceValidUntil": "2026-12-31",
       "availability": "https://schema.org/PreOrder",
       "url": "https://shop.maisondvue.com/cart/48287241339128:1?checkout",
-      "itemCondition": "https://schema.org/NewCondition",
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "0",
-          "currency": "USD"
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "US"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 1,
-            "maxValue": 3,
-            "unitCode": "DAY"
-          },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 5,
-            "maxValue": 10,
-            "unitCode": "DAY"
-          }
-        }
-      },
-      "hasMerchantReturnPolicy": {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "US",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 14,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
-      }
+      "itemCondition": "https://schema.org/NewCondition"
     },
     {
       "@type": "Offer",
@@ -107,42 +72,7 @@
       "priceValidUntil": "2026-12-31",
       "availability": "https://schema.org/PreOrder",
       "url": "https://shop.maisondvue.com/cart/48287241371896:1?checkout",
-      "itemCondition": "https://schema.org/NewCondition",
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "0",
-          "currency": "USD"
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "US"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 1,
-            "maxValue": 3,
-            "unitCode": "DAY"
-          },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 5,
-            "maxValue": 10,
-            "unitCode": "DAY"
-          }
-        }
-      },
-      "hasMerchantReturnPolicy": {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "US",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 14,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
-      }
+      "itemCondition": "https://schema.org/NewCondition"
     }
   ]
 }
@@ -183,13 +113,16 @@
     --font-italic: 'EB Garamond', Georgia, serif;
     --font-body: 'Jost', Helvetica, Arial, sans-serif;
 
-    --page: 1180px;
-    --nav-h: 88px;
+    --page: 1240px;
+    --ribbon-h: 44px;
+    --logo-h: 88px;
+    --nav-h: 56px;
+    --header-total: calc(var(--ribbon-h) + var(--logo-h) + var(--nav-h));
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; background: var(--navy); }
+  html { scroll-behavior: smooth; background: var(--warm-white); }
 
   body {
     font-family: var(--font-body);
@@ -204,103 +137,765 @@
   a { color: inherit; text-decoration: none; }
   button, input, textarea { font: inherit; }
 
-  /* ─── NAV ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    height: var(--nav-h);
-    background: var(--navy);
-    border-bottom: 1px solid rgba(201, 169, 110, 0.28);
-  }
-
-  .nav-inner {
-    height: 100%;
-    max-width: var(--page);
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 26px;
-    list-style: none;
-    margin: 0 auto;
-  }
-
-  .nav-logo {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 20px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
+  /* ═══════════════════════════════════════════════════════════
+     PROMO RIBBON — Chanel pattern, dismissible
+     ═══════════════════════════════════════════════════════════ */
+  .promo-ribbon {
+    height: var(--ribbon-h);
+    background: var(--navy-deep);
     color: var(--cream);
-    white-space: nowrap;
-  }
-
-  .nav-links a,
-  .nav-reserve,
-  .nav-menu-btn {
-    font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.78);
-    line-height: 1;
-    transition: color 240ms ease;
-  }
-
-  .nav-links a:hover,
-  .nav-reserve:hover,
-  .nav-menu-btn:hover { color: var(--gold); }
-
-  .nav-right {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-  }
-
-  .nav-reserve { color: var(--gold); }
-  .nav-menu { display: none; position: relative; }
-
-  .nav-menu-btn {
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .nav-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 28px;
-    min-width: 200px;
-    background: var(--navy);
-    border: 1px solid var(--line);
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+    transition: height 360ms ease, opacity 360ms ease;
     overflow: hidden;
   }
 
-  .nav-dropdown a {
-    display: block;
-    padding: 16px 20px;
-    font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.72);
-    border-bottom: 1px solid rgba(201, 169, 110, 0.14);
+  .promo-ribbon.dismissed {
+    height: 0;
+    opacity: 0;
+    border-bottom: 0;
   }
 
-  .nav-dropdown a:last-child { border-bottom: 0; }
-  .nav-dropdown a:hover { color: var(--gold); }
+  .promo-ribbon-text {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.88);
+    text-align: center;
+    padding: 0 60px;
+    line-height: 1;
+    white-space: nowrap;
+  }
 
-  /* ─── GLOBAL ─── */
+  .promo-ribbon-text .accent {
+    color: var(--gold);
+    margin: 0 14px;
+  }
+
+  .promo-ribbon-close {
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    color: rgba(249, 246, 240, 0.7);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+    transition: color 240ms ease;
+  }
+
+  .promo-ribbon-close:hover {
+    color: var(--gold);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HEADER — centered wordmark with utility icons
+     ═══════════════════════════════════════════════════════════ */
+  .header-logo-row {
+    background: var(--warm-white);
+    height: var(--logo-h);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.06);
+  }
+
+  .header-logo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(20px, 2.4vw, 32px);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .header-utility {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .header-utility-btn {
+    background: transparent;
+    border: 0;
+    color: var(--navy);
+    cursor: pointer;
+    padding: 6px;
+    line-height: 0;
+    transition: color 240ms ease;
+  }
+
+  .header-utility-btn:hover {
+    color: var(--gold-muted);
+  }
+
+  .header-utility-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HORIZONTAL NAV — spacious, centered, beneath logo
+     ═══════════════════════════════════════════════════════════ */
+  .header-nav-row {
+    background: var(--warm-white);
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    position: relative;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: 48px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .header-nav a {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    position: relative;
+    padding: 4px 0;
+    transition: color 240ms ease;
+  }
+
+  .header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 280ms ease;
+  }
+
+  .header-nav a:hover::after,
+  .header-nav a.active::after {
+    width: 100%;
+  }
+
+  .header-nav a:hover {
+    color: var(--gold-muted);
+  }
+
+  /* Sticky header behavior */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    transition: transform 360ms ease;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     MOBILE HEADER — hamburger menu
+     ═══════════════════════════════════════════════════════════ */
+  .header-mobile-toggle {
+    display: none;
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--navy);
+    padding: 8px;
+  }
+
+  .header-mobile-toggle svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--warm-white);
+    z-index: 200;
+    flex-direction: column;
+    padding: 80px 40px 40px;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 320ms ease, transform 320ms ease;
+    pointer-events: none;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: 0;
+    color: var(--navy);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+  }
+
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--navy);
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    display: block;
+  }
+
+  .mobile-menu a:last-child {
+    border-bottom: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HERO — CHANEL PATTERN
+     The photograph IS the hero, presented edge-to-edge with no
+     tinting or gradient overlays. Editorial typography sits in
+     a contained block near lower-center, positioned over natural
+     negative space within the image (the photographer composes
+     for the text, not the other way around).
+     ═══════════════════════════════════════════════════════════ */
+  .hero {
+    width: 100%;
+    height: calc(100vh - var(--header-total));
+    min-height: 640px;
+    max-height: 920px;
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-deep);
+  }
+
+  /* The photograph fills the entire hero plainly.
+     No overlay tint. No gradient. The image is the image. */
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    z-index: 1;
+  }
+
+  /* If no hero image is uploaded yet, this fills the hero with
+     a refined navy gradient so the editorial typography below
+     still reads beautifully. Remove the class once your real
+     photograph is in place. */
+  .hero-image-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(
+        ellipse at 50% 35%,
+        var(--navy-center) 0%,
+        var(--navy) 55%,
+        var(--navy-deep) 100%
+      );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+    color: rgba(201, 169, 110, 0.4);
+  }
+
+  .hero-image-placeholder .placeholder-mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .hero-image-placeholder .placeholder-rule {
+    width: 32px;
+    height: 1px;
+    background: rgba(201, 169, 110, 0.4);
+  }
+
+  .hero-image-placeholder .placeholder-spec {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.32);
+    line-height: 1;
+  }
+
+  /* Editorial text block — contained, centered horizontally,
+     sits at lower-center of the photograph. No gradient behind it;
+     the photograph's own composition provides the contrast. */
+  .hero-content {
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+    transform: translateX(-50%);
+    z-index: 3;
+    text-align: center;
+    color: var(--cream);
+    padding: 0 24px;
+    max-width: 880px;
+    width: 100%;
+  }
+
+  /* Small uppercase category eyebrow above the title.
+     Chanel's small 'FASHION' label, in your house gold. */
+  .hero-eyebrow {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(14px, 1.4vw, 18px);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 200ms forwards;
+  }
+
+  .hero-eyebrow .tm {
+    font-size: 0.5em;
+    vertical-align: super;
+    letter-spacing: 0.05em;
+    margin-left: 3px;
+  }
+
+  /* The dominant title line. Now sized like Chanel's hero \u2014
+     large, present, but contained in width. */
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(36px, 5.4vw, 68px);
+    line-height: 1.1;
+    letter-spacing: 0.005em;
+    color: var(--cream);
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 300ms forwards;
+  }
+
+  /* Italic subline beneath the title \u2014 the product descriptor. */
+  .hero-sub {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(16px, 1.4vw, 20px);
+    color: rgba(249, 246, 240, 0.92);
+    margin-bottom: 36px;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 400ms forwards;
+  }
+
+  /* CTA button \u2014 modest thin box, the Chanel SEE MORE pattern. */
+  .hero-cta {
+    display: inline-block;
+    border: 1px solid var(--cream);
+    color: var(--cream);
+    background: transparent;
+    padding: 14px 40px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 280ms ease, color 280ms ease, border-color 280ms ease;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 500ms forwards;
+  }
+
+  .hero-cta:hover {
+    background: var(--cream);
+    color: var(--navy);
+  }
+
+  @keyframes heroIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     PURCHASE SECTION — moved below hero, Chanel-pattern
+     ═══════════════════════════════════════════════════════════ */
+  .purchase-section {
+    background: var(--warm-white);
+    padding: 110px 0;
+    text-align: center;
+  }
+
+  .purchase-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .purchase-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+
+  .purchase-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 3.4vw, 44px);
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: 0.005em;
+    margin-bottom: 18px;
+  }
+
+  .purchase-scent {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--gold-muted);
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
+  }
+
+  .purchase-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+
+  .purchase-rating .stars {
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  .purchase-rating .rating-text {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    line-height: 1;
+  }
+
+  .purchase-rating a {
+    color: var(--mid);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+    transition: color 240ms ease;
+  }
+
+  .purchase-rating a:hover {
+    color: var(--gold-muted);
+  }
+
+  .purchase-allocation {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 24px 0;
+    margin-bottom: 56px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .allocation-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+  }
+
+  .allocation-row .status {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .allocation-row.muted {
+    opacity: 0.42;
+  }
+
+  /* Two purchase cards side-by-side */
+  .purchase-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .purchase-card {
+    border: 1px solid var(--line);
+    padding: 0;
+    background: var(--warm-white);
+    transition: border-color 320ms ease, transform 320ms ease;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .purchase-card:hover {
+    border-color: rgba(201, 169, 110, 0.5);
+    transform: translateY(-2px);
+  }
+
+  /* Photo space at top of each card — aspect-ratio locked at 4:5,
+     ready to receive a real product photograph. */
+  .card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: var(--ivory);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .card-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Placeholder treatment shown when no real photo is loaded */
+  .card-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    background:
+      linear-gradient(135deg,
+        rgba(11, 31, 58, 0.03) 0%,
+        rgba(201, 169, 110, 0.05) 100%
+      );
+    color: var(--gold-muted);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .card-image-placeholder .placeholder-rule {
+    width: 28px;
+    height: 1px;
+    background: rgba(201, 169, 110, 0.4);
+  }
+
+  .card-image-placeholder .spec {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: rgba(184, 153, 106, 0.6);
+    font-style: normal;
+  }
+
+  /* Featured (navy) card placeholder uses cream tones on navy */
+  .purchase-card.featured .card-image {
+    background-color: var(--navy);
+    border-bottom-color: rgba(201, 169, 110, 0.2);
+  }
+
+  .purchase-card.featured .card-image-placeholder {
+    background:
+      linear-gradient(135deg,
+        rgba(201, 169, 110, 0.08) 0%,
+        rgba(7, 13, 34, 0.4) 100%
+      );
+    color: rgba(201, 169, 110, 0.5);
+  }
+
+  .purchase-card.featured .card-image-placeholder .placeholder-rule {
+    background: rgba(201, 169, 110, 0.4);
+  }
+
+  .purchase-card.featured .card-image-placeholder .spec {
+    color: rgba(201, 169, 110, 0.4);
+  }
+
+  /* Card text content sits below the photo */
+  .card-body {
+    padding: 36px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .purchase-card.featured .card-body {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .purchase-card.featured .card-name,
+  .purchase-card.featured .card-price {
+    color: var(--cream);
+  }
+
+  .purchase-card.featured .card-size {
+    color: rgba(249, 246, 240, 0.65);
+  }
+
+  .card-tag {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .card-name {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--mid);
+    margin-bottom: 8px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .purchase-card.featured .card-name {
+    color: rgba(249, 246, 240, 0.7);
+  }
+
+  .card-size {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+
+  .card-price {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 32px;
+    color: var(--navy);
+    margin-bottom: 28px;
+    line-height: 1;
+  }
+
+  .card-cta {
+    width: 100%;
+    border: 1px solid var(--navy);
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 22px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transition: background 260ms ease, color 260ms ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  .card-cta:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  .purchase-card.featured .card-cta {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  .purchase-card.featured .card-cta:hover {
+    background: var(--gold-soft);
+    border-color: var(--gold-soft);
+  }
+
+  .purchase-provenance {
+    margin-top: 56px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    line-height: 1;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SHARED SECTION TYPOGRAPHY
+     ═══════════════════════════════════════════════════════════ */
   .section { padding: 110px 0; }
 
   .section-inner {
@@ -331,407 +926,6 @@
     font-size: 14px;
     line-height: 1.95;
     color: var(--mid);
-  }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(18px);
-    animation: fadeUp 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── HERO (NAVY) ─── */
-  .hero {
-    min-height: 100vh;
-    min-height: 100dvh;
-    padding-top: var(--nav-h);
-    display: grid;
-    grid-template-columns: 50% 50%;
-    background: var(--navy);
-    background:
-      radial-gradient(
-        ellipse at center,
-        var(--navy-center) 0%,
-        var(--navy) 50%,
-        var(--navy-deep) 100%
-      );
-    color: var(--cream);
-  }
-
-  .hero-media {
-    position: sticky;
-    top: var(--nav-h);
-    height: calc(100vh - var(--nav-h));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 40px 60px 72px;
-  }
-
-  .image-stage {
-    width: min(380px, 82%);
-    aspect-ratio: 3 / 4;
-    position: relative;
-    overflow: hidden;
-    background: var(--cobalt);
-  }
-
-  .slides {
-    height: 100%;
-    display: flex;
-    transition: transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
-  .slide {
-    flex: 0 0 100%;
-    height: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--cobalt);
-  }
-
-  .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .slide.placeholder {
-    background: linear-gradient(145deg, var(--cobalt), var(--navy));
-    color: rgba(249, 246, 240, 0.48);
-    text-align: center;
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 20px;
-    line-height: 1.6;
-    padding: 40px;
-  }
-
-  .slide-tag {
-    position: absolute;
-    bottom: 22px;
-    left: 0; right: 0;
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-style: normal;
-  }
-
-  .carousel-control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    border: 1px solid rgba(201, 169, 110, 0.4);
-    background: rgba(11, 31, 58, 0.5);
-    color: var(--gold);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 240ms ease, border-color 240ms ease;
-  }
-
-  .carousel-control:hover {
-    background: rgba(11, 31, 58, 0.8);
-    border-color: var(--gold);
-  }
-
-  .prev { left: 16px; }
-  .next { right: 16px; }
-
-  .dots {
-    position: absolute;
-    bottom: -28px;
-    left: 0; right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(201, 169, 110, 0.3);
-    cursor: pointer;
-    transition: transform 240ms ease, background 240ms ease;
-  }
-
-  .dot.active {
-    background: var(--gold);
-    transform: scale(1.5);
-  }
-
-  /* Hero content (right side) */
-  .hero-content {
-    min-height: calc(100vh - var(--nav-h));
-    display: flex;
-    align-items: center;
-    padding: 80px 96px 80px 48px;
-  }
-
-  .hero-inner {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .product-brand {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(22px, 2vw, 30px);
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--cream);
-    margin-bottom: 22px;
-    line-height: 1;
-    white-space: nowrap;
-    animation-delay: 80ms;
-  }
-
-  .product-title {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 16px;
-    letter-spacing: 0.36em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-    line-height: 1;
-    animation-delay: 160ms;
-  }
-
-  /* Hero rating — small, restrained */
-  .hero-rating {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 36px;
-    animation-delay: 200ms;
-  }
-
-  .hero-rating .stars {
-    color: var(--gold);
-    font-size: 14px;
-    letter-spacing: 0.06em;
-    line-height: 1;
-  }
-
-  .hero-rating .rating-text {
-    font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.7);
-    line-height: 1;
-  }
-
-  .hero-rating .rating-text a {
-    color: rgba(249, 246, 240, 0.7);
-    border-bottom: 1px solid rgba(201, 169, 110, 0.3);
-    transition: color 240ms ease, border-color 240ms ease;
-  }
-
-  .hero-rating .rating-text a:hover {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }
-
-  .product-line {
-    font-family: var(--font-italic);
-    font-size: 26px;
-    font-style: italic;
-    line-height: 1.5;
-    color: rgba(249, 246, 240, 0.9);
-    margin-bottom: 18px;
-    animation-delay: 240ms;
-  }
-
-  .product-scent {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 1.5;
-    color: var(--gold-soft);
-    margin-bottom: 40px;
-    letter-spacing: 0.02em;
-    animation-delay: 280ms;
-    opacity: 0.95;
-  }
-
-  .product-meta {
-    font-family: var(--font-display);
-    font-size: 17px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 56px;
-    animation-delay: 320ms;
-  }
-
-  /* Lowercase unit overrides */
-  .product-meta .unit,
-  .price-sub .unit {
-    text-transform: lowercase;
-    letter-spacing: 0.06em;
-  }
-
-  .allocation {
-    border-top: 1px solid rgba(201, 169, 110, 0.25);
-    border-bottom: 1px solid rgba(201, 169, 110, 0.25);
-    padding: 32px 0;
-    margin-bottom: 44px;
-    animation-delay: 400ms;
-  }
-
-  .allocation-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 28px;
-    font-size: 17px;
-    line-height: 1.6;
-    padding: 16px 0;
-    color: rgba(249, 246, 240, 0.92);
-  }
-
-  .allocation-row .status {
-    font-family: var(--font-display);
-    font-size: 15px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  .allocation-row.muted { opacity: 0.55; }
-
-  .allocation-row.spec {
-    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
-    padding-bottom: 22px;
-    margin-bottom: 6px;
-  }
-
-  .allocation-row.spec .status {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 16px;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    color: var(--gold-soft);
-  }
-
-  .purchase {
-    animation-delay: 480ms;
-  }
-
-  .price-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-  }
-
-  .price-title {
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--cream);
-  }
-
-  .price-sub {
-    font-family: var(--font-display);
-    font-size: 15px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.78);
-    margin-top: 12px;
-  }
-
-  .price {
-    font-family: var(--font-display);
-    font-size: 40px;
-    font-weight: 300;
-    color: var(--cream);
-  }
-
-  .cta {
-    width: 100%;
-    border: 1px solid var(--gold);
-    background: var(--gold);
-    color: var(--navy);
-    padding: 22px 22px;
-    border-radius: 2px;
-    cursor: pointer;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    transition: background 260ms ease, color 260ms ease;
-  }
-
-  .cta:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold-soft);
-  }
-
-  .cta-ghost {
-    background: transparent;
-    color: var(--gold);
-  }
-
-  .cta-ghost:hover {
-    background: var(--gold);
-    color: var(--navy);
-  }
-
-  .voyage-divider {
-    margin: 32px 0 24px;
-    text-align: center;
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    color: rgba(249, 246, 240, 0.45);
-  }
-
-  .voyage-divider.dark {
-    color: var(--muted);
-  }
-
-  .price-row.voyage {
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-
-  .price-row.voyage .price-title {
-    font-size: 22px;
-  }
-
-  .price-row.voyage .price {
-    font-size: 28px;
-  }
-
-  .shipping-note {
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: 15px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.78);
-    margin-top: 24px;
   }
 
   /* ─── STATEMENT (CREAM) ─── */
@@ -1032,14 +1226,30 @@
     line-height: 1;
   }
 
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 36px;
+  /* Reviews horizontal carousel */
+  .reviews-carousel-wrap {
+    position: relative;
     margin-bottom: 96px;
   }
 
+  .reviews-grid {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 24px;
+    padding: 8px 4px 24px;
+    margin-bottom: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .reviews-grid::-webkit-scrollbar { display: none; }
+
   .review-card {
+    flex: 0 0 360px;
+    scroll-snap-align: start;
     background: var(--warm-white);
     border: 1px solid var(--line);
     padding: 36px 32px;
@@ -1055,6 +1265,7 @@
   }
 
   .review-card.empty {
+    flex: 0 0 240px;
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -1093,6 +1304,42 @@
     border-top: 0;
     padding-top: 0;
     margin-top: 14px;
+  }
+
+  .reviews-arrow {
+    position: absolute;
+    top: calc(50% - 48px);
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 169, 110, 0.5);
+    background: var(--warm-white);
+    color: var(--gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 240ms ease, border-color 240ms ease, opacity 240ms ease;
+    font-size: 18px;
+    line-height: 1;
+    box-shadow: 0 2px 12px rgba(11, 31, 58, 0.08);
+  }
+
+  .reviews-arrow:hover {
+    background: var(--gold);
+    color: var(--cream);
+    border-color: var(--gold);
+  }
+
+  .reviews-arrow.prev { left: -12px; }
+  .reviews-arrow.next { right: -12px; }
+
+  .reviews-arrow[disabled] {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
   }
 
   /* Leave a Review form */
@@ -1248,13 +1495,15 @@
     display: none;
   }
 
-  /* ─── LETTERS POPUP ─── */
+  /* ═══════════════════════════════════════════════════════════
+     LETTERS POPUP — Chanel pattern: clean, centered, minimal
+     ═══════════════════════════════════════════════════════════ */
   .letters-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(11, 31, 58, 0.55);
-    backdrop-filter: blur(4px);
-    z-index: 200;
+    background: rgba(11, 31, 58, 0.42);
+    backdrop-filter: blur(6px);
+    z-index: 300;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1272,11 +1521,11 @@
   .letters-modal {
     position: relative;
     width: 100%;
-    max-width: 460px;
-    background: var(--cream);
-    border: 1px solid rgba(201, 169, 110, 0.35);
-    padding: 56px 44px 44px;
-    text-align: center;
+    max-width: 520px;
+    background: var(--warm-white);
+    border: 1px solid rgba(11, 31, 58, 0.12);
+    padding: 64px 56px 48px;
+    text-align: left;
     transform: translateY(20px) scale(0.98);
     transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
@@ -1287,111 +1536,93 @@
 
   .letters-close {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 18px;
+    right: 18px;
     width: 28px;
     height: 28px;
     background: transparent;
     border: 0;
     cursor: pointer;
-    color: var(--gold-muted);
-    font-size: 18px;
+    color: var(--navy);
+    font-size: 20px;
     line-height: 1;
+    padding: 0;
     transition: color 200ms ease;
   }
 
   .letters-close:hover {
-    color: var(--navy);
+    color: var(--gold-muted);
   }
 
   .letters-label {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.36em;
+    font-size: 11px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--gold-muted);
-    margin-bottom: 18px;
+    color: var(--navy);
+    margin-bottom: 14px;
     line-height: 1;
+    font-weight: 500;
   }
 
   .letters-headline {
     font-family: var(--font-display);
-    font-weight: 300;
-    font-size: 32px;
-    line-height: 1.15;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.5;
     letter-spacing: 0.01em;
     color: var(--navy);
-    margin-bottom: 16px;
-  }
-
-  .letters-sub {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--mid);
-    margin-bottom: 16px;
-  }
-
-  .letters-perk {
-    font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold-muted);
     margin-bottom: 28px;
-    line-height: 1.5;
   }
 
   .letters-form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+  }
+
+  .letters-input-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--navy);
+    padding-bottom: 8px;
   }
 
   .letters-input {
-    width: 100%;
-    background: var(--warm-white);
-    border: 1px solid rgba(201, 169, 110, 0.4);
-    color: var(--dark);
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 15px;
-    padding: 14px 16px;
-    border-radius: 2px;
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: var(--navy);
+    font-family: var(--font-display);
+    font-size: 14px;
+    padding: 8px 0;
     outline: none;
-    transition: border-color 240ms ease;
-    text-align: center;
-  }
-
-  .letters-input:focus {
-    border-color: var(--gold);
+    letter-spacing: 0.01em;
   }
 
   .letters-input::placeholder {
-    color: rgba(14, 14, 14, 0.35);
-    font-style: italic;
+    color: rgba(14, 14, 14, 0.45);
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
   }
 
   .letters-submit {
-    background: var(--navy);
-    color: var(--cream);
-    border: 1px solid var(--navy);
-    padding: 16px 28px;
-    border-radius: 2px;
-    cursor: pointer;
+    background: transparent;
+    border: 0;
+    color: var(--navy);
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.32em;
+    font-size: 13px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    transition: background 240ms ease, color 240ms ease;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: color 240ms ease;
+    white-space: nowrap;
   }
 
   .letters-submit:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--navy);
+    color: var(--gold-muted);
   }
 
   .letters-submit:disabled {
@@ -1399,23 +1630,29 @@
     cursor: not-allowed;
   }
 
-  .letters-decline {
+  .letters-consent {
     margin-top: 18px;
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    line-height: 1.5;
     color: var(--mid);
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: rgba(98, 88, 78, 0.3);
-    text-underline-offset: 4px;
-    transition: color 200ms ease;
+    letter-spacing: 0.01em;
   }
 
-  .letters-decline:hover {
+  .letters-consent input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+
+  .letters-consent a {
     color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .letters-feedback {
@@ -1423,7 +1660,7 @@
     min-height: 20px;
     font-family: var(--font-italic);
     font-style: italic;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--gold-muted);
     line-height: 1.5;
   }
@@ -1433,8 +1670,7 @@
   }
 
   .letters-modal.submitted .letters-form,
-  .letters-modal.submitted .letters-decline,
-  .letters-modal.submitted .letters-sub {
+  .letters-modal.submitted .letters-consent {
     display: none;
   }
 
@@ -1484,9 +1720,144 @@
     padding: 32px 0 38px;
   }
 
-  .final-card .price-row { margin-bottom: 30px; }
-  .final-card .price-title { color: var(--cream); }
-  .final-card .price { color: var(--cream); }
+  .final-card .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+  }
+
+  .final-card .price-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--cream);
+  }
+
+  .final-card .price-sub {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.7);
+    margin-top: 8px;
+  }
+
+  .final-card .price {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--cream);
+  }
+
+  .final-card .voyage-divider {
+    margin: 28px 0 20px;
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: rgba(249, 246, 240, 0.45);
+  }
+
+  .final-card .price-row.voyage .price-title { font-size: 18px; }
+  .final-card .price-row.voyage .price { font-size: 22px; }
+
+  .final-card .cta {
+    width: 100%;
+    border: 1px solid var(--gold);
+    background: var(--gold);
+    color: var(--navy);
+    padding: 16px 22px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transition: background 260ms ease, color 260ms ease;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+  .final-card .cta:hover {
+    background: var(--gold-soft);
+    border-color: var(--gold-soft);
+  }
+
+  .final-card .cta-ghost {
+    background: transparent;
+    color: var(--gold);
+  }
+
+  .final-card .cta-ghost:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .final-card .shipping-note {
+    margin-top: 24px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.7);
+  }
+
+  /* ─── FAQ ─── */
+  .faq {
+    background: var(--warm-white);
+  }
+
+  .faq .display {
+    color: var(--navy);
+    font-size: clamp(28px, 2.6vw, 40px);
+  }
+
+  .faq-list {
+    margin-top: 56px;
+  }
+
+  .faq-list details {
+    border-bottom: 1px solid rgba(11, 20, 51, 0.12);
+    padding: 28px 0;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.3;
+    color: var(--navy);
+  }
+
+  .faq-list summary::-webkit-details-marker { display: none; }
+
+  .faq-list summary .indicator {
+    color: var(--gold);
+    font-size: 24px;
+    flex-shrink: 0;
+    transition: transform 280ms ease;
+  }
+
+  .faq-list details[open] summary .indicator {
+    transform: rotate(45deg);
+  }
+
+  .faq-list p {
+    margin: 18px 0 0;
+    font-family: var(--font-italic);
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--mid);
+  }
 
   /* ─── FOOTER ─── */
   footer {
@@ -1518,6 +1889,23 @@
     text-transform: uppercase;
     margin-bottom: 22px;
     color: var(--cream);
+  }
+
+  .footer-brand .footer-category {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+  }
+
+  .footer-brand .footer-category .tm {
+    font-size: 0.7em;
+    vertical-align: super;
+    letter-spacing: 0.05em;
+    margin-left: 1px;
   }
 
   .footer-brand .footer-line {
@@ -1572,92 +1960,6 @@
     color: var(--gold);
   }
 
-  .footer-signup {
-    max-width: 460px;
-    margin: 0 auto 56px;
-    text-align: center;
-  }
-
-  .footer-signup-label {
-    font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
-
-  .footer-signup-line {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 14px;
-    color: rgba(249, 246, 240, 0.65);
-    margin-bottom: 24px;
-  }
-
-  .footer-signup-form {
-    display: flex;
-    gap: 8px;
-    align-items: stretch;
-  }
-
-  .footer-signup-input {
-    flex: 1;
-    background: transparent;
-    border: 1px solid rgba(201, 169, 110, 0.4);
-    color: var(--cream);
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 14px;
-    padding: 14px 16px;
-    border-radius: 2px;
-    outline: none;
-    transition: border-color 240ms ease;
-  }
-
-  .footer-signup-input:focus {
-    border-color: var(--gold);
-  }
-
-  .footer-signup-input::placeholder {
-    color: rgba(249, 246, 240, 0.3);
-    font-style: italic;
-  }
-
-  .footer-signup-btn {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    padding: 0 22px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: background 240ms ease, color 240ms ease;
-    white-space: nowrap;
-  }
-
-  .footer-signup-btn:hover {
-    background: var(--gold);
-    color: var(--navy);
-  }
-
-  .footer-signup-confirm {
-    display: none;
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--gold);
-    margin-top: 16px;
-  }
-
-  .footer-signup-confirm.visible {
-    display: block;
-  }
-
   .footer-bottom {
     padding-top: 28px;
     border-top: 1px solid rgba(201, 169, 110, 0.18);
@@ -1668,50 +1970,87 @@
     text-align: center;
   }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    :root { --nav-h: 72px; }
+  /* ═══════════════════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .header-nav {
+      gap: 32px;
+    }
+    .header-nav a {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+    }
+    .header-utility {
+      right: 24px;
+    }
+  }
 
-    .nav-inner {
-      padding: 0 22px;
+  @media (max-width: 900px) {
+    :root {
+      --logo-h: 68px;
+      --nav-h: 0px;
     }
 
-    .nav-logo { font-size: 15px; letter-spacing: 0.32em; }
-    .nav-links, .nav-reserve { display: none; }
-    .nav-menu { display: block; }
+    .promo-ribbon-text {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      padding: 0 50px;
+      white-space: normal;
+      line-height: 1.4;
+    }
+
+    .promo-ribbon-text .accent {
+      display: block;
+      margin: 4px 0 0;
+    }
+
+    .header-logo {
+      font-size: 17px;
+      letter-spacing: 0.32em;
+    }
+
+    .header-utility {
+      right: 18px;
+      gap: 14px;
+    }
+
+    .header-utility-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .header-nav-row {
+      display: none;
+    }
+
+    .header-mobile-toggle {
+      display: block;
+    }
 
     .hero {
-      display: block;
-      min-height: auto;
+      height: calc(100vh - var(--ribbon-h) - var(--logo-h));
+      min-height: 520px;
     }
-
-    .hero-media {
-      position: relative;
-      top: auto;
-      height: auto;
-      padding: 48px 22px 40px;
-    }
-
-    .image-stage { width: min(360px, 100%); }
 
     .hero-content {
-      min-height: auto;
-      padding: 48px 24px 80px;
-      justify-content: flex-start;
+      padding-bottom: 56px;
     }
 
-    .hero-inner { max-width: 520px; margin: 0 auto; }
+    .purchase-section {
+      padding: 84px 0;
+    }
 
-    .product-brand { font-size: 24px; letter-spacing: 0.22em; white-space: nowrap; }
-    .product-title { font-size: 10px; letter-spacing: 0.32em; }
-    .product-line { font-size: 18px; }
-    .product-scent { font-size: 15px; }
+    .purchase-options {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      max-width: 360px;
+    }
 
     .section { padding: 84px 0; }
     .section-inner { padding: 0 24px; }
 
-    .statement { padding: 96px 24px; }
-    .statement h2 { font-size: 40px; }
+    .statement { padding: 64px 24px; }
 
     .formulation-grid,
     .ritual-head,
@@ -1736,12 +2075,18 @@
     }
 
     .reviews { padding: 84px 24px; }
-    .reviews-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-      margin-bottom: 64px;
-    }
+
+    .review-card { flex: 0 0 85%; padding: 28px 22px; }
+    .review-card.empty { flex: 0 0 70%; }
+
+    .reviews-arrow { display: none; }
+    .reviews-carousel-wrap { margin-bottom: 64px; }
+
     .review-form-wrap { padding-top: 56px; }
+
+    .letters-modal {
+      padding: 48px 28px 36px;
+    }
 
     footer { padding: 64px 0 36px; }
     .footer-inner { padding: 0 24px; }
@@ -1759,132 +2104,182 @@
   }
 
   @media (max-width: 520px) {
-    .product-brand { font-size: 20px; letter-spacing: 0.18em; }
-    .product-title { font-size: 10px; letter-spacing: 0.28em; }
-    .product-line { font-size: 17px; }
-    .product-scent { font-size: 14px; }
-    .allocation-row { gap: 18px; font-size: 11px; }
-    .allocation-row.spec .status { font-size: 14px; }
-    .price-title { font-size: 22px; }
-    .price { font-size: 28px; }
-    .price-row.voyage .price-title { font-size: 18px; }
-    .price-row.voyage .price { font-size: 22px; }
-    .cta { letter-spacing: 0.24em; }
-    .footer-logo { letter-spacing: 0.28em; font-size: 15px; }
-    .fourteen { font-size: 19px; }
-    .footer-signup-form { flex-direction: column; gap: 10px; }
-    .footer-signup-btn { padding: 14px 22px; }
+    .hero-eyebrow { font-size: 18px; letter-spacing: 0.22em; }
+    .hero-title { font-size: 24px; }
+    .hero-sub { font-size: 15px; }
+    .purchase-title { font-size: 26px; }
+    .card-tag { font-size: 15px; }
+    .card-price { font-size: 26px; }
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
-    .review-card { padding: 28px 22px; }
-    .reviews-summary { gap: 10px; }
-    .reviews-summary .stars-large { font-size: 18px; }
-    .reviews-summary .summary-text { font-size: 11px; }
-    .letters-modal { padding: 48px 28px 36px; }
-    .letters-headline { font-size: 26px; }
   }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a href="#top" class="nav-logo">MAISON D&rsquo;VUE</a>
+<!-- ═══ PROMO RIBBON ═══ -->
+<div class="promo-ribbon" id="promoRibbon">
+  <p class="promo-ribbon-text">
+    Hand-sealed in Beverly Hills<span class="accent">&middot;</span>Complimentary shipping on every Allocation
+  </p>
+  <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
+</div>
 
-    <ul class="nav-links">
+<!-- ═══ STICKY HEADER ═══ -->
+<header class="site-header">
+
+  <!-- Logo row -->
+  <div class="header-logo-row">
+    <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <line x1="3" y1="7" x2="21" y2="7"/>
+        <line x1="3" y1="13" x2="21" y2="13"/>
+        <line x1="3" y1="19" x2="21" y2="19"/>
+      </svg>
+    </button>
+
+    <a href="index.html" class="header-logo">MAISON D&rsquo;VUE</a>
+
+    <div class="header-utility">
+      <button class="header-utility-btn" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+        </svg>
+      </button>
+      <button class="header-utility-btn" type="button" aria-label="Account" onclick="window.location='mailto:hello@maisondvue.com'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </button>
+      <a href="https://shop.maisondvue.com/cart" class="header-utility-btn" aria-label="Bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 7h12l-1 14H7L6 7z"/>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Nav row -->
+  <nav class="header-nav-row">
+    <ul class="header-nav">
       <li><a href="about.html">About</a></li>
+      <li><a href="product.html" class="active">The Elixir</a></li>
       <li><a href="#formulation">The Formula</a></li>
       <li><a href="#ritual">The Ritual</a></li>
       <li><a href="#origins">Origins</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#reserve">Reserve</a></li>
     </ul>
+  </nav>
 
-    <div class="nav-right">
-      <a href="#reserve" class="nav-reserve">Reserve</a>
-      <div class="nav-menu">
-        <button class="nav-menu-btn" type="button" onclick="toggleMenu()">Menu</button>
-        <div class="nav-dropdown" id="navDropdown">
-          <a href="about.html" onclick="toggleMenu(false)">About</a>
-          <a href="#formulation" onclick="toggleMenu(false)">The Formula</a>
-          <a href="#ritual" onclick="toggleMenu(false)">The Ritual</a>
-          <a href="#origins" onclick="toggleMenu(false)">Origins</a>
-          <a href="#reviews" onclick="toggleMenu(false)">Reviews</a>
-          <a href="#reserve" onclick="toggleMenu(false)">Reserve</a>
-        </div>
-      </div>
-    </div>
-  </div>
+</header>
+
+<!-- ═══ MOBILE MENU OVERLAY ═══ -->
+<nav class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
+  <a href="#formulation" onclick="closeMobileMenu()">The Formula</a>
+  <a href="#ritual" onclick="closeMobileMenu()">The Ritual</a>
+  <a href="#origins" onclick="closeMobileMenu()">Origins</a>
+  <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
+  <a href="#reserve" onclick="closeMobileMenu()">Reserve</a>
 </nav>
 
 <main id="top">
 
-  <!-- ═══ HERO (navy) ═══ -->
-  <section class="hero" id="buy">
-    <div class="hero-media">
-      <div class="image-stage" id="imageStage">
-        <div class="slides" id="slides">
-          <div class="slide"><img src="hero_1.jpg" alt="MAISON D'VUE Hair Elixir bottle on marble"></div>
-          <div class="slide"><img src="MAISON%20DVUE%20SHINY%20BRUNETTE.PNG" alt="Glass-like luminosity — Vue 14 result"></div>
-          <div class="slide"><img src="single%20drop.png" alt="A single drop of MAISON D'VUE Hair Elixir"></div>
-          <div class="slide"><img src="Glass%20petri%20dish%20on%20warm%20cream.jpg" alt="Prickly pear botanical — Vue 14 essence"></div>
-        </div>
+  <!-- ═══ FULL-BLEED HERO — CHANEL PATTERN ═══
+       The photograph fills the entire hero frame, edge to edge,
+       with no overlay tinting. Replace <div class="hero-image-placeholder">
+       with <img src="..." class="hero-image"> once the cinematic
+       photograph is ready. Recommended ratio: landscape, 16:9 or
+       16:10, with natural negative space at lower-center for text. -->
+  <section class="hero">
 
-        <button class="carousel-control prev" type="button" aria-label="Previous image" onclick="prevSlide()">&larr;</button>
-        <button class="carousel-control next" type="button" aria-label="Next image" onclick="nextSlide()">&rarr;</button>
+    <!-- Option A: Real photograph (uncomment when image is ready) -->
+    <img src="paparazzi-elixir.jpg" alt="MAISON D'VUE Hair Elixir — a woman caught mid-stride by paparazzi at night, her hair lifted and luminous" class="hero-image">
 
-        <div class="dots" id="dots">
-          <span class="dot active" onclick="showSlide(0)"></span>
-          <span class="dot" onclick="showSlide(1)"></span>
-          <span class="dot" onclick="showSlide(2)"></span>
-          <span class="dot" onclick="showSlide(3)"></span>
-        </div>
-      </div>
+    <!-- Option B: Placeholder fallback. To activate, comment out
+         the <img> above and uncomment the block below.
+    <div class="hero-image-placeholder">
+      <p class="placeholder-mark">Cinematic Hero Photograph</p>
+      <div class="placeholder-rule"></div>
+      <p class="placeholder-spec">Landscape &middot; 16:9 or 16:10</p>
     </div>
+    -->
 
     <div class="hero-content">
-      <div class="hero-inner">
-        <p class="product-brand fade-up">MAISON D&rsquo;VUE</p>
-        <h1 class="product-title fade-up">Hair Elixir</h1>
-        <div class="hero-rating fade-up">
-          <span class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <span class="rating-text">5.0 &middot; <a href="#reviews">9 reviews</a></span>
-        </div>
-        <p class="product-line fade-up">A ritual of fourteen essences.</p>
-        <p class="product-scent fade-up">Scented in &Acirc;me de Vue&trade;.</p>
-        <p class="product-meta fade-up">Vue 14&trade; &nbsp;&middot;&nbsp; 30<span class="unit">&thinsp;ml</span> &nbsp;&amp;&nbsp; 10<span class="unit">&thinsp;ml</span></p>
+      <p class="hero-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
+      <h1 class="hero-title">Hair Elixir</h1>
+      <p class="hero-sub">A ritual of fourteen rare essences. Scented in &Acirc;me de Vue&trade;.</p>
+      <a href="#reserve" class="hero-cta">Reserve</a>
+    </div>
+  </section>
 
-        <div class="allocation fade-up">
-          <div class="allocation-row spec"><span>Scent</span><span class="status">&Acirc;me de Vue&trade;</span></div>
-          <div class="allocation-row muted"><span>April Allocation</span><span class="status">Closed</span></div>
-          <div class="allocation-row muted"><span>May Allocation</span><span class="status">Closed</span></div>
-          <div class="allocation-row"><span>June Allocation</span><span class="status">70% Reserved</span></div>
-        </div>
+  <!-- ═══ PURCHASE SECTION (below hero) ═══ -->
+  <section class="purchase-section" id="buy">
+    <div class="purchase-inner">
 
-        <div class="purchase fade-up">
-          <div class="price-row">
-            <div>
-              <div class="price-title">The Signature</div>
-              <div class="price-sub">30<span class="unit"> ml</span> &nbsp;&middot;&nbsp; 1<span class="unit"> fl oz</span></div>
-            </div>
-            <div class="price">$120</div>
-          </div>
-          <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="cta" style="display:block; text-align:center; text-decoration:none;">Reserve the Signature</a>
+      <p class="purchase-label">Vue 14&trade;</p>
+      <h2 class="purchase-title">The Hair Elixir</h2>
+      <p class="purchase-scent">Scented in &Acirc;me de Vue&trade;.</p>
 
-          <div class="voyage-divider">or begin with</div>
-
-          <div class="price-row voyage">
-            <div>
-              <div class="price-title">The Voyage</div>
-              <div class="price-sub">10<span class="unit"> ml</span> &nbsp;&middot;&nbsp; 0.33<span class="unit"> fl oz</span></div>
-            </div>
-            <div class="price">$68</div>
-          </div>
-          <a href="https://shop.maisondvue.com/cart/48287241371896:1?checkout" class="cta cta-ghost" style="display:block; text-align:center; text-decoration:none;">Reserve the Voyage</a>
-
-          <p class="shipping-note">Hand-sealed &middot; Beverly Hills</p>
-        </div>
+      <div class="purchase-rating">
+        <span class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="rating-text">5.0 &middot; <a href="#reviews">9 reviews</a></span>
       </div>
+
+      <div class="purchase-allocation">
+        <div class="allocation-row muted"><span>April Allocation</span><span class="status">Closed</span></div>
+        <div class="allocation-row muted"><span>May Allocation</span><span class="status">Closed</span></div>
+        <div class="allocation-row"><span>June Allocation</span><span class="status">70% Reserved</span></div>
+      </div>
+
+      <div class="purchase-options">
+
+        <div class="purchase-card featured">
+          <div class="card-image">
+            <!-- Replace with: <img src="signature.jpg" alt="The Signature — 30ml Hair Elixir"> -->
+            <div class="card-image-placeholder">
+              <span>The Signature</span>
+              <span class="placeholder-rule"></span>
+              <span class="spec">Portrait &middot; 4:5</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-tag">The Signature</p>
+            <p class="card-name">Hair Elixir</p>
+            <p class="card-size">30 ml &middot; 1 fl oz</p>
+            <p class="card-price">$120</p>
+            <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="card-cta">Reserve</a>
+          </div>
+        </div>
+
+        <div class="purchase-card">
+          <div class="card-image">
+            <!-- Replace with: <img src="voyage.jpg" alt="The Voyage — 10ml Hair Elixir"> -->
+            <div class="card-image-placeholder">
+              <span>The Voyage</span>
+              <span class="placeholder-rule"></span>
+              <span class="spec">Portrait &middot; 4:5</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-tag">The Voyage</p>
+            <p class="card-name">Hair Elixir</p>
+            <p class="card-size">10 ml &middot; 0.33 fl oz</p>
+            <p class="card-price">$68</p>
+            <a href="https://shop.maisondvue.com/cart/48287241371896:1?checkout" class="card-cta">Reserve</a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="purchase-provenance">Hand-sealed &middot; Beverly Hills</p>
+
     </div>
   </section>
 
@@ -2026,62 +2421,60 @@
         </div>
       </div>
 
-      <div class="reviews-grid">
+      <div class="reviews-carousel-wrap">
+        <button type="button" class="reviews-arrow prev" aria-label="Previous reviews">&larr;</button>
+        <button type="button" class="reviews-arrow next" aria-label="Next reviews">&rarr;</button>
 
-        <!-- Review 1 — Brittany (full) -->
-        <div class="review-card">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">&ldquo;I&rsquo;m extremely picky about scent and this is honestly one of the best-smelling hair products I&rsquo;ve ever used. It&rsquo;s warm and clean at the same time &mdash; not overly floral, not perfume-y. The smell stays in your hair in the nicest way and I&rsquo;ve had multiple people ask me what fragrance I&rsquo;m wearing.&rdquo;</p>
-          <div class="review-name">Brittany</div>
+        <div class="reviews-grid" id="reviewsGrid">
+          <div class="review-card">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-text">&ldquo;I&rsquo;m extremely picky about scent and this is honestly one of the best-smelling hair products I&rsquo;ve ever used. It&rsquo;s warm and clean at the same time &mdash; not overly floral, not perfume-y. The smell stays in your hair in the nicest way and I&rsquo;ve had multiple people ask me what fragrance I&rsquo;m wearing.&rdquo;</p>
+            <div class="review-name">Brittany</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-text">&ldquo;I didn&rsquo;t expect this to replace so many products for me. Usually I need a leave-in, a shine serum, something for frizz, something for dry ends&hellip; now I just use a few drops of this and my hair looks healthy and finished. It somehow feels lightweight but still makes a huge difference.&rdquo;</p>
+            <div class="review-name">Yasmine</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-text">&ldquo;This sounds dramatic but this product made me like my hair again. My hair had been feeling dry and dull for so long that I kind of gave up on it. After using this for a couple weeks it looked softer, shinier, and actually felt good to touch. I&rsquo;ve been wearing my hair down way more because of it.&rdquo;</p>
+            <div class="review-name">Rita</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-text">&ldquo;I really like this so much. I never thought 5 drops would be enough for me, but they truly are. Sometimes I need more, sometimes less.&rdquo;</p>
+            <div class="review-name">T.S.</div>
+          </div>
+
+          <div class="review-card empty">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-name">Jessica</div>
+          </div>
+
+          <div class="review-card empty">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-name">Ashley</div>
+          </div>
+
+          <div class="review-card empty">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-name">Megan</div>
+          </div>
+
+          <div class="review-card empty">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-name">Priya</div>
+          </div>
+
+          <div class="review-card empty">
+            <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-name">Sarah</div>
+          </div>
         </div>
-
-        <!-- Review 2 — Yasmine (full) -->
-        <div class="review-card">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">&ldquo;I didn&rsquo;t expect this to replace so many products for me. Usually I need a leave-in, a shine serum, something for frizz, something for dry ends&hellip; now I just use a few drops of this and my hair looks healthy and finished. It somehow feels lightweight but still makes a huge difference.&rdquo;</p>
-          <div class="review-name">Yasmine</div>
-        </div>
-
-        <!-- Review 3 — Rita (full) -->
-        <div class="review-card">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">&ldquo;This sounds dramatic but this product made me like my hair again. My hair had been feeling dry and dull for so long that I kind of gave up on it. After using this for a couple weeks it looked softer, shinier, and actually felt good to touch. I&rsquo;ve been wearing my hair down way more because of it.&rdquo;</p>
-          <div class="review-name">Rita</div>
-        </div>
-
-        <!-- Review 4 — T.S. (full) -->
-        <div class="review-card">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">&ldquo;I really like this so much. I never thought 5 drops would be enough for me, but they truly are. Sometimes I need more, sometimes less.&rdquo;</p>
-          <div class="review-name">T.S.</div>
-        </div>
-
-        <!-- Reviews 5-9 — stars + name only -->
-        <div class="review-card empty">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="review-name">Jessica</div>
-        </div>
-
-        <div class="review-card empty">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="review-name">Ashley</div>
-        </div>
-
-        <div class="review-card empty">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="review-name">Megan</div>
-        </div>
-
-        <div class="review-card empty">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="review-name">Priya</div>
-        </div>
-
-        <div class="review-card empty">
-          <div class="review-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class="review-name">Sarah</div>
-        </div>
-
       </div>
 
       <!-- Leave a Review form -->
@@ -2115,7 +2508,7 @@
     </div>
   </section>
 
-<!-- ═══ FAQ + ORGANIZATION SCHEMA (JSON-LD) ═══ -->
+  <!-- ═══ FAQ (warm white) ═══ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -2156,79 +2549,45 @@
     ]
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "MAISON D'VUE",
-    "legalName": "MDV Group, LLC",
-    "alternateName": ["Maison d'Vue", "MAISON DVUE", "Maison D Vue"],
-    "url": "https://maisondvue.com",
-    "logo": "https://maisondvue.com/favicon.png",
-    "description": "American luxury haircare house. Hand-sealed in Beverly Hills.",
-    "founder": { "@type": "Person", "name": "Masiela Lusha" },
-    "foundingDate": "2026",
-    "foundingLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Beverly Hills",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      }
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "132 S Lasky Dr., Floor 2, Unit #523",
-      "addressLocality": "Beverly Hills",
-      "addressRegion": "CA",
-      "postalCode": "90212",
-      "addressCountry": "US"
-    },
-    "sameAs": [
-      "https://www.instagram.com/maisondvue/",
-      "https://shop.maisondvue.com"
-    ]
-  }
-  </script>
 
-  <!-- ═══ FAQ (warm white) ═══ -->
   <section class="section faq" id="faq" aria-labelledby="faq-heading">
     <div class="section-inner" style="max-width:780px;">
       <p class="label">Considered</p>
       <h2 class="display" id="faq-heading">Questions, answered.</h2>
-      <div class="faq-list" style="margin-top:56px;">
-        <details style="border-bottom:1px solid rgba(11,20,51,0.12); padding:28px 0;">
-          <summary style="cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:24px; font-family:'Cormorant Garamond', serif; font-size:22px; line-height:1.3; color:#0B1F3A;">
+      <div class="faq-list">
+        <details>
+          <summary>
             <span>Does a hair elixir help with hair growth?</span>
-            <span aria-hidden="true" style="color:#C9A96E; font-size:24px;">+</span>
+            <span class="indicator" aria-hidden="true">+</span>
           </summary>
-          <p style="margin:18px 0 0; font-family:'EB Garamond', serif; font-size:16px; line-height:1.85; color:#62584E;">A hair elixir does not cause hair to grow. It creates the conditions hair needs to thrive &mdash; scalp comfort, length protection, breakage resistance. The Vue 14&trade; Hair Elixir is formulated to defend hair against the daily losses that prevent it from reaching its full length: friction, heat, color fatigue, and dryness at the ends.</p>
+          <p>A hair elixir does not cause hair to grow. It creates the conditions hair needs to thrive &mdash; scalp comfort, length protection, breakage resistance. The Vue 14&trade; Hair Elixir is formulated to defend hair against the daily losses that prevent it from reaching its full length: friction, heat, color fatigue, and dryness at the ends.</p>
         </details>
-        <details style="border-bottom:1px solid rgba(11,20,51,0.12); padding:28px 0;">
-          <summary style="cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:24px; font-family:'Cormorant Garamond', serif; font-size:22px; line-height:1.3; color:#0B1F3A;">
+        <details>
+          <summary>
             <span>What is hair elixir good for?</span>
-            <span aria-hidden="true" style="color:#C9A96E; font-size:24px;">+</span>
+            <span class="indicator" aria-hidden="true">+</span>
           </summary>
-          <p style="margin:18px 0 0; font-family:'EB Garamond', serif; font-size:16px; line-height:1.85; color:#62584E;">Strength. Shine. Softness. Scent. The Vue 14&trade; Hair Elixir restores devitalized lengths, smooths the cuticle for glass-like luminosity, and delivers weightless volume. It is buildable &mdash; worn as a pre-wash treatment, a finishing veil, or both throughout the day.</p>
+          <p>Strength. Shine. Softness. Scent. The Vue 14&trade; Hair Elixir restores devitalized lengths, smooths the cuticle for glass-like luminosity, and delivers weightless volume. It is buildable &mdash; worn as a pre-wash treatment, a finishing veil, or both throughout the day.</p>
         </details>
-        <details style="border-bottom:1px solid rgba(11,20,51,0.12); padding:28px 0;">
-          <summary style="cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:24px; font-family:'Cormorant Garamond', serif; font-size:22px; line-height:1.3; color:#0B1F3A;">
+        <details>
+          <summary>
             <span>Do you use hair elixir on wet or dry hair?</span>
-            <span aria-hidden="true" style="color:#C9A96E; font-size:24px;">+</span>
+            <span class="indicator" aria-hidden="true">+</span>
           </summary>
-          <p style="margin:18px 0 0; font-family:'EB Garamond', serif; font-size:16px; line-height:1.85; color:#62584E;">Both. Five drops on damp lengths after washing allow the essences to absorb at the cuticle while the hair is most receptive. Two drops on dry hair throughout the day refresh ends and tame flyaways. The Vue 14&trade; Hair Elixir layers without heaviness.</p>
+          <p>Both. Five drops on damp lengths after washing allow the essences to absorb at the cuticle while the hair is most receptive. Two drops on dry hair throughout the day refresh ends and tame flyaways. The Vue 14&trade; Hair Elixir layers without heaviness.</p>
         </details>
-        <details style="border-bottom:1px solid rgba(11,20,51,0.12); padding:28px 0;">
-          <summary style="cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:24px; font-family:'Cormorant Garamond', serif; font-size:22px; line-height:1.3; color:#0B1F3A;">
+        <details>
+          <summary>
             <span>Is hair elixir the same as hair oil?</span>
-            <span aria-hidden="true" style="color:#C9A96E; font-size:24px;">+</span>
+            <span class="indicator" aria-hidden="true">+</span>
           </summary>
-          <p style="margin:18px 0 0; font-family:'EB Garamond', serif; font-size:16px; line-height:1.85; color:#62584E;">An elixir is a composed system of essences. The Vue 14&trade; Hair Elixir is fourteen &mdash; Bulgarian Rose, Moroccan Argan, Amazonian Ungurahua, Atlas prickly pear, and ten others &mdash; sealed into a single ceremony. An elixir holds the chord; an essence holds a single note.</p>
+          <p>An elixir is a composed system of essences. The Vue 14&trade; Hair Elixir is fourteen &mdash; Bulgarian Rose, Moroccan Argan, Amazonian Ungurahua, Atlas prickly pear, and ten others &mdash; sealed into a single ceremony. An elixir holds the chord; an essence holds a single note.</p>
         </details>
       </div>
     </div>
-  </section>  <!-- ═══ FINAL BUY (navy) ═══ -->
+  </section>
+
+  <!-- ═══ FINAL BUY (navy) ═══ -->
   <section class="section final-buy" id="reserve">
     <div class="section-inner">
       <p class="label">June Allocation</p>
@@ -2239,22 +2598,22 @@
         <div class="price-row">
           <div style="text-align:left;">
             <div class="price-title">The Signature</div>
-            <div class="price-sub">Vue 14&trade; &nbsp;&middot;&nbsp; 30<span class="unit">&thinsp;ml</span></div>
+            <div class="price-sub">Vue 14&trade; &middot; 30 ml</div>
           </div>
           <div class="price">$120</div>
         </div>
-        <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="cta" style="display:block; text-align:center; text-decoration:none;">Reserve the Signature</a>
+        <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="cta">Reserve the Signature</a>
 
         <div class="voyage-divider">or begin with</div>
 
         <div class="price-row voyage">
           <div style="text-align:left;">
             <div class="price-title">The Voyage</div>
-            <div class="price-sub">Vue 14&trade; &nbsp;&middot;&nbsp; 10<span class="unit">&thinsp;ml</span></div>
+            <div class="price-sub">Vue 14&trade; &middot; 10 ml</div>
           </div>
           <div class="price">$68</div>
         </div>
-        <a href="https://shop.maisondvue.com/cart/48287241371896:1?checkout" class="cta cta-ghost" style="display:block; text-align:center; text-decoration:none;">Reserve the Voyage</a>
+        <a href="https://shop.maisondvue.com/cart/48287241371896:1?checkout" class="cta cta-ghost">Reserve the Voyage</a>
 
         <p class="shipping-note">Hand-sealed &middot; Beverly Hills</p>
       </div>
@@ -2271,6 +2630,7 @@
 
       <div class="footer-brand">
         <div class="footer-logo">MAISON D&rsquo;VUE</div>
+        <p class="footer-category">The House of Affinity Compositions<span class="tm">&trade;</span></p>
         <p class="footer-line">Rare by origin. Refined by design.</p>
         <div class="footer-provenance">Hand-sealed &middot; Beverly Hills</div>
       </div>
@@ -2293,21 +2653,10 @@
         <div class="footer-col">
           <div class="footer-col-label">Access</div>
           <a href="#reserve">Reserve</a>
-          <a href="#allocation-form">Allocation Notifications</a>
           <a href="mailto:press@maisondvue.com">Press Inquiries</a>
         </div>
 
       </div>
-    </div>
-
-    <div class="footer-signup">
-      <div class="footer-signup-label">Allocation Notifications</div>
-      <p class="footer-signup-line">Be informed when each batch opens.</p>
-      <form class="footer-signup-form" id="allocation-form" onsubmit="return handleAllocationSignup(event)">
-        <input type="email" class="footer-signup-input" id="allocation-email" placeholder="Your email" autocomplete="email" required>
-        <button type="submit" class="footer-signup-btn">Subscribe</button>
-      </form>
-      <p class="footer-signup-confirm" id="allocation-confirm">You will be notified.</p>
     </div>
 
     <div class="footer-bottom">&copy; 2026 MAISON D&rsquo;VUE &nbsp;&middot;&nbsp; hello@maisondvue.com &nbsp;&middot;&nbsp; Made in USA</div>
@@ -2315,89 +2664,72 @@
   </div>
 </footer>
 
-<!-- ═══ LETTERS POPUP ═══ -->
+<!-- ═══ LETTERS POPUP — Chanel-style, 2-second delay ═══ -->
 <div class="letters-overlay" id="lettersOverlay" aria-hidden="true" role="dialog" aria-labelledby="lettersHeadline">
   <div class="letters-modal" id="lettersModal">
     <button class="letters-close" type="button" onclick="closeLetters()" aria-label="Close">&times;</button>
 
-    <p class="letters-label">From the Maison</p>
-    <h3 class="letters-headline" id="lettersHeadline">Letters, sent rarely.</h3>
-    <p class="letters-sub">On scent, ritual, and the slow refinement of a single bottle.</p>
-    <p class="letters-perk">Subscribers receive first access to each allocation.</p>
+    <p class="letters-label">Welcome to MAISON D&rsquo;VUE</p>
+    <p class="letters-headline" id="lettersHeadline">Subscribe for first looks at each Allocation, letters from the maison, and rare access.</p>
 
     <form class="letters-form" id="lettersForm" novalidate>
-      <input type="text" class="letters-input" id="lettersName" name="lettersName" placeholder="First name" autocomplete="given-name" required>
-      <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Your email" autocomplete="email" required>
+      <div class="letters-input-row">
+        <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Enter your email address" autocomplete="email" required>
+        <button type="submit" class="letters-submit" id="lettersSubmit">OK &gt;</button>
+      </div>
 
       <div class="letters-hp" aria-hidden="true">
         <input type="text" id="lettersHp" name="lettersHp" tabindex="-1" autocomplete="off">
       </div>
-
-      <button type="submit" class="letters-submit" id="lettersSubmit">Subscribe</button>
     </form>
 
-    <button class="letters-decline" type="button" onclick="closeLetters()">Or, no thank you.</button>
+    <label class="letters-consent">
+      <input type="checkbox" id="lettersConsent" checked>
+      <span>By clicking submit, I agree to MAISON D&rsquo;VUE&rsquo;s <a href="mailto:hello@maisondvue.com">Privacy Policy</a> and <a href="mailto:hello@maisondvue.com">Terms &amp; Conditions of Use</a>.</span>
+    </label>
 
     <p class="letters-feedback" id="lettersFeedback" role="status" aria-live="polite"></p>
   </div>
 </div>
 
 <script>
-  // Same waitlist endpoint your landing page uses
+  // Email capture endpoint (same as before)
   const REVIEW_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
 
-  let currentSlide = 0;
-  const totalSlides = 4;
-  const slides = document.getElementById('slides');
-  const dots = Array.from(document.querySelectorAll('.dot'));
-  const dropdown = document.getElementById('navDropdown');
-
-  function showSlide(index) {
-    currentSlide = (index + totalSlides) % totalSlides;
-    slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+  /* ─── PROMO RIBBON DISMISS ─── */
+  function dismissPromoRibbon() {
+    const ribbon = document.getElementById('promoRibbon');
+    ribbon.classList.add('dismissed');
+    setRibbonCookie('mdv_ribbon_dismissed', '1', 30);
   }
 
-  function nextSlide() { showSlide(currentSlide + 1); }
-  function prevSlide() { showSlide(currentSlide - 1); }
-
-  function toggleMenu(force) {
-    const shouldOpen = typeof force === 'boolean' ? force : dropdown.style.display !== 'block';
-    dropdown.style.display = shouldOpen ? 'block' : 'none';
+  function setRibbonCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
   }
 
-  document.addEventListener('click', function(event) {
-    const menu = document.querySelector('.nav-menu');
-    if (menu && !menu.contains(event.target)) dropdown.style.display = 'none';
-  });
+  function getRibbonCookie(name) {
+    const value = '; ' + document.cookie;
+    const parts = value.split('; ' + name + '=');
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
 
-  // Touch swipe support
-  let touchStartX = 0;
-  let touchStartY = 0;
-  const stage = document.getElementById('imageStage');
+  // On load, hide ribbon if previously dismissed
+  if (getRibbonCookie('mdv_ribbon_dismissed')) {
+    document.getElementById('promoRibbon').classList.add('dismissed');
+  }
 
-  stage.addEventListener('touchstart', function(event) {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-  }, { passive: true });
+  /* ─── MOBILE MENU ─── */
+  function openMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
-  stage.addEventListener('touchend', function(event) {
-    const dx = event.changedTouches[0].clientX - touchStartX;
-    const dy = event.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
-      dx < 0 ? nextSlide() : prevSlide();
-    }
-  }, { passive: true });
-
-  // Allocation notifications signup
-  function handleAllocationSignup(event) {
-    event.preventDefault();
-    const email = document.getElementById('allocation-email').value;
-    const form = document.getElementById('allocation-form');
-    const confirm = document.getElementById('allocation-confirm');
-    form.style.display = 'none';
-    confirm.classList.add('visible');
-    return false;
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   /* ─── REVIEW STAR PICKER ─── */
@@ -2409,17 +2741,6 @@
       selectedRating = parseInt(btn.getAttribute('data-value'), 10);
       starButtons.forEach(function(b, i) {
         b.classList.toggle('active', i < selectedRating);
-      });
-    });
-    btn.addEventListener('mouseenter', function() {
-      const hoverValue = parseInt(btn.getAttribute('data-value'), 10);
-      starButtons.forEach(function(b, i) {
-        b.style.color = i < hoverValue ? 'var(--gold)' : '';
-      });
-    });
-    btn.addEventListener('mouseleave', function() {
-      starButtons.forEach(function(b, i) {
-        b.style.color = '';
       });
     });
   });
@@ -2444,7 +2765,6 @@
     const body = document.getElementById('reviewBody').value.trim();
     const honey = document.getElementById('reviewHp').value.trim();
 
-    // Honeypot
     if (honey) {
       setReviewMsg('Thank you. Your words have reached the maison.', 'success');
       reviewFormWrap.classList.add('submitted');
@@ -2501,10 +2821,42 @@
     }
   });
 
-  /* ─── LETTERS POPUP ─── */
+  /* ─── REVIEWS CAROUSEL ARROWS ─── */
+  (function() {
+    var grid = document.getElementById('reviewsGrid');
+    if (!grid) return;
+    var prev = document.querySelector('.reviews-arrow.prev');
+    var next = document.querySelector('.reviews-arrow.next');
+
+    function getStep() {
+      var card = grid.querySelector('.review-card');
+      if (!card) return 360;
+      var cs = getComputedStyle(grid);
+      var gap = parseInt(cs.gap || cs.columnGap || '24', 10);
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    prev.addEventListener('click', function() {
+      grid.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', function() {
+      grid.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+
+    function updateArrows() {
+      prev.disabled = grid.scrollLeft <= 4;
+      next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4;
+    }
+
+    grid.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    setTimeout(updateArrows, 100);
+  })();
+
+  /* ─── LETTERS POPUP (Chanel-style, 2 seconds) ─── */
   const LETTERS_COOKIE = 'mdv_letters_seen';
   const LETTERS_COOKIE_DAYS = 365;
-  const LETTERS_DELAY_MS = 25000;
+  const LETTERS_DELAY_MS = 2000;
 
   function getCookie(name) {
     const value = '; ' + document.cookie;
@@ -2514,9 +2866,9 @@
   }
 
   function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/;SameSite=Lax';
+    const d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
   }
 
   function showLetters() {
@@ -2533,10 +2885,9 @@
     overlay.setAttribute('aria-hidden', 'true');
   }
 
-  // Trigger after delay
+  // 2-second trigger
   setTimeout(showLetters, LETTERS_DELAY_MS);
 
-  // ESC key closes the popup
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       const overlay = document.getElementById('lettersOverlay');
@@ -2544,12 +2895,10 @@
     }
   });
 
-  // Click outside the modal to close
   document.getElementById('lettersOverlay').addEventListener('click', function(e) {
     if (e.target === this) closeLetters();
   });
 
-  // Submit handler
   const lettersForm = document.getElementById('lettersForm');
   const lettersSubmit = document.getElementById('lettersSubmit');
   const lettersFeedback = document.getElementById('lettersFeedback');
@@ -2565,9 +2914,9 @@
     e.preventDefault();
     setLettersMsg('');
 
-    const name = document.getElementById('lettersName').value.trim();
     const email = document.getElementById('lettersEmail').value.trim();
     const honey = document.getElementById('lettersHp').value.trim();
+    const consent = document.getElementById('lettersConsent').checked;
 
     if (honey) {
       setLettersMsg('Thank you. Your name is on the list.');
@@ -2576,15 +2925,14 @@
       return;
     }
 
-    if (!name) {
-      setLettersMsg('A first name, please.', 'error');
-      document.getElementById('lettersName').focus();
-      return;
-    }
-
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setLettersMsg('A valid email, please.', 'error');
       document.getElementById('lettersEmail').focus();
+      return;
+    }
+
+    if (!consent) {
+      setLettersMsg('Please agree to the terms to continue.', 'error');
       return;
     }
 
@@ -2595,7 +2943,6 @@
     try {
       const fd = new FormData();
       fd.append('source', 'letters');
-      fd.append('firstName', name);
       fd.append('email', email);
 
       const res = await fetch(REVIEW_ENDPOINT, { method: 'POST', body: fd });
@@ -2621,113 +2968,5 @@
   });
 </script>
 
-<!-- ═══ REVIEWS CAROUSEL (CSS + JS upgrade) ═══ -->
-<style>
-  #reviews .reviews-grid {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    gap: 24px;
-    padding: 8px 4px 24px;
-    margin-bottom: 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  #reviews .reviews-grid::-webkit-scrollbar { display: none; }
-  #reviews .review-card {
-    flex: 0 0 360px;
-    scroll-snap-align: start;
-  }
-  #reviews .review-card.empty {
-    flex: 0 0 240px;
-  }
-  @media (max-width: 600px) {
-    #reviews .review-card { flex: 0 0 85%; }
-    #reviews .review-card.empty { flex: 0 0 70%; }
-  }
-  .reviews-carousel-wrap {
-    position: relative;
-    margin-bottom: 96px;
-  }
-  .reviews-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 5;
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    border: 1px solid rgba(201, 169, 110, 0.5);
-    background: var(--warm-white);
-    color: var(--gold);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 240ms ease, border-color 240ms ease, opacity 240ms ease;
-    font-size: 18px;
-    line-height: 1;
-    box-shadow: 0 2px 12px rgba(11, 31, 58, 0.08);
-  }
-  .reviews-arrow:hover {
-    background: var(--gold);
-    color: var(--cream);
-    border-color: var(--gold);
-  }
-  .reviews-arrow.prev { left: -12px; }
-  .reviews-arrow.next { right: -12px; }
-  .reviews-arrow[disabled] {
-    opacity: 0.25;
-    cursor: default;
-    pointer-events: none;
-  }
-  @media (max-width: 600px) {
-    .reviews-arrow { display: none; }
-    .reviews-carousel-wrap { margin-bottom: 64px; }
-  }
-</style>
-<script>
-  (function() {
-    var grid = document.querySelector('#reviews .reviews-grid');
-    if (!grid) return;
-    var wrap = document.createElement('div');
-    wrap.className = 'reviews-carousel-wrap';
-    grid.parentNode.insertBefore(wrap, grid);
-    wrap.appendChild(grid);
-    var prev = document.createElement('button');
-    prev.type = 'button';
-    prev.className = 'reviews-arrow prev';
-    prev.setAttribute('aria-label', 'Previous reviews');
-    prev.innerHTML = '&larr;';
-    var next = document.createElement('button');
-    next.type = 'button';
-    next.className = 'reviews-arrow next';
-    next.setAttribute('aria-label', 'Next reviews');
-    next.innerHTML = '&rarr;';
-    wrap.appendChild(prev);
-    wrap.appendChild(next);
-    function getStep() {
-      var card = grid.querySelector('.review-card');
-      if (!card) return 360;
-      var cs = getComputedStyle(grid);
-      var gap = parseInt(cs.gap || cs.columnGap || '24', 10);
-      return card.getBoundingClientRect().width + gap;
-    }
-    prev.addEventListener('click', function() {
-      grid.scrollBy({ left: -getStep(), behavior: 'smooth' });
-    });
-    next.addEventListener('click', function() {
-      grid.scrollBy({ left: getStep(), behavior: 'smooth' });
-    });
-    function updateArrows() {
-      prev.disabled = grid.scrollLeft <= 4;
-      next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4;
-    }
-    grid.addEventListener('scroll', updateArrows, { passive: true });
-    window.addEventListener('resize', updateArrows);
-    setTimeout(updateArrows, 100);
-  })();
-</script></body>
+</body>
 </html>
