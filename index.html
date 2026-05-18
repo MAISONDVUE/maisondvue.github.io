@@ -59,18 +59,26 @@
 
 <style>
   :root{
-    --navy-deep:#070D22;
     --navy:#0B1F3A;
-    --navy-center:#0E2748;
-    --cobalt:#1A3A6C;
-    --cream:#F9F6F0;
-    --warm-white:#FCFAF5;
-    --ivory:#F5F0E6;
+    --navy-deep:#070D22;
+    --navy-center:#122749;
+    --cobalt:#1A2744;
+
     --gold:#C9A96E;
+    --gold-soft:#D9BE8B;
     --gold-light:#D9BE8B;
     --gold-muted:#B8996A;
+
+    --cream:#F0E6D0;
+    --warm-white:#FDFBF8;
+    --ivory:#F9F6F0;
+
     --line:rgba(11,31,58,0.18);
     --mid:#5D6A7E;
+
+    /* Documentary navy tones - bridge to photograph above */
+    --navy-charcoal:#0A0F1F;
+    --navy-deeper:#04081A;
 
     --font-display:'Cormorant Garamond','EB Garamond',Garamond,Georgia,serif;
     --font-italic:'EB Garamond',Georgia,serif;
@@ -89,7 +97,7 @@
   }
 
   html,body{
-    background:var(--navy-deep);
+    background:var(--navy-charcoal);
     color:var(--cream);
     font-family:var(--font-sans);
     font-weight:300;
@@ -107,7 +115,7 @@
      ═══════════════════════════════════════════════════════════ */
   .promo-ribbon{
     height:var(--ribbon-h);
-    background:var(--navy-deep);
+    background:var(--navy-charcoal);
     color:var(--cream);
     display:flex;
     align-items:center;
@@ -232,7 +240,7 @@
     position:relative;
     min-height:calc(100vh - var(--header-total));
     overflow:hidden;
-    background:var(--navy-deep);
+    background:var(--navy-charcoal);
   }
 
   /* PHOTOGRAPH — 16:9 aspect-ratio band at top of page.
@@ -243,7 +251,7 @@
     aspect-ratio:16 / 9;
     max-height:680px;
     overflow:hidden;
-    background:var(--navy-deep);
+    background:var(--navy-charcoal);
   }
 
   .photograph-pane img{
@@ -293,8 +301,10 @@
     padding-left:0.5em;
   }
 
-  /* RESERVATION PANE — open editorial section, no box,
-     flows directly below the photograph as a unified composition */
+  /* RESERVATION PANE — Vogue-style asymmetric caption layout.
+     Left: brand text as editorial caption.
+     Right: reservation form as credits panel.
+     The two columns mirror the photograph's horizontal composition. */
   .reservation-pane{
     position:relative;
     z-index:3;
@@ -302,18 +312,54 @@
     align-items:flex-start;
     justify-content:center;
     width:100%;
-    padding:64px 24px 96px;
-    background:var(--navy-deep);
+    padding:120px 56px 120px;
+    background:var(--navy-charcoal);
+  }
+
+  .reservation-pane::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:120px;
+    background:linear-gradient(180deg,
+      rgba(0,0,0,0.55) 0%,
+      rgba(4,8,26,0.35) 40%,
+      rgba(10,15,31,0) 100%);
+    pointer-events:none;
+    z-index:1;
   }
 
   .reservation-frame{
     position:relative;
     width:100%;
-    max-width:880px;
+    max-width:1200px;
     padding:0;
-    text-align:center;
+    text-align:left;
     background:transparent;
     border:0;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:120px;
+    align-items:start;
+  }
+
+  /* Left column - editorial caption */
+  .res-caption{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    text-align:left;
+  }
+
+  /* Right column - form panel */
+  .res-action{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    padding-top:36px;
   }
 
   /* Gold corner accents hidden since box is removed */
@@ -324,103 +370,94 @@
     display:none;
   }
 
-  .res-kicker{
-    font-family:var(--font-display);
-    font-weight:500;
-    font-size:12px;
-    letter-spacing:0.52em;
-    text-transform:uppercase;
-    color:var(--cream);
-    margin-bottom:18px;
-    padding-left:0.52em;
-  }
-
-  .res-mini-rule{
-    width:16px;
-    height:1px;
-    background:var(--gold);
-    margin:16px auto 32px;
-    opacity:0.8;
-  }
-
+  /* Limited Edition-style eyebrow - small sans, all-caps */
   .res-eyebrow{
-    font-family:var(--font-display);
+    font-family:var(--font-sans);
     font-weight:400;
-    font-size:13px;
-    letter-spacing:0.44em;
+    font-size:11px;
+    letter-spacing:0.32em;
     text-transform:uppercase;
-    color:var(--gold);
+    color:rgba(240,230,208,0.7);
+    margin-top:0;
     margin-bottom:32px;
     line-height:1.4;
   }
 
   .res-eyebrow .tm{
-    font-size:0.6em;
+    font-size:0.7em;
     vertical-align:super;
     letter-spacing:0.05em;
     margin-left:2px;
   }
 
+  /* Modern Garamond headline - upright, light weight, sentence case,
+     tight tracking. Clean and elegant without italic ornament.
+     Reads as Aesop / The Row / Augustinus Bader register. */
   .res-headline{
     font-family:var(--font-display);
     font-weight:300;
-    font-size:clamp(44px,5.8vw,76px);
-    line-height:1.02;
-    letter-spacing:0.005em;
+    font-size:clamp(48px,5.4vw,84px);
+    line-height:1.0;
+    letter-spacing:-0.01em;
     color:var(--cream);
-    margin-bottom:36px;
+    margin-bottom:32px;
   }
 
+  /* The em element is treated identically - no italic, no gold,
+     just continuous Cormorant in the same weight and tone */
   .res-headline em{
-    display:block;
-    font-family:var(--font-italic);
-    font-style:italic;
-    font-weight:400;
-    color:var(--gold-light);
-  }
-
-  .res-body{
-    font-family:var(--font-italic);
-    font-style:italic;
-    font-weight:400;
-    font-size:clamp(16px,1.4vw,20px);
-    line-height:1.7;
-    color:rgba(249,246,240,0.92);
-    max-width:46ch;
-    margin:0 auto 28px;
+    display:inline;
+    font-family:var(--font-display);
+    font-style:normal;
+    font-weight:300;
+    color:var(--cream);
+    letter-spacing:-0.01em;
   }
 
   .res-scent{
-    font-family:var(--font-italic);
-    font-style:italic;
+    font-family:var(--font-sans);
+    font-style:normal;
     font-weight:400;
-    font-size:clamp(13px,1.1vw,15px);
-    letter-spacing:0.04em;
-    line-height:1.6;
-    color:var(--gold-light);
-    margin:0 auto 44px;
+    font-size:11px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    line-height:1.7;
+    color:rgba(240,230,208,0.55);
+    margin:0 0 28px;
+    max-width:42ch;
+  }
+
+  .res-body{
+    font-family:var(--font-sans);
+    font-style:normal;
+    font-weight:400;
+    font-size:14px;
+    line-height:1.7;
+    letter-spacing:0.005em;
+    color:rgba(240,230,208,0.82);
     max-width:46ch;
-    opacity:0.88;
+    margin:0;
   }
 
   .inline-shop{
-    color:var(--gold-light);
+    color:var(--cream);
     text-decoration:none;
-    border-bottom:1px solid rgba(201,169,110,0.45);
+    border-bottom:1px solid rgba(240,230,208,0.55);
+    padding-bottom:1px;
     transition:border-color 280ms ease, color 280ms ease;
   }
 
   .inline-shop:hover{
-    border-bottom-color:var(--gold-light);
-    color:var(--gold);
+    border-bottom-color:var(--cream);
+    color:#FFFFFF;
   }
 
   form.reservation{
     display:flex;
     flex-direction:column;
     gap:12px;
-    max-width:400px;
-    margin:0 auto;
+    max-width:100%;
+    margin:0;
   }
 
   form.reservation .field{
@@ -430,29 +467,29 @@
   form.reservation input[type="text"],
   form.reservation input[type="email"]{
     width:100%;
-    background:rgba(7,13,34,0.55);
-    border:1px solid rgba(201,169,110,0.28);
+    background:rgba(4,8,26,0.55);
+    border:1px solid rgba(240,230,208,0.18);
     color:var(--cream);
     font-family:var(--font-sans);
     font-weight:400;
     font-size:11px;
-    letter-spacing:0.32em;
+    letter-spacing:0.28em;
     text-transform:uppercase;
-    padding:17px 18px;
+    padding:18px 18px;
     outline:none;
     transition:border-color 320ms ease, background 320ms ease;
   }
 
   form.reservation input::placeholder{
-    color:rgba(249,246,240,0.4);
+    color:rgba(240,230,208,0.38);
     text-transform:uppercase;
-    letter-spacing:0.32em;
+    letter-spacing:0.28em;
     font-weight:400;
   }
 
   form.reservation input:focus{
-    border-color:var(--gold);
-    background:rgba(7,13,34,0.85);
+    border-color:rgba(240,230,208,0.5);
+    background:rgba(4,8,26,0.85);
   }
 
   form.reservation .hp{
@@ -463,22 +500,22 @@
 
   form.reservation button{
     margin-top:8px;
-    background:var(--gold);
-    color:var(--navy-deep);
-    border:1px solid var(--gold);
-    font-family:var(--font-display);
+    background:var(--cream);
+    color:var(--navy-charcoal);
+    border:1px solid var(--cream);
+    font-family:var(--font-sans);
     font-weight:500;
-    letter-spacing:0.36em;
+    letter-spacing:0.28em;
     text-transform:uppercase;
     font-size:11px;
-    padding:17px 32px;
+    padding:18px 32px;
     cursor:pointer;
     transition:background 320ms ease, color 320ms ease, border-color 320ms ease;
   }
 
   form.reservation button:hover{
-    background:var(--gold-light);
-    border-color:var(--gold-light);
+    background:var(--cream-warm);
+    border-color:var(--cream-warm);
   }
 
   form.reservation button:disabled{
@@ -486,84 +523,42 @@
     cursor:not-allowed;
   }
 
-  .preorder-button{
+  .invitation-block{
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid rgba(240,230,208,0.12);
+    max-width:100%;
+  }
+
+  .invitation-label{
     display:block;
-    margin:14px auto 0;
-    max-width:400px;
-    padding:16px 28px;
-    border:1px solid rgba(201,169,110,0.45);
-    color:var(--gold-light);
-    text-decoration:none;
-    text-align:center;
-    font-family:var(--font-display);
-    font-weight:500;
-    font-size:11px;
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:10px;
     letter-spacing:0.32em;
     text-transform:uppercase;
-    transition:background 320ms ease, color 320ms ease, border-color 320ms ease;
-  }
-
-  .preorder-button:hover{
-    background:rgba(201,169,110,0.10);
-    color:var(--cream);
-    border-color:var(--gold);
-  }
-
-  .invitation-block{
-    margin-top:28px;
-    max-width:400px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .invitation-trigger{
-    background:none;
-    border:0;
-    padding:0;
-    margin:0;
-    cursor:pointer;
-    font-family:var(--font-display);
-    font-weight:500;
-    font-size:10px;
-    letter-spacing:0.5em;
-    text-transform:uppercase;
-    color:rgba(201,169,110,0.75);
-    padding-left:0.5em;
-    transition:color 320ms ease;
-  }
-
-  .invitation-trigger:hover{
-    color:var(--gold-light);
+    color:rgba(240,230,208,0.5);
+    margin-bottom:14px;
+    padding-left:0.32em;
   }
 
   .invitation-form{
-    display:none;
-    margin-top:16px;
+    display:flex;
     align-items:stretch;
     gap:0;
     width:100%;
   }
 
-  .invitation-form.open{
-    display:flex;
-    animation:invitation-fade 380ms ease both;
-  }
-
-  @keyframes invitation-fade{
-    from{ opacity:0; transform:translateY(-4px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
   .invitation-form input{
     flex:1;
-    background:rgba(7,13,34,0.55);
-    border:1px solid rgba(201,169,110,0.28);
+    background:rgba(4,8,26,0.55);
+    border:1px solid rgba(240,230,208,0.18);
     border-right:0;
     color:var(--cream);
     font-family:var(--font-sans);
     font-weight:400;
     font-size:11px;
-    letter-spacing:0.32em;
+    letter-spacing:0.28em;
     text-transform:uppercase;
     padding:14px 16px;
     outline:none;
@@ -571,21 +566,21 @@
   }
 
   .invitation-form input::placeholder{
-    color:rgba(249,246,240,0.4);
+    color:rgba(240,230,208,0.38);
     text-transform:uppercase;
-    letter-spacing:0.32em;
+    letter-spacing:0.28em;
   }
 
   .invitation-form input:focus{
-    border-color:var(--gold);
-    background:rgba(7,13,34,0.85);
+    border-color:rgba(240,230,208,0.5);
+    background:rgba(4,8,26,0.85);
   }
 
   .invitation-form button{
-    background:var(--gold);
-    color:var(--navy-deep);
-    border:1px solid var(--gold);
-    font-family:var(--font-display);
+    background:var(--cream);
+    color:var(--navy-charcoal);
+    border:1px solid var(--cream);
+    font-family:var(--font-sans);
     font-weight:500;
     font-size:14px;
     padding:14px 22px;
@@ -594,18 +589,18 @@
   }
 
   .invitation-form button:hover{
-    background:var(--gold-light);
+    background:var(--cream-warm);
   }
 
   .invitation-feedback{
     display:block;
     margin-top:10px;
     min-height:18px;
-    font-family:var(--font-italic);
-    font-style:italic;
-    font-weight:400;
-    font-size:13px;
-    letter-spacing:0.01em;
+    font-family:var(--font-sans);
+    font-style:normal;
+    font-weight:300;
+    font-size:12px;
+    letter-spacing:0.04em;
     color:rgba(216,180,180,0.9);
   }
 
@@ -613,16 +608,16 @@
     margin-top:24px;
     padding-top:20px;
     min-height:24px;
-    font-family:var(--font-italic);
-    font-style:italic;
-    font-weight:400;
-    font-size:17px;
-    letter-spacing:0.015em;
+    font-family:var(--font-sans);
+    font-style:normal;
+    font-weight:300;
+    font-size:14px;
+    letter-spacing:0.04em;
     line-height:1.55;
-    border-top:0.5px solid rgba(201,169,110,0.22);
+    border-top:0.5px solid rgba(239,232,214,0.14);
   }
 
-  .res-message.success{ color:var(--gold-light); }
+  .res-message.success{ color:var(--cream); }
   .res-message.error{ color:#D8B4B4; }
 
   .reveal{
@@ -672,28 +667,35 @@
       letter-spacing:0.28em;
     }
 
-    /* Boxless layout - just adjust outer padding */
+    /* Two-column layout collapses to single column on tablet/mobile */
     .reservation-pane{
-      padding:56px 24px 80px;
+      padding:88px 32px 96px;
     }
 
     .reservation-frame{
-      max-width:720px;
+      max-width:560px;
+      grid-template-columns:1fr;
+      gap:48px;
+    }
+
+    .res-action{
+      padding-top:0;
     }
 
     .res-headline{
-      font-size:48px;
+      font-size:56px;
     }
   }
 
   /* ─── PHONE (under 640px) ─── */
   @media (max-width:640px){
     .reservation-pane{
-      padding:44px 20px 64px;
+      padding:64px 24px 80px;
     }
 
     .reservation-frame{
       max-width:100%;
+      gap:36px;
     }
 
     .res-kicker{
@@ -702,30 +704,34 @@
       margin-bottom:12px;
     }
 
+    /* Rule stays left-aligned on mobile too */
     .res-mini-rule{
-      margin:10px auto 18px;
+      width:28px;
+      margin:0 0 22px;
     }
 
     .res-eyebrow{
       font-size:10px;
       letter-spacing:0.32em;
-      margin-bottom:18px;
+      margin-bottom:22px;
     }
 
     .res-headline{
-      font-size:30px;
-      margin-bottom:20px;
+      font-size:44px;
+      margin-bottom:22px;
+      line-height:1.0;
     }
 
     .res-body{
       font-size:14px;
-      line-height:1.6;
-      margin-bottom:18px;
+      line-height:1.7;
+      margin:0;
     }
 
     .res-scent{
-      font-size:12px;
-      margin-bottom:24px;
+      font-size:10px;
+      letter-spacing:0.28em;
+      margin-bottom:22px;
     }
 
     form.reservation{
@@ -749,19 +755,15 @@
       letter-spacing:0.28em;
     }
 
-    .preorder-button{
-      padding:13px 14px;
-      font-size:10px;
-      letter-spacing:0.24em;
-    }
-
     .invitation-block{
-      margin-top:22px;
+      margin-top:28px;
+      padding-top:24px;
     }
 
-    .invitation-trigger{
+    .invitation-label{
       font-size:9px;
-      letter-spacing:0.42em;
+      letter-spacing:0.28em;
+      margin-bottom:12px;
     }
 
     .invitation-form input{
@@ -788,7 +790,7 @@
 
   @media (max-width:380px){
     .reservation-pane{
-      padding:32px 16px 52px;
+      padding:48px 18px 64px;
     }
 
     .reservation-frame{
@@ -796,7 +798,7 @@
     }
 
     .res-headline{
-      font-size:30px;
+      font-size:36px;
     }
   }
 </style>
@@ -863,56 +865,45 @@
   <section class="reservation-pane">
     <div class="reservation-frame reveal">
 
-      <span class="res-corner-tr" aria-hidden="true"></span>
-      <span class="res-corner-bl" aria-hidden="true"></span>
+      <!-- LEFT COLUMN: Editorial caption -->
+      <div class="res-caption">
+        <p class="res-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
 
-      <div class="res-kicker">MAISON D&rsquo;VUE</div>
-      <div class="res-mini-rule" aria-hidden="true"></div>
+        <h1 class="res-headline">The Hair Elixir</h1>
 
-      <p class="res-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
+        <p class="res-scent">Fourteen rare essences &middot; Scented in &Acirc;me de Vue&trade;</p>
 
-      <h1 class="res-headline">
-        The
-        <em>Hair Elixir</em>
-      </h1>
-
-      <p class="res-body">
-        A maison of considered haircare,<br>
-        composed in Beverly Hills.
-        <br><br>
-        Reserve your bottle &mdash; or
-        <a href="#" id="shopLink" class="inline-shop">secure your elixir in advance.</a>
-      </p>
-
-      <p class="res-scent">A ritual of fourteen rare essences. Scented in &Acirc;me de Vue&trade;.</p>
-
-      <form id="reservationForm" class="reservation" novalidate>
-        <div class="field">
-          <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
-        </div>
-        <div class="field">
-          <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
-        </div>
-        <div class="hp" aria-hidden="true">
-          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-        </div>
-        <button type="submit" id="submitBtn">Reserve your elixir</button>
-      </form>
-
-      <a href="#" id="preorderBtn" class="preorder-button">Secure your elixir now</a>
-
-      <div class="invitation-block">
-        <button type="button" class="invitation-trigger" id="invitationTrigger" aria-expanded="false" aria-controls="invitationForm">
-          By Invitation
-        </button>
-        <form id="invitationForm" class="invitation-form" novalidate>
-          <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
-          <button type="submit" aria-label="Submit invitation code">&rarr;</button>
-        </form>
-        <span class="invitation-feedback" id="invitationFeedback" role="status" aria-live="polite"></span>
+        <p class="res-body">
+          Composed in Beverly Hills. Reserved by request. The June allocation opens to the list first.
+        </p>
       </div>
 
-      <div class="res-message" id="message" role="status" aria-live="polite"></div>
+      <!-- RIGHT COLUMN: Reservation form -->
+      <div class="res-action">
+        <form id="reservationForm" class="reservation" novalidate>
+          <div class="field">
+            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
+          </div>
+          <div class="field">
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
+          </div>
+          <div class="hp" aria-hidden="true">
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" id="submitBtn">Reserve your elixir</button>
+        </form>
+
+        <div class="invitation-block">
+          <label for="invitationCode" class="invitation-label">Enter your invitation code</label>
+          <form id="invitationForm" class="invitation-form" novalidate>
+            <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <button type="submit" aria-label="Submit invitation code">&rarr;</button>
+          </form>
+          <span class="invitation-feedback" id="invitationFeedback" role="status" aria-live="polite"></span>
+        </div>
+
+        <div class="res-message" id="message" role="status" aria-live="polite"></div>
+      </div>
 
     </div>
   </section>
@@ -924,9 +915,6 @@
   const PRODUCT_URL = "/product.html";
   const INVITATION_CODE = "WELCOME26";
   const INVITATION_REDIRECT = PRODUCT_URL;
-
-  document.getElementById('shopLink').href = PRODUCT_URL;
-  document.getElementById('preorderBtn').href = PRODUCT_URL;
 
   document.querySelectorAll('.reveal').forEach(function(el, i){
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
@@ -1026,20 +1014,9 @@
   });
 
   /* ─── INVITATION CODE ─── */
-  var invTrigger = document.getElementById('invitationTrigger');
   var invForm = document.getElementById('invitationForm');
   var invInput = document.getElementById('invitationCode');
   var invFeedback = document.getElementById('invitationFeedback');
-
-  invTrigger.addEventListener('click', function(){
-    var open = invForm.classList.toggle('open');
-    invTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open){
-      setTimeout(function(){ invInput.focus(); }, 60);
-    } else {
-      invFeedback.textContent = '';
-    }
-  });
 
   invForm.addEventListener('submit', function(e){
     e.preventDefault();
