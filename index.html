@@ -255,17 +255,10 @@
     object-position:center center;
   }
 
-  /* Soft gradient at the bottom of the photograph creates
-     a natural transition into the reservation section below */
+  /* Photograph sits tight to the reservation section below -
+     no gradient transition needed */
   .photograph-pane::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg,
-      rgba(7,13,34,0) 0%,
-      rgba(7,13,34,0) 70%,
-      rgba(7,13,34,0.35) 100%);
-    pointer-events:none;
+    display:none;
   }
 
   .photo-fallback{
@@ -300,97 +293,64 @@
     padding-left:0.5em;
   }
 
-  /* RESERVATION PANE — centered section below photograph */
+  /* RESERVATION PANE — open editorial section, no box,
+     flows directly below the photograph as a unified composition */
   .reservation-pane{
     position:relative;
     z-index:3;
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:center;
     width:100%;
-    padding:80px 24px;
+    padding:64px 24px 96px;
     background:var(--navy-deep);
   }
 
   .reservation-frame{
     position:relative;
     width:100%;
-    max-width:560px;
-    padding:64px 52px 48px;
+    max-width:880px;
+    padding:0;
     text-align:center;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(14,39,72,0.4), rgba(7,13,34,0.85) 90%);
-    border:1px solid rgba(201,169,110,0.32);
+    background:transparent;
+    border:0;
   }
 
-  /* Gold corner accents */
+  /* Gold corner accents hidden since box is removed */
   .reservation-frame::before,
   .reservation-frame::after,
   .res-corner-tr,
   .res-corner-bl{
-    content:"";
-    position:absolute;
-    width:22px;
-    height:22px;
-    border:1px solid var(--gold);
-    pointer-events:none;
-  }
-
-  .reservation-frame::before{
-    top:-1px;
-    left:-1px;
-    border-right:none;
-    border-bottom:none;
-  }
-
-  .reservation-frame::after{
-    bottom:-1px;
-    right:-1px;
-    border-left:none;
-    border-top:none;
-  }
-
-  .res-corner-tr{
-    top:-1px;
-    right:-1px;
-    border-left:none;
-    border-bottom:none;
-  }
-
-  .res-corner-bl{
-    bottom:-1px;
-    left:-1px;
-    border-right:none;
-    border-top:none;
+    display:none;
   }
 
   .res-kicker{
     font-family:var(--font-display);
     font-weight:500;
-    font-size:11px;
-    letter-spacing:0.5em;
+    font-size:12px;
+    letter-spacing:0.52em;
     text-transform:uppercase;
     color:var(--cream);
-    margin-bottom:16px;
-    padding-left:0.5em;
+    margin-bottom:18px;
+    padding-left:0.52em;
   }
 
   .res-mini-rule{
-    width:14px;
+    width:16px;
     height:1px;
     background:var(--gold);
-    margin:14px auto 28px;
+    margin:16px auto 32px;
     opacity:0.8;
   }
 
   .res-eyebrow{
     font-family:var(--font-display);
     font-weight:400;
-    font-size:11px;
-    letter-spacing:0.42em;
+    font-size:13px;
+    letter-spacing:0.44em;
     text-transform:uppercase;
     color:var(--gold);
-    margin-bottom:24px;
+    margin-bottom:32px;
     line-height:1.4;
   }
 
@@ -404,11 +364,11 @@
   .res-headline{
     font-family:var(--font-display);
     font-weight:300;
-    font-size:clamp(36px,4.4vw,56px);
-    line-height:1.04;
-    letter-spacing:0.008em;
+    font-size:clamp(44px,5.8vw,76px);
+    line-height:1.02;
+    letter-spacing:0.005em;
     color:var(--cream);
-    margin-bottom:28px;
+    margin-bottom:36px;
   }
 
   .res-headline em{
@@ -423,23 +383,23 @@
     font-family:var(--font-italic);
     font-style:italic;
     font-weight:400;
-    font-size:clamp(15px,1.3vw,18px);
-    line-height:1.65;
+    font-size:clamp(16px,1.4vw,20px);
+    line-height:1.7;
     color:rgba(249,246,240,0.92);
-    max-width:42ch;
-    margin:0 auto 24px;
+    max-width:46ch;
+    margin:0 auto 28px;
   }
 
   .res-scent{
     font-family:var(--font-italic);
     font-style:italic;
     font-weight:400;
-    font-size:clamp(12px,1vw,14px);
+    font-size:clamp(13px,1.1vw,15px);
     letter-spacing:0.04em;
     line-height:1.6;
     color:var(--gold-light);
-    margin:0 auto 32px;
-    max-width:42ch;
+    margin:0 auto 44px;
+    max-width:46ch;
     opacity:0.88;
   }
 
@@ -712,30 +672,28 @@
       letter-spacing:0.28em;
     }
 
-    /* Stacked layout - just adjust reservation padding and width */
+    /* Boxless layout - just adjust outer padding */
     .reservation-pane{
-      padding:64px 24px;
+      padding:56px 24px 80px;
     }
 
     .reservation-frame{
-      max-width:480px;
-      padding:52px 36px 40px;
+      max-width:720px;
     }
 
     .res-headline{
-      font-size:38px;
+      font-size:48px;
     }
   }
 
   /* ─── PHONE (under 640px) ─── */
   @media (max-width:640px){
     .reservation-pane{
-      padding:48px 16px;
+      padding:44px 20px 64px;
     }
 
     .reservation-frame{
       max-width:100%;
-      padding:40px 24px 32px;
     }
 
     .res-kicker{
@@ -830,16 +788,15 @@
 
   @media (max-width:380px){
     .reservation-pane{
-      padding:16px 10px;
+      padding:32px 16px 52px;
     }
 
     .reservation-frame{
       max-width:100%;
-      padding:28px 18px 22px;
     }
 
     .res-headline{
-      font-size:26px;
+      font-size:30px;
     }
   }
 </style>
