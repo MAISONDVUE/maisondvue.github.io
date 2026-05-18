@@ -687,30 +687,29 @@
 
     .promo-ribbon-text{
       font-size:10px;
-      letter-spacing:0.18em;
+      letter-spacing:0.22em;
       padding:0 40px;
-      white-space:normal;
-    }
-
-    .promo-ribbon-text .accent{
-      display:block;
-      margin:4px 0 0;
-    }
-
-    .promo-ribbon{
-      height:auto;
-      min-height:var(--ribbon-h);
-      padding:10px 0;
+      white-space:nowrap;
+      line-height:1;
     }
 
     .header-utility{
-      right:18px;
-      gap:14px;
+      right:14px;
+      gap:10px;
+    }
+
+    .header-utility-btn svg{
+      width:15px;
+      height:15px;
+    }
+
+    .header-utility-btn[aria-label="Contact"]{
+      display:none;
     }
 
     .header-logo{
-      font-size:18px;
-      letter-spacing:0.36em;
+      font-size:15px;
+      letter-spacing:0.28em;
     }
 
     /* Stacked layout - just adjust reservation padding and width */
@@ -850,7 +849,7 @@
 <!-- ═══ PROMO RIBBON ═══ -->
 <div class="promo-ribbon" id="promoRibbon">
   <p class="promo-ribbon-text">
-    Hand-sealed in Beverly Hills<span class="accent">&middot;</span>Complimentary shipping on every Allocation
+    Complimentary shipping on every Allocation
   </p>
   <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
