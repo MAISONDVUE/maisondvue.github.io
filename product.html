@@ -476,27 +476,31 @@
     width: 100%;
   }
 
-  /* Soft radial halo — lifts text from the image without
-     creating a hard rectangular overlay. Acts as a vignette
-     concentrated behind the type only. */
-  .hero-content::before {
+  /* Soft darkening at the bottom of the hero where text sits.
+     Applied to the hero container itself (not the text block),
+     so the gradient extends to the hero edges. No visible boundary
+     can form because the fade dissolves into the natural edges of
+     the photograph. */
+  .hero::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 140%;
-    height: 280%;
-    z-index: -1;
+    inset: 0;
+    z-index: 3;
     background:
       radial-gradient(
-        ellipse at center,
-        rgba(7, 13, 34, 0.78) 0%,
-        rgba(7, 13, 34, 0.55) 30%,
-        rgba(7, 13, 34, 0.25) 55%,
-        rgba(7, 13, 34, 0) 75%
+        ellipse 70% 55% at 50% 85%,
+        rgba(7, 13, 34, 0.50) 0%,
+        rgba(7, 13, 34, 0.38) 25%,
+        rgba(7, 13, 34, 0.22) 50%,
+        rgba(7, 13, 34, 0.10) 75%,
+        rgba(7, 13, 34, 0) 100%
       );
     pointer-events: none;
+  }
+
+  /* Old halo behind text removed - replaced by hero::after above */
+  .hero-content::before {
+    display: none;
   }
 
   /* Small uppercase category eyebrow above the title.
@@ -2089,7 +2093,8 @@
     }
 
     /* Halo removed on mobile - text is now on solid navy, doesn't need it */
-    .hero-content::before {
+    .hero-content::before,
+    .hero::after {
       display: none;
     }
 
