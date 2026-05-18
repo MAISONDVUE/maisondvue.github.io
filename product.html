@@ -2018,30 +2018,29 @@
 
     .promo-ribbon-text {
       font-size: 10px;
-      letter-spacing: 0.18em;
-      padding: 0 50px;
-      white-space: normal;
-      line-height: 1.4;
-    }
-
-    .promo-ribbon-text .accent {
-      display: block;
-      margin: 4px 0 0;
+      letter-spacing: 0.22em;
+      padding: 0 40px;
+      white-space: nowrap;
+      line-height: 1;
     }
 
     .header-logo {
-      font-size: 17px;
-      letter-spacing: 0.32em;
+      font-size: 15px;
+      letter-spacing: 0.28em;
     }
 
     .header-utility {
-      right: 18px;
-      gap: 14px;
+      right: 14px;
+      gap: 10px;
     }
 
     .header-utility-btn svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
+    }
+
+    .header-utility-btn[aria-label="Account"] {
+      display: none;
     }
 
     .header-nav-row {
@@ -2050,10 +2049,48 @@
 
     .header-mobile-toggle {
       display: block;
+      left: 14px;
+      padding: 6px;
+    }
+
+    .header-mobile-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Mobile: convert hero text from photo overlay to caption-below.
+       Photo becomes a clean cinematic band; text flows below as a
+       centered editorial caption against the navy page background. */
+    .hero {
+      aspect-ratio: auto;
+      max-height: none;
+      display: flex;
+      flex-direction: column;
+      background: var(--navy-deep);
+    }
+
+    .hero-image,
+    .hero-image-placeholder {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      inset: auto;
+      height: auto;
     }
 
     .hero-content {
-      padding-bottom: 56px;
+      position: static;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      max-width: 100%;
+      padding: 36px 24px 44px;
+      background: var(--navy-deep);
+    }
+
+    /* Halo removed on mobile - text is now on solid navy, doesn't need it */
+    .hero-content::before {
+      display: none;
     }
 
     .purchase-section {
@@ -2123,9 +2160,22 @@
   }
 
   @media (max-width: 520px) {
-    .hero-eyebrow { font-size: 18px; letter-spacing: 0.22em; }
-    .hero-title { font-size: 24px; }
-    .hero-sub { font-size: 15px; }
+    .hero-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.32em;
+      margin-bottom: 16px;
+      text-shadow: none;
+    }
+    .hero-title {
+      font-size: 32px;
+      margin-bottom: 14px;
+      text-shadow: none;
+    }
+    .hero-sub {
+      font-size: 14px;
+      margin-bottom: 24px;
+      text-shadow: none;
+    }
     .purchase-title { font-size: 26px; }
     .card-tag { font-size: 15px; }
     .card-price { font-size: 26px; }
@@ -2139,7 +2189,7 @@
 <!-- ═══ PROMO RIBBON ═══ -->
 <div class="promo-ribbon" id="promoRibbon">
   <p class="promo-ribbon-text">
-    Hand-sealed in Beverly Hills<span class="accent">&middot;</span>Complimentary shipping on every Allocation
+    Complimentary shipping on every Allocation
   </p>
   <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
