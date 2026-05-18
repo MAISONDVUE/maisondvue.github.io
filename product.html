@@ -385,17 +385,14 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     HERO — CHANEL PATTERN
-     The photograph IS the hero, presented edge-to-edge with no
-     tinting or gradient overlays. Editorial typography sits in
-     a contained block near lower-center, positioned over natural
-     negative space within the image (the photographer composes
-     for the text, not the other way around).
+     HERO — Full-scene aspect-ratio band (16:9)
+     The photograph's native ratio is preserved at every screen
+     size so the entire paparazzi scene stays visible. Hero
+     becomes a band across the top rather than a viewport takeover.
      ═══════════════════════════════════════════════════════════ */
   .hero {
     width: 100%;
-    height: calc(100vh - var(--header-total));
-    min-height: 640px;
+    aspect-ratio: 16 / 9;
     max-height: 920px;
     position: relative;
     overflow: hidden;
@@ -2053,11 +2050,6 @@
 
     .header-mobile-toggle {
       display: block;
-    }
-
-    .hero {
-      height: calc(100vh - var(--ribbon-h) - var(--logo-h));
-      min-height: 520px;
     }
 
     .hero-content {
