@@ -224,21 +224,24 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     MAIN BELOW HEADER — full-bleed photograph with
-     reservation box floating on the right
+     MAIN — photograph band on top (16:9), reservation below
+     The photograph's full scene is preserved at every screen
+     size by using aspect-ratio rather than viewport height.
      ═══════════════════════════════════════════════════════════ */
   main{
     position:relative;
     min-height:calc(100vh - var(--header-total));
     overflow:hidden;
+    background:var(--navy-deep);
   }
 
-  /* PHOTOGRAPH — full-bleed background, anchored leftward
-     so her face sits on the left half of the viewport */
+  /* PHOTOGRAPH — 16:9 aspect-ratio band at top of page.
+     Full scene visible, never cropped. */
   .photograph-pane{
-    position:absolute;
-    inset:0;
-    z-index:1;
+    position:relative;
+    width:100%;
+    aspect-ratio:16 / 9;
+    max-height:680px;
     overflow:hidden;
     background:var(--navy-deep);
   }
@@ -249,22 +252,19 @@
     width:100%;
     height:100%;
     object-fit:cover;
-    object-position:30% center;
+    object-position:center center;
   }
 
-  /* Subtle gradient darkens the RIGHT side of the photograph
-     where the reservation box sits, fading to clear on the left
-     where her face stays fully visible */
+  /* Soft gradient at the bottom of the photograph creates
+     a natural transition into the reservation section below */
   .photograph-pane::after{
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(90deg,
+    background:linear-gradient(180deg,
       rgba(7,13,34,0) 0%,
-      rgba(7,13,34,0) 40%,
-      rgba(7,13,34,0.30) 60%,
-      rgba(7,13,34,0.55) 80%,
-      rgba(7,13,34,0.75) 100%);
+      rgba(7,13,34,0) 70%,
+      rgba(7,13,34,0.35) 100%);
     pointer-events:none;
   }
 
@@ -300,31 +300,27 @@
     padding-left:0.5em;
   }
 
-  /* RESERVATION PANE — right-aligned overlay container */
+  /* RESERVATION PANE — centered section below photograph */
   .reservation-pane{
     position:relative;
     z-index:3;
     display:flex;
     align-items:center;
-    justify-content:flex-end;
+    justify-content:center;
     width:100%;
-    min-height:calc(100vh - var(--header-total));
-    padding:64px 6% 64px 6%;
+    padding:80px 24px;
+    background:var(--navy-deep);
   }
 
   .reservation-frame{
     position:relative;
     width:100%;
-    max-width:480px;
-    padding:56px 44px 44px;
+    max-width:560px;
+    padding:64px 52px 48px;
     text-align:center;
-    background:rgba(7,13,34,0.88);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(14,39,72,0.4), rgba(7,13,34,0.85) 90%);
     border:1px solid rgba(201,169,110,0.32);
-    box-shadow:
-      0 24px 64px rgba(0,0,0,0.32),
-      0 0 0 1px rgba(201,169,110,0.08) inset;
   }
 
   /* Gold corner accents */
@@ -717,29 +713,14 @@
       letter-spacing:0.36em;
     }
 
-    /* Tighten reservation overlay positioning on tablet */
+    /* Stacked layout - just adjust reservation padding and width */
     .reservation-pane{
-      padding:48px 4% 48px 4%;
+      padding:64px 24px;
     }
 
     .reservation-frame{
-      max-width:440px;
-      padding:48px 36px 36px;
-    }
-
-    /* Anchor face further left so the right gradient zone is larger */
-    .photograph-pane img{
-      object-position:25% center;
-    }
-
-    /* Stronger gradient on tablet to ensure form readability */
-    .photograph-pane::after{
-      background:linear-gradient(90deg,
-        rgba(7,13,34,0) 0%,
-        rgba(7,13,34,0) 35%,
-        rgba(7,13,34,0.40) 60%,
-        rgba(7,13,34,0.70) 85%,
-        rgba(7,13,34,0.85) 100%);
+      max-width:480px;
+      padding:52px 36px 40px;
     }
 
     .res-headline{
@@ -747,34 +728,15 @@
     }
   }
 
-  /* ─── PHONE (under 640px) ─── 
-     Reservation box centers on the screen, photograph fills behind. 
-     Her face appears on the left half of the screen, the form
-     overlays on top, slightly right of center. */
+  /* ─── PHONE (under 640px) ─── */
   @media (max-width:640px){
     .reservation-pane{
-      padding:20px 14px;
-      justify-content:center;
-      align-items:flex-start;
-      padding-top:32px;
+      padding:48px 16px;
     }
 
     .reservation-frame{
-      max-width:360px;
-      padding:32px 22px 26px;
-    }
-
-    /* Center face in mobile view */
-    .photograph-pane img{
-      object-position:35% center;
-    }
-
-    /* Heavier gradient on mobile - form sits more centered
-       so darkening covers more of the frame */
-    .photograph-pane::after{
-      background:linear-gradient(180deg,
-        rgba(7,13,34,0.35) 0%,
-        rgba(7,13,34,0.55) 100%);
+      max-width:100%;
+      padding:40px 24px 32px;
     }
 
     .res-kicker{
@@ -929,8 +891,18 @@
 
 <!-- Mobile menu removed - homepage has no nav -->
 
-<!-- ═══ MAIN — split layout ═══ -->
+<!-- ═══ MAIN — photo band then reservation ═══ -->
 <main id="reserve">
+
+  <aside class="photograph-pane reveal" aria-hidden="true">
+    <img src="paparazzi-elixir.jpg"
+         alt=""
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="photo-fallback">
+      <div class="mark">XIV</div>
+      <div class="label">Essences</div>
+    </div>
+  </aside>
 
   <section class="reservation-pane">
     <div class="reservation-frame reveal">
@@ -988,16 +960,6 @@
 
     </div>
   </section>
-
-  <aside class="photograph-pane reveal" aria-hidden="true">
-    <img src="paparazzi-elixir.jpg"
-         alt=""
-         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-    <div class="photo-fallback">
-      <div class="mark">XIV</div>
-      <div class="label">Essences</div>
-    </div>
-  </aside>
 
 </main>
 
