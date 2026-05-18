@@ -462,20 +462,44 @@
     line-height: 1;
   }
 
-  /* Editorial text block — contained, centered horizontally,
-     sits at lower-center of the photograph. No gradient behind it;
-     the photograph's own composition provides the contrast. */
+  /* Editorial text block — positioned in the lower-quiet zone
+     of the photograph where her coat creates natural darkness.
+     A soft radial halo lifts the type legibly without flattening
+     the image behind it. */
   .hero-content {
     position: absolute;
     left: 50%;
-    bottom: 12%;
+    bottom: 5%;
     transform: translateX(-50%);
-    z-index: 3;
+    z-index: 4;
     text-align: center;
     color: var(--cream);
     padding: 0 24px;
     max-width: 880px;
     width: 100%;
+  }
+
+  /* Soft radial halo — lifts text from the image without
+     creating a hard rectangular overlay. Acts as a vignette
+     concentrated behind the type only. */
+  .hero-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 280%;
+    z-index: -1;
+    background:
+      radial-gradient(
+        ellipse at center,
+        rgba(7, 13, 34, 0.78) 0%,
+        rgba(7, 13, 34, 0.55) 30%,
+        rgba(7, 13, 34, 0.25) 55%,
+        rgba(7, 13, 34, 0) 75%
+      );
+    pointer-events: none;
   }
 
   /* Small uppercase category eyebrow above the title.
@@ -489,6 +513,7 @@
     color: var(--gold);
     margin-bottom: 28px;
     line-height: 1.2;
+    text-shadow: 0 2px 12px rgba(7, 13, 34, 0.6);
     opacity: 0;
     transform: translateY(16px);
     animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 200ms forwards;
@@ -511,6 +536,7 @@
     letter-spacing: 0.005em;
     color: var(--cream);
     margin-bottom: 24px;
+    text-shadow: 0 4px 24px rgba(7, 13, 34, 0.7);
     opacity: 0;
     transform: translateY(16px);
     animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 300ms forwards;
@@ -528,6 +554,7 @@
     max-width: 540px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 0 2px 16px rgba(7, 13, 34, 0.7);
     opacity: 0;
     transform: translateY(16px);
     animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 400ms forwards;
