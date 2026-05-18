@@ -5,35 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
 <title>MAISON D&rsquo;VUE &mdash; The House of Affinity Compositions&trade;</title>
-<meta name="description" content="MAISON D'VUE. The house of Affinity Compositions&trade;. A ritual of fourteen rare essences, scented in &Acirc;me de Vue&trade;. Reserve for the June allocation.">
+<meta name="description" content="MAISON D'VUE. The house of Affinity Compositions&trade;. A ritual of fourteen rare essences, scented in &Acirc;me de Vue&trade;. Composed in Beverly Hills.">
 
-<!-- Canonical URL -->
 <link rel="canonical" href="https://maisondvue.com/">
 
-<!-- Favicons -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<!-- Open Graph (Instagram, iMessage, Facebook, LinkedIn) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://maisondvue.com/">
 <meta property="og:title" content="MAISON D'VUE — The House of Affinity Compositions™">
-<meta property="og:description" content="A maison of considered haircare. Composed in Beverly Hills. The next allocation arrives in June.">
+<meta property="og:description" content="A maison of considered haircare. Composed in Beverly Hills.">
 <meta property="og:image" content="https://maisondvue.com/paparazzi-elixir.jpg">
 <meta property="og:image:width" content="2752">
 <meta property="og:image:height" content="1536">
 <meta property="og:site_name" content="MAISON D'VUE">
 <meta property="og:locale" content="en_US">
 
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://maisondvue.com/">
 <meta name="twitter:title" content="MAISON D'VUE — The House of Affinity Compositions™">
-<meta name="twitter:description" content="A maison of considered haircare. The June allocation opens shortly.">
+<meta name="twitter:description" content="A maison of considered haircare.">
 <meta name="twitter:image" content="https://maisondvue.com/paparazzi-elixir.jpg">
 
-<!-- Schema.org structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -44,10 +39,7 @@
   "logo": "https://maisondvue.com/favicon.svg",
   "image": "https://maisondvue.com/paparazzi-elixir.jpg",
   "description": "The house of Affinity Compositions\u2122. A maison of considered haircare, composed in Beverly Hills.",
-  "founder": {
-    "@type": "Person",
-    "name": "Masiela Lusha"
-  },
+  "founder": { "@type": "Person", "name": "Masiela Lusha" },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "132 S Lasky Dr, Floor 2, Unit #523",
@@ -57,9 +49,7 @@
     "addressCountry": "US"
   },
   "email": "hello@maisondvue.com",
-  "sameAs": [
-    "https://www.instagram.com/maisondvue"
-  ]
+  "sameAs": ["https://www.instagram.com/maisondvue"]
 }
 </script>
 
@@ -69,7 +59,6 @@
 
 <style>
   :root{
-    /* MAISON D'VUE brand palette — matched to product.html */
     --navy-deep:#070D22;
     --navy:#0B1F3A;
     --navy-center:#0E2748;
@@ -86,6 +75,11 @@
     --font-display:'Cormorant Garamond','EB Garamond',Garamond,Georgia,serif;
     --font-italic:'EB Garamond',Georgia,serif;
     --font-sans:'Jost','Helvetica Neue',Arial,sans-serif;
+
+    --ribbon-h: 44px;
+    --logo-h: 88px;
+    --nav-h: 56px;
+    --header-total: calc(var(--ribbon-h) + var(--logo-h) + var(--nav-h));
   }
 
   *,*::before,*::after{
@@ -102,140 +96,295 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     min-height:100vh;
-    overflow-x:hidden;
   }
 
   body{
     position:relative;
-    min-height:100vh;
-  }
-
-  main{
-    position:relative;
-    width:100%;
-    min-height:100vh;
-    overflow:hidden;
   }
 
   /* ═══════════════════════════════════════════════════════════
-     FULL-BLEED HERO — CHANEL PATTERN
-     The photograph fills the entire viewport edge-to-edge.
-     The reservation block floats centered over it, contained
-     as a single editorial frame with navy/gold treatment.
+     PROMO RIBBON — Chanel pattern, dismissible
      ═══════════════════════════════════════════════════════════ */
-  .hero-stage{
-    position:fixed;
-    inset:0;
-    z-index:1;
-    overflow:hidden;
+  .promo-ribbon{
+    height:var(--ribbon-h);
     background:var(--navy-deep);
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    border-bottom:1px solid rgba(201,169,110,0.15);
+    transition:height 360ms ease, opacity 360ms ease;
+    overflow:hidden;
   }
 
-  .hero-image{
+  .promo-ribbon.dismissed{
+    height:0;
+    opacity:0;
+    border-bottom:0;
+  }
+
+  .promo-ribbon-text{
+    font-family:var(--font-display);
+    font-size:12px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:rgba(249,246,240,0.88);
+    text-align:center;
+    padding:0 60px;
+    line-height:1;
+    white-space:nowrap;
+  }
+
+  .promo-ribbon-text .accent{
+    color:var(--gold);
+    margin:0 14px;
+  }
+
+  .promo-ribbon-close{
     position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center center;
+    right:22px;
+    top:50%;
+    transform:translateY(-50%);
+    background:transparent;
+    border:0;
+    color:rgba(249,246,240,0.7);
+    font-size:18px;
+    cursor:pointer;
+    line-height:1;
+    padding:4px 6px;
+    transition:color 240ms ease;
+  }
+
+  .promo-ribbon-close:hover{
+    color:var(--gold);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HEADER — centered wordmark with utility icons
+     ═══════════════════════════════════════════════════════════ */
+  .header-logo-row{
+    background:var(--warm-white);
+    height:var(--logo-h);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom:1px solid rgba(11,31,58,0.06);
+  }
+
+  .header-logo{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:clamp(20px,2.4vw,32px);
+    letter-spacing:0.42em;
+    text-transform:uppercase;
+    color:var(--navy);
+    line-height:1;
+    white-space:nowrap;
+    text-decoration:none;
+  }
+
+  .header-utility{
+    position:absolute;
+    right:40px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    gap:22px;
+    align-items:center;
+  }
+
+  .header-utility-btn{
+    background:transparent;
+    border:0;
+    color:var(--navy);
+    cursor:pointer;
+    padding:6px;
+    line-height:0;
+    transition:color 240ms ease;
+    text-decoration:none;
+  }
+
+  .header-utility-btn:hover{
+    color:var(--gold-muted);
+  }
+
+  .header-utility-btn svg{
+    width:18px;
+    height:18px;
     display:block;
   }
 
-  /* If hero image fails to load, the gradient placeholder
-     keeps the page beautiful. */
-  .hero-fallback{
-    position:absolute;
-    inset:0;
-    display:none;
-    flex-direction:column;
+  /* ═══════════════════════════════════════════════════════════
+     HORIZONTAL NAV
+     ═══════════════════════════════════════════════════════════ */
+  .header-nav-row{
+    background:var(--warm-white);
+    height:var(--nav-h);
+    display:flex;
     align-items:center;
     justify-content:center;
-    background:
-      radial-gradient(
-        ellipse at 50% 35%,
-        var(--navy-center) 0%,
-        var(--navy) 55%,
-        var(--navy-deep) 100%
-      );
+    border-bottom:1px solid rgba(11,31,58,0.08);
+    position:relative;
   }
 
-  .hero-fallback .mark{
-    font-family:var(--font-display);
-    font-style:italic;
-    font-weight:300;
-    font-size:clamp(120px,18vw,260px);
-    line-height:1;
-    color:var(--gold);
-    opacity:0.5;
+  .header-nav{
+    display:flex;
+    gap:48px;
+    list-style:none;
+    align-items:center;
   }
 
-  .hero-fallback .label{
-    margin-top:24px;
+  .header-nav a{
     font-family:var(--font-display);
-    font-weight:500;
-    font-size:11px;
-    letter-spacing:0.5em;
+    font-size:12px;
+    letter-spacing:0.32em;
     text-transform:uppercase;
+    color:var(--navy);
+    line-height:1;
+    position:relative;
+    padding:4px 0;
+    transition:color 240ms ease;
+    text-decoration:none;
+  }
+
+  .header-nav a::after{
+    content:'';
+    position:absolute;
+    bottom:-8px;
+    left:50%;
+    transform:translateX(-50%);
+    width:0;
+    height:1px;
+    background:var(--gold);
+    transition:width 280ms ease;
+  }
+
+  .header-nav a:hover::after,
+  .header-nav a.active::after{
+    width:100%;
+  }
+
+  .header-nav a:hover{
     color:var(--gold-muted);
-    padding-left:0.5em;
   }
 
-  /* Cinematic gradient overlay — concentrates darkness on the
-     left and bottom where the reservation block lives, fades
-     to transparent over the right portion of the photograph */
-  .hero-overlay{
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:90;
+    transition:transform 360ms ease;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     MOBILE HEADER — hamburger menu
+     ═══════════════════════════════════════════════════════════ */
+  .header-mobile-toggle{
+    display:none;
+    position:absolute;
+    left:22px;
+    top:50%;
+    transform:translateY(-50%);
+    background:transparent;
+    border:0;
+    cursor:pointer;
+    color:var(--navy);
+    padding:8px;
+  }
+
+  .header-mobile-toggle svg{
+    width:22px;
+    height:22px;
+    display:block;
+  }
+
+  .mobile-menu{
+    display:none;
     position:fixed;
-    inset:0;
-    z-index:2;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:var(--warm-white);
+    z-index:200;
+    flex-direction:column;
+    padding:80px 40px 40px;
+    opacity:0;
+    transform:translateY(-12px);
+    transition:opacity 320ms ease, transform 320ms ease;
     pointer-events:none;
-    background:
-      linear-gradient(
-        90deg,
-        rgba(7,13,34,0.78) 0%,
-        rgba(7,13,34,0.62) 30%,
-        rgba(7,13,34,0.30) 60%,
-        rgba(7,13,34,0.10) 80%,
-        rgba(7,13,34,0) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(7,13,34,0.20) 0%,
-        rgba(7,13,34,0) 30%,
-        rgba(7,13,34,0) 65%,
-        rgba(7,13,34,0.45) 100%
-      );
   }
 
-  /* The reservation block — floats over the photograph at
-     center-left, contained as an editorial frame with navy
-     background, gold borders, and refined typography */
+  .mobile-menu.open{
+    display:flex;
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+
+  .mobile-menu-close{
+    position:absolute;
+    top:24px;
+    right:24px;
+    background:transparent;
+    border:0;
+    color:var(--navy);
+    font-size:28px;
+    cursor:pointer;
+    padding:8px;
+    line-height:1;
+  }
+
+  .mobile-menu a{
+    font-family:var(--font-display);
+    font-size:18px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--navy);
+    padding:18px 0;
+    border-bottom:1px solid rgba(11,31,58,0.08);
+    display:block;
+    text-decoration:none;
+  }
+
+  .mobile-menu a:last-child{
+    border-bottom:0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     MAIN BELOW HEADER — split layout fills remaining viewport
+     ═══════════════════════════════════════════════════════════ */
+  main{
+    position:relative;
+    min-height:calc(100vh - var(--header-total));
+    overflow:hidden;
+  }
+
+  /* TWO-COLUMN SPLIT */
   .reservation-pane{
     position:relative;
     z-index:3;
     display:flex;
     align-items:center;
-    justify-content:flex-start;
-    width:100%;
-    min-height:100vh;
-    padding:80px 8% 80px 8%;
+    justify-content:center;
+    width:50%;
+    min-height:calc(100vh - var(--header-total));
+    padding:64px 48px;
   }
 
   .reservation-frame{
     position:relative;
     width:100%;
     max-width:540px;
-    padding:64px 52px 52px;
-    background:rgba(7,13,34,0.88);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    border:1px solid rgba(201,169,110,0.32);
+    padding:64px 52px 48px;
     text-align:center;
-    box-shadow:
-      0 24px 64px rgba(0,0,0,0.32),
-      0 0 0 1px rgba(201,169,110,0.08) inset;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(14,39,72,0.4), rgba(7,13,34,0.85) 90%);
+    border:1px solid rgba(201,169,110,0.32);
   }
 
-  /* Gold corner accents — same treatment as product.html cards */
+  /* Gold corner accents */
   .reservation-frame::before,
   .reservation-frame::after,
   .res-corner-tr,
@@ -316,8 +465,8 @@
   .res-headline{
     font-family:var(--font-display);
     font-weight:300;
-    font-size:clamp(34px,4.2vw,52px);
-    line-height:1.06;
+    font-size:clamp(36px,4.4vw,56px);
+    line-height:1.04;
     letter-spacing:0.008em;
     color:var(--cream);
     margin-bottom:28px;
@@ -335,22 +484,22 @@
     font-family:var(--font-italic);
     font-style:italic;
     font-weight:400;
-    font-size:clamp(15px,1.25vw,18px);
+    font-size:clamp(15px,1.3vw,18px);
     line-height:1.65;
     color:rgba(249,246,240,0.92);
     max-width:42ch;
-    margin:0 auto 22px;
+    margin:0 auto 24px;
   }
 
   .res-scent{
     font-family:var(--font-italic);
     font-style:italic;
     font-weight:400;
-    font-size:clamp(12px,0.95vw,14px);
+    font-size:clamp(12px,1vw,14px);
     letter-spacing:0.04em;
     line-height:1.6;
     color:var(--gold-light);
-    margin:0 auto 36px;
+    margin:0 auto 32px;
     max-width:42ch;
     opacity:0.88;
   }
@@ -367,7 +516,6 @@
     color:var(--gold);
   }
 
-  /* ─── RESERVATION FORM ─── */
   form.reservation{
     display:flex;
     flex-direction:column;
@@ -424,7 +572,7 @@
     letter-spacing:0.36em;
     text-transform:uppercase;
     font-size:11px;
-    padding:18px 32px;
+    padding:17px 32px;
     cursor:pointer;
     transition:background 320ms ease, color 320ms ease, border-color 320ms ease;
   }
@@ -443,7 +591,7 @@
     display:block;
     margin:14px auto 0;
     max-width:400px;
-    padding:17px 28px;
+    padding:16px 28px;
     border:1px solid rgba(201,169,110,0.45);
     color:var(--gold-light);
     text-decoration:none;
@@ -462,9 +610,8 @@
     border-color:var(--gold);
   }
 
-  /* ─── INVITATION CODE ─── */
   .invitation-block{
-    margin-top:32px;
+    margin-top:28px;
     max-width:400px;
     margin-left:auto;
     margin-right:auto;
@@ -564,13 +711,13 @@
   }
 
   .res-message{
-    margin-top:28px;
-    padding-top:24px;
+    margin-top:24px;
+    padding-top:20px;
     min-height:24px;
     font-family:var(--font-italic);
     font-style:italic;
     font-weight:400;
-    font-size:18px;
+    font-size:17px;
     letter-spacing:0.015em;
     line-height:1.55;
     border-top:0.5px solid rgba(201,169,110,0.22);
@@ -579,10 +726,75 @@
   .res-message.success{ color:var(--gold-light); }
   .res-message.error{ color:#D8B4B4; }
 
-  /* ─── REVEAL ANIMATIONS ─── */
+  /* ═══ PHOTOGRAPH PANE — right side ═══ */
+  .photograph-pane{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:50%;
+    right:0;
+    z-index:1;
+    overflow:hidden;
+    background:var(--navy-deep);
+  }
+
+  .photograph-pane img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:50% 30%;
+  }
+
+  /* Gradient transitions from navy on left edge (where it meets
+     the reservation pane) to clear on the right */
+  .photograph-pane::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,
+      rgba(7,13,34,0.55) 0%,
+      rgba(7,13,34,0.20) 20%,
+      rgba(7,13,34,0) 50%);
+    pointer-events:none;
+  }
+
+  .photo-fallback{
+    position:absolute;
+    inset:0;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+
+  .photo-fallback .mark{
+    font-family:var(--font-display);
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(96px,14vw,220px);
+    line-height:1;
+    color:var(--gold);
+    opacity:0.5;
+  }
+
+  .photo-fallback .label{
+    margin-top:24px;
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:var(--gold-muted);
+    padding-left:0.5em;
+  }
+
   .reveal{
     opacity:0;
-    transform:translateY(10px);
+    transform:translateY(8px);
     transition:opacity 800ms ease, transform 800ms ease;
   }
 
@@ -591,157 +803,417 @@
     transform:translateY(0);
   }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width:900px){
+  /* ═══════════════════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════════════════ */
+  @media (max-width:960px){
+    :root{
+      --logo-h:68px;
+      --nav-h:0px;
+    }
+
+    .promo-ribbon-text{
+      font-size:10px;
+      letter-spacing:0.18em;
+      padding:0 40px;
+      white-space:normal;
+    }
+
+    .promo-ribbon-text .accent{
+      display:block;
+      margin:4px 0 0;
+    }
+
+    .promo-ribbon{
+      height:auto;
+      min-height:var(--ribbon-h);
+      padding:10px 0;
+    }
+
+    .header-mobile-toggle{
+      display:flex;
+    }
+
+    .header-nav-row{
+      display:none;
+    }
+
+    .header-utility{
+      right:18px;
+      gap:14px;
+    }
+
+    .header-logo{
+      font-size:18px;
+      letter-spacing:0.36em;
+    }
+
+    /* Split stays at 60/40 on tablet */
     .reservation-pane{
-      padding:48px 22px;
-      justify-content:center;
-      align-items:flex-start;
-      padding-top:64px;
+      width:60%;
+      padding:40px 22px;
     }
 
-    .hero-overlay{
-      background:
-        linear-gradient(
-          180deg,
-          rgba(7,13,34,0.50) 0%,
-          rgba(7,13,34,0.78) 40%,
-          rgba(7,13,34,0.92) 100%
-        );
+    .photograph-pane{
+      left:60%;
     }
 
-    .hero-image{
-      object-position:62% 30%;
+    .photograph-pane::after{
+      background:linear-gradient(90deg,
+        rgba(7,13,34,0.55) 0%,
+        rgba(7,13,34,0.25) 25%,
+        rgba(7,13,34,0) 60%);
+    }
+
+    .photograph-pane img{
+      object-position:50% 30%;
     }
 
     .reservation-frame{
-      padding:48px 28px 40px;
-    }
-
-    form.reservation,
-    .preorder-button,
-    .invitation-block{
-      max-width:100%;
+      padding:48px 28px 36px;
     }
 
     .res-headline{
-      font-size:32px;
+      font-size:38px;
     }
   }
 
-  @media (max-width:480px){
+  /* ─── PHONE (under 640px) ─── 65/35 split preserved */
+  @media (max-width:640px){
     .reservation-pane{
-      padding:40px 16px 56px;
+      width:65%;
+      padding:24px 12px;
+      align-items:flex-start;
+      padding-top:36px;
+      min-height:calc(100vh - var(--header-total));
+    }
+
+    .photograph-pane{
+      left:65%;
+    }
+
+    .photograph-pane::after{
+      background:linear-gradient(90deg,
+        rgba(7,13,34,0.45) 0%,
+        rgba(7,13,34,0.15) 25%,
+        rgba(7,13,34,0) 60%);
+    }
+
+    .photograph-pane img{
+      object-position:55% 30%;
     }
 
     .reservation-frame{
-      padding:40px 22px 32px;
+      padding:32px 16px 24px;
+      max-width:100%;
+    }
+
+    .res-kicker{
+      font-size:9px;
+      letter-spacing:0.4em;
+      margin-bottom:10px;
+    }
+
+    .res-mini-rule{
+      margin:8px auto 16px;
+    }
+
+    .res-eyebrow{
+      font-size:9px;
+      letter-spacing:0.28em;
+      margin-bottom:16px;
     }
 
     .res-headline{
-      font-size:28px;
+      font-size:26px;
+      margin-bottom:18px;
     }
 
     .res-body{
-      font-size:14px;
+      font-size:13px;
+      line-height:1.55;
+      margin-bottom:16px;
+    }
+
+    .res-scent{
+      font-size:11px;
+      margin-bottom:22px;
+    }
+
+    form.reservation{
+      gap:10px;
+      max-width:100%;
+    }
+
+    form.reservation input[type="text"],
+    form.reservation input[type="email"]{
+      padding:12px 10px;
+      font-size:9px;
+      letter-spacing:0.2em;
+    }
+
+    form.reservation input::placeholder{
+      letter-spacing:0.2em;
+    }
+
+    form.reservation button{
+      padding:13px 12px;
+      font-size:9px;
+      letter-spacing:0.2em;
+    }
+
+    .preorder-button{
+      padding:12px 12px;
+      font-size:9px;
+      letter-spacing:0.2em;
+      max-width:100%;
+    }
+
+    .invitation-block{
+      max-width:100%;
+      margin-top:20px;
+    }
+
+    .invitation-trigger{
+      font-size:9px;
+      letter-spacing:0.36em;
+    }
+
+    .invitation-form input{
+      padding:10px 8px;
+      font-size:9px;
+      letter-spacing:0.2em;
+    }
+
+    .invitation-form button{
+      padding:10px 12px;
+      font-size:12px;
+    }
+
+    .invitation-feedback{
+      font-size:11px;
+    }
+
+    .res-message{
+      margin-top:18px;
+      padding-top:16px;
+      font-size:13px;
+    }
+  }
+
+  @media (max-width:380px){
+    .reservation-pane{
+      width:68%;
+      padding:20px 8px;
+    }
+
+    .photograph-pane{
+      left:68%;
+    }
+
+    .reservation-frame{
+      padding:24px 12px 20px;
+    }
+
+    .res-headline{
+      font-size:22px;
     }
   }
 </style>
 </head>
 <body>
 
-  <main>
+<!-- ═══ PROMO RIBBON ═══ -->
+<div class="promo-ribbon" id="promoRibbon">
+  <p class="promo-ribbon-text">
+    Hand-sealed in Beverly Hills<span class="accent">&middot;</span>Complimentary shipping on every Allocation
+  </p>
+  <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
+</div>
 
-    <!-- ═══ HERO STAGE — full-bleed photograph ═══ -->
-    <div class="hero-stage" aria-hidden="true">
-      <img src="paparazzi-elixir.jpg"
-           alt=""
-           class="hero-image"
-           onerror="this.style.display='none'; document.getElementById('heroFallback').style.display='flex';">
-      <div class="hero-fallback" id="heroFallback">
-        <div class="mark">XIV</div>
-        <div class="label">Essences</div>
-      </div>
+<!-- ═══ STICKY HEADER ═══ -->
+<header class="site-header">
+
+  <!-- Logo row -->
+  <div class="header-logo-row">
+    <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <line x1="3" y1="7" x2="21" y2="7"/>
+        <line x1="3" y1="13" x2="21" y2="13"/>
+        <line x1="3" y1="19" x2="21" y2="19"/>
+      </svg>
+    </button>
+
+    <a href="/" class="header-logo">MAISON D&rsquo;VUE</a>
+
+    <div class="header-utility">
+      <button class="header-utility-btn" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+        </svg>
+      </button>
+      <a href="mailto:hello@maisondvue.com" class="header-utility-btn" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </a>
+      <a href="https://shop.maisondvue.com/cart" class="header-utility-btn" aria-label="Bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 7h12l-1 14H7L6 7z"/>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </a>
     </div>
+  </div>
 
-    <!-- Cinematic gradient overlay -->
-    <div class="hero-overlay" aria-hidden="true"></div>
+  <!-- Nav row -->
+  <nav class="header-nav-row">
+    <ul class="header-nav">
+      <li><a href="about.html">About</a></li>
+      <li><a href="product.html">The Elixir</a></li>
+      <li><a href="product.html#formulation">The Formula</a></li>
+      <li><a href="product.html#ritual">The Ritual</a></li>
+      <li><a href="product.html#origins">Origins</a></li>
+      <li><a href="product.html#reviews">Reviews</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+  </nav>
 
-    <!-- ═══ RESERVATION PANE — editorial block floating over photograph ═══ -->
-    <section class="reservation-pane">
-      <div class="reservation-frame reveal">
+</header>
 
-        <span class="res-corner-tr" aria-hidden="true"></span>
-        <span class="res-corner-bl" aria-hidden="true"></span>
+<!-- ═══ MOBILE MENU OVERLAY ═══ -->
+<nav class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
+  <a href="product.html#formulation" onclick="closeMobileMenu()">The Formula</a>
+  <a href="product.html#ritual" onclick="closeMobileMenu()">The Ritual</a>
+  <a href="product.html#origins" onclick="closeMobileMenu()">Origins</a>
+  <a href="product.html#reviews" onclick="closeMobileMenu()">Reviews</a>
+  <a href="#reserve" onclick="closeMobileMenu()">Reserve</a>
+</nav>
 
-        <div class="res-kicker">MAISON D&rsquo;VUE</div>
-        <div class="res-mini-rule" aria-hidden="true"></div>
+<!-- ═══ MAIN — split layout ═══ -->
+<main id="reserve">
 
-        <p class="res-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
+  <section class="reservation-pane">
+    <div class="reservation-frame reveal">
 
-        <h1 class="res-headline">
-          The June
-          <em>Allocation</em>
-        </h1>
+      <span class="res-corner-tr" aria-hidden="true"></span>
+      <span class="res-corner-bl" aria-hidden="true"></span>
 
-        <p class="res-body">
-          The current edition has been placed.<br>
-          The next composition arrives in June.
-          <br><br>
-          Reserve a place for the allocation &mdash; or
-          <a href="#" id="shopLink" class="inline-shop">secure your bottle in advance.</a>
-        </p>
+      <div class="res-kicker">MAISON D&rsquo;VUE</div>
+      <div class="res-mini-rule" aria-hidden="true"></div>
 
-        <p class="res-scent">A ritual of fourteen rare essences. Scented in &Acirc;me de Vue&trade;.</p>
+      <p class="res-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
 
-        <form id="reservationForm" class="reservation" novalidate>
-          <div class="field">
-            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
-          </div>
-          <div class="field">
-            <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
-          </div>
-          <div class="hp" aria-hidden="true">
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-          <button type="submit" id="submitBtn">Reserve for June</button>
-        </form>
+      <h1 class="res-headline">
+        The
+        <em>Hair Elixir</em>
+      </h1>
 
-        <a href="#" id="preorderBtn" class="preorder-button">Pre-order the June Release</a>
+      <p class="res-body">
+        A maison of considered haircare,<br>
+        composed in Beverly Hills.
+        <br><br>
+        Reserve your bottle &mdash; or
+        <a href="#" id="shopLink" class="inline-shop">secure your elixir in advance.</a>
+      </p>
 
-        <div class="invitation-block">
-          <button type="button" class="invitation-trigger" id="invitationTrigger" aria-expanded="false" aria-controls="invitationForm">
-            By Invitation
-          </button>
-          <form id="invitationForm" class="invitation-form" novalidate>
-            <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
-            <button type="submit" aria-label="Submit invitation code">&rarr;</button>
-          </form>
-          <span class="invitation-feedback" id="invitationFeedback" role="status" aria-live="polite"></span>
+      <p class="res-scent">A ritual of fourteen rare essences. Scented in &Acirc;me de Vue&trade;.</p>
+
+      <form id="reservationForm" class="reservation" novalidate>
+        <div class="field">
+          <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
         </div>
+        <div class="field">
+          <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
+        </div>
+        <div class="hp" aria-hidden="true">
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" id="submitBtn">Reserve your elixir</button>
+      </form>
 
-        <div class="res-message" id="message" role="status" aria-live="polite"></div>
+      <a href="#" id="preorderBtn" class="preorder-button">Secure your elixir now</a>
 
+      <div class="invitation-block">
+        <button type="button" class="invitation-trigger" id="invitationTrigger" aria-expanded="false" aria-controls="invitationForm">
+          By Invitation
+        </button>
+        <form id="invitationForm" class="invitation-form" novalidate>
+          <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button type="submit" aria-label="Submit invitation code">&rarr;</button>
+        </form>
+        <span class="invitation-feedback" id="invitationFeedback" role="status" aria-live="polite"></span>
       </div>
-    </section>
 
-  </main>
+      <div class="res-message" id="message" role="status" aria-live="polite"></div>
+
+    </div>
+  </section>
+
+  <aside class="photograph-pane reveal" aria-hidden="true">
+    <img src="paparazzi-elixir.jpg"
+         alt=""
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="photo-fallback">
+      <div class="mark">XIV</div>
+      <div class="label">Essences</div>
+    </div>
+  </aside>
+
+</main>
 
 <script>
-  /* ─── Configuration (preserved from original) ─── */
   const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
   const PRODUCT_URL = "/product.html";
   const INVITATION_CODE = "WELCOME26";
   const INVITATION_REDIRECT = PRODUCT_URL;
 
-  /* ─── Link wiring ─── */
   document.getElementById('shopLink').href = PRODUCT_URL;
   document.getElementById('preorderBtn').href = PRODUCT_URL;
 
-  /* ─── Reveal animations ─── */
   document.querySelectorAll('.reveal').forEach(function(el, i){
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
+
+  /* ─── PROMO RIBBON DISMISS ─── */
+  function dismissPromoRibbon(){
+    var ribbon = document.getElementById('promoRibbon');
+    ribbon.classList.add('dismissed');
+    setRibbonCookie('mdv_ribbon_dismissed', '1', 30);
+  }
+
+  function setRibbonCookie(name, value, days){
+    var d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+  }
+
+  function getRibbonCookie(name){
+    var value = '; ' + document.cookie;
+    var parts = value.split('; ' + name + '=');
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
+
+  if (getRibbonCookie('mdv_ribbon_dismissed')){
+    document.getElementById('promoRibbon').classList.add('dismissed');
+  }
+
+  /* ─── MOBILE MENU ─── */
+  function openMobileMenu(){
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu(){
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
   /* ─── RESERVATION FORM ─── */
   var form = document.getElementById('reservationForm');
@@ -762,19 +1234,19 @@
     var firstName = form.firstName.value.trim();
     var honey = form.website.value.trim();
 
-    if (honey) {
+    if (honey){
       setMsg('Your reservation has been received.', 'success');
       form.reset();
       return;
     }
 
-    if (!emailRe.test(email)) {
+    if (!emailRe.test(email)){
       setMsg('A complete email, please.', 'error');
       form.email.focus();
       return;
     }
 
-    if (WAITLIST_ENDPOINT.indexOf('REPLACE_') === 0) {
+    if (WAITLIST_ENDPOINT.indexOf('REPLACE_') === 0){
       setMsg('The reservation list is not yet wired. Paste your Apps Script URL into WAITLIST_ENDPOINT.', 'error');
       return;
     }
@@ -787,18 +1259,18 @@
       var fd = new FormData();
       fd.append('email', email);
       fd.append('firstName', firstName);
-      fd.append('source', 'june-allocation-homepage');
+      fd.append('source', 'homepage-reservation');
       fd.append('userAgent', navigator.userAgent || '');
       fd.append('referrer', document.referrer || '');
 
-      var res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', body: fd });
+      var res = await fetch(WAITLIST_ENDPOINT, { method:'POST', body:fd });
       var ok = res.ok;
       try {
         var data = await res.json();
         ok = ok && data && data.ok !== false;
       } catch(_){}
 
-      if (ok) {
+      if (ok){
         setMsg('Your reservation has been received. A letter will follow.', 'success');
         form.reset();
       } else {
@@ -821,7 +1293,7 @@
   invTrigger.addEventListener('click', function(){
     var open = invForm.classList.toggle('open');
     invTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open) {
+    if (open){
       setTimeout(function(){ invInput.focus(); }, 60);
     } else {
       invFeedback.textContent = '';
@@ -833,13 +1305,13 @@
     invFeedback.textContent = '';
     var entered = (invInput.value || '').trim().toUpperCase();
 
-    if (!entered) {
+    if (!entered){
       invFeedback.textContent = 'A code, please.';
       invInput.focus();
       return;
     }
 
-    if (entered === INVITATION_CODE) {
+    if (entered === INVITATION_CODE){
       window.location.href = INVITATION_REDIRECT;
     } else {
       invFeedback.textContent = 'This code is not recognized.';
