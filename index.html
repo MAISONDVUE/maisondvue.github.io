@@ -78,7 +78,7 @@
 
     --ribbon-h: 44px;
     --logo-h: 88px;
-    --nav-h: 56px;
+    --nav-h: 0px;
     --header-total: calc(var(--ribbon-h) + var(--logo-h) + var(--nav-h));
   }
 
@@ -216,60 +216,6 @@
     display:block;
   }
 
-  /* ═══════════════════════════════════════════════════════════
-     HORIZONTAL NAV
-     ═══════════════════════════════════════════════════════════ */
-  .header-nav-row{
-    background:var(--warm-white);
-    height:var(--nav-h);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-bottom:1px solid rgba(11,31,58,0.08);
-    position:relative;
-  }
-
-  .header-nav{
-    display:flex;
-    gap:48px;
-    list-style:none;
-    align-items:center;
-  }
-
-  .header-nav a{
-    font-family:var(--font-display);
-    font-size:12px;
-    letter-spacing:0.32em;
-    text-transform:uppercase;
-    color:var(--navy);
-    line-height:1;
-    position:relative;
-    padding:4px 0;
-    transition:color 240ms ease;
-    text-decoration:none;
-  }
-
-  .header-nav a::after{
-    content:'';
-    position:absolute;
-    bottom:-8px;
-    left:50%;
-    transform:translateX(-50%);
-    width:0;
-    height:1px;
-    background:var(--gold);
-    transition:width 280ms ease;
-  }
-
-  .header-nav a:hover::after,
-  .header-nav a.active::after{
-    width:100%;
-  }
-
-  .header-nav a:hover{
-    color:var(--gold-muted);
-  }
-
   .site-header{
     position:sticky;
     top:0;
@@ -278,82 +224,8 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     MOBILE HEADER — hamburger menu
-     ═══════════════════════════════════════════════════════════ */
-  .header-mobile-toggle{
-    display:none;
-    position:absolute;
-    left:22px;
-    top:50%;
-    transform:translateY(-50%);
-    background:transparent;
-    border:0;
-    cursor:pointer;
-    color:var(--navy);
-    padding:8px;
-  }
-
-  .header-mobile-toggle svg{
-    width:22px;
-    height:22px;
-    display:block;
-  }
-
-  .mobile-menu{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background:var(--warm-white);
-    z-index:200;
-    flex-direction:column;
-    padding:80px 40px 40px;
-    opacity:0;
-    transform:translateY(-12px);
-    transition:opacity 320ms ease, transform 320ms ease;
-    pointer-events:none;
-  }
-
-  .mobile-menu.open{
-    display:flex;
-    opacity:1;
-    transform:translateY(0);
-    pointer-events:auto;
-  }
-
-  .mobile-menu-close{
-    position:absolute;
-    top:24px;
-    right:24px;
-    background:transparent;
-    border:0;
-    color:var(--navy);
-    font-size:28px;
-    cursor:pointer;
-    padding:8px;
-    line-height:1;
-  }
-
-  .mobile-menu a{
-    font-family:var(--font-display);
-    font-size:18px;
-    letter-spacing:0.32em;
-    text-transform:uppercase;
-    color:var(--navy);
-    padding:18px 0;
-    border-bottom:1px solid rgba(11,31,58,0.08);
-    display:block;
-    text-decoration:none;
-  }
-
-  .mobile-menu a:last-child{
-    border-bottom:0;
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-     MAIN BELOW HEADER — split layout fills remaining viewport
+     MAIN BELOW HEADER — full-bleed photograph with
+     reservation box floating on the right
      ═══════════════════════════════════════════════════════════ */
   main{
     position:relative;
@@ -361,27 +233,98 @@
     overflow:hidden;
   }
 
-  /* TWO-COLUMN SPLIT */
+  /* PHOTOGRAPH — full-bleed background, anchored leftward
+     so her face sits on the left half of the viewport */
+  .photograph-pane{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    overflow:hidden;
+    background:var(--navy-deep);
+  }
+
+  .photograph-pane img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:30% center;
+  }
+
+  /* Subtle gradient darkens the RIGHT side of the photograph
+     where the reservation box sits, fading to clear on the left
+     where her face stays fully visible */
+  .photograph-pane::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,
+      rgba(7,13,34,0) 0%,
+      rgba(7,13,34,0) 40%,
+      rgba(7,13,34,0.30) 60%,
+      rgba(7,13,34,0.55) 80%,
+      rgba(7,13,34,0.75) 100%);
+    pointer-events:none;
+  }
+
+  .photo-fallback{
+    position:absolute;
+    inset:0;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+
+  .photo-fallback .mark{
+    font-family:var(--font-display);
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(96px,14vw,220px);
+    line-height:1;
+    color:var(--gold);
+    opacity:0.5;
+  }
+
+  .photo-fallback .label{
+    margin-top:24px;
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.5em;
+    text-transform:uppercase;
+    color:var(--gold-muted);
+    padding-left:0.5em;
+  }
+
+  /* RESERVATION PANE — right-aligned overlay container */
   .reservation-pane{
     position:relative;
     z-index:3;
     display:flex;
     align-items:center;
-    justify-content:center;
-    width:50%;
+    justify-content:flex-end;
+    width:100%;
     min-height:calc(100vh - var(--header-total));
-    padding:64px 48px;
+    padding:64px 6% 64px 6%;
   }
 
   .reservation-frame{
     position:relative;
     width:100%;
-    max-width:540px;
-    padding:64px 52px 48px;
+    max-width:480px;
+    padding:56px 44px 44px;
     text-align:center;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(14,39,72,0.4), rgba(7,13,34,0.85) 90%);
+    background:rgba(7,13,34,0.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     border:1px solid rgba(201,169,110,0.32);
+    box-shadow:
+      0 24px 64px rgba(0,0,0,0.32),
+      0 0 0 1px rgba(201,169,110,0.08) inset;
   }
 
   /* Gold corner accents */
@@ -726,72 +669,6 @@
   .res-message.success{ color:var(--gold-light); }
   .res-message.error{ color:#D8B4B4; }
 
-  /* ═══ PHOTOGRAPH PANE — right side ═══ */
-  .photograph-pane{
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:50%;
-    right:0;
-    z-index:1;
-    overflow:hidden;
-    background:var(--navy-deep);
-  }
-
-  .photograph-pane img{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:50% 30%;
-  }
-
-  /* Gradient transitions from navy on left edge (where it meets
-     the reservation pane) to clear on the right */
-  .photograph-pane::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg,
-      rgba(7,13,34,0.55) 0%,
-      rgba(7,13,34,0.20) 20%,
-      rgba(7,13,34,0) 50%);
-    pointer-events:none;
-  }
-
-  .photo-fallback{
-    position:absolute;
-    inset:0;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:24px;
-  }
-
-  .photo-fallback .mark{
-    font-family:var(--font-display);
-    font-weight:300;
-    font-style:italic;
-    font-size:clamp(96px,14vw,220px);
-    line-height:1;
-    color:var(--gold);
-    opacity:0.5;
-  }
-
-  .photo-fallback .label{
-    margin-top:24px;
-    font-family:var(--font-display);
-    font-weight:500;
-    font-size:11px;
-    letter-spacing:0.5em;
-    text-transform:uppercase;
-    color:var(--gold-muted);
-    padding-left:0.5em;
-  }
-
   .reveal{
     opacity:0;
     transform:translateY(8px);
@@ -830,14 +707,6 @@
       padding:10px 0;
     }
 
-    .header-mobile-toggle{
-      display:flex;
-    }
-
-    .header-nav-row{
-      display:none;
-    }
-
     .header-utility{
       right:18px;
       gap:14px;
@@ -848,29 +717,29 @@
       letter-spacing:0.36em;
     }
 
-    /* Split stays at 60/40 on tablet */
+    /* Tighten reservation overlay positioning on tablet */
     .reservation-pane{
-      width:60%;
-      padding:40px 22px;
-    }
-
-    .photograph-pane{
-      left:60%;
-    }
-
-    .photograph-pane::after{
-      background:linear-gradient(90deg,
-        rgba(7,13,34,0.55) 0%,
-        rgba(7,13,34,0.25) 25%,
-        rgba(7,13,34,0) 60%);
-    }
-
-    .photograph-pane img{
-      object-position:50% 30%;
+      padding:48px 4% 48px 4%;
     }
 
     .reservation-frame{
-      padding:48px 28px 36px;
+      max-width:440px;
+      padding:48px 36px 36px;
+    }
+
+    /* Anchor face further left so the right gradient zone is larger */
+    .photograph-pane img{
+      object-position:25% center;
+    }
+
+    /* Stronger gradient on tablet to ensure form readability */
+    .photograph-pane::after{
+      background:linear-gradient(90deg,
+        rgba(7,13,34,0) 0%,
+        rgba(7,13,34,0) 35%,
+        rgba(7,13,34,0.40) 60%,
+        rgba(7,13,34,0.70) 85%,
+        rgba(7,13,34,0.85) 100%);
     }
 
     .res-headline{
@@ -878,145 +747,138 @@
     }
   }
 
-  /* ─── PHONE (under 640px) ─── 65/35 split preserved */
+  /* ─── PHONE (under 640px) ─── 
+     Reservation box centers on the screen, photograph fills behind. 
+     Her face appears on the left half of the screen, the form
+     overlays on top, slightly right of center. */
   @media (max-width:640px){
     .reservation-pane{
-      width:65%;
-      padding:24px 12px;
+      padding:20px 14px;
+      justify-content:center;
       align-items:flex-start;
-      padding-top:36px;
-      min-height:calc(100vh - var(--header-total));
-    }
-
-    .photograph-pane{
-      left:65%;
-    }
-
-    .photograph-pane::after{
-      background:linear-gradient(90deg,
-        rgba(7,13,34,0.45) 0%,
-        rgba(7,13,34,0.15) 25%,
-        rgba(7,13,34,0) 60%);
-    }
-
-    .photograph-pane img{
-      object-position:55% 30%;
+      padding-top:32px;
     }
 
     .reservation-frame{
-      padding:32px 16px 24px;
-      max-width:100%;
+      max-width:360px;
+      padding:32px 22px 26px;
+    }
+
+    /* Center face in mobile view */
+    .photograph-pane img{
+      object-position:35% center;
+    }
+
+    /* Heavier gradient on mobile - form sits more centered
+       so darkening covers more of the frame */
+    .photograph-pane::after{
+      background:linear-gradient(180deg,
+        rgba(7,13,34,0.35) 0%,
+        rgba(7,13,34,0.55) 100%);
     }
 
     .res-kicker{
-      font-size:9px;
-      letter-spacing:0.4em;
-      margin-bottom:10px;
+      font-size:10px;
+      letter-spacing:0.42em;
+      margin-bottom:12px;
     }
 
     .res-mini-rule{
-      margin:8px auto 16px;
+      margin:10px auto 18px;
     }
 
     .res-eyebrow{
-      font-size:9px;
-      letter-spacing:0.28em;
-      margin-bottom:16px;
-    }
-
-    .res-headline{
-      font-size:26px;
+      font-size:10px;
+      letter-spacing:0.32em;
       margin-bottom:18px;
     }
 
+    .res-headline{
+      font-size:30px;
+      margin-bottom:20px;
+    }
+
     .res-body{
-      font-size:13px;
-      line-height:1.55;
-      margin-bottom:16px;
+      font-size:14px;
+      line-height:1.6;
+      margin-bottom:18px;
     }
 
     .res-scent{
-      font-size:11px;
-      margin-bottom:22px;
+      font-size:12px;
+      margin-bottom:24px;
     }
 
     form.reservation{
       gap:10px;
-      max-width:100%;
     }
 
     form.reservation input[type="text"],
     form.reservation input[type="email"]{
-      padding:12px 10px;
-      font-size:9px;
-      letter-spacing:0.2em;
+      padding:14px 14px;
+      font-size:10px;
+      letter-spacing:0.24em;
     }
 
     form.reservation input::placeholder{
-      letter-spacing:0.2em;
+      letter-spacing:0.24em;
     }
 
     form.reservation button{
-      padding:13px 12px;
-      font-size:9px;
-      letter-spacing:0.2em;
+      padding:15px 16px;
+      font-size:10px;
+      letter-spacing:0.28em;
     }
 
     .preorder-button{
-      padding:12px 12px;
-      font-size:9px;
-      letter-spacing:0.2em;
-      max-width:100%;
+      padding:13px 14px;
+      font-size:10px;
+      letter-spacing:0.24em;
     }
 
     .invitation-block{
-      max-width:100%;
-      margin-top:20px;
+      margin-top:22px;
     }
 
     .invitation-trigger{
       font-size:9px;
-      letter-spacing:0.36em;
+      letter-spacing:0.42em;
     }
 
     .invitation-form input{
-      padding:10px 8px;
-      font-size:9px;
-      letter-spacing:0.2em;
+      padding:11px 12px;
+      font-size:10px;
+      letter-spacing:0.24em;
     }
 
     .invitation-form button{
-      padding:10px 12px;
-      font-size:12px;
+      padding:11px 14px;
+      font-size:13px;
     }
 
     .invitation-feedback{
-      font-size:11px;
+      font-size:12px;
     }
 
     .res-message{
-      margin-top:18px;
-      padding-top:16px;
-      font-size:13px;
+      margin-top:20px;
+      padding-top:18px;
+      font-size:14px;
     }
   }
 
   @media (max-width:380px){
     .reservation-pane{
-      width:68%;
-      padding:20px 8px;
-    }
-
-    .photograph-pane{
-      left:68%;
+      padding:16px 10px;
     }
 
     .reservation-frame{
-      padding:24px 12px 20px;
+      max-width:100%;
+      padding:28px 18px 22px;
     }
 
     .res-headline{
-      font-size:22px;
+      font-size:26px;
     }
   }
 </style>
@@ -1036,13 +898,6 @@
 
   <!-- Logo row -->
   <div class="header-logo-row">
-    <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <line x1="3" y1="7" x2="21" y2="7"/>
-        <line x1="3" y1="13" x2="21" y2="13"/>
-        <line x1="3" y1="19" x2="21" y2="19"/>
-      </svg>
-    </button>
 
     <a href="/" class="header-logo">MAISON D&rsquo;VUE</a>
 
@@ -1068,32 +923,11 @@
     </div>
   </div>
 
-  <!-- Nav row -->
-  <nav class="header-nav-row">
-    <ul class="header-nav">
-      <li><a href="about.html">About</a></li>
-      <li><a href="product.html">The Elixir</a></li>
-      <li><a href="product.html#formulation">The Formula</a></li>
-      <li><a href="product.html#ritual">The Ritual</a></li>
-      <li><a href="product.html#origins">Origins</a></li>
-      <li><a href="product.html#reviews">Reviews</a></li>
-      <li><a href="#reserve">Reserve</a></li>
-    </ul>
-  </nav>
+  <!-- Nav row removed - homepage is gated by invitation code -->
 
 </header>
 
-<!-- ═══ MOBILE MENU OVERLAY ═══ -->
-<nav class="mobile-menu" id="mobileMenu">
-  <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
-  <a href="about.html" onclick="closeMobileMenu()">About</a>
-  <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
-  <a href="product.html#formulation" onclick="closeMobileMenu()">The Formula</a>
-  <a href="product.html#ritual" onclick="closeMobileMenu()">The Ritual</a>
-  <a href="product.html#origins" onclick="closeMobileMenu()">Origins</a>
-  <a href="product.html#reviews" onclick="closeMobileMenu()">Reviews</a>
-  <a href="#reserve" onclick="closeMobileMenu()">Reserve</a>
-</nav>
+<!-- Mobile menu removed - homepage has no nav -->
 
 <!-- ═══ MAIN — split layout ═══ -->
 <main id="reserve">
@@ -1202,17 +1036,6 @@
 
   if (getRibbonCookie('mdv_ribbon_dismissed')){
     document.getElementById('promoRibbon').classList.add('dismissed');
-  }
-
-  /* ─── MOBILE MENU ─── */
-  function openMobileMenu(){
-    document.getElementById('mobileMenu').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMobileMenu(){
-    document.getElementById('mobileMenu').classList.remove('open');
-    document.body.style.overflow = '';
   }
 
   /* ─── RESERVATION FORM ─── */
