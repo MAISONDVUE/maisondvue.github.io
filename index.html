@@ -17,9 +17,9 @@
 <meta property="og:url" content="https://maisondvue.com/">
 <meta property="og:title" content="MAISON D'VUE — The House of Affinity Compositions™">
 <meta property="og:description" content="A maison of considered haircare. Composed in Beverly Hills.">
-<meta property="og:image" content="https://maisondvue.com/paparazzi-elixir.jpg">
-<meta property="og:image:width" content="2752">
-<meta property="og:image:height" content="1536">
+<meta property="og:image" content="https://maisondvue.com/paparazzi-hero.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1040">
 <meta property="og:site_name" content="MAISON D'VUE">
 <meta property="og:locale" content="en_US">
 
@@ -27,7 +27,7 @@
 <meta name="twitter:url" content="https://maisondvue.com/">
 <meta name="twitter:title" content="MAISON D'VUE — The House of Affinity Compositions™">
 <meta name="twitter:description" content="A maison of considered haircare.">
-<meta name="twitter:image" content="https://maisondvue.com/paparazzi-elixir.jpg">
+<meta name="twitter:image" content="https://maisondvue.com/paparazzi-hero.jpg">
 
 <script type="application/ld+json">
 {
@@ -37,7 +37,7 @@
   "alternateName": ["Maison d'Vue", "Maison D'Vue"],
   "url": "https://maisondvue.com",
   "logo": "https://maisondvue.com/favicon.svg",
-  "image": "https://maisondvue.com/paparazzi-elixir.jpg",
+  "image": "https://maisondvue.com/paparazzi-hero.jpg",
   "description": "The house of Affinity Compositions\u2122. A maison of considered haircare, composed in Beverly Hills.",
   "founder": { "@type": "Person", "name": "Masiela Lusha" },
   "address": {
@@ -250,13 +250,20 @@
     background:var(--navy-charcoal);
   }
 
-  .photograph-pane img{
+  .photograph-pane img,
+  .photograph-pane .hero-video{
     position:absolute;
     inset:0;
     width:100%;
     height:100%;
     object-fit:cover;
     object-position:center center;
+  }
+
+  .photograph-pane .hero-video{
+    border:0;
+    display:block;
+    background:var(--navy-charcoal);
   }
 
   .photograph-pane::after{
@@ -975,9 +982,18 @@
 <main id="reserve">
 
   <aside class="photograph-pane reveal" aria-hidden="true">
-    <img src="paparazzi-elixir.jpg"
-         alt=""
-         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <video
+      class="hero-video"
+      src="paparazzi-hero.mp4"
+      poster="paparazzi-hero.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    </video>
     <div class="photo-fallback">
       <div class="mark">XIV</div>
       <div class="label">Essences</div>
