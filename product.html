@@ -1088,72 +1088,247 @@
     color: rgba(249, 246, 240, 0.78);
   }
 
-  /* ─── ORIGINS (CREAM) ─── */
+  /* ─── ORIGINS (cinematic essay on navy) ───
+     Six landscape heroes with text overlaid on the dark left zone,
+     followed by a grid of eight intimate still-life close-ups. */
   .origins {
-    background: var(--cream);
-    color: var(--dark);
+    background: var(--navy-deep);
+    color: var(--warm-white);
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 
   .origins-head {
     max-width: 720px;
-    margin-bottom: 64px;
+    margin: 0 auto 96px;
+    text-align: center;
+  }
+
+  .origins-head .label {
+    color: var(--gold);
+    margin-bottom: 28px;
   }
 
   .origins-head h2 {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(22px, 2vw, 30px);
-    line-height: 1.15;
-    letter-spacing: 0.01em;
-    color: var(--navy);
-    margin-bottom: 28px;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.18;
+    letter-spacing: -0.005em;
+    color: var(--warm-white);
+    margin-bottom: 32px;
   }
 
-  .origins-head .copy { color: var(--mid); font-size: 16px; line-height: 1.85; }
-
-  .origin-list {
-    border-top: 1px solid var(--line);
-  }
-
-  .origin-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.2fr;
-    gap: 30px;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--line);
-    align-items: start;
-  }
-
-  .origin-name {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--navy);
-    line-height: 1.2;
-  }
-
-  .origin-place {
-    font-family: var(--font-display);
-    font-size: 13px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--gold-muted);
-    line-height: 1.7;
-  }
-
-  .origin-function {
+  .origins-head .copy {
+    color: rgba(253, 251, 248, 0.65);
     font-size: 16px;
     line-height: 1.85;
-    color: var(--mid);
+    max-width: 560px;
+    margin: 0 auto;
   }
 
-  .fourteen {
-    margin-top: 56px;
+  /* The six cinematic hero rows. Each is a full-bleed photograph
+     with a dark gradient overlaid on the left third where text sits. */
+  .origin-heroes {
+    margin-bottom: 120px;
+  }
+
+  .origin-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .origin-hero:last-child {
+    margin-bottom: 0;
+  }
+
+  .origin-hero img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* The dark gradient zone where text sits. Left third heavy,
+     fading to clear on the right two-thirds. */
+  .origin-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      to right,
+      rgba(7, 13, 34, 0.82) 0%,
+      rgba(7, 13, 34, 0.70) 18%,
+      rgba(7, 13, 34, 0.45) 36%,
+      rgba(7, 13, 34, 0.15) 56%,
+      rgba(7, 13, 34, 0) 75%
+    );
+    pointer-events: none;
+  }
+
+  .origin-hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8% 0 7%;
+    max-width: 48%;
+  }
+
+  .origin-hero-place {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+    line-height: 1.4;
+  }
+
+  .origin-hero-name {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(34px, 4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--warm-white);
+    margin-bottom: 8px;
+  }
+
+  .origin-hero-latin {
     font-family: var(--font-italic);
     font-style: italic;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--mid);
+    font-weight: 400;
+    font-size: clamp(14px, 1.2vw, 17px);
+    color: rgba(253, 251, 248, 0.55);
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
+  }
+
+  .origin-hero-story {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(15px, 1.15vw, 17px);
+    line-height: 1.65;
+    color: rgba(253, 251, 248, 0.92);
+    margin-bottom: 20px;
+    max-width: 460px;
+  }
+
+  .origin-hero-science {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(13px, 0.95vw, 14px);
+    line-height: 1.75;
+    color: rgba(253, 251, 248, 0.62);
+    max-width: 460px;
+  }
+
+  /* Bridge text between heroes and grid */
+  .origins-bridge {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 0 24px;
+  }
+
+  .origins-bridge p {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(18px, 1.5vw, 22px);
+    line-height: 1.5;
+    color: rgba(253, 251, 248, 0.75);
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* The eight-tile grid below. 4 columns × 2 rows on desktop. */
+  .origin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-bottom: 96px;
+  }
+
+  .origin-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .origin-tile-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background: var(--cobalt);
+  }
+
+  .origin-tile-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .origin-tile-place {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .origin-tile-name {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-bottom: 4px;
+  }
+
+  .origin-tile-latin {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(253, 251, 248, 0.5);
+    margin-bottom: 16px;
+    letter-spacing: 0.01em;
+  }
+
+  .origin-tile-body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(253, 251, 248, 0.7);
+  }
+
+  /* The closing line */
+  .fourteen {
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(18px, 1.5vw, 22px);
+    line-height: 1.5;
+    color: rgba(253, 251, 248, 0.7);
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 0 24px;
   }
 
   /* ─── PHILOSOPHY (NAVY) ─── */
@@ -2130,9 +2305,100 @@
       gap: 52px;
     }
 
-    .origin-row {
-      grid-template-columns: 1fr;
-      gap: 12px;
+    /* Mobile origins: heroes become photo-on-top, text-below.
+       Grid collapses from 4 columns to 2. */
+    .origins {
+      padding-top: 84px;
+      padding-bottom: 84px;
+    }
+
+    .origins-head {
+      margin-bottom: 64px;
+    }
+
+    .origin-heroes {
+      margin-bottom: 80px;
+    }
+
+    .origin-hero {
+      aspect-ratio: 4 / 3;
+      margin-bottom: 0;
+    }
+
+    /* On mobile the gradient covers more area since text is below image */
+    .origin-hero::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(7, 13, 34, 0) 50%,
+        rgba(7, 13, 34, 0.85) 100%
+      );
+    }
+
+    .origin-hero-content {
+      position: relative;
+      max-width: 100%;
+      padding: 32px 24px 56px;
+      background: var(--navy-deep);
+      inset: auto;
+    }
+
+    .origin-hero-place {
+      margin-bottom: 18px;
+    }
+
+    .origin-hero-name {
+      font-size: 32px;
+    }
+
+    .origin-hero-latin {
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .origin-hero-story {
+      font-size: 15px;
+      margin-bottom: 18px;
+    }
+
+    .origin-hero-science {
+      font-size: 13px;
+    }
+
+    /* Wrap the hero image and content separately on mobile */
+    .origin-hero-wrap {
+      margin-bottom: 48px;
+    }
+
+    .origin-hero-wrap:last-child {
+      margin-bottom: 0;
+    }
+
+    .origins-bridge {
+      margin-bottom: 48px;
+    }
+
+    .origin-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .origin-tile-image {
+      margin-bottom: 16px;
+    }
+
+    .origin-tile-name {
+      font-size: 18px;
+    }
+
+    .origin-tile-latin {
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .origin-tile-body {
+      font-size: 12px;
+      line-height: 1.65;
     }
 
     .reviews { padding: 84px 24px; }
@@ -2416,41 +2682,191 @@
     </div>
   </section>
 
-  <!-- ═══ ORIGINS (cream) ═══ -->
+  <!-- ═══ ORIGINS — cinematic essay on navy ═══
+       Six hero landscapes with text overlaid on left gradient,
+       followed by an eight-tile grid of still-life close-ups.
+       Total: fourteen photographs paying off the brand claim. -->
   <section class="section origins" id="origins">
     <div class="section-inner">
       <div class="origins-head">
         <p class="label">Origins</p>
-        <h2 class="display">The world&rsquo;s rare botanicals, distilled into one elixir.</h2>
-        <p class="copy">A restrained composition of plant-derived essences chosen for origin, feel, and affinity with the hair fiber.</p>
+        <h2 class="display">Fourteen rare botanicals. From the world&rsquo;s quiet corners.</h2>
+        <p class="copy">Each essence is chosen for its origin, its history, and its biological affinity with the hair fiber. None for ornament.</p>
       </div>
 
-      <div class="origin-list">
-        <div class="origin-row">
-          <div class="origin-name">Ungurahua</div>
-          <div class="origin-place">Amazon Rainforest</div>
-          <div class="origin-function">For strength, softness, and deep compatibility with the strand.</div>
-        </div>
-        <div class="origin-row">
-          <div class="origin-name">Prickly Pear</div>
-          <div class="origin-place">Atlas Mountains</div>
-          <div class="origin-function">For reflective shine, hydration, and a polished finish.</div>
-        </div>
-        <div class="origin-row">
-          <div class="origin-name">Bulgarian Rose</div>
-          <div class="origin-place">Valley of Roses</div>
-          <div class="origin-function">For softness, sensorial warmth, and subtle luminosity.</div>
-        </div>
-        <div class="origin-row">
-          <div class="origin-name">Rosehip</div>
-          <div class="origin-place">Andes &amp; Southern Chile</div>
-          <div class="origin-function">For elasticity, conditioning, and the look of restored vitality.</div>
-        </div>
-        <div class="origin-row">
-          <div class="origin-name">Meadowfoam</div>
-          <div class="origin-place">Pacific Northwest</div>
-          <div class="origin-function">For a breathable veil that helps seal moisture without heaviness.</div>
-        </div>
+      <!-- The six cinematic heroes -->
+      <div class="origin-heroes">
+
+        <!-- 1. Ungurahua -->
+        <article class="origin-hero">
+          <img src="origin-ungurahua.jpg" alt="Ungurahua palm in the Amazon rainforest at dawn">
+          <div class="origin-hero-content">
+            <p class="origin-hero-place">Amazon Rainforest</p>
+            <h3 class="origin-hero-name">Ungurahua</h3>
+            <p class="origin-hero-latin">Oenocarpus bataua</p>
+            <p class="origin-hero-story">Long before the brand existed, the Kichwa women of the Ecuadorian Amazon pressed Ungurahua palms to anoint their own hair &mdash; a quiet ritual passed mother to daughter, said to keep the strand strong through a lifetime of river bathing and equatorial sun.</p>
+            <p class="origin-hero-science">Ungurahua oil shares a near-identical fatty-acid profile to human sebum &mdash; oleic acid at over seventy-five percent &mdash; allowing the molecule to slip past the cuticle and integrate into the cortex itself, where it restores elasticity from inside the fiber rather than coating its surface.</p>
+          </div>
+        </article>
+
+        <!-- 2. Bulgarian Rose -->
+        <article class="origin-hero">
+          <img src="origin-rose.jpg" alt="Bulgarian damask roses in the Valley of Roses at dawn">
+          <div class="origin-hero-content">
+            <p class="origin-hero-place">Valley of Roses, Bulgaria</p>
+            <h3 class="origin-hero-name">Bulgarian Rose</h3>
+            <p class="origin-hero-latin">Rosa damascena</p>
+            <p class="origin-hero-story">In the foothills of the Stara Planina, the petals are harvested by hand before sunrise &mdash; they lose their aromatic compounds the moment the dew burns off &mdash; and it takes four tonnes of bloom to distill a single kilogram of attar.</p>
+            <p class="origin-hero-science">Bulgarian Rose Otto carries over three hundred active compounds, including citronellol and geraniol &mdash; molecules small enough to penetrate the hair shaft, where they bind to keratin and remain present in the strand long after the elixir has settled.</p>
+          </div>
+        </article>
+
+        <!-- 3. Camellia -->
+        <article class="origin-hero">
+          <img src="origin-camellia.jpg" alt="Crimson camellia bloom in a Japanese garden at dawn">
+          <div class="origin-hero-content">
+            <p class="origin-hero-place">Japan</p>
+            <h3 class="origin-hero-name">Camellia</h3>
+            <p class="origin-hero-latin">Camellia japonica</p>
+            <p class="origin-hero-story">For more than a thousand years, Japanese courtesans of the Heian period anointed their floor-length hair with Tsubaki oil, pressed from the camellia seed &mdash; the same oil still kept in a small lacquer vessel at the geisha&rsquo;s mirror today.</p>
+            <p class="origin-hero-science">Camellia oil holds the smallest molecular weight of any natural hair oil &mdash; small enough to slip between the cuticle&rsquo;s overlapping scales &mdash; delivering oleic acid and squalene to the cortex, where they restore the lipid bilayer that age, heat, and chemistry have stripped away.</p>
+          </div>
+        </article>
+
+        <!-- 4. Prickly Pear -->
+        <article class="origin-hero">
+          <img src="origin-prickly-pear.jpg" alt="Prickly pear cactus with magenta fruits in the Atlas Mountains at dusk">
+          <div class="origin-hero-content">
+            <p class="origin-hero-place">Atlas Mountains, Morocco</p>
+            <h3 class="origin-hero-name">Prickly Pear</h3>
+            <p class="origin-hero-latin">Opuntia ficus-indica</p>
+            <p class="origin-hero-story">In the high Berber villages above Marrakech, the women extract the seed oil drop by drop &mdash; it takes nearly a tonne of fruit to yield a single liter &mdash; and the bottle has been passed across generations as the family&rsquo;s most valuable possession.</p>
+            <p class="origin-hero-science">Prickly Pear seed oil contains the highest concentration of vitamin E (tocopherol) of any plant oil &mdash; over one thousand milligrams per kilogram &mdash; neutralizing free-radical damage at the cuticle while linoleic acid restores the strand&rsquo;s natural reflective sheen.</p>
+          </div>
+        </article>
+
+        <!-- 5. Rosehip -->
+        <article class="origin-hero">
+          <img src="origin-rosehip.jpg" alt="Wild rosehip cluster against Andean peaks at dusk">
+          <div class="origin-hero-content">
+            <p class="origin-hero-place">Andes &amp; Southern Chile</p>
+            <h3 class="origin-hero-name">Rosehip</h3>
+            <p class="origin-hero-latin">Rosa moschata</p>
+            <p class="origin-hero-story">After the conquistadors retreated from Patagonia, the wild rose they left behind escaped its gardens &mdash; climbing the Andes, surviving the Tierra del Fuego winters, ripening into the small red fruit that the Mapuche call the <em>mosqueta</em>, gathered each autumn since.</p>
+            <p class="origin-hero-science">Rosehip seed oil is one of the few plant sources of trans-retinoic acid &mdash; the same molecule dermatologists prescribe &mdash; supported by an unusually high linoleic and linolenic acid profile that signals the follicle to produce stronger, more pigmented keratin.</p>
+          </div>
+        </article>
+
+        <!-- 6. Meadowfoam -->
+        <article class="origin-hero">
+          <img src="origin-meadowfoam.jpg" alt="Meadowfoam flowers on the Pacific Northwest coast at sunset">
+          <div class="origin-hero-content">
+            <p class="origin-hero-place">Pacific Northwest</p>
+            <h3 class="origin-hero-name">Meadowfoam</h3>
+            <p class="origin-hero-latin">Limnanthes alba</p>
+            <p class="origin-hero-story">A single field of meadowfoam blooms for ten days a year on the Willamette coast &mdash; a brief white tide of flowers that the Kalapuya watched arrive each spring &mdash; and the oil from its seeds is so stable it refuses to oxidize, the way amber refuses to age.</p>
+            <p class="origin-hero-science">Meadowfoam seed oil contains over ninety-eight percent long-chain fatty acids &mdash; among the longest in nature &mdash; forming a breathable veil that seals moisture into the hair shaft without weight, and remains stable at temperatures up to 350&deg;F where most plant oils break down.</p>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Bridge between heroes and grid -->
+      <div class="origins-bridge">
+        <p>And eight more, working in quiet concert.</p>
+      </div>
+
+      <!-- The eight-tile grid -->
+      <div class="origin-grid">
+
+        <!-- 7. Sweet Almond -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-almond.jpg" alt="Sweet almonds in their green hulls beside an apothecary bottle">
+          </div>
+          <p class="origin-tile-place">Mediterranean Basin</p>
+          <h3 class="origin-tile-name">Sweet Almond</h3>
+          <p class="origin-tile-latin">Prunus dulcis</p>
+          <p class="origin-tile-body">Pressed for hair oil since the ancient Persians &mdash; its high concentration of biotin and oleic acid binds to the cuticle, restoring softness without weight.</p>
+        </article>
+
+        <!-- 8. Argan -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-argan.jpg" alt="Argan kernels on dark stone with brass spoon and Berber textile">
+          </div>
+          <p class="origin-tile-place">Sous Valley, Morocco</p>
+          <h3 class="origin-tile-name">Argan</h3>
+          <p class="origin-tile-latin">Argania spinosa</p>
+          <p class="origin-tile-body">The Berber women of southern Morocco have hand-cracked the argan kernel for centuries &mdash; its tocopherols and unsaturated fatty acids form a thermal-protective veil up to 230&deg;C.</p>
+        </article>
+
+        <!-- 9. Pomegranate -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-pomegranate.jpg" alt="Cut pomegranate on a Persian carpet with amber apothecary bottle">
+          </div>
+          <p class="origin-tile-place">Persia &amp; Anatolia</p>
+          <h3 class="origin-tile-name">Pomegranate</h3>
+          <p class="origin-tile-latin">Punica granatum</p>
+          <p class="origin-tile-body">A symbol of fertility and longevity since the Achaemenid Empire &mdash; its punicic acid, a rare omega-5, stimulates the scalp&rsquo;s micro-circulation at the dermal layer.</p>
+        </article>
+
+        <!-- 10. Sea Buckthorn -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-seabuckthorn.jpg" alt="Sea buckthorn berries on a branch against dark Himalayan stone">
+          </div>
+          <p class="origin-tile-place">Himalayan Foothills</p>
+          <h3 class="origin-tile-name">Sea Buckthorn</h3>
+          <p class="origin-tile-latin">Hippophae rhamnoides</p>
+          <p class="origin-tile-body">Genghis Khan was said to have fed his warriors on its berries &mdash; the seed oil carries over 190 compounds, including rare omega-7 palmitoleic acid that signals the scalp to repair damaged tissue.</p>
+        </article>
+
+        <!-- 11. Black Seed -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-blackseed.jpg" alt="Nigella sativa seeds beside an apothecary bottle on aged parchment">
+          </div>
+          <p class="origin-tile-place">Nile Delta</p>
+          <h3 class="origin-tile-name">Black Seed</h3>
+          <p class="origin-tile-latin">Nigella sativa</p>
+          <p class="origin-tile-body">Found in the tomb of Tutankhamun, described in the <em>Tibb al-Nabawi</em> as the remedy for all but death &mdash; thymoquinone calms scalp inflammation at the follicular level.</p>
+        </article>
+
+        <!-- 12. Castor -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-castor.jpg" alt="Castor seed pod cracked open with seeds and clay vessel of dark oil">
+          </div>
+          <p class="origin-tile-place">Indian Subcontinent</p>
+          <h3 class="origin-tile-name">Castor</h3>
+          <p class="origin-tile-latin">Ricinus communis</p>
+          <p class="origin-tile-body">The oil of choice in Ayurvedic <em>abhyanga</em> for over four thousand years &mdash; ricinoleic acid draws moisture deep into the shaft and binds to the keratin, where it refuses to leave.</p>
+        </article>
+
+        <!-- 13. Vitamin E -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-vitamine.jpg" alt="Antique apothecary bottle of tocopherol with suspended golden drop">
+          </div>
+          <p class="origin-tile-place">Tocopherol Complex</p>
+          <h3 class="origin-tile-name">Vitamin E</h3>
+          <p class="origin-tile-latin">&alpha;-, &beta;-, &gamma;-, &delta;-tocopherol</p>
+          <p class="origin-tile-body">The most studied antioxidant in cosmetic chemistry &mdash; eight tocopherol isomers that quench free radicals at the cellular membrane, arresting the oxidative chain that breaks down keratin over time.</p>
+        </article>
+
+        <!-- 14. Australian Sandalwood -->
+        <article class="origin-tile">
+          <div class="origin-tile-image">
+            <img src="grid-sandalwood.jpg" alt="Australian sandalwood block with shavings, eucalyptus and amber oil drop">
+          </div>
+          <p class="origin-tile-place">Western Australia</p>
+          <h3 class="origin-tile-name">Australian Sandalwood</h3>
+          <p class="origin-tile-latin">Santalum spicatum</p>
+          <p class="origin-tile-body">Harvested by the Noongar long before European arrival &mdash; its high alpha-santalol anchors the maison&rsquo;s signature scent, &Acirc;me de Vue&trade;, and lingers in the strand long after the elixir has settled.</p>
+        </article>
+
       </div>
 
       <p class="fourteen">Fourteen in total. Working as one system.</p>
