@@ -233,8 +233,6 @@
 
   /* ═══════════════════════════════════════════════════════════
      MAIN — photograph band on top (16:9), reservation below
-     The photograph's full scene is preserved at every screen
-     size by using aspect-ratio rather than viewport height.
      ═══════════════════════════════════════════════════════════ */
   main{
     position:relative;
@@ -243,8 +241,6 @@
     background:var(--navy-charcoal);
   }
 
-  /* PHOTOGRAPH — 16:9 aspect-ratio band at top of page.
-     Full scene visible, never cropped. */
   .photograph-pane{
     position:relative;
     width:100%;
@@ -263,8 +259,6 @@
     object-position:center center;
   }
 
-  /* Photograph sits tight to the reservation section below -
-     no gradient transition needed */
   .photograph-pane::after{
     display:none;
   }
@@ -301,10 +295,7 @@
     padding-left:0.5em;
   }
 
-  /* RESERVATION PANE — Vogue-style asymmetric caption layout.
-     Left: brand text as editorial caption.
-     Right: reservation form as credits panel.
-     The two columns mirror the photograph's horizontal composition. */
+  /* RESERVATION PANE */
   .reservation-pane{
     position:relative;
     z-index:3;
@@ -346,12 +337,15 @@
     align-items:start;
   }
 
-  /* Left column - editorial caption */
+  /* Left column - editorial caption.
+     padding-top aligns the eyebrow's top edge with the
+     first form input's top edge across the gap. */
   .res-caption{
     display:flex;
     flex-direction:column;
     align-items:flex-start;
     text-align:left;
+    padding-top:23px;
   }
 
   /* Right column - form panel */
@@ -362,7 +356,6 @@
     padding-top:36px;
   }
 
-  /* Gold corner accents hidden since box is removed */
   .reservation-frame::before,
   .reservation-frame::after,
   .res-corner-tr,
@@ -370,7 +363,6 @@
     display:none;
   }
 
-  /* Limited Edition-style eyebrow - small sans, all-caps */
   .res-eyebrow{
     font-family:var(--font-sans);
     font-weight:400;
@@ -390,9 +382,6 @@
     margin-left:2px;
   }
 
-  /* Modern Garamond headline - upright, light weight, sentence case,
-     tight tracking. Clean and elegant without italic ornament.
-     Reads as Aesop / The Row / Augustinus Bader register. */
   .res-headline{
     font-family:var(--font-display);
     font-weight:300;
@@ -403,8 +392,6 @@
     margin-bottom:32px;
   }
 
-  /* The em element is treated identically - no italic, no gold,
-     just continuous Cormorant in the same weight and tone */
   .res-headline em{
     display:inline;
     font-family:var(--font-display);
@@ -437,6 +424,21 @@
     color:rgba(240,230,208,0.82);
     max-width:46ch;
     margin:0;
+  }
+
+  /* Founder signature - sits beneath the body copy.
+     Actual handwritten signature in cream, displayed as image. */
+  .res-signature{
+    margin-top:28px;
+    margin-bottom:0;
+    line-height:0;
+  }
+
+  .res-signature img{
+    display:block;
+    height:64px;
+    width:auto;
+    opacity:0.88;
   }
 
   .inline-shop{
@@ -514,13 +516,59 @@
   }
 
   form.reservation button:hover{
-    background:var(--cream-warm);
-    border-color:var(--cream-warm);
+    background:var(--gold-soft);
+    border-color:var(--gold-soft);
   }
 
   form.reservation button:disabled{
     opacity:0.55;
     cursor:not-allowed;
+  }
+
+  /* Consent line - sits beneath the Reserve button.
+     11-12px gold-muted italic, single line where possible. */
+  .res-consent{
+    margin-top:14px;
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    font-size:12px;
+    line-height:1.55;
+    letter-spacing:0.02em;
+    color:rgba(184,153,106,0.78);
+  }
+
+  .res-consent a{
+    color:rgba(240,230,208,0.85);
+    text-decoration:none;
+    border-bottom:1px solid rgba(240,230,208,0.35);
+    padding-bottom:1px;
+    transition:border-color 240ms ease, color 240ms ease;
+  }
+
+  .res-consent a:hover{
+    color:var(--cream);
+    border-bottom-color:rgba(240,230,208,0.65);
+  }
+
+  /* Three-line subscriber promise - sits beneath the consent line.
+     Italic Cormorant, single thin gold rule above, three short
+     phrases on separate lines. The Aesop / Le Labo pattern. */
+  .res-promise{
+    margin-top:32px;
+    padding-top:24px;
+    border-top:1px solid rgba(240,230,208,0.12);
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    font-size:13px;
+    line-height:1.9;
+    letter-spacing:0.01em;
+    color:rgba(240,230,208,0.62);
+  }
+
+  .res-promise span{
+    display:block;
   }
 
   .invitation-block{
@@ -534,12 +582,12 @@
     display:block;
     font-family:var(--font-sans);
     font-weight:400;
-    font-size:10px;
-    letter-spacing:0.32em;
+    font-size:11px;
+    letter-spacing:0.28em;
     text-transform:uppercase;
     color:rgba(240,230,208,0.5);
     margin-bottom:14px;
-    padding-left:0.32em;
+    padding-left:0.28em;
   }
 
   .invitation-form{
@@ -589,7 +637,7 @@
   }
 
   .invitation-form button:hover{
-    background:var(--cream-warm);
+    background:var(--gold-soft);
   }
 
   .invitation-feedback{
@@ -619,6 +667,57 @@
 
   .res-message.success{ color:var(--cream); }
   .res-message.error{ color:#D8B4B4; }
+
+  /* House-voice confirmation state.
+     When the form is submitted successfully, .res-action gets the
+     'submitted' class. The form, consent, promise, and message all
+     fade out; the confirmation message fades in beneath the headline. */
+  .res-confirm{
+    display:none;
+    margin-top:8px;
+    font-family:var(--font-italic);
+    font-style:italic;
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:0.01em;
+    color:var(--cream);
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity 600ms ease, transform 600ms ease;
+  }
+
+  .res-confirm-line{
+    font-size:22px;
+    color:var(--cream);
+    margin-bottom:14px;
+  }
+
+  .res-confirm-sub{
+    font-size:15px;
+    color:rgba(201,169,110,0.85);
+    letter-spacing:0.02em;
+  }
+
+  .res-action.submitted form.reservation,
+  .res-action.submitted .res-consent,
+  .res-action.submitted .res-promise,
+  .res-action.submitted .invitation-block,
+  .res-action.submitted .res-message{
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 480ms ease;
+    height:0;
+    overflow:hidden;
+    margin:0;
+    padding:0;
+    border:0;
+  }
+
+  .res-action.submitted .res-confirm{
+    display:block;
+    opacity:1;
+    transform:translateY(0);
+  }
 
   .reveal{
     opacity:0;
@@ -667,7 +766,7 @@
       letter-spacing:0.28em;
     }
 
-    /* Two-column layout collapses to single column on tablet/mobile */
+    /* Two-column layout collapses to single column */
     .reservation-pane{
       padding:88px 32px 96px;
     }
@@ -678,12 +777,24 @@
       gap:48px;
     }
 
+    .res-caption{
+      padding-top:0;
+    }
+
     .res-action{
       padding-top:0;
     }
 
     .res-headline{
       font-size:56px;
+    }
+
+    .res-signature{
+      margin-top:24px;
+    }
+
+    .res-signature img{
+      height:56px;
     }
   }
 
@@ -696,18 +807,6 @@
     .reservation-frame{
       max-width:100%;
       gap:36px;
-    }
-
-    .res-kicker{
-      font-size:10px;
-      letter-spacing:0.42em;
-      margin-bottom:12px;
-    }
-
-    /* Rule stays left-aligned on mobile too */
-    .res-mini-rule{
-      width:28px;
-      margin:0 0 22px;
     }
 
     .res-eyebrow{
@@ -734,6 +833,14 @@
       margin-bottom:22px;
     }
 
+    .res-signature{
+      margin-top:20px;
+    }
+
+    .res-signature img{
+      height:48px;
+    }
+
     form.reservation{
       gap:10px;
     }
@@ -753,6 +860,18 @@
       padding:15px 16px;
       font-size:10px;
       letter-spacing:0.28em;
+    }
+
+    .res-consent{
+      font-size:11px;
+      margin-top:12px;
+    }
+
+    .res-promise{
+      font-size:12px;
+      margin-top:24px;
+      padding-top:20px;
+      line-height:1.85;
     }
 
     .invitation-block{
@@ -786,6 +905,14 @@
       padding-top:18px;
       font-size:14px;
     }
+
+    .res-confirm-line{
+      font-size:19px;
+    }
+
+    .res-confirm-sub{
+      font-size:14px;
+    }
   }
 
   @media (max-width:380px){
@@ -816,7 +943,6 @@
 <!-- ═══ STICKY HEADER ═══ -->
 <header class="site-header">
 
-  <!-- Logo row -->
   <div class="header-logo-row">
 
     <a href="/" class="header-logo">MAISON D&rsquo;VUE</a>
@@ -843,11 +969,7 @@
     </div>
   </div>
 
-  <!-- Nav row removed - homepage is gated by invitation code -->
-
 </header>
-
-<!-- Mobile menu removed - homepage has no nav -->
 
 <!-- ═══ MAIN — photo band then reservation ═══ -->
 <main id="reserve">
@@ -876,10 +998,13 @@
         <p class="res-body">
           Composed in Beverly Hills. Reserved by request. The June allocation opens to the list first.
         </p>
+
+        <p class="res-signature"><img src="signature.png" alt="Masiela" width="200" height="64"></p>
       </div>
 
       <!-- RIGHT COLUMN: Reservation form -->
-      <div class="res-action">
+      <div class="res-action" id="resAction">
+
         <form id="reservationForm" class="reservation" novalidate>
           <div class="field">
             <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
@@ -893,8 +1018,18 @@
           <button type="submit" id="submitBtn">Reserve your elixir</button>
         </form>
 
+        <!-- Consent line — beneath Reserve button -->
+        <p class="res-consent">
+          By joining the list, I agree to receive letters from MAISON D&rsquo;VUE. Read our <a href="mailto:hello@maisondvue.com">Privacy Notice</a>.
+        </p>
+
+        <!-- Subscriber promise — single line, italic gold-muted -->
+        <div class="res-promise">
+          <span>First access to each Allocation.</span>
+        </div>
+
         <div class="invitation-block">
-          <label for="invitationCode" class="invitation-label">Enter your invitation code</label>
+          <label for="invitationCode" class="invitation-label">One of us?</label>
           <form id="invitationForm" class="invitation-form" novalidate>
             <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
             <button type="submit" aria-label="Submit invitation code">&rarr;</button>
@@ -903,6 +1038,13 @@
         </div>
 
         <div class="res-message" id="message" role="status" aria-live="polite"></div>
+
+        <!-- House-voice confirmation — revealed when .res-action has .submitted -->
+        <div class="res-confirm" id="resConfirm" role="status" aria-live="polite">
+          <div class="res-confirm-line">Thank you. You are on the list.</div>
+          <div class="res-confirm-sub">A letter will follow.</div>
+        </div>
+
       </div>
 
     </div>
@@ -948,12 +1090,19 @@
   var form = document.getElementById('reservationForm');
   var btn = document.getElementById('submitBtn');
   var msg = document.getElementById('message');
+  var resAction = document.getElementById('resAction');
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function setMsg(text, type){
     msg.textContent = text || '';
     msg.classList.remove('success','error');
     if (type) msg.classList.add(type);
+  }
+
+  function enterConfirmState(){
+    // Smooth transition: clear any transient message, then add submitted state
+    setMsg('');
+    resAction.classList.add('submitted');
   }
 
   form.addEventListener('submit', async function(e){
@@ -964,7 +1113,7 @@
     var honey = form.website.value.trim();
 
     if (honey){
-      setMsg('Your reservation has been received.', 'success');
+      enterConfirmState();
       form.reset();
       return;
     }
@@ -1000,8 +1149,8 @@
       } catch(_){}
 
       if (ok){
-        setMsg('Your reservation has been received. A letter will follow.', 'success');
         form.reset();
+        enterConfirmState();
       } else {
         throw new Error('Server returned an error');
       }
