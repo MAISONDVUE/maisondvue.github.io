@@ -5,14 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Hair Elixir — MAISON D'VUE</title>
 <meta name="description" content="MAISON D'VUE Hair Elixir. Vue 14™. A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
-<meta property="og:title" content="MAISON D'VUE — Hair Elixir">
-<meta property="og:description" content="A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
-<meta property="og:type" content="product">
-<meta property="og:url" content="https://maisondvue.com/product.html">
 <meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
 
 <link rel="canonical" href="https://maisondvue.com/product.html">
 
+<meta property="og:title" content="MAISON D'VUE — Hair Elixir">
+<meta property="og:description" content="A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
+<meta property="og:type" content="product">
+<meta property="og:url" content="https://maisondvue.com/product.html">
+<meta property="og:image" content="https://maisondvue.com/paparazzi-hero.jpg">
+<meta property="og:image:secure_url" content="https://maisondvue.com/paparazzi-hero.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1040">
+<meta property="og:image:alt" content="MAISON D'VUE Hair Elixir — paparazzi flashes capture the moment.">
+<meta property="og:video" content="https://maisondvue.com/paparazzi-hero.mp4">
+<meta property="og:video:secure_url" content="https://maisondvue.com/paparazzi-hero.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1920">
+<meta property="og:video:height" content="1040">
 <meta property="og:site_name" content="MAISON D'VUE">
 <meta property="og:locale" content="en_US">
 
@@ -20,6 +31,8 @@
 <meta name="twitter:url" content="https://maisondvue.com/product.html">
 <meta name="twitter:title" content="MAISON D'VUE — Hair Elixir">
 <meta name="twitter:description" content="A ritual of fourteen essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
+<meta name="twitter:image" content="https://maisondvue.com/paparazzi-hero.jpg">
+<meta name="twitter:image:alt" content="MAISON D'VUE Hair Elixir — paparazzi flashes capture the moment.">
 
 <script type="application/ld+json">
 {
@@ -33,7 +46,7 @@
     "name": "MAISON D\u2019VUE"
   },
   "description": "A ritual of fourteen essences, scented in \u00C2me de Vue. The Hair Elixir is composed of fourteen plant-derived botanicals \u2014 including Ungurahua from the Amazon, Prickly Pear from the Atlas Mountains, Camellia from Japan, Rosehip, and Meadowfoam. Anhydrous. Hand-sealed in Beverly Hills.",
-  "image": "https://maisondvue.com/paparazzi-elixir.jpg",
+  "image": "https://maisondvue.com/paparazzi-hero.jpg",
   "url": "https://maisondvue.com/product.html",
   "category": "Haircare",
   "manufacturer": {
@@ -78,11 +91,12 @@
 }
 </script>
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
 <meta name="theme-color" content="#0B1F3A">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -403,6 +417,11 @@
     object-position: center center;
     display: block;
     z-index: 1;
+  }
+
+  .hero-video {
+    border: 0;
+    background: var(--navy-deep) url('paparazzi-hero.jpg') center center / cover no-repeat;
   }
 
   .hero-image-placeholder {
@@ -2537,7 +2556,21 @@
 
   <!-- ═══ HERO ═══ -->
   <section class="hero">
-    <img src="paparazzi-elixir.jpg" alt="MAISON D'VUE Hair Elixir — a woman caught mid-stride by paparazzi at night, her hair lifted and luminous" class="hero-image">
+    <video
+      class="hero-image hero-video"
+      src="paparazzi-hero.mp4"
+      poster="paparazzi-hero.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline="true"
+      preload="auto"
+      disablepictureinpicture
+      controlslist="nodownload nofullscreen noremoteplayback"
+      aria-hidden="true"
+      onerror="this.style.display='none';">
+    </video>
 
     <div class="hero-content">
       <p class="hero-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
@@ -3160,6 +3193,36 @@
 
 <script>
   const REVIEW_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
+
+  /* ─── HERO VIDEO — force autoplay where possible ─── */
+  (function(){
+    var heroVideo = document.querySelector('.hero-video');
+    if (!heroVideo) return;
+
+    var attemptPlay = function(){
+      var p = heroVideo.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function(){
+          var unlock = function(){
+            heroVideo.play().catch(function(){});
+            document.removeEventListener('touchstart', unlock);
+            document.removeEventListener('click', unlock);
+            document.removeEventListener('scroll', unlock);
+          };
+          document.addEventListener('touchstart', unlock, { passive: true, once: true });
+          document.addEventListener('click', unlock, { once: true });
+          document.addEventListener('scroll', unlock, { passive: true, once: true });
+        });
+      }
+    };
+
+    if (heroVideo.readyState >= 2) {
+      attemptPlay();
+    } else {
+      heroVideo.addEventListener('loadeddata', attemptPlay, { once: true });
+      heroVideo.addEventListener('canplay', attemptPlay, { once: true });
+    }
+  })();
 
   /* ─── PROMO RIBBON DISMISS ─── */
   function dismissPromoRibbon() {
