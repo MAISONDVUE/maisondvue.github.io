@@ -199,7 +199,11 @@ button{font:inherit;cursor:pointer}
 .founding-overlay-signoff{font-family:var(--font-italic);font-style:italic;font-size:14px;letter-spacing:0.05em;color:var(--navy);text-align:center;margin-top:36px;opacity:0.7}
 
 /* Shared founding story typography (used inside the overlay) */
-.founding-story-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:48px;line-height:1;text-align:center}
+.founding-story-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;line-height:1;text-align:center}
+.founding-story-framing{text-align:center;margin-bottom:0}
+.founding-story-framing p{font-family:var(--font-italic);font-style:italic;font-size:clamp(16px,1.3vw,18px);line-height:1.55;color:var(--navy);letter-spacing:0.01em;margin:0}
+.founding-story-framing p + p{margin-top:6px}
+.founding-story-intro-rule{width:36px;height:1px;background:var(--gold);margin:32px auto 40px;opacity:0.65}
 .founding-story-prose{font-family:var(--font-display);font-size:clamp(17px,1.4vw,19px);line-height:1.85;color:var(--navy);letter-spacing:0.005em;text-align:left}
 .founding-story-prose p{margin-bottom:22px}
 .founding-story-prose p:last-of-type{margin-bottom:0}
@@ -674,6 +678,11 @@ footer{padding:64px 0 36px}
       <button type="button" class="founding-overlay-close" onclick="closeFoundingStory()" aria-label="Close">&times;</button>
       <div class="founding-overlay-inner">
         <p class="founding-story-eyebrow" id="foundingTitle">On the Founding</p>
+        <div class="founding-story-framing">
+          <p>A founder&rsquo;s letter.</p>
+          <p>On the moment the maison began.</p>
+        </div>
+        <div class="founding-story-intro-rule"></div>
         <div class="founding-story-prose">
           <p>I caught myself rinsing my hands. The same hands that, an hour earlier, had patted a luxury serum into my skin and left it there. The serum I trusted. The hair product I was washing off as quickly as I had put it on.</p>
           <p>I stood at the sink and thought: <em>why do I treat my hair with less reverence than I treat my face?</em></p>
