@@ -89,8 +89,8 @@ button{font:inherit;cursor:pointer}
 .founder-hero-tagline{font-family:var(--font-italic);font-style:italic;font-size:clamp(20px,1.9vw,26px);line-height:1.5;color:var(--navy);letter-spacing:0.005em;margin-bottom:44px;max-width:480px}
 .founder-hero-divider{width:60px;height:1px;background:var(--gold);margin-bottom:32px}
 .founder-hero-provenance{font-family:var(--font-display);font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:var(--navy);line-height:1.6;opacity:0.78}
-.founder-hero-image{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--ivory);margin-left:-72px;z-index:1}
-.founder-hero-image img{width:100%;height:100%;object-fit:cover;display:block;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,0.35) 8%,rgba(0,0,0,0.85) 18%,rgba(0,0,0,1) 28%);mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,0.35) 8%,rgba(0,0,0,0.85) 18%,rgba(0,0,0,1) 28%)}
+.founder-hero-image{position:relative;aspect-ratio:4/5;overflow:hidden;background:transparent;margin-left:-140px;z-index:1}
+.founder-hero-image img{width:100%;height:100%;object-fit:cover;display:block;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,0.08) 12%,rgba(0,0,0,0.3) 24%,rgba(0,0,0,0.6) 36%,rgba(0,0,0,0.85) 48%,rgba(0,0,0,1) 60%);mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,0.08) 12%,rgba(0,0,0,0.3) 24%,rgba(0,0,0,0.6) 36%,rgba(0,0,0,0.85) 48%,rgba(0,0,0,1) 60%)}
 
 /* SLIDESHOW */
 .slideshow-section{background:var(--navy-deeper);color:var(--cream);padding:80px 0 120px;min-height:720px}
@@ -140,6 +140,10 @@ button{font:inherit;cursor:pointer}
   background:radial-gradient(ellipse 90% 90% at 35% 40%, transparent 40%, rgba(4,8,26,0.25) 100%);
   mix-blend-mode:multiply;
 }
+
+/* COLOR SLIDE — for surrealist editorial imagery on Inside MAISON D'VUE */
+.slide-image-wrap.color-image img{filter:none;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,1) 78%,rgba(0,0,0,0.85) 90%,rgba(0,0,0,0.4) 100%);mask-image:linear-gradient(to right,rgba(0,0,0,1) 78%,rgba(0,0,0,0.85) 90%,rgba(0,0,0,0.4) 100%);mask-composite:add;-webkit-mask-composite:source-over}
+.slide-image-wrap.color-image::after{background:radial-gradient(ellipse 90% 90% at 35% 40%, transparent 55%, rgba(4,8,26,0.18) 100%)}
 
 .slide-chapter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-body);font-weight:400;font-size:clamp(28px,3.4vw,44px);letter-spacing:0.02em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 30px rgba(0,0,0,0.65);line-height:1;text-align:center;pointer-events:none;white-space:nowrap;z-index:2}
 .slide-body{padding-top:24px}
@@ -528,8 +532,8 @@ footer{padding:64px 0 36px}
           <div class="slide-rail" data-rail="inside">
 
             <article class="slide">
-              <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="">
+              <div class="slide-image-wrap color-image">
+                <img src="maison-dvue-the-house-in-allegory.jpg" alt="An allegorical portrait for MAISON D'VUE — a figure in gilded brocade, blindfolded in navy silk embroidered with the maison's monogram, wearing the Hair Elixir as a pendant — a surrealist composition by founder Masiela Lusha, the American luxury house pioneering Affinity Compositions">
                 <div class="slide-chapter">The Category</div>
               </div>
               <div class="slide-body">
@@ -538,13 +542,13 @@ footer{padding:64px 0 36px}
                   <p>MAISON D&rsquo;VUE pioneers <em>Affinity Compositions&trade;</em> &mdash; anhydrous botanical compositions engineered for biological affinity with the surfaces that receive them.</p>
                   <p>Where conventional beauty divides the body into territories &mdash; one product for hair, another for face, another for body &mdash; the house composes a single botanical system. The body recognizes it.</p>
                 </div>
-                <div class="slide-caption">Affinity Compositions&trade;. A trademark of MDV Group, LLC.</div>
+                <div class="slide-caption">Sight closed. Senses attuned. The house composed in allegory.</div>
               </div>
             </article>
 
             <article class="slide">
-              <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="">
+              <div class="slide-image-wrap color-image">
+                <img src="maison-dvue-elixir-heirloom-pearl-bandeau.jpg" alt="The MAISON D'VUE Hair Elixir framed in a pearl-and-diamond bandeau across the eyes of a figure in gilded brocade, a single drop of elixir falling like a tear — a surrealist composition for the maison's first composition, Vue 14, of fourteen rare botanical essences">
                 <div class="slide-chapter">The Formula</div>
               </div>
               <div class="slide-body">
@@ -553,13 +557,13 @@ footer{padding:64px 0 36px}
                   <p>The Vue 14&trade; formula is the maison&rsquo;s first composition. Fourteen rare botanical essences selected for their affinity with the strand, by the discipline of refusal.</p>
                   <p>Each essence enters the composition the way a word enters a line of poetry: <em>only if it belongs there.</em> What cannot be replaced or removed is what remains.</p>
                 </div>
-                <div class="slide-caption">Vue 14&trade;. The house&rsquo;s first composition.</div>
+                <div class="slide-caption">The Elixir, worn. The composition, inherited.</div>
               </div>
             </article>
 
             <article class="slide">
-              <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="">
+              <div class="slide-image-wrap color-image">
+                <img src="maison-dvue-camellia-essence-silk-of-the-geisha.jpg" alt="A figure in cream brocade kimono with white camellia in hair and held in offered hands, blindfolded in navy silk embroidered with the MAISON D'VUE monogram — an allegorical portrait of Camellia, one of the maison's fourteen rare botanical essences">
                 <div class="slide-chapter">The Scent</div>
               </div>
               <div class="slide-body">
@@ -568,7 +572,7 @@ footer{padding:64px 0 36px}
                   <p>A single scent signs every composition the house will ever make: <em>&Acirc;me de Vue.</em> &Acirc;me &mdash; the soul. Australian Sandalwood for warmth and depth. Bulgarian Rose for lift and light.</p>
                   <p>The composition is intentionally familial. A woman wearing the Hair Elixir, in time the lipstick, in time the cashmere &mdash; will recognize the same scent threading every composition. The house has a signature, and the signature is consistent.</p>
                 </div>
-                <div class="slide-caption">&Acirc;me de Vue&trade;. Australian Sandalwood &middot; Bulgarian Rose.</div>
+                <div class="slide-caption">A composition&rsquo;s soul is in its essences. One named here: Camellia.</div>
               </div>
             </article>
 
@@ -587,8 +591,8 @@ footer{padding:64px 0 36px}
             </article>
 
             <article class="slide">
-              <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="">
+              <div class="slide-image-wrap color-image">
+                <img src="maison-dvue-the-house-composed-in-creatures.jpg" alt="A figure photographed from behind, honey-blonde waves cascading, a Sphynx cat on one shoulder and a white mouse peeking from the hair on the other, a layered cobalt-and-pearl necklace supporting the MAISON D'VUE Hair Elixir as its centerpiece — a surrealist allegory of the maison's full world composed by founder Masiela Lusha">
                 <div class="slide-chapter">The Expansion</div>
               </div>
               <div class="slide-body">
@@ -597,7 +601,7 @@ footer{padding:64px 0 36px}
                   <p>The house is structured to keep being read. Haircare is the first chapter &mdash; composed and released. Makeup is the second &mdash; in formulation. Lifestyle, the third.</p>
                   <p>Each category enters the same way: by composition, by affinity, by the discipline that selected the first essence of the first elixir. The maison&rsquo;s language scales because <em>Affinity Compositions&trade;</em> is a method.</p>
                 </div>
-                <div class="slide-caption">Chapters one through three. The architecture of the house.</div>
+                <div class="slide-caption">The house in its full company. Composed in objects, in creatures, in the world it makes.</div>
               </div>
             </article>
 
