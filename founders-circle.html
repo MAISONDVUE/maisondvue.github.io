@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Founder&rsquo;s Circle &mdash; MAISON D&rsquo;VUE</title>
+<meta name="description" content="An invitation. A correspondence from the founder of MAISON D'VUE. Received first. Read in confidence.">
+<meta name="robots" content="noindex, follow">
+
+<link rel="canonical" href="https://maisondvue.com/founders-circle.html">
+
+<meta property="og:title" content="The Founder&rsquo;s Circle &mdash; MAISON D&rsquo;VUE">
+<meta property="og:description" content="A correspondence from the founder. Received first. Read in confidence.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com/founders-circle.html">
+<meta property="og:site_name" content="MAISON D&rsquo;VUE">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
+<meta name="theme-color" content="#0B1F3A">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --navy-deep: #070D22;
+    --navy-center: #122749;
+    --cobalt: #1A2744;
+
+    --gold: #C9A96E;
+    --gold-soft: #D9BE8B;
+    --gold-muted: #B8996A;
+
+    --cream: #F0E6D0;
+    --warm-white: #FDFBF8;
+    --ivory: #F9F6F0;
+
+    --dark: #0E0E0E;
+    --mid: #62584E;
+    --muted: rgba(14, 14, 14, 0.48);
+
+    --line: rgba(201, 169, 110, 0.22);
+    --line-dark: rgba(249, 246, 240, 0.16);
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-italic: 'EB Garamond', Georgia, serif;
+    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+
+    --page: 1240px;
+    --ribbon-h: 44px;
+    --logo-h: 88px;
+    --nav-h: 56px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; background: var(--warm-white); }
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--dark);
+    background: var(--warm-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, input, textarea, select { font: inherit; }
+
+  /* ─── HEADER ─── */
+  .header-logo-row {
+    background: var(--warm-white);
+    height: var(--logo-h);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.06);
+  }
+  .header-logo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(20px, 2.4vw, 32px);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .header-utility {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 22px;
+    align-items: center;
+  }
+  .header-utility-btn {
+    background: transparent;
+    border: 0;
+    color: var(--navy);
+    cursor: pointer;
+    padding: 6px;
+    line-height: 0;
+    transition: color 240ms ease;
+  }
+  .header-utility-btn:hover { color: var(--gold-muted); }
+  .header-utility-btn svg { width: 18px; height: 18px; display: block; }
+
+  .header-nav-row {
+    background: var(--warm-white);
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+  }
+  .header-nav { display: flex; gap: 48px; list-style: none; align-items: center; }
+  .header-nav a {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    position: relative;
+    padding: 4px 0;
+    transition: color 240ms ease;
+  }
+  .header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 280ms ease;
+  }
+  .header-nav a:hover::after, .header-nav a.active::after { width: 100%; }
+  .header-nav a:hover { color: var(--gold-muted); }
+  .site-header { position: sticky; top: 0; z-index: 90; }
+
+  .header-mobile-toggle {
+    display: none;
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--navy);
+    padding: 8px;
+  }
+  .header-mobile-toggle svg { width: 22px; height: 22px; display: block; }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--warm-white);
+    z-index: 200;
+    flex-direction: column;
+    padding: 80px 40px 40px;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 320ms ease, transform 320ms ease;
+    pointer-events: none;
+  }
+  .mobile-menu.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .mobile-menu-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: 0;
+    color: var(--navy);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+  }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--navy);
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    display: block;
+  }
+  .mobile-menu a:last-child { border-bottom: 0; }
+
+  /* ─── PAGE LAYOUT ─── */
+  .circle-page {
+    background: var(--warm-white);
+    padding: 110px 0 140px;
+    min-height: calc(100vh - var(--logo-h) - var(--nav-h));
+  }
+
+  .circle-inner {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
+  }
+
+  /* HERO */
+  .circle-eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    line-height: 1;
+  }
+
+  .circle-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.08;
+    letter-spacing: 0.005em;
+    color: var(--navy);
+    margin-bottom: 28px;
+  }
+
+  .circle-subtitle {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(17px, 1.5vw, 21px);
+    line-height: 1.55;
+    color: var(--gold-muted);
+    letter-spacing: 0.01em;
+    max-width: 480px;
+    margin: 0 auto 56px;
+  }
+
+  /* DIVIDER */
+  .circle-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 56px;
+    opacity: 0.7;
+  }
+
+  /* EDITORIAL BODY */
+  .circle-body {
+    text-align: left;
+    margin-bottom: 64px;
+  }
+
+  .circle-body p {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.3vw, 18px);
+    line-height: 1.85;
+    color: var(--navy);
+    margin-bottom: 18px;
+    letter-spacing: 0.005em;
+  }
+
+  .circle-body p:last-child { margin-bottom: 0; }
+
+  .circle-body ul {
+    list-style: none;
+    margin: 28px 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .circle-body ul li {
+    font-family: var(--font-display);
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.6;
+    color: var(--navy);
+    padding: 18px 0 18px 32px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    letter-spacing: 0.005em;
+  }
+
+  .circle-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 28px;
+    width: 18px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* FORM */
+  .circle-form-wrap {
+    background: transparent;
+    margin-top: 16px;
+  }
+
+  .circle-form-heading {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 36px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .circle-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+  }
+
+  .circle-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .circle-form-field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .circle-form-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  .circle-form-label .required {
+    color: var(--gold);
+    margin-left: 4px;
+  }
+
+  .circle-form input[type="text"],
+  .circle-form input[type="email"] {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(11, 31, 58, 0.32);
+    color: var(--navy);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 17px;
+    padding: 10px 0 12px;
+    outline: none;
+    transition: border-color 240ms ease;
+    letter-spacing: 0.01em;
+    border-radius: 0;
+  }
+
+  .circle-form input::placeholder {
+    color: rgba(14, 14, 14, 0.35);
+    font-family: var(--font-italic);
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+
+  .circle-form input:focus {
+    border-bottom-color: var(--gold);
+  }
+
+  /* BIRTHDAY */
+  .circle-birthday-wrap {
+    margin-top: 12px;
+  }
+
+  .circle-birthday-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 280px;
+  }
+
+  .circle-birthday-note {
+    margin-top: 14px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--mid);
+    letter-spacing: 0.01em;
+  }
+
+  /* SUBMIT */
+  .circle-submit-wrap {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .circle-submit {
+    display: inline-block;
+    border: 1px solid var(--navy);
+    background: var(--navy);
+    color: var(--cream);
+    padding: 16px 56px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 280ms ease, color 280ms ease, border-color 280ms ease;
+    border-radius: 0;
+  }
+
+  .circle-submit:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  .circle-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* REASSURANCE LINE */
+  .circle-reassurance {
+    margin-top: 36px;
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--mid);
+    letter-spacing: 0.01em;
+  }
+
+  /* FEEDBACK */
+  .circle-feedback {
+    margin-top: 20px;
+    min-height: 22px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 15px;
+    text-align: center;
+    color: var(--gold-muted);
+    line-height: 1.5;
+  }
+  .circle-feedback.error { color: #B26A6A; }
+
+  /* HONEYPOT */
+  .circle-hp {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+
+  /* SUCCESS STATE */
+  .circle-success {
+    display: none;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .circle-success.visible {
+    display: block;
+    animation: successIn 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @keyframes successIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .circle-success-eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    line-height: 1;
+  }
+
+  .circle-success-message {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.3;
+    color: var(--navy);
+    margin-bottom: 24px;
+    letter-spacing: 0.005em;
+  }
+
+  .circle-success-message em {
+    font-family: var(--font-italic);
+    font-style: italic;
+  }
+
+  .circle-success-signoff {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold-muted);
+    letter-spacing: 0.02em;
+    margin-top: 24px;
+  }
+
+  .circle-form-wrap.submitted .circle-form,
+  .circle-form-wrap.submitted .circle-form-heading,
+  .circle-form-wrap.submitted .circle-reassurance {
+    display: none;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy-deep);
+    color: var(--cream);
+    padding: 96px 0 40px;
+  }
+  .footer-inner { max-width: var(--page); margin: 0 auto; padding: 0 40px; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 2.6fr;
+    gap: 80px;
+    padding-bottom: 72px;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    margin-bottom: 56px;
+  }
+  .footer-brand .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--cream);
+  }
+  .footer-brand .footer-category {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+  }
+  .footer-brand .footer-category .tm {
+    font-size: 0.7em;
+    vertical-align: super;
+    letter-spacing: 0.05em;
+    margin-left: 1px;
+  }
+  .footer-brand .footer-line {
+    font-family: var(--font-italic);
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(249, 246, 240, 0.78);
+    font-style: italic;
+    max-width: 280px;
+    margin: 0 0 22px 0;
+  }
+  .footer-brand .footer-provenance {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.6);
+    margin: 0;
+  }
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .footer-col { display: flex; flex-direction: column; }
+  .footer-col-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+  }
+  .footer-col a {
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: rgba(249, 246, 240, 0.82);
+    margin-bottom: 14px;
+    transition: color 240ms ease;
+    line-height: 1.5;
+    display: block;
+  }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    padding-top: 28px;
+    border-top: 1px solid rgba(201, 169, 110, 0.18);
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: rgba(249, 246, 240, 0.4);
+    text-align: center;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .header-nav { gap: 32px; }
+    .header-nav a { font-size: 11px; letter-spacing: 0.28em; }
+    .header-utility { right: 24px; }
+  }
+
+  @media (max-width: 900px) {
+    :root { --logo-h: 68px; --nav-h: 0px; }
+
+    body { font-size: 16px; }
+
+    .header-logo { font-size: 15px; letter-spacing: 0.28em; }
+    .header-utility { right: 14px; gap: 10px; }
+    .header-utility-btn svg { width: 15px; height: 15px; }
+    .header-utility-btn[aria-label="Account"] { display: none; }
+    .header-nav-row { display: none; }
+    .header-mobile-toggle { display: block; left: 14px; padding: 6px; }
+    .header-mobile-toggle svg { width: 20px; height: 20px; }
+
+    .circle-page { padding: 72px 0 100px; }
+    .circle-inner { padding: 0 24px; }
+
+    .circle-eyebrow { margin-bottom: 24px; }
+    .circle-subtitle { margin-bottom: 44px; }
+    .circle-rule { margin-bottom: 44px; }
+    .circle-body { margin-bottom: 48px; }
+    .circle-body p { font-size: 16px; line-height: 1.8; }
+
+    .circle-form-row { grid-template-columns: 1fr; gap: 24px; }
+    .circle-birthday-fields { max-width: 100%; }
+
+    .circle-submit { padding: 15px 40px; font-size: 11px; letter-spacing: 0.32em; }
+
+    footer { padding: 64px 0 36px; }
+    .footer-inner { padding: 0 24px; }
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 56px;
+      padding-bottom: 56px;
+      margin-bottom: 40px;
+    }
+    .footer-nav { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .footer-brand .footer-logo { font-size: 18px; }
+  }
+
+  @media (max-width: 520px) {
+    .footer-nav { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══ STICKY HEADER ═══ -->
+<header class="site-header">
+
+  <div class="header-logo-row">
+    <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <line x1="3" y1="7" x2="21" y2="7"/>
+        <line x1="3" y1="13" x2="21" y2="13"/>
+        <line x1="3" y1="19" x2="21" y2="19"/>
+      </svg>
+    </button>
+
+    <a href="index.html" class="header-logo">MAISON D&rsquo;VUE</a>
+
+    <div class="header-utility">
+      <button class="header-utility-btn" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+        </svg>
+      </button>
+      <button class="header-utility-btn" type="button" aria-label="Account" onclick="window.location='mailto:hello@maisondvue.com'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </button>
+      <a href="https://shop.maisondvue.com/cart" class="header-utility-btn" aria-label="Bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 7h12l-1 14H7L6 7z"/>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <nav class="header-nav-row">
+    <ul class="header-nav">
+      <li><a href="about.html">About</a></li>
+      <li><a href="product.html">The Elixir</a></li>
+      <li><a href="product.html#formulation">The Formula</a></li>
+      <li><a href="product.html#ritual">The Ritual</a></li>
+      <li><a href="product.html#origins">Origins</a></li>
+      <li><a href="product.html#reviews">Reviews</a></li>
+      <li><a href="product.html#reserve">Reserve</a></li>
+    </ul>
+  </nav>
+
+</header>
+
+<!-- ═══ MOBILE MENU ═══ -->
+<nav class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
+  <a href="product.html#formulation" onclick="closeMobileMenu()">The Formula</a>
+  <a href="product.html#ritual" onclick="closeMobileMenu()">The Ritual</a>
+  <a href="product.html#origins" onclick="closeMobileMenu()">Origins</a>
+  <a href="product.html#reviews" onclick="closeMobileMenu()">Reviews</a>
+  <a href="product.html#reserve" onclick="closeMobileMenu()">Reserve</a>
+</nav>
+
+<!-- ═══ MAIN PAGE ═══ -->
+<main>
+  <section class="circle-page">
+    <div class="circle-inner">
+
+      <p class="circle-eyebrow">Invitation</p>
+      <h1 class="circle-title">The Founder&rsquo;s Circle</h1>
+      <p class="circle-subtitle">A correspondence from the founder. Received first. Read in confidence.</p>
+
+      <div class="circle-rule"></div>
+
+      <div class="circle-body">
+        <p>The Founder&rsquo;s Circle is the maison&rsquo;s private list. Members receive letters from the founder in her own voice &mdash; on the making of each composition, the origin of each essence, and the small considered decisions that compose the house.</p>
+
+        <ul>
+          <li>First access to each Allocation, before it opens to the public.</li>
+          <li>Letters from the founder, unhurried, written when there is something to say.</li>
+          <li>A correspondence on your birthday, with a small consideration from the maison.</li>
+          <li>The quiet conversations that do not appear elsewhere.</li>
+        </ul>
+
+        <p>The Circle is opened by invitation. The line below is yours.</p>
+      </div>
+
+      <!-- FORM -->
+      <div class="circle-form-wrap" id="circleFormWrap">
+
+        <p class="circle-form-heading">Receive Your Invitation</p>
+
+        <form class="circle-form" id="circleForm" action="https://maisondvue.us20.list-manage.com/subscribe/post?u=ece90c707751d2379f6f22e77&amp;id=3a9da7ab07&amp;f_id=004802eef0" method="post" target="_self" novalidate>
+
+          <div class="circle-form-row">
+            <div class="circle-form-field">
+              <label class="circle-form-label" for="mce-FNAME">First Name <span class="required">*</span></label>
+              <input type="text" id="mce-FNAME" name="FNAME" required autocomplete="given-name" placeholder="Your first name">
+            </div>
+            <div class="circle-form-field">
+              <label class="circle-form-label" for="mce-LNAME">Last Name <span class="required">*</span></label>
+              <input type="text" id="mce-LNAME" name="LNAME" required autocomplete="family-name" placeholder="Your last name">
+            </div>
+          </div>
+
+          <div class="circle-form-field">
+            <label class="circle-form-label" for="mce-EMAIL">Email <span class="required">*</span></label>
+            <input type="email" id="mce-EMAIL" name="EMAIL" required autocomplete="email" placeholder="your@email.com">
+          </div>
+
+          <div class="circle-birthday-wrap">
+            <label class="circle-form-label" for="mce-BIRTHDAY-month">Birthday</label>
+            <div class="circle-birthday-fields">
+              <input type="text" id="mce-BIRTHDAY-month" name="BIRTHDAY[month]" maxlength="2" pattern="(0?[1-9]|1[012])" placeholder="MM" autocomplete="bday-month" inputmode="numeric">
+              <input type="text" id="mce-BIRTHDAY-day" name="BIRTHDAY[day]" maxlength="2" pattern="(0?[1-9]|[12][0-9]|3[01])" placeholder="DD" autocomplete="bday-day" inputmode="numeric">
+            </div>
+            <p class="circle-birthday-note">The maison writes on your birthday. Should you care to share the date.</p>
+          </div>
+
+          <!-- HONEYPOT — must remain present, hidden, and untouched -->
+          <div class="circle-hp" aria-hidden="true">
+            <label for="b_ece90c707751d2379f6f22e77_3a9da7ab07">Leave this field empty</label>
+            <input type="text" name="b_ece90c707751d2379f6f22e77_3a9da7ab07" id="b_ece90c707751d2379f6f22e77_3a9da7ab07" tabindex="-1" value="" autocomplete="off">
+          </div>
+
+          <div class="circle-submit-wrap">
+            <button type="submit" class="circle-submit" id="circleSubmit">Join the Circle</button>
+          </div>
+        </form>
+
+        <p class="circle-feedback" id="circleFeedback" role="status" aria-live="polite"></p>
+        <p class="circle-reassurance">Your details are received in confidence. You may withdraw at any moment.</p>
+
+        <!-- SUCCESS STATE -->
+        <div class="circle-success" id="circleSuccess">
+          <p class="circle-success-eyebrow">You have been received</p>
+          <p class="circle-success-message">A letter will follow shortly. <em>Welcome to the Circle.</em></p>
+          <p class="circle-success-signoff">&mdash; Masiela</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <div class="footer-logo">MAISON D&rsquo;VUE</div>
+        <p class="footer-category">The House of Affinity Compositions<span class="tm">&trade;</span></p>
+        <p class="footer-line">Rare by origin. Refined by design.</p>
+        <div class="footer-provenance">Hand-sealed &middot; Beverly Hills</div>
+      </div>
+
+      <div class="footer-nav">
+
+        <div class="footer-col">
+          <div class="footer-col-label">The House</div>
+          <a href="about.html#founder">Masiela Lusha</a>
+          <a href="about.html#house">The House of Vue</a>
+          <a href="about.html#inside">Inside MAISON D&rsquo;VUE</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-label">The Product</div>
+          <a href="product.html#formulation">The Formula</a>
+          <a href="product.html#ritual">The Ritual</a>
+          <a href="product.html#origins">Origins</a>
+          <a href="product.html#reviews">Reviews</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-label">Access</div>
+          <a href="product.html#reserve">Reserve</a>
+          <a href="founders-circle.html">Join the Founder&rsquo;s Circle</a>
+          <a href="mailto:hello@maisondvue.com">Contact</a>
+          <a href="mailto:press@maisondvue.com">Press Inquiries</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">&copy; 2026 MAISON D&rsquo;VUE &nbsp;&middot;&nbsp; hello@maisondvue.com &nbsp;&middot;&nbsp; Made in USA</div>
+
+  </div>
+</footer>
+
+<script>
+  /* ─── MOBILE MENU ─── */
+  function openMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ─── FORM SUBMISSION ─── */
+  /* The form posts directly to Mailchimp using a hidden iframe technique
+     so the user doesn't leave the page. On submission, we show a quiet
+     success state in place of the form. */
+  (function() {
+    var form = document.getElementById('circleForm');
+    var submit = document.getElementById('circleSubmit');
+    var feedback = document.getElementById('circleFeedback');
+    var wrap = document.getElementById('circleFormWrap');
+    var success = document.getElementById('circleSuccess');
+
+    function setMsg(text, type) {
+      feedback.textContent = text || '';
+      feedback.classList.remove('error');
+      if (type === 'error') feedback.classList.add('error');
+    }
+
+    function validBirthday(m, d) {
+      // Both empty is OK (optional field)
+      if (!m && !d) return true;
+      // One filled but not the other = error
+      if (!m || !d) return false;
+      var mn = parseInt(m, 10);
+      var dn = parseInt(d, 10);
+      if (isNaN(mn) || isNaN(dn)) return false;
+      if (mn < 1 || mn > 12) return false;
+      if (dn < 1 || dn > 31) return false;
+      return true;
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      setMsg('');
+
+      var fname = document.getElementById('mce-FNAME').value.trim();
+      var lname = document.getElementById('mce-LNAME').value.trim();
+      var email = document.getElementById('mce-EMAIL').value.trim();
+      var bMonth = document.getElementById('mce-BIRTHDAY-month').value.trim();
+      var bDay = document.getElementById('mce-BIRTHDAY-day').value.trim();
+
+      // Honeypot check
+      var hp = document.getElementById('b_ece90c707751d2379f6f22e77_3a9da7ab07').value.trim();
+      if (hp) {
+        // Silent success for bots — show the message but never actually submit
+        wrap.classList.add('submitted');
+        success.classList.add('visible');
+        return;
+      }
+
+      if (!fname) {
+        setMsg('A first name, please.', 'error');
+        document.getElementById('mce-FNAME').focus();
+        return;
+      }
+      if (!lname) {
+        setMsg('A last name, please.', 'error');
+        document.getElementById('mce-LNAME').focus();
+        return;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setMsg('A valid email, please.', 'error');
+        document.getElementById('mce-EMAIL').focus();
+        return;
+      }
+      if (!validBirthday(bMonth, bDay)) {
+        setMsg('Please complete both month and day, or leave both blank.', 'error');
+        document.getElementById('mce-BIRTHDAY-month').focus();
+        return;
+      }
+
+      submit.disabled = true;
+      var orig = submit.textContent;
+      submit.textContent = 'Submitting...';
+
+      // Mailchimp's classic embedded form expects a standard POST.
+      // We submit via a hidden iframe so the user stays on the page.
+      var iframe = document.createElement('iframe');
+      iframe.name = 'mc_submit_target_' + Date.now();
+      iframe.style.position = 'absolute';
+      iframe.style.left = '-9999px';
+      iframe.style.width = '1px';
+      iframe.style.height = '1px';
+      iframe.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(iframe);
+
+      var iframeLoaded = false;
+      iframe.addEventListener('load', function() {
+        // Mailchimp returns its standard response page; we treat the load
+        // event as a successful submission (Mailchimp will send the welcome
+        // automation regardless of our UI state).
+        if (iframeLoaded) return;
+        iframeLoaded = true;
+
+        wrap.classList.add('submitted');
+        success.classList.add('visible');
+        submit.disabled = false;
+        submit.textContent = orig;
+
+        // Clean up iframe after a moment
+        setTimeout(function() {
+          if (iframe && iframe.parentNode) {
+            iframe.parentNode.removeChild(iframe);
+          }
+        }, 2000);
+      });
+
+      form.target = iframe.name;
+      form.submit();
+
+      // Safety timeout: if iframe never fires load (rare), show success anyway
+      // after 4 seconds so user is never stuck on "Submitting..."
+      setTimeout(function() {
+        if (!iframeLoaded) {
+          iframeLoaded = true;
+          wrap.classList.add('submitted');
+          success.classList.add('visible');
+          submit.disabled = false;
+          submit.textContent = orig;
+        }
+      }, 4000);
+    });
+  })();
+</script>
+
+</body>
+</html>
