@@ -33,7 +33,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{--navy:#0B1F3A;--navy-deep:#070D22;--navy-deeper:#04081A;--cobalt:#1A2744;--gold:#C9A96E;--gold-muted:#B8996A;--cream:#F0E6D0;--warm-white:#FDFBF8;--ivory:#F9F6F0;--dark:#0E0E0E;--line:rgba(11,31,58,0.18);--font-display:'Cormorant Garamond',Georgia,serif;--font-italic:'EB Garamond',Georgia,serif;--font-body:'Jost',Helvetica,Arial,sans-serif;--ribbon-h:44px;--logo-h:88px;--nav-h:56px}
+:root{--navy:#0B1F3A;--navy-deep:#070D22;--navy-deeper:#04081A;--cobalt:#1A2744;--gold:#C9A96E;--gold-muted:#B8996A;--cream:#F0E6D0;--warm-white:#FDFBF8;--ivory:#F9F6F0;--dark:#0E0E0E;--line:rgba(11,31,58,0.18);--font-display:'Cormorant Garamond',Georgia,serif;--font-italic:'EB Garamond',Georgia,serif;--font-body:'Jost',Helvetica,Arial,sans-serif;--ribbon-h:44px;--logo-h:88px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font-body);font-weight:300;color:var(--dark);background:var(--warm-white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;font-size:17px;line-height:1.65}
@@ -51,15 +51,12 @@ button{font:inherit;cursor:pointer}
 .header-logo-row{background:var(--warm-white);height:var(--logo-h);position:relative;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(11,31,58,0.06)}
 .header-logo{font-family:var(--font-display);font-weight:400;font-size:clamp(20px,2.4vw,32px);letter-spacing:0.42em;text-transform:uppercase;color:var(--navy);line-height:1;white-space:nowrap}
 .header-utility{position:absolute;right:40px;top:50%;transform:translateY(-50%);display:flex;gap:22px;align-items:center}
+.header-utility-link{font-family:var(--font-display);font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--navy);transition:color 240ms ease;padding:6px 4px;line-height:1}
+.header-utility-link:hover{color:var(--gold-muted)}
+.header-utility-link.active{color:var(--gold-muted)}
 .header-utility-btn{background:transparent;border:0;color:var(--navy);padding:6px;line-height:0;transition:color 240ms ease}
 .header-utility-btn:hover{color:var(--gold-muted)}
 .header-utility-btn svg{width:18px;height:18px;display:block}
-.header-nav-row{background:var(--warm-white);height:var(--nav-h);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(11,31,58,0.08)}
-.header-nav{display:flex;gap:48px;list-style:none;align-items:center}
-.header-nav a{font-family:var(--font-display);font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--navy);line-height:1;position:relative;padding:4px 0;transition:color 240ms ease}
-.header-nav a::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--gold);transition:width 280ms ease}
-.header-nav a:hover::after,.header-nav a.active::after{width:100%}
-.header-nav a:hover{color:var(--gold-muted)}
 .site-header{position:sticky;top:0;z-index:90}
 .header-mobile-toggle{display:none;position:absolute;left:22px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:var(--navy);padding:8px}
 .header-mobile-toggle svg{width:22px;height:22px;display:block}
@@ -92,15 +89,57 @@ button{font:inherit;cursor:pointer}
 .slide-track{overflow:hidden;position:relative}
 .slide-rail{display:flex;transition:transform 600ms cubic-bezier(0.22,0.61,0.36,1);will-change:transform}
 .slide{min-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;padding:8px 4px}
-.slide-image-wrap{position:relative;width:100%;aspect-ratio:4/5;background:var(--cobalt);overflow:hidden}
-.slide-image-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.02)}
-.slide-chapter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-body);font-weight:400;font-size:clamp(38px,5vw,64px);letter-spacing:0.04em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 30px rgba(0,0,0,0.65);line-height:1;text-align:center;pointer-events:none;white-space:nowrap}
+
+/* PHOTO GRADIENT BLEED — the inherited/lived-in treatment */
+.slide-image-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/5;
+  background:transparent;
+  overflow:visible;
+}
+.slide-image-wrap img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:grayscale(100%) contrast(1.08) brightness(0.98);
+  /* The gradient mask — photo dissolves into navy on right + bottom */
+  -webkit-mask-image:
+    linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0.6) 88%, rgba(0,0,0,0) 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0.6) 88%, rgba(0,0,0,0) 100%);
+  mask-composite: intersect;
+}
+/* Fallback for browsers without mask-composite (Firefox older) — single combined gradient */
+@supports not (mask-composite: intersect) {
+  .slide-image-wrap img{
+    -webkit-mask-image: radial-gradient(ellipse 110% 110% at 30% 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+    mask-image: radial-gradient(ellipse 110% 110% at 30% 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+  }
+}
+/* Subtle vignette to pull attention inward */
+.slide-image-wrap::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(ellipse 90% 90% at 35% 40%, transparent 40%, rgba(4,8,26,0.25) 100%);
+  mix-blend-mode:multiply;
+}
+
+.slide-chapter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-body);font-weight:400;font-size:clamp(38px,5vw,64px);letter-spacing:0.04em;text-transform:uppercase;color:var(--cream);text-shadow:0 2px 30px rgba(0,0,0,0.65);line-height:1;text-align:center;pointer-events:none;white-space:nowrap;z-index:2}
 .slide-body{padding-top:24px}
 .slide-lede{font-family:var(--font-body);font-weight:400;font-size:clamp(13px,1vw,15px);line-height:1.7;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream);margin-bottom:28px}
 .slide-text{font-family:var(--font-body);font-weight:300;font-size:15px;line-height:1.85;color:rgba(240,230,208,0.82);letter-spacing:0.005em}
 .slide-text p{margin-bottom:14px}
 .slide-text p:last-child{margin-bottom:0}
 .slide-text em{font-family:var(--font-italic);font-style:italic}
+.slide-text strong{font-weight:500;color:var(--cream)}
 .slide-quote{font-family:var(--font-italic);font-style:italic;font-size:clamp(19px,1.7vw,24px);line-height:1.5;color:var(--cream);letter-spacing:0.005em;padding:8px 0 8px 22px;border-left:2px solid var(--gold);margin:28px 0}
 .slide-caption{margin-top:32px;padding-top:22px;border-top:1px solid rgba(240,230,208,0.16);font-family:var(--font-body);font-weight:400;font-size:13px;letter-spacing:0.02em;color:rgba(240,230,208,0.65);line-height:1.6}
 .slide-signature{margin-top:36px;height:60px}
@@ -157,13 +196,13 @@ footer{background:var(--navy-deep);color:var(--cream);padding:96px 0 40px}
 .footer-bottom{padding-top:28px;border-top:1px solid rgba(201,169,110,0.18);font-family:var(--font-display);font-size:11px;letter-spacing:0.18em;color:rgba(249,246,240,0.4);text-align:center}
 
 @media (max-width:900px){
-:root{--logo-h:68px;--nav-h:0px}
+:root{--logo-h:68px}
 .promo-ribbon-text{font-size:10px;letter-spacing:0.22em;padding:0 40px}
 .header-logo{font-size:15px;letter-spacing:0.28em}
-.header-utility{right:14px;gap:10px}
+.header-utility{right:14px;gap:12px}
+.header-utility-link{font-size:10px;letter-spacing:0.24em;padding:6px 2px}
 .header-utility-btn svg{width:15px;height:15px}
 .header-utility-btn[aria-label="Account"]{display:none}
-.header-nav-row{display:none}
 .header-mobile-toggle{display:block;left:14px;padding:6px}
 .header-mobile-toggle svg{width:20px;height:20px}
 .about-tabs{gap:22px;padding:18px 16px;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;top:var(--logo-h)}
@@ -177,6 +216,10 @@ footer{background:var(--navy-deep);color:var(--cream);padding:96px 0 40px}
 .slide-arrow.prev{left:4px}
 .slide-arrow.next{right:4px}
 .slide-arrow svg{width:22px;height:22px}
+.slide-image-wrap img{
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0.6) 88%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0.6) 88%, rgba(0,0,0,0) 100%);
+}
 .house-section{padding:56px 24px 80px}
 .house-intro{margin-bottom:64px}
 .house-code{grid-template-columns:1fr;gap:14px;padding:28px 0}
@@ -192,6 +235,7 @@ footer{padding:64px 0 36px}
 @media (max-width:520px){
 .slide-chapter{font-size:28px}
 .footer-nav{grid-template-columns:1fr;gap:32px}
+.header-utility-link{display:none}
 }
 </style>
 </head>
@@ -209,6 +253,7 @@ footer{padding:64px 0 36px}
     </button>
     <a href="index.html" class="header-logo">MAISON D&rsquo;VUE</a>
     <div class="header-utility">
+      <a href="about.html" class="header-utility-link active">About</a>
       <button class="header-utility-btn" type="button" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
       </button>
@@ -220,17 +265,6 @@ footer{padding:64px 0 36px}
       </a>
     </div>
   </div>
-  <nav class="header-nav-row">
-    <ul class="header-nav">
-      <li><a href="about.html" class="active">About</a></li>
-      <li><a href="product.html">The Elixir</a></li>
-      <li><a href="product.html#formulation">The Formula</a></li>
-      <li><a href="product.html#ritual">The Ritual</a></li>
-      <li><a href="product.html#origins">Origins</a></li>
-      <li><a href="product.html#reviews">Reviews</a></li>
-      <li><a href="product.html#reserve">Reserve</a></li>
-    </ul>
-  </nav>
 </header>
 
 <nav class="mobile-menu" id="mobileMenu">
@@ -252,6 +286,7 @@ footer{padding:64px 0 36px}
 
 <main>
 
+  <!-- ════════ PANEL 1 — MASIELA LUSHA ════════ -->
   <section class="about-panel active" id="panel-founder" role="tabpanel">
     <div class="slideshow-section">
       <div class="slideshow-head">
@@ -259,10 +294,10 @@ footer{padding:64px 0 36px}
         <h2 class="slideshow-title">Masiela Lusha</h2>
       </div>
       <div class="slideshow">
-        <button class="slide-arrow prev" type="button" aria-label="Previous chapter" data-slideshow="founder" data-action="prev">
+        <button class="slide-arrow prev" type="button" aria-label="Previous" data-slideshow="founder" data-action="prev">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <button class="slide-arrow next" type="button" aria-label="Next chapter" data-slideshow="founder" data-action="next">
+        <button class="slide-arrow next" type="button" aria-label="Next" data-slideshow="founder" data-action="next">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="9 6 15 12 9 18"/></svg>
         </button>
         <div class="slide-track">
@@ -276,8 +311,8 @@ footer{padding:64px 0 36px}
               <div class="slide-body">
                 <p class="slide-lede">A European sensibility, cultivated across three cities.</p>
                 <div class="slide-text">
-                  <p>Her sensibility was cultivated across Tirana, Budapest, and Vienna &mdash; three cities that taught her the texture of an older Europe, where craft is a habit and slowness is a discipline. By the time her family arrived in Michigan, she had already lived inside three languages.</p>
-                  <p>English was the fourth. The slowness of becoming fluent &mdash; of learning a place by learning its words &mdash; is the formative discipline of her working life.</p>
+                  <p>Masiela&rsquo;s sensibility was cultivated across Tirana, Budapest, and Vienna &mdash; three storied cities that taught her the texture of an older Europe, where craft is a habit and slowness is a discipline. By the time her family arrived in Michigan, she had already lived inside three languages and three sovereign cultures.</p>
+                  <p>English was Masiela&rsquo;s fourth language. The slowness of finding emotion and sentiment through language &mdash; of learning a people by learning their words &mdash; is the formative discipline of her working life.</p>
                 </div>
                 <div class="slide-caption">Tirana. Budapest. Vienna. The European years.</div>
               </div>
@@ -322,7 +357,9 @@ footer{padding:64px 0 36px}
               <div class="slide-body">
                 <p class="slide-lede">Continuous, since her early twenties.</p>
                 <div class="slide-text">
-                  <p>Her humanitarian work has been continuous since her early twenties. She has served as ambassador to Prince Harry&rsquo;s Sentebale, the World Assembly of Youth, and Athgo International. She founded her own organization, Children of the World.</p>
+                  <p>Masiela&rsquo;s humanitarian work has been continuous since her early twenties. She was named the <strong>first Global Goodwill Ambassador</strong> of the World Assembly of Youth &mdash; the inaugural appointee to a role created for her, at the United Nations&rsquo; principal coordinating body for global youth, founded at Westminster Hall in 1949 and granted general consultative status with the UN Economic and Social Council.</p>
+                  <p>Masiela was named the <strong>first Ambassador</strong> for <em>Sentebale</em>, the charity established in 2006 by Prince Harry and Prince Seeiso of Lesotho in honor of their late mothers, to support children affected by HIV/AIDS in southern Africa.</p>
+                  <p>She has also served as ambassador to Athgo International. In time, Masiela founded her own &mdash; <em>Children of the World</em>.</p>
                   <p>She is an active advocate for UN Women.</p>
                 </div>
                 <div class="slide-caption">Sentebale &middot; Children of the World &middot; UN Women.</div>
@@ -356,7 +393,7 @@ footer{padding:64px 0 36px}
                 <p class="slide-lede">She lives in Los Angeles. With her husband, two children, and their dog, Hemingway.</p>
                 <div class="slide-text">
                   <p>The maison is her seventh book. <em>Affinity Compositions&trade;</em> is the language she invented for it &mdash; anhydrous botanical compositions engineered for biological affinity with the surfaces that receive them.</p>
-                  <p>The first chapter is the Hair Elixir. Makeup follows. Lifestyle follows that. The house she is building is meant to keep being read.</p>
+                  <p>The first chapter is the Hair Elixir. Makeup follows. Lifestyle, in time. The house she is composing is meant to be read across her life.</p>
                 </div>
                 <div class="slide-signature">
                   <img src="signature.png" alt="Masiela Lusha signature">
@@ -379,6 +416,7 @@ footer{padding:64px 0 36px}
     </div>
   </section>
 
+  <!-- ════════ PANEL 2 — THE HOUSE OF VUE ════════ -->
   <section class="about-panel" id="panel-house" role="tabpanel" aria-hidden="true">
     <div class="house-section">
       <div class="house-inner">
@@ -400,7 +438,7 @@ footer{padding:64px 0 36px}
           </div>
           <div class="house-code">
             <div class="house-code-label">04 &middot; Method</div>
-            <div class="house-code-text">Anhydrous formulation. Each composition is selected for biological affinity with the surface that will receive it &mdash; not adapted, not approximated. <em>The right botanical, in the right composition.</em></div>
+            <div class="house-code-text">Anhydrous formulation. Each composition is selected for biological affinity with the surface that will receive it. <em>The right botanical, in the right composition.</em></div>
           </div>
           <div class="house-code">
             <div class="house-code-label">05 &middot; Scent</div>
@@ -419,7 +457,7 @@ footer{padding:64px 0 36px}
         <div class="house-future">
           <p class="house-future-eyebrow">08 &middot; The Architecture</p>
           <h3 class="house-future-title">The house is structured to keep being read.</h3>
-          <p class="house-future-body">Haircare is the first chapter. Makeup, the second. Lifestyle &mdash; including the wardrobe &mdash; the third. Each category enters the same way: by composition, by affinity, by the same hand.</p>
+          <p class="house-future-body">Haircare is the first chapter. Makeup, the second. Lifestyle, the third. Each category enters the same way: by composition, by affinity, by the same hand.</p>
           <div class="house-future-categories">
             <div class="house-future-cat">Haircare<span class="when">Composed</span></div>
             <div class="house-future-cat">Makeup<span class="when">Forthcoming</span></div>
@@ -435,6 +473,7 @@ footer{padding:64px 0 36px}
     </div>
   </section>
 
+  <!-- ════════ PANEL 3 — INSIDE MAISON D'VUE ════════ -->
   <section class="about-panel" id="panel-inside" role="tabpanel" aria-hidden="true">
     <div class="slideshow-section">
       <div class="slideshow-head">
@@ -442,10 +481,10 @@ footer{padding:64px 0 36px}
         <h2 class="slideshow-title">Inside MAISON D&rsquo;VUE</h2>
       </div>
       <div class="slideshow">
-        <button class="slide-arrow prev" type="button" aria-label="Previous chapter" data-slideshow="inside" data-action="prev">
+        <button class="slide-arrow prev" type="button" aria-label="Previous" data-slideshow="inside" data-action="prev">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <button class="slide-arrow next" type="button" aria-label="Next chapter" data-slideshow="inside" data-action="next">
+        <button class="slide-arrow next" type="button" aria-label="Next" data-slideshow="inside" data-action="next">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="9 6 15 12 9 18"/></svg>
         </button>
         <div class="slide-track">
@@ -472,9 +511,9 @@ footer{padding:64px 0 36px}
                 <div class="slide-chapter">The Formula</div>
               </div>
               <div class="slide-body">
-                <p class="slide-lede">Fourteen rare essences. Selected, not stacked.</p>
+                <p class="slide-lede">Fourteen rare essences. Selected.</p>
                 <div class="slide-text">
-                  <p>The Vue 14&trade; formula is the maison&rsquo;s first composition. Fourteen rare botanical essences selected for their affinity with the strand &mdash; not for fashion, not for novelty, not for trend.</p>
+                  <p>The Vue 14&trade; formula is the maison&rsquo;s first composition. Fourteen rare botanical essences selected for their affinity with the strand, by the discipline of refusal.</p>
                   <p>Each essence enters the composition the way a word enters a line of poetry: <em>only if it belongs there.</em> What cannot be replaced or removed is what remains.</p>
                 </div>
                 <div class="slide-caption">Vue 14&trade;. The house&rsquo;s first composition.</div>
@@ -489,7 +528,7 @@ footer{padding:64px 0 36px}
               <div class="slide-body">
                 <p class="slide-lede">&Acirc;me de Vue. The soul of the house.</p>
                 <div class="slide-text">
-                  <p>A single scent signs every composition the house will ever make: <em>&Acirc;me de Vue.</em> Australian Sandalwood for warmth and depth. Bulgarian Rose for lift and light.</p>
+                  <p>A single scent signs every composition the house will ever make: <em>&Acirc;me de Vue.</em> &Acirc;me &mdash; the soul. Australian Sandalwood for warmth and depth. Bulgarian Rose for lift and light.</p>
                   <p>The composition is intentionally familial. A woman wearing the Hair Elixir, in time the lipstick, in time the cashmere &mdash; will recognize the same scent threading the entire wardrobe. The house has a signature, and the signature is consistent.</p>
                 </div>
                 <div class="slide-caption">&Acirc;me de Vue&trade;. Australian Sandalwood &middot; Bulgarian Rose.</div>
@@ -504,7 +543,6 @@ footer{padding:64px 0 36px}
               <div class="slide-body">
                 <p class="slide-lede">Composed by selection. Composed by affinity.</p>
                 <div class="slide-text">
-                  <p>The maison&rsquo;s method is the poet&rsquo;s method. A composition is built by selecting what belongs and removing what does not. The discipline is not in addition &mdash; the discipline is in refusal.</p>
                   <p>Each formula is led by the founder herself. Every botanical that enters the composition has passed through her hand. Every line of language describing it &mdash; the same.</p>
                 </div>
                 <div class="slide-caption">Composed in Beverly Hills.</div>
@@ -519,25 +557,10 @@ footer{padding:64px 0 36px}
               <div class="slide-body">
                 <p class="slide-lede">Haircare. Makeup. Lifestyle. By the same hand.</p>
                 <div class="slide-text">
-                  <p>The house is structured to keep being read. Haircare is the first chapter &mdash; composed and released. Makeup is the second &mdash; in formulation. Lifestyle, including the wardrobe, is the third.</p>
-                  <p>Each category enters the same way: by composition, by affinity, by the discipline that selected the first essence of the first elixir. The maison&rsquo;s language scales because <em>Affinity Compositions&trade;</em> is not a product category. It is a method.</p>
+                  <p>The house is structured to keep being read. Haircare is the first chapter &mdash; composed and released. Makeup is the second &mdash; in formulation. Lifestyle, the third.</p>
+                  <p>Each category enters the same way: by composition, by affinity, by the discipline that selected the first essence of the first elixir. The maison&rsquo;s language scales because <em>Affinity Compositions&trade;</em> is a method.</p>
                 </div>
                 <div class="slide-caption">Chapters one through three. The architecture of the house.</div>
-              </div>
-            </article>
-
-            <article class="slide">
-              <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="">
-                <div class="slide-chapter">The House</div>
-              </div>
-              <div class="slide-body">
-                <p class="slide-lede">Independent. Founder-led. Privately held.</p>
-                <div class="slide-text">
-                  <p>MAISON D&rsquo;VUE is held privately by MDV Group, LLC &mdash; founded, owned, and directed by Masiela Lusha alone. Every decision the house has made has passed through her.</p>
-                  <p>That structure is the house&rsquo;s most expensive design choice &mdash; and the one it will not negotiate. The maison and the founder are the same hand.</p>
-                </div>
-                <div class="slide-caption">MDV Group, LLC &middot; Beverly Hills, California.</div>
               </div>
             </article>
 
@@ -546,7 +569,7 @@ footer{padding:64px 0 36px}
         <div class="slide-counter">
           <span class="current" data-counter="inside">1</span>
           <span style="opacity:0.4;margin:0 8px;">/</span>
-          <span data-total="inside">6</span>
+          <span data-total="inside">5</span>
         </div>
       </div>
     </div>
@@ -589,22 +612,14 @@ footer{padding:64px 0 36px}
 <script>
 function dismissPromoRibbon(){
   document.getElementById('promoRibbon').classList.add('dismissed');
-  var d = new Date();
-  d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+  var d = new Date(); d.setTime(d.getTime() + (30*24*60*60*1000));
   document.cookie = 'mdv_ribbon_dismissed=1;expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
 }
 if (document.cookie.indexOf('mdv_ribbon_dismissed=1') !== -1) {
   document.getElementById('promoRibbon').classList.add('dismissed');
 }
-
-function openMobileMenu(){
-  document.getElementById('mobileMenu').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeMobileMenu(){
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.body.style.overflow = '';
-}
+function openMobileMenu(){ document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMobileMenu(){ document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = ''; }
 
 (function(){
   var tabs = document.querySelectorAll('.about-tab');
@@ -651,12 +666,8 @@ function closeMobileMenu(){
       if (prevBtn) prevBtn.disabled = state.current === 0;
       if (nextBtn) nextBtn.disabled = state.current === total - 1;
     }
-    if (prevBtn) prevBtn.addEventListener('click', function(){
-      if (state.current > 0) { state.current--; update(); }
-    });
-    if (nextBtn) nextBtn.addEventListener('click', function(){
-      if (state.current < total - 1) { state.current++; update(); }
-    });
+    if (prevBtn) prevBtn.addEventListener('click', function(){ if (state.current > 0) { state.current--; update(); } });
+    if (nextBtn) nextBtn.addEventListener('click', function(){ if (state.current < total - 1) { state.current++; update(); } });
     shows[key] = { state: state, update: update };
     update();
   }
