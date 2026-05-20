@@ -703,11 +703,13 @@ footer{padding:64px 0 36px}
       <div class="footer-nav">
         <div class="footer-col">
           <div class="footer-col-label">The House</div>
-          <a href="about.html">About</a>
+          <a href="about.html#founder">Masiela Lusha</a>
+          <a href="about.html#house">The House of Vue</a>
+          <a href="about.html#inside">Inside MAISON D&rsquo;VUE</a>
         </div>
         <div class="footer-col">
           <div class="footer-col-label">The Product</div>
-          <a href="product.html#formulation">The Elixir</a>
+          <a href="product.html#formulation">The Formula</a>
           <a href="product.html#ritual">The Ritual</a>
           <a href="product.html#origins">Origins</a>
           <a href="product.html#reviews">Reviews</a>
@@ -715,6 +717,8 @@ footer{padding:64px 0 36px}
         <div class="footer-col">
           <div class="footer-col-label">Access</div>
           <a href="product.html#reserve">Reserve</a>
+          <a href="https://maisondvue.com">Join the Founder&rsquo;s Circle</a>
+          <a href="mailto:hello@maisondvue.com">Contact</a>
           <a href="mailto:press@maisondvue.com">Press Inquiries</a>
         </div>
       </div>
@@ -761,7 +765,7 @@ document.addEventListener('keydown', function(e){
     'house': document.getElementById('panel-house'),
     'inside': document.getElementById('panel-inside')
   };
-  function activate(panelKey){
+  function activate(panelKey, shouldScroll){
     tabs.forEach(function(t){
       var isActive = t.getAttribute('data-panel') === panelKey;
       t.classList.toggle('active', isActive);
@@ -772,12 +776,20 @@ document.addEventListener('keydown', function(e){
       panels[k].setAttribute('aria-hidden', k === panelKey ? 'false' : 'true');
     });
     if (history.replaceState) history.replaceState(null, '', '#' + panelKey);
+    // When a user clicks a tab, scroll to the top so they start reading the
+    // new panel from its beginning. Brief timeout lets the panel switch
+    // complete before the scroll begins, preventing layout-shift jitter.
+    if (shouldScroll) {
+      setTimeout(function(){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
+    }
   }
   tabs.forEach(function(t){
-    t.addEventListener('click', function(){ activate(t.getAttribute('data-panel')); });
+    t.addEventListener('click', function(){ activate(t.getAttribute('data-panel'), true); });
   });
   var hash = (window.location.hash || '').replace('#', '');
-  if (hash && panels[hash]) activate(hash);
+  if (hash && panels[hash]) activate(hash, false);
 })();
 
 (function(){
