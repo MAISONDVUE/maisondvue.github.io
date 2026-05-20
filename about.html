@@ -21,12 +21,12 @@
 <meta property="og:url" content="https://maisondvue.com/about.html">
 <meta property="og:title" content="About — MAISON D'VUE">
 <meta property="og:description" content="MAISON D'VUE. The House of Affinity Compositions. Founded by Masiela Lusha.">
-<meta property="og:image" content="https://maisondvue.com/founder-portrait.jpg">
+<meta property="og:image" content="https://maisondvue.com/masiela-lusha-founder-portrait.jpg">
 <meta property="og:site_name" content="MAISON D'VUE">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About — MAISON D'VUE">
-<meta name="twitter:image" content="https://maisondvue.com/founder-portrait.jpg">
+<meta name="twitter:image" content="https://maisondvue.com/masiela-lusha-founder-portrait.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,6 +80,18 @@ button{font:inherit;cursor:pointer}
 .about-panel.active{display:block;animation:panelIn 480ms ease both}
 @keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
+/* FOUNDER HERO — Chanel-cadence opening, horizontal editorial layout */
+.founder-hero{background:var(--warm-white);padding:104px 0 120px;position:relative}
+.founder-hero-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}
+.founder-hero-text{padding-right:24px}
+.founder-hero-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:36px;line-height:1.4}
+.founder-hero-name{font-family:var(--font-display);font-weight:300;font-size:clamp(48px,6.4vw,88px);letter-spacing:0.005em;color:var(--navy);line-height:0.98;margin-bottom:44px}
+.founder-hero-tagline{font-family:var(--font-italic);font-style:italic;font-size:clamp(20px,1.9vw,26px);line-height:1.5;color:var(--navy);letter-spacing:0.005em;margin-bottom:44px;max-width:480px}
+.founder-hero-divider{width:60px;height:1px;background:var(--gold);margin-bottom:32px}
+.founder-hero-provenance{font-family:var(--font-display);font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:var(--navy);line-height:1.6;opacity:0.78}
+.founder-hero-image{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--ivory)}
+.founder-hero-image img{width:100%;height:100%;object-fit:cover;display:block}
+
 /* SLIDESHOW */
 .slideshow-section{background:var(--navy-deeper);color:var(--cream);padding:80px 0 120px;min-height:720px}
 .slideshow-head{text-align:center;margin-bottom:64px;padding:0 24px}
@@ -105,7 +117,6 @@ button{font:inherit;cursor:pointer}
   height:100%;
   object-fit:cover;
   filter:grayscale(100%) contrast(1.08) brightness(0.98);
-  /* The gradient mask — photo dissolves into navy on right + bottom */
   -webkit-mask-image:
     linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0) 100%),
     linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0.6) 88%, rgba(0,0,0,0) 100%);
@@ -115,14 +126,12 @@ button{font:inherit;cursor:pointer}
     linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0.6) 88%, rgba(0,0,0,0) 100%);
   mask-composite: intersect;
 }
-/* Fallback for browsers without mask-composite (Firefox older) — single combined gradient */
 @supports not (mask-composite: intersect) {
   .slide-image-wrap img{
     -webkit-mask-image: radial-gradient(ellipse 110% 110% at 30% 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
     mask-image: radial-gradient(ellipse 110% 110% at 30% 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
   }
 }
-/* Subtle vignette to pull attention inward */
 .slide-image-wrap::after{
   content:'';
   position:absolute;
@@ -208,6 +217,14 @@ footer{background:var(--navy-deep);color:var(--cream);padding:96px 0 40px}
 .about-tabs{gap:22px;padding:18px 16px;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;top:var(--logo-h)}
 .about-tabs::-webkit-scrollbar{display:none}
 .about-tab{font-size:11px;letter-spacing:0.22em;white-space:nowrap;flex-shrink:0}
+.founder-hero{padding:56px 0 72px}
+.founder-hero-inner{grid-template-columns:1fr;gap:48px;padding:0 28px}
+.founder-hero-text{padding-right:0;order:2;text-align:center}
+.founder-hero-image{order:1;max-width:340px;margin:0 auto;width:100%}
+.founder-hero-eyebrow{margin-bottom:24px}
+.founder-hero-name{margin-bottom:28px}
+.founder-hero-tagline{margin-bottom:32px;margin-left:auto;margin-right:auto}
+.founder-hero-divider{margin-left:auto;margin-right:auto}
 .slideshow-section{padding:56px 0 80px}
 .slideshow{padding:0 48px}
 .slide{grid-template-columns:1fr;gap:32px}
@@ -236,6 +253,7 @@ footer{padding:64px 0 36px}
 .slide-chapter{font-size:28px}
 .footer-nav{grid-template-columns:1fr;gap:32px}
 .header-utility-link{display:none}
+.founder-hero-name{font-size:44px}
 }
 </style>
 </head>
@@ -288,10 +306,28 @@ footer{padding:64px 0 36px}
 
   <!-- ════════ PANEL 1 — MASIELA LUSHA ════════ -->
   <section class="about-panel active" id="panel-founder" role="tabpanel">
+
+    <!-- HERO — Chanel cadence opening -->
+    <div class="founder-hero">
+      <div class="founder-hero-inner">
+        <div class="founder-hero-text">
+          <p class="founder-hero-eyebrow">Founder &amp; Creative Director</p>
+          <h1 class="founder-hero-name">Masiela Lusha</h1>
+          <p class="founder-hero-tagline">A poet&rsquo;s discipline. A composer&rsquo;s hand. A house composed in fourteen essences.</p>
+          <div class="founder-hero-divider"></div>
+          <p class="founder-hero-provenance">Beverly Hills &middot; 2026</p>
+        </div>
+        <div class="founder-hero-image">
+          <img src="masiela-lusha-founder-portrait.jpg" alt="Masiela Lusha — founder and creative director of MAISON D'VUE, the American luxury house pioneering Affinity Compositions">
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDESHOW — A Life in Compositions -->
     <div class="slideshow-section">
       <div class="slideshow-head">
         <p class="slideshow-eyebrow">A Life in Compositions</p>
-        <h2 class="slideshow-title">Masiela Lusha</h2>
+        <h2 class="slideshow-title">Chapters</h2>
       </div>
       <div class="slideshow">
         <button class="slide-arrow prev" type="button" aria-label="Previous" data-slideshow="founder" data-action="prev">
@@ -305,7 +341,7 @@ footer{padding:64px 0 36px}
 
             <article class="slide">
               <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="Masiela Lusha">
+                <img src="masiela-lusha-mozart-vienna.jpg" alt="Masiela Lusha as a child at the Mozart Denkmal in Vienna's Burggarten, during the European years that shaped the founder of MAISON D'VUE">
                 <div class="slide-chapter">Origin</div>
               </div>
               <div class="slide-body">
@@ -314,13 +350,13 @@ footer{padding:64px 0 36px}
                   <p>Masiela&rsquo;s sensibility was cultivated across Tirana, Budapest, and Vienna &mdash; three storied cities that taught her the texture of an older Europe, where craft is a habit and slowness is a discipline. By the time her family arrived in Michigan, she had already lived inside three languages and three sovereign cultures.</p>
                   <p>English was Masiela&rsquo;s fourth language. The slowness of finding emotion and sentiment through language &mdash; of learning a people by learning their words &mdash; is the formative discipline of her working life.</p>
                 </div>
-                <div class="slide-caption">Tirana. Budapest. Vienna. The European years.</div>
+                <div class="slide-caption">Vienna. The Mozart Denkmal, Burggarten. The European years.</div>
               </div>
             </article>
 
             <article class="slide">
               <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="Masiela Lusha">
+                <img src="masiela-lusha-boopity-boop-book-signing.jpg" alt="Masiela Lusha with a young reader holding her children's book Boopity Boop! Writes Her First Poem, illustrated by Romi Caron — one of seven books authored by the founder of MAISON D'VUE">
                 <div class="slide-chapter">The Writer</div>
               </div>
               <div class="slide-body">
@@ -351,7 +387,7 @@ footer{padding:64px 0 36px}
 
             <article class="slide">
               <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="Masiela Lusha">
+                <img src="masiela-lusha-world-assembly-of-youth-melaka-malaysia.jpg" alt="Masiela Lusha at the World Assembly of Youth gathering in Melaka, Malaysia, where she served as the first Global Goodwill Ambassador — part of the humanitarian work that shaped the founder of MAISON D'VUE">
                 <div class="slide-chapter">The Humanitarian</div>
               </div>
               <div class="slide-body">
@@ -362,13 +398,13 @@ footer{padding:64px 0 36px}
                   <p>She has also served as ambassador to Athgo International. In time, Masiela founded her own &mdash; <em>Children of the World</em>.</p>
                   <p>She is an active advocate for UN Women.</p>
                 </div>
-                <div class="slide-caption">Sentebale &middot; Children of the World &middot; UN Women.</div>
+                <div class="slide-caption">World Assembly of Youth. Melaka, Malaysia.</div>
               </div>
             </article>
 
             <article class="slide">
               <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="Masiela Lusha">
+                <img src="masiela-lusha-formulating-vue-14.jpg" alt="Masiela Lusha formulating the Vue 14 composition by dropper — the founder of MAISON D'VUE composing the maison's first elixir of fourteen rare botanical essences">
                 <div class="slide-chapter">The Maison</div>
               </div>
               <div class="slide-body">
@@ -537,7 +573,7 @@ footer{padding:64px 0 36px}
 
             <article class="slide">
               <div class="slide-image-wrap">
-                <img src="founder-portrait.jpg" alt="">
+                <img src="maison-dvue-wax-seal-monogram.jpg" alt="The MAISON D'VUE wax seal — a navy cobalt impression bearing the maison's monogram, signing each composition led by founder Masiela Lusha">
                 <div class="slide-chapter">The Method</div>
               </div>
               <div class="slide-body">
@@ -545,7 +581,7 @@ footer{padding:64px 0 36px}
                 <div class="slide-text">
                   <p>Each formula is led by the founder herself. Every botanical that enters the composition has passed through her hand. Every line of language describing it &mdash; the same.</p>
                 </div>
-                <div class="slide-caption">Composed in Beverly Hills.</div>
+                <div class="slide-caption">Signed by the founder. Composed in Beverly Hills.</div>
               </div>
             </article>
 
