@@ -1029,7 +1029,8 @@
     background: var(--cobalt);
   }
 
-  .ritual-image img {
+  .ritual-image img,
+  .ritual-image video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -2701,7 +2702,9 @@
       <div class="ritual-grid">
         <div class="ritual-step">
           <div class="ritual-image">
-            <img src="ritual-drops.jpg" alt="Five drops of MAISON D'VUE Hair Elixir suspended over an open palm">
+            <video class="ritual-video" poster="ritual-drops.jpg" muted loop playsinline preload="metadata" aria-label="Five drops of MAISON D'VUE Hair Elixir falling into an open palm">
+              <source src="ritual-drops.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="ritual-num">01</div>
           <div class="ritual-title">Five drops</div>
@@ -3502,6 +3505,24 @@
       lettersSubmit.textContent = origLabel;
     }
   });
+</script>
+
+<script>
+  /* Ritual step 01 — play the drip clip on hover */
+  (function () {
+    var video = document.querySelector('.ritual-video');
+    if (!video) return;
+    var step = video.closest('.ritual-step');
+    if (!step) return;
+    step.addEventListener('mouseenter', function () {
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+    step.addEventListener('mouseleave', function () {
+      video.pause();
+      video.currentTime = 0;
+    });
+  })();
 </script>
 
 </body>
