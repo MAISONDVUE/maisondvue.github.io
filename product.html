@@ -1042,6 +1042,71 @@
     transform: scale(1.04);
   }
 
+  /* ─── STEP 01 — elixir drip animation on hover ─── */
+  .ritual-image--drip .drip-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .ritual-image--drip .drip-drop,
+  .ritual-image--drip .drip-splash {
+    position: absolute;
+    opacity: 0;
+  }
+  .ritual-image--drip .drip-drop {
+    top: 24%;
+    left: 49%;
+    width: 8px;
+    height: 11px;
+    margin-left: -4px;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    background: radial-gradient(ellipse at 38% 30%, #f6d9a4 0%, #d9a441 46%, #9c6418 100%);
+    box-shadow: 0 0 7px rgba(217, 164, 65, 0.55);
+  }
+  .ritual-image--drip .drip-splash {
+    top: 74%;
+    left: 46%;
+    width: 64px;
+    height: 26px;
+    margin-left: -32px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(246, 217, 164, 0.5) 0%, rgba(217, 164, 65, 0) 72%);
+  }
+  @keyframes drip-fall {
+    0%   { top: 24%; opacity: 0; transform: scale(0.45); }
+    9%   { opacity: 1; transform: scale(1); }
+    74%  { top: 70%; opacity: 1; transform: scale(1); }
+    88%  { top: 77%; opacity: 1; transform: scaleX(1) scaleY(1); }
+    95%  { top: 77%; opacity: 0.85; transform: scaleX(2) scaleY(0.32); }
+    100% { top: 77%; opacity: 0; transform: scaleX(2.4) scaleY(0.22); }
+  }
+  @keyframes drip-splash {
+    0%, 58% { opacity: 0; transform: scale(0.5); }
+    72%     { opacity: 0.8; transform: scale(1); }
+    100%    { opacity: 0; transform: scale(1.4); }
+  }
+  .ritual-step:hover .ritual-image--drip .drip-drop {
+    animation: drip-fall 2.4s cubic-bezier(0.55, 0, 0.85, 0.4) infinite;
+  }
+  .ritual-step:hover .ritual-image--drip .drip-drop:nth-child(2) { animation-delay: 0.48s; }
+  .ritual-step:hover .ritual-image--drip .drip-drop:nth-child(3) { animation-delay: 0.96s; }
+  .ritual-step:hover .ritual-image--drip .drip-drop:nth-child(4) { animation-delay: 1.44s; }
+  .ritual-step:hover .ritual-image--drip .drip-drop:nth-child(5) { animation-delay: 1.92s; }
+  .ritual-step:hover .ritual-image--drip .drip-splash {
+    animation: drip-splash 0.48s ease-out infinite;
+    animation-delay: 0.34s;
+  }
+  .ritual-step:hover .ritual-image--drip img {
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ritual-step:hover .ritual-image--drip .drip-drop,
+    .ritual-step:hover .ritual-image--drip .drip-splash {
+      animation: none;
+    }
+  }
+
   .ritual-num {
     font-family: var(--font-display);
     font-style: italic;
@@ -2700,8 +2765,16 @@
 
       <div class="ritual-grid">
         <div class="ritual-step">
-          <div class="ritual-image">
+          <div class="ritual-image ritual-image--drip">
             <img src="ritual-drops.jpg" alt="Five drops of MAISON D'VUE Hair Elixir suspended over an open palm">
+            <span class="drip-layer" aria-hidden="true">
+              <i class="drip-drop"></i>
+              <i class="drip-drop"></i>
+              <i class="drip-drop"></i>
+              <i class="drip-drop"></i>
+              <i class="drip-drop"></i>
+              <i class="drip-splash"></i>
+            </span>
           </div>
           <div class="ritual-num">01</div>
           <div class="ritual-title">Five drops</div>
