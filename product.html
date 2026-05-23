@@ -893,14 +893,37 @@
     margin-bottom: 22px;
   }
 
-  .formulation-lede {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 19px;
-    line-height: 1.5;
+  .formulation-mark {
+    margin-top: 2px;
+  }
+
+  .formulation-mark-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  .formulation-mark-title .tm {
+    font-size: 0.55em;
+    vertical-align: super;
+    letter-spacing: 0.05em;
+    margin-left: 2px;
+    font-weight: 400;
+  }
+
+  .formulation-mark-status {
+    margin-top: 10px;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
     color: var(--gold-muted);
-    max-width: 340px;
-    letter-spacing: 0.01em;
+    line-height: 1;
   }
 
   .formulation-copy { max-width: 620px; }
@@ -2189,8 +2212,13 @@
       line-height: 1.75;
     }
 
-    .formulation-lede {
-      font-size: 17px;
+    .formulation-mark-title {
+      font-size: 12px;
+      letter-spacing: 0.34em;
+    }
+    .formulation-mark-status {
+      font-size: 9px;
+      letter-spacing: 0.38em;
     }
 
     .ritual-text {
@@ -2647,7 +2675,10 @@
       <div class="formulation-left">
         <p class="label">The Formulation</p>
         <h2 class="display formulation-title">Fourteen essences.<br>One system.</h2>
-        <p class="formulation-lede">A composition, not a coincidence.</p>
+        <div class="formulation-mark">
+          <p class="formulation-mark-title">VUE Affinity Matrix<span class="tm">&trade;</span></p>
+          <p class="formulation-mark-status">Patent Pending</p>
+        </div>
       </div>
 
       <div class="formulation-copy">
