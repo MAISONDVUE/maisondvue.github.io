@@ -957,6 +957,14 @@
     color: var(--gold);
     margin-bottom: 14px;
     letter-spacing: -0.01em;
+    height: clamp(48px, 5.4vw, 76px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .number-value.is-word {
+    font-size: clamp(28px, 3vw, 40px);
   }
 
   .number-unit {
@@ -2374,6 +2382,11 @@
     .number-value {
       font-size: 56px;
       margin-bottom: 10px;
+      height: 56px;
+    }
+
+    .number-value.is-word {
+      font-size: 34px;
     }
 
     .effect-item {
@@ -2699,7 +2712,7 @@
 
         <div class="formulation-numbers">
           <div class="number-block">
-            <div class="number-value" style="font-size:clamp(28px,3vw,40px);line-height:1.1;">Botanical</div>
+            <div class="number-value is-word">Botanical</div>
             <div class="number-label">Composition</div>
           </div>
           <div class="number-block">
