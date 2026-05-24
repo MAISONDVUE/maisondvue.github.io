@@ -2754,7 +2754,9 @@
         </div>
         <div class="ritual-step">
           <div class="ritual-image">
-            <img src="ritual-warm.jpg" alt="Hands pressed together, warming the elixir between the palms">
+            <video class="ritual-video" poster="ritual-warm.jpg" muted loop playsinline preload="metadata" aria-label="Hands rubbing together, warming the MAISON D'VUE Hair Elixir between the palms until the essences open">
+              <source src="ritual-warm.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="ritual-num">02</div>
           <div class="ritual-title">Warmed between the palms</div>
@@ -3550,19 +3552,20 @@
 </script>
 
 <script>
-  /* Ritual step 01 — play the drip clip on hover */
+  /* Ritual steps — play each step's clip on hover */
   (function () {
-    var video = document.querySelector('.ritual-video');
-    if (!video) return;
-    var step = video.closest('.ritual-step');
-    if (!step) return;
-    step.addEventListener('mouseenter', function () {
-      var p = video.play();
-      if (p && p.catch) p.catch(function () {});
-    });
-    step.addEventListener('mouseleave', function () {
-      video.pause();
-      video.currentTime = 0;
+    var videos = document.querySelectorAll('.ritual-video');
+    videos.forEach(function (video) {
+      var step = video.closest('.ritual-step');
+      if (!step) return;
+      step.addEventListener('mouseenter', function () {
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+      step.addEventListener('mouseleave', function () {
+        video.pause();
+        video.currentTime = 0;
+      });
     });
   })();
 </script>
