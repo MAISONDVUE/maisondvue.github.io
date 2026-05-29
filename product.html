@@ -926,7 +926,79 @@
     line-height: 1;
   }
 
-  .formulation-copy { max-width: 620px; }
+  .formulation-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .formulation-mark-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formulation-toggle-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .formulation-toggle-icon::before,
+  .formulation-toggle-icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: var(--gold);
+  }
+
+  .formulation-toggle-icon::before {
+    width: 16px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  .formulation-toggle-icon::after {
+    width: 1px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .formulation-toggle[aria-expanded="true"] .formulation-toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .formulation-patent-note {
+    margin-top: 22px;
+    max-width: 400px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+  }
+
+  .formulation-copy {
+    max-width: 620px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.65s ease, opacity 0.5s ease;
+  }
+
+  .formulation-copy.open {
+    max-height: 1600px;
+    opacity: 1;
+  }
 
   .formulation-copy .copy {
     margin-bottom: 22px;
@@ -1051,10 +1123,92 @@
     white-space: nowrap;
   }
 
+  .ritual-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin-top: 24px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ritual-toggle-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ritual-mark-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .ritual-mark-status {
+    margin-top: 10px;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    line-height: 1;
+  }
+
+  .ritual-toggle-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .ritual-toggle-icon::before,
+  .ritual-toggle-icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: var(--gold);
+  }
+
+  .ritual-toggle-icon::before {
+    width: 16px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  .ritual-toggle-icon::after {
+    width: 1px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .ritual-toggle[aria-expanded="true"] .ritual-toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
   .ritual-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 48px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.7s ease, opacity 0.5s ease;
+  }
+
+  .ritual-grid.open {
+    max-height: 3000px;
+    opacity: 1;
   }
 
   .ritual-step {
@@ -1149,6 +1303,90 @@
     line-height: 1.8;
     max-width: 580px;
     margin: 0 auto;
+  }
+
+  .origins-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 38px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .origins-toggle-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .origins-mark-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    line-height: 1.2;
+  }
+
+  .origins-mark-status {
+    margin-top: 10px;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    line-height: 1;
+  }
+
+  .origins-toggle-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .origins-toggle-icon::before,
+  .origins-toggle-icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: var(--gold);
+  }
+
+  .origins-toggle-icon::before {
+    width: 16px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  .origins-toggle-icon::after {
+    width: 1px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .origins-toggle[aria-expanded="true"] .origins-toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .origins-collapse {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.7s ease, opacity 0.5s ease;
+  }
+
+  .origins-collapse.open {
+    opacity: 1;
   }
 
   .origin-heroes {
@@ -1346,57 +1584,6 @@
     max-width: 580px;
     margin: 0 auto;
     padding: 0 24px;
-  }
-
-  /* ─── PHILOSOPHY (NAVY) ─── */
-  .philosophy {
-    background: var(--navy);
-    color: var(--cream);
-  }
-
-  .philosophy .copy {
-    color: rgba(249, 246, 240, 0.88);
-    font-size: 18px;
-    line-height: 1.85;
-  }
-  .philosophy .display { color: var(--cream); }
-
-  .philosophy-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 90px;
-    align-items: center;
-  }
-
-  .philosophy-grid h2 {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(24px, 2.2vw, 34px);
-    line-height: 1.15;
-    letter-spacing: 0.01em;
-    margin-bottom: 28px;
-  }
-
-  .principles {
-    border-top: 1px solid var(--line-dark);
-  }
-
-  .principle {
-    padding: 24px 0;
-    border-bottom: 1px solid var(--line-dark);
-    font-size: 17px;
-    line-height: 1.8;
-    color: rgba(249, 246, 240, 0.88);
-  }
-
-  .principle span {
-    font-family: var(--font-display);
-    color: var(--gold);
-    font-size: 12px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 10px;
   }
 
   /* ─── REVIEWS (CREAM) ─── */
@@ -2221,9 +2408,7 @@
     .copy,
     .formulation-copy .copy,
     .ritual .copy,
-    .philosophy .copy,
     .origins-head .copy,
-    .principle,
     .final-buy .copy,
     .effect-text,
     .faq-list p {
@@ -2353,8 +2538,7 @@
     .section-inner { padding: 0 24px; }
 
     .formulation-grid,
-    .ritual-head,
-    .philosophy-grid {
+    .ritual-head {
       grid-template-columns: 1fr;
       gap: 48px;
     }
@@ -2544,7 +2728,7 @@
 <!-- ═══ PROMO RIBBON ═══ -->
 <div class="promo-ribbon" id="promoRibbon">
   <p class="promo-ribbon-text">
-    Complimentary shipping on every Allocation
+    Complimentary shipping &middot; Founder&rsquo;s Circle access
   </p>
   <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
@@ -2699,14 +2883,18 @@
       <div class="formulation-left">
         <p class="label">The Formulation</p>
         <h2 class="display formulation-title">The Total<br>Renewal Ritual.</h2>
-        <div class="formulation-mark">
-          <p class="formulation-mark-title">VUE Affinity Matrix<span class="tm">&trade;</span></p>
-          <p class="formulation-mark-status">Patent Pending</p>
-        </div>
+        <button class="formulation-mark formulation-toggle" type="button" id="matrixToggle" aria-expanded="false" aria-controls="matrixPanel" onclick="toggleMatrix()">
+          <span class="formulation-mark-text">
+            <span class="formulation-mark-title">VUE Affinity Matrix<span class="tm">&trade;</span></span>
+            <span class="formulation-mark-status">Patent Pending &middot; Tap to read</span>
+          </span>
+          <span class="formulation-toggle-icon" aria-hidden="true"></span>
+        </button>
+        <p class="formulation-patent-note">A patent-pending composition system governing how fourteen plant-derived essences are drawn into affinity with the hair fiber.</p>
       </div>
 
-      <div class="formulation-copy">
-        <p class="copy">A patent-pending composition system governing how fourteen plant-derived essences are drawn into affinity with the hair fiber &mdash; each selected for its weight, texture, absorption profile, and the manner in which it settles upon the strand. Composed to behave as one, the formula envelops the hair in weightless nourishment, glass-like luminosity, softness, and fluid movement from first light to last.</p>
+      <div class="formulation-copy" id="matrixPanel" role="region" aria-labelledby="matrixToggle">
+        <p class="copy">Each essence is selected for its weight, texture, absorption profile, and the manner in which it settles upon the strand. Composed to behave as one, the formula envelops the hair in weightless nourishment, glass-like luminosity, softness, and fluid movement from first light to last.</p>
 
         <p class="copy">Composed of fourteen rare botanicals, the ritual leaves the appearance of each strand more supple, smooth, luminous, and visibly renewed with continued use.</p>
 
@@ -2737,11 +2925,18 @@
         <div>
           <p class="label">The Ritual</p>
           <h2 class="display">Five drops. Three motions. One ritual.</h2>
+          <button class="ritual-toggle" type="button" id="ritualToggle" aria-expanded="false" aria-controls="ritualPanel" onclick="toggleRitual()">
+            <span class="ritual-toggle-text">
+              <span class="ritual-mark-title">The Sequence</span>
+              <span class="ritual-mark-status">Three motions &middot; Tap to view</span>
+            </span>
+            <span class="ritual-toggle-icon" aria-hidden="true"></span>
+          </button>
         </div>
         <p class="copy">A quiet sequence. Worn in the morning, the evening, or both.</p>
       </div>
 
-      <div class="ritual-grid">
+      <div class="ritual-grid" id="ritualPanel" role="region" aria-labelledby="ritualToggle">
         <div class="ritual-step">
           <div class="ritual-image">
             <video class="ritual-video" poster="ritual-drops.jpg" muted loop playsinline preload="metadata" aria-label="Five drops of MAISON D'VUE Hair Elixir falling into an open palm">
@@ -2783,8 +2978,16 @@
         <p class="label">Origins</p>
         <h2 class="display">Fourteen rare botanicals. From the world&rsquo;s quiet corners.</h2>
         <p class="copy">Each essence is chosen for its origin, its history, and its biological affinity with the hair fiber. None merely for ornament.</p>
+        <button class="origins-toggle" type="button" id="originsToggle" aria-expanded="false" aria-controls="originsPanel" onclick="toggleOrigins()">
+          <span class="origins-toggle-text">
+            <span class="origins-mark-title">The Fourteen</span>
+            <span class="origins-mark-status">Origins &amp; Botanicals &middot; Tap to view</span>
+          </span>
+          <span class="origins-toggle-icon" aria-hidden="true"></span>
+        </button>
       </div>
 
+      <div class="origins-collapse" id="originsPanel" role="region" aria-labelledby="originsToggle">
       <div class="origin-heroes">
 
         <article class="origin-hero">
@@ -2944,22 +3147,6 @@
       </div>
 
       <p class="fourteen">Fourteen in total. Working as one system.</p>
-    </div>
-  </section>
-
-  <!-- ═══ PHILOSOPHY ═══ -->
-  <section class="section philosophy">
-    <div class="section-inner philosophy-grid">
-      <div>
-        <p class="label">The Principle</p>
-        <h2 class="display">Composed to integrate.</h2>
-      </div>
-
-      <div class="principles">
-        <div class="principle"><span>Kindred to the fiber</span>A composition the strand recognizes. Selected for biological affinity with human hair, not merely for ornament.</div>
-        <div class="principle"><span>Nothing synthetic</span>Fourteen plant-derived essences, sourced with intention.</div>
-        <div class="principle"><span>Nothing excessive</span>No silicones. No residue. No unnecessary weight.</div>
-        <div class="principle"><span>Nothing left behind</span>A finish that disappears into the ritual, the fiber, and the light.</div>
       </div>
     </div>
   </section>
@@ -3469,6 +3656,45 @@
     const overlay = document.getElementById('lettersOverlay');
     overlay.classList.remove('visible');
     overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  function toggleMatrix() {
+    const toggle = document.getElementById('matrixToggle');
+    const panel = document.getElementById('matrixPanel');
+    if (!toggle || !panel) return;
+    const open = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function toggleRitual() {
+    const toggle = document.getElementById('ritualToggle');
+    const panel = document.getElementById('ritualPanel');
+    if (!toggle || !panel) return;
+    const open = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function toggleOrigins() {
+    const toggle = document.getElementById('originsToggle');
+    const panel = document.getElementById('originsPanel');
+    if (!toggle || !panel) return;
+    if (panel.classList.contains('open')) {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      panel.offsetHeight; // reflow so the transition has a starting height
+      panel.classList.remove('open');
+      panel.style.maxHeight = '0px';
+      toggle.setAttribute('aria-expanded', 'false');
+    } else {
+      panel.classList.add('open');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      const onEnd = function (e) {
+        if (e.propertyName !== 'max-height') return;
+        panel.style.maxHeight = 'none'; // let content reflow if media loads/resizes
+        panel.removeEventListener('transitionend', onEnd);
+      };
+      panel.addEventListener('transitionend', onEnd);
+      toggle.setAttribute('aria-expanded', 'true');
+    }
   }
 
   setTimeout(showLetters, LETTERS_DELAY_MS);
