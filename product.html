@@ -944,94 +944,6 @@
     color: var(--mid);
   }
 
-  /* ─── THE OBJECT (GALLERY) ─── */
-  .object-gallery {
-    background: var(--navy-deep);
-    color: var(--cream);
-  }
-
-  .object-head {
-    text-align: center;
-    max-width: 640px;
-    margin: 0 auto 56px;
-  }
-
-  .object-title {
-    font-size: 46px;
-    color: var(--cream);
-    margin-top: 10px;
-  }
-
-  .object-sub {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 19px;
-    color: var(--gold-soft);
-    margin-top: 14px;
-  }
-
-  .object-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 16px;
-  }
-
-  .object-cell {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--line-dark);
-    background: var(--navy-center);
-    margin: 0;
-  }
-
-  .object-cell img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 1.2s cubic-bezier(.2, .7, .2, 1);
-  }
-
-  .object-cell:hover img { transform: scale(1.04); }
-
-  .object-cell.span-5  { grid-column: span 5;  aspect-ratio: 4 / 5; }
-  .object-cell.span-7  { grid-column: span 7;  aspect-ratio: 7 / 6; }
-  .object-cell.span-4  { grid-column: span 4;  aspect-ratio: 4 / 5; }
-  .object-cell.span-12 { grid-column: span 12; aspect-ratio: 21 / 8; }
-
-  .object-caption {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 26px 24px 18px;
-    font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--cream);
-    background: linear-gradient(to top, rgba(7, 13, 34, 0.74), rgba(7, 13, 34, 0));
-    opacity: 0;
-    transition: opacity .5s ease;
-  }
-
-  .object-cell:hover .object-caption,
-  .object-cell:focus-within .object-caption { opacity: 1; }
-
-  @media (max-width: 900px) {
-    .object-cell.span-5,
-    .object-cell.span-7,
-    .object-cell.span-4 { grid-column: span 6; aspect-ratio: 4 / 5; }
-    .object-cell.span-12 { grid-column: span 12; aspect-ratio: 16 / 9; }
-  }
-
-  @media (max-width: 560px) {
-    .object-grid { gap: 10px; }
-    .object-cell.span-5,
-    .object-cell.span-7,
-    .object-cell.span-4 { grid-column: span 12; }
-    .object-cell.span-12 { aspect-ratio: 4 / 5; }
-    .object-caption { opacity: 1; }
-  }
-
   /* ─── FORMULATION (WARM WHITE) ─── */
   .formulation {
     background: var(--warm-white);
@@ -2940,7 +2852,6 @@
     <ul class="header-nav">
       <li><a href="about.html">About</a></li>
       <li><a href="product.html" class="active">The Elixir</a></li>
-      <li><a href="#gallery">The Object</a></li>
       <li><a href="#formulation">The Formula</a></li>
       <li><a href="#ritual">The Ritual</a></li>
       <li><a href="#origins">Origins</a></li>
@@ -2956,7 +2867,6 @@
   <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
   <a href="about.html" onclick="closeMobileMenu()">About</a>
   <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
-  <a href="#gallery" onclick="closeMobileMenu()">The Object</a>
   <a href="#formulation" onclick="closeMobileMenu()">The Formula</a>
   <a href="#ritual" onclick="closeMobileMenu()">The Ritual</a>
   <a href="#origins" onclick="closeMobileMenu()">Origins</a>
@@ -3054,50 +2964,6 @@
 
       <p class="purchase-provenance">Hand-sealed &middot; Beverly Hills</p>
 
-    </div>
-  </section>
-
-  <!-- ═══ THE OBJECT (GALLERY) ═══ -->
-  <section class="section object-gallery" id="gallery">
-    <div class="section-inner">
-      <div class="object-head">
-        <p class="label">The Object</p>
-        <h2 class="display object-title">Composed to be Beheld.</h2>
-        <p class="object-sub">Cobalt frosted glass, a matte gold collar, fourteen essences within.</p>
-      </div>
-      <div class="object-grid">
-
-        <figure class="object-cell span-5">
-          <img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single golden drop of MAISON D'VUE Hair Elixir suspended from the dropper above the bottle's gold cap" loading="lazy">
-          <figcaption class="object-caption">A single golden drop</figcaption>
-        </figure>
-
-        <figure class="object-cell span-7">
-          <img src="maison-dvue-elixir-styling.jpg" alt="Model with luminous, freshly styled hair holding the MAISON D'VUE Hair Elixir bottle" loading="lazy">
-          <figcaption class="object-caption">The result, worn</figcaption>
-        </figure>
-
-        <figure class="object-cell span-4">
-          <img src="maison-dvue-elixir-results.jpg" alt="Long, glossy brunette hair beside the MAISON D'VUE Hair Elixir bottle on navy silk" loading="lazy">
-          <figcaption class="object-caption">The result, in light</figcaption>
-        </figure>
-
-        <figure class="object-cell span-4">
-          <img src="maison-dvue-elixir-ingredients.jpg" alt="MAISON D'VUE Hair Elixir bottle with prickly pear and dried botanicals on a dark surface" loading="lazy">
-          <figcaption class="object-caption">Fourteen rare essences</figcaption>
-        </figure>
-
-        <figure class="object-cell span-4">
-          <img src="maison-dvue-elixir-silk.jpg" alt="MAISON D'VUE Hair Elixir bottle resting on draped golden silk" loading="lazy">
-          <figcaption class="object-caption">Navy upon gold</figcaption>
-        </figure>
-
-        <figure class="object-cell span-12">
-          <img src="maison-dvue-elixir-cap-detail.jpg" alt="Macro detail of the polished gold collar and frosted cobalt glass threads of the MAISON D'VUE Hair Elixir bottle" loading="lazy">
-          <figcaption class="object-caption">The matte gold collar</figcaption>
-        </figure>
-
-      </div>
     </div>
   </section>
 
