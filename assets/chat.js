@@ -321,11 +321,29 @@
     msg.className = "mdv-chat-msg " + who;
     var bubble = document.createElement("div");
     bubble.className = "mdv-chat-bubble";
-    bubble.textContent = text;
+    appendLinkified(bubble, text);
     msg.appendChild(bubble);
     body.appendChild(msg);
     body.scrollTop = body.scrollHeight;
     return msg;
+  }
+  // Render text, turning any http(s) URLs into clickable links (no innerHTML — safe).
+  function appendLinkified(el, text) {
+    var urlRe = /(https?:\/\/[^\s<>()]+[^\s<>().,;:!?'"])/g;
+    var last = 0, m;
+    while ((m = urlRe.exec(text)) !== null) {
+      if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var a = document.createElement("a");
+      a.href = m[0];
+      a.textContent = m[0];
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.style.color = "var(--mdv-gold)";
+      a.style.textDecoration = "underline";
+      el.appendChild(a);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
   }
   function addTyping() {
     var msg = document.createElement("div");
