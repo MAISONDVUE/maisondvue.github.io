@@ -3506,6 +3506,9 @@
 
     <form class="letters-form" id="lettersForm" novalidate>
       <div class="letters-input-row">
+        <input type="text" class="letters-input" id="lettersName" name="lettersName" placeholder="Enter your first name" autocomplete="given-name" required>
+      </div>
+      <div class="letters-input-row">
         <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Enter your email address" autocomplete="email" required>
         <button type="submit" class="letters-submit" id="lettersSubmit">OK &gt;</button>
       </div>
@@ -3812,6 +3815,7 @@
     e.preventDefault();
     setLettersMsg('');
 
+    const name = document.getElementById('lettersName').value.trim();
     const email = document.getElementById('lettersEmail').value.trim();
     const honey = document.getElementById('lettersHp').value.trim();
     const consent = document.getElementById('lettersConsent').checked;
@@ -3820,6 +3824,12 @@
       setLettersMsg('Thank you. Your name is on the list.');
       lettersModal.classList.add('submitted');
       setTimeout(closeLetters, 2400);
+      return;
+    }
+
+    if (!name) {
+      setLettersMsg('Your first name, please.', 'error');
+      document.getElementById('lettersName').focus();
       return;
     }
 
@@ -3841,6 +3851,7 @@
     try {
       const fd = new FormData();
       fd.append('source', 'letters');
+      fd.append('firstName', name);
       fd.append('email', email);
 
       const res = await fetch(REVIEW_ENDPOINT, { method: 'POST', body: fd });
