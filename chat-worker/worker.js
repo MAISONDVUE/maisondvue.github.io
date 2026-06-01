@@ -166,17 +166,30 @@ export default {
 };
 
 // ── Mailchimp ─────────────────────────────────────────────────────────────────
-// Adds (or updates) the guest in a Mailchimp audience. Requires three secrets:
-//   MAILCHIMP_API_KEY        e.g. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-us21
-//   MAILCHIMP_AUDIENCE_ID    the list/audience ID
-//   MAILCHIMP_SERVER_PREFIX  the data center, e.g. us21 (the part after the dash in the API key)
+// Adds (or updates) the guest in a Mailchimp audience.
+// Only ONE secret is required:
+//   MAILCHIMP_API_KEY        e.g. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-us20
+//                            (the trailing "-usXX" is the data center / server prefix)
+// Optional overrides:
+//   MAILCHIMP_SERVER_PREFIX  e.g. us20 — otherwise derived from the API key
+//   MAILCHIMP_AUDIENCE_ID    a specific list ID — otherwise the account's first audience is used
+let mcCachedListId = null; // remembered per-isolate to avoid re-fetching the audience id
+
 async function addToMailchimp(env, profile) {
   const key = env.MAILCHIMP_API_KEY;
-  const list = env.MAILCHIMP_AUDIENCE_ID;
-  const dc = env.MAILCHIMP_SERVER_PREFIX;
   const email = clean(profile.email).toLowerCase();
-  if (!key || !list || !dc) return { ok: false, skipped: "mailchimp_not_configured" };
+  if (!key) return { ok: false, skipped: "mailchimp_not_configured" };
   if (!email || email.indexOf("@") === -1) return { ok: false, skipped: "no_email" };
+
+  const dc = env.MAILCHIMP_SERVER_PREFIX || key.split("-").pop();
+  if (!dc || dc === key) return { ok: false, skipped: "no_server_prefix" };
+
+  let list = env.MAILCHIMP_AUDIENCE_ID || mcCachedListId;
+  if (!list) {
+    list = await fetchFirstAudienceId(key, dc);
+    if (list) mcCachedListId = list;
+  }
+  if (!list) return { ok: false, skipped: "no_audience" };
 
   const url = `https://${dc}.api.mailchimp.com/3.0/lists/${list}/members`;
   try {
@@ -198,6 +211,21 @@ async function addToMailchimp(env, profile) {
   } catch (e) {
     console.error("Mailchimp request failed", String(e));
     return { ok: false };
+  }
+}
+
+// Looks up the account's first audience (list) id.
+async function fetchFirstAudienceId(key, dc) {
+  try {
+    const res = await fetch(`https://${dc}.api.mailchimp.com/3.0/lists?count=1&fields=lists.id`, {
+      headers: { authorization: "Bearer " + key },
+    });
+    if (!res.ok) { console.error("Mailchimp lists error", res.status); return null; }
+    const data = await res.json();
+    return (data.lists && data.lists[0] && data.lists[0].id) || null;
+  } catch (e) {
+    console.error("Mailchimp lists request failed", String(e));
+    return null;
   }
 }
 
