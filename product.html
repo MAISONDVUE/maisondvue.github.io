@@ -3787,6 +3787,60 @@
     }
   }
 
+  // ── Nav-driven sections ───────────────────────────────────────────────────
+  // Sections stay collapsed by default. Clicking a top tab opens its section
+  // and collapses the others (one open at a time).
+  var navSections = [
+    { key: '#formulation', panel: 'matrixPanel',  toggle: 'matrixToggle',  animated: false },
+    { key: '#ritual',      panel: 'ritualPanel',  toggle: 'ritualToggle',  animated: false },
+    { key: '#origins',     panel: 'originsPanel', toggle: 'originsToggle', animated: true  },
+  ];
+
+  function setSectionOpen(s, shouldOpen) {
+    var panel = document.getElementById(s.panel);
+    var toggle = document.getElementById(s.toggle);
+    if (!panel || !toggle) return;
+    if (panel.classList.contains('open') === shouldOpen) return;
+    if (shouldOpen) {
+      panel.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      if (s.animated) {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        var onEnd = function (e) {
+          if (e.propertyName !== 'max-height') return;
+          panel.style.maxHeight = 'none';
+          panel.removeEventListener('transitionend', onEnd);
+        };
+        panel.addEventListener('transitionend', onEnd);
+      }
+    } else {
+      toggle.setAttribute('aria-expanded', 'false');
+      if (s.animated) {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.offsetHeight; // reflow so the collapse transition has a start height
+        panel.classList.remove('open');
+        panel.style.maxHeight = '0px';
+      } else {
+        panel.classList.remove('open');
+      }
+    }
+  }
+
+  function openSectionFromHash(hash) {
+    var match = null;
+    for (var i = 0; i < navSections.length; i++) if (navSections[i].key === hash) match = navSections[i];
+    if (!match) return; // e.g. #reviews — nothing to expand
+    navSections.forEach(function (s) { setSectionOpen(s, s === match); });
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    openSectionFromHash(a.getAttribute('href'));
+  });
+
+  if (location.hash) openSectionFromHash(location.hash);
+
   setTimeout(showLetters, LETTERS_DELAY_MS);
 
   document.addEventListener('keydown', function(e) {
