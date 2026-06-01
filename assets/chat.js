@@ -26,18 +26,31 @@
     --mdv-navy: #0B1F3A; --mdv-gold: #B8996A; --mdv-warm: #FDFBF8; --mdv-mid: #62584E;
     font-family: 'Jost', Helvetica, Arial, sans-serif;
   }
-  /* Launcher bubble */
+  /* Launcher bubble — the monogram as the advisor's face */
   .mdv-chat-launcher {
     position: fixed; bottom: 22px; right: 22px; z-index: 2147483000;
-    width: 60px; height: 60px; border: 0; cursor: pointer;
-    background: var(--mdv-navy); color: #fff;
+    width: 62px; height: 62px; border: 0; padding: 0; cursor: pointer;
+    border-radius: 50%; overflow: hidden;
+    background: var(--mdv-warm);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 30px rgba(11,31,58,0.32);
+    box-shadow: 0 8px 30px rgba(11,31,58,0.32), inset 0 0 0 1px rgba(11,31,58,0.14);
     transition: transform 240ms ease, opacity 240ms ease;
   }
   .mdv-chat-launcher:hover { transform: translateY(-2px); }
-  .mdv-chat-launcher svg { width: 26px; height: 26px; }
+  .mdv-chat-launcher img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .mdv-chat.open .mdv-chat-launcher { opacity: 0; pointer-events: none; }
+
+  /* Avatars (header + advisor messages) */
+  .mdv-chat-headleft { display: flex; align-items: center; gap: 11px; }
+  .mdv-chat-ava {
+    width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+    border: 1px solid rgba(11,31,58,0.12);
+  }
+  .mdv-chat-msg.bot { align-items: flex-start; gap: 8px; }
+  .mdv-chat-msg-ava {
+    width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+    border: 1px solid rgba(11,31,58,0.10); margin-top: 2px;
+  }
 
   /* Panel */
   .mdv-chat-panel {
@@ -148,13 +161,14 @@
   root.className = "mdv-chat";
   root.innerHTML = `
     <button class="mdv-chat-launcher" type="button" aria-label="Open live chat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
-      </svg>
+      <img src="/favicon.svg" alt="MAISON D&rsquo;VUE">
     </button>
     <div class="mdv-chat-panel" role="dialog" aria-label="Live chat" aria-modal="false">
       <div class="mdv-chat-header">
-        <span class="mdv-chat-title">Live Chat</span>
+        <span class="mdv-chat-headleft">
+          <img class="mdv-chat-ava" src="/favicon.svg" alt="" aria-hidden="true">
+          <span class="mdv-chat-title">Live Chat</span>
+        </span>
         <button class="mdv-chat-close" type="button" aria-label="Close chat">&times;</button>
       </div>
       <div class="mdv-chat-body">
@@ -333,6 +347,14 @@
   function addBubble(who, text) {
     var msg = document.createElement("div");
     msg.className = "mdv-chat-msg " + who;
+    if (who === "bot") {
+      var ava = document.createElement("img");
+      ava.className = "mdv-chat-msg-ava";
+      ava.src = "/favicon.svg";
+      ava.alt = "";
+      ava.setAttribute("aria-hidden", "true");
+      msg.appendChild(ava);
+    }
     var bubble = document.createElement("div");
     bubble.className = "mdv-chat-bubble";
     appendLinkified(bubble, text);
@@ -362,7 +384,7 @@
   function addTyping() {
     var msg = document.createElement("div");
     msg.className = "mdv-chat-msg bot";
-    msg.innerHTML = '<div class="mdv-chat-bubble"><span class="mdv-chat-typing"><span></span><span></span><span></span></span></div>';
+    msg.innerHTML = '<img class="mdv-chat-msg-ava" src="/favicon.svg" alt="" aria-hidden="true"><div class="mdv-chat-bubble"><span class="mdv-chat-typing"><span></span><span></span><span></span></span></div>';
     body.appendChild(msg);
     body.scrollTop = body.scrollHeight;
     return msg;
