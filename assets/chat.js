@@ -197,13 +197,45 @@
   var textarea = compose.querySelector("textarea");
   var sendBtn = compose.querySelector(".mdv-chat-send");
 
+  // ── Background video control ─────────────────────────────────────────────────
+  // While the chat is open, freeze page videos to their poster (default photo)
+  // so motion/strobing doesn't compete with the conversation. Resume on close.
+  var resumeVideos = [];
+  function freezeBackgroundVideos() {
+    resumeVideos = [];
+    var vids = document.querySelectorAll("video");
+    for (var i = 0; i < vids.length; i++) {
+      var v = vids[i];
+      if (root.contains(v)) continue;
+      if (!v.paused && !v.ended) resumeVideos.push(v);
+      try {
+        v.removeAttribute("autoplay"); // prevent load() from auto-restarting it
+        v.pause();
+        v.load();                      // resets to the poster still frame
+      } catch (e) {}
+    }
+  }
+  function resumeBackgroundVideos() {
+    for (var i = 0; i < resumeVideos.length; i++) {
+      try {
+        var p = resumeVideos[i].play();
+        if (p && p.catch) p.catch(function () {});
+      } catch (e) {}
+    }
+    resumeVideos = [];
+  }
+
   // ── Open / close ────────────────────────────────────────────────────────────
   function open() {
     root.classList.add("open");
+    freezeBackgroundVideos();
     var firstInput = root.querySelector(".mdv-chat-intake input");
     if (firstInput && !root.classList.contains("chatting")) setTimeout(function () { firstInput.focus(); }, 320);
   }
-  function close() { root.classList.remove("open"); }
+  function close() {
+    root.classList.remove("open");
+    resumeBackgroundVideos();
+  }
   launcher.addEventListener("click", open);
   closeBtn.addEventListener("click", close);
   document.addEventListener("keydown", function (e) {
