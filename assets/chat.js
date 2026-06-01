@@ -10,7 +10,7 @@
   // ── Configuration ───────────────────────────────────────────────────────────
   // Set this to your deployed Cloudflare Worker URL (see chat-worker/README.md).
   // Until it is set, the widget shows a graceful "not yet connected" message.
-  var CHAT_ENDPOINT = "https://maisondvue-chat.YOUR-SUBDOMAIN.workers.dev";
+  var CHAT_ENDPOINT = "https://maisondvue-chat.masiela23.workers.dev";
 
   if (window.__mdvChatLoaded) return;
   window.__mdvChatLoaded = true;
