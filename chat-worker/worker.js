@@ -96,6 +96,13 @@ export default {
     }
 
     const profile = body && typeof body.profile === "object" ? body.profile : {};
+
+    // Intake hand-off: add the guest to the Mailchimp audience, then we're done.
+    if (body && body.action === "subscribe") {
+      const result = await addToMailchimp(env, profile);
+      return json(result, 200, cors);
+    }
+
     const rawMessages = Array.isArray(body && body.messages) ? body.messages : [];
 
     // Sanitize the conversation: only user/assistant turns with string content.
@@ -157,6 +164,42 @@ export default {
     return json({ reply: reply || "Forgive me — I lost my thread. Could you say that again?" }, 200, cors);
   },
 };
+
+// ── Mailchimp ─────────────────────────────────────────────────────────────────
+// Adds (or updates) the guest in a Mailchimp audience. Requires three secrets:
+//   MAILCHIMP_API_KEY        e.g. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-us21
+//   MAILCHIMP_AUDIENCE_ID    the list/audience ID
+//   MAILCHIMP_SERVER_PREFIX  the data center, e.g. us21 (the part after the dash in the API key)
+async function addToMailchimp(env, profile) {
+  const key = env.MAILCHIMP_API_KEY;
+  const list = env.MAILCHIMP_AUDIENCE_ID;
+  const dc = env.MAILCHIMP_SERVER_PREFIX;
+  const email = clean(profile.email).toLowerCase();
+  if (!key || !list || !dc) return { ok: false, skipped: "mailchimp_not_configured" };
+  if (!email || email.indexOf("@") === -1) return { ok: false, skipped: "no_email" };
+
+  const url = `https://${dc}.api.mailchimp.com/3.0/lists/${list}/members`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: "Bearer " + key },
+      body: JSON.stringify({
+        email_address: email,
+        status: "subscribed",
+        merge_fields: { FNAME: clean(profile.firstName), LNAME: clean(profile.lastName) },
+      }),
+    });
+    if (res.ok) return { ok: true };
+    // "Member Exists" (title) comes back as 400 — that's fine, they're already on the list.
+    const detail = await res.json().catch(() => ({}));
+    if (res.status === 400 && detail && detail.title === "Member Exists") return { ok: true, existing: true };
+    console.error("Mailchimp error", res.status, JSON.stringify(detail));
+    return { ok: false };
+  } catch (e) {
+    console.error("Mailchimp request failed", String(e));
+    return { ok: false };
+  }
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function buildGuestNote(profile) {

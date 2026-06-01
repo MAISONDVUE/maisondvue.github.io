@@ -256,12 +256,26 @@
     }
 
     profile = { firstName: first, lastName: last, email: email };
+    subscribeProfile(profile);
     intake.style.display = "none";
     root.classList.add("chatting");
 
     addBubble("bot", "Welcome, " + first + ". I am the maison’s advisor. How may I help you today?");
     textarea.focus();
   });
+
+  // Quietly add the guest to the mailing list (handled by the Worker). Fire-and-forget.
+  function subscribeProfile(p) {
+    if (CHAT_ENDPOINT.indexOf("YOUR-SUBDOMAIN") !== -1) return;
+    try {
+      fetch(CHAT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "subscribe", profile: p }),
+        keepalive: true,
+      }).catch(function () {});
+    } catch (e) {}
+  }
 
   // ── Composer ────────────────────────────────────────────────────────────────
   textarea.addEventListener("input", function () {
