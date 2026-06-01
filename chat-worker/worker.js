@@ -1,0 +1,166 @@
+/**
+ * MAISON D'VUE — Live Chat AI proxy (Cloudflare Worker)
+ *
+ * Holds the Anthropic API key as a secret and proxies the boutique's
+ * "Live Chat" widget to the Claude Messages API. The static site never
+ * sees the key.
+ *
+ * Deploy:  see chat-worker/README.md
+ * Secret:  npx wrangler secret put ANTHROPIC_API_KEY
+ */
+
+// ── Tunables ────────────────────────────────────────────────────────────────
+// Cost-effective, fast model for chat. Upgrade to "claude-sonnet-4-6" for a
+// more elaborate brand voice (higher cost/latency).
+const MODEL = "claude-haiku-4-5";
+const MAX_TOKENS = 1024;
+const MAX_HISTORY = 24; // cap turns kept per request (defends token spend)
+
+// Origins allowed to call this Worker. Add/remove as needed.
+const ALLOWED_ORIGINS = [
+  "https://maisondvue.com",
+  "https://www.maisondvue.com",
+  "https://maisondvue.github.io",
+  "http://localhost:8000",
+  "http://127.0.0.1:8000",
+];
+
+// The maison's advisor persona. Kept stable so it can be prompt-cached.
+const SYSTEM_PROMPT = `You are the LIVE CHAT advisor for MAISON D'VUE — a luxury hair-care house founded by Masiela Lusha and hand-sealed in Beverly Hills. The signature product is the MAISON D'VUE Hair Elixir (also called "Vue 14"), a ritual of fourteen rare botanical essences, scented in Âme de Vue.
+
+VOICE
+- Speak as a refined, warm boutique concierge: elegant, composed, never effusive.
+- Keep replies short — two or three sentences at most. This is a chat window, not an essay.
+- Use the guest's first name occasionally and naturally when you know it.
+- Never use emoji. Never use exclamation marks more than sparingly.
+
+WHAT YOU HELP WITH
+- The Hair Elixir: its fourteen essences, the ritual of application, how it is used, who it suits.
+- The house, its founder, and its philosophy.
+- General guidance on hair-care rituals and what makes the elixir distinctive.
+- Pointing guests toward the right next step (reserving, the Founder's Circle, writing in).
+
+BOUNDARIES
+- You do not have live access to prices, inventory, order status, shipping timelines, or a guest's account. If asked, say so gracefully and direct them to write to hello@maisondvue.com, where a member of the house will assist personally.
+- Do not invent product claims, ingredients, prices, medical advice, or policies. If you are unsure, say you will have the house follow up rather than guessing.
+- Stay on the subject of MAISON D'VUE and hair care. If a guest strays far off-topic, gently return them to how you may assist with the maison.
+- If a guest is distressed or has a complaint, be gracious and direct them to hello@maisondvue.com.
+
+Always close in the maison's composed, welcoming register.`;
+
+// ── Worker ───────────────────────────────────────────────────────────────────
+export default {
+  async fetch(request, env) {
+    const origin = request.headers.get("Origin") || "";
+    const cors = corsHeaders(origin);
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: cors });
+    }
+    if (request.method !== "POST") {
+      return json({ error: "Method not allowed" }, 405, cors);
+    }
+
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return json({ error: "Invalid JSON" }, 400, cors);
+    }
+
+    const profile = body && typeof body.profile === "object" ? body.profile : {};
+    const rawMessages = Array.isArray(body && body.messages) ? body.messages : [];
+
+    // Sanitize the conversation: only user/assistant turns with string content.
+    const messages = rawMessages
+      .filter(
+        (m) =>
+          m &&
+          (m.role === "user" || m.role === "assistant") &&
+          typeof m.content === "string" &&
+          m.content.trim()
+      )
+      .slice(-MAX_HISTORY)
+      .map((m) => ({ role: m.role, content: m.content.slice(0, 4000) }));
+
+    if (!messages.length || messages[messages.length - 1].role !== "user") {
+      return json({ error: "Expected a user message" }, 400, cors);
+    }
+
+    // Stable persona (cacheable) + a small dynamic note about the guest.
+    const guestNote = buildGuestNote(profile);
+    const system = [
+      { type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } },
+    ];
+    if (guestNote) system.push({ type: "text", text: guestNote });
+
+    let res;
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": env.ANTHROPIC_API_KEY,
+          "anthropic-version": "2023-06-01",
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: MAX_TOKENS,
+          system,
+          messages,
+        }),
+      });
+    } catch {
+      return json({ error: "Upstream request failed" }, 502, cors);
+    }
+
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      console.error("Anthropic error", res.status, detail);
+      return json({ error: "The advisor is unavailable. Please try again." }, 502, cors);
+    }
+
+    const data = await res.json();
+    const reply = (data.content || [])
+      .filter((b) => b.type === "text")
+      .map((b) => b.text)
+      .join("")
+      .trim();
+
+    return json({ reply: reply || "Forgive me — I lost my thread. Could you say that again?" }, 200, cors);
+  },
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function buildGuestNote(profile) {
+  const parts = [];
+  const first = clean(profile.firstName);
+  const last = clean(profile.lastName);
+  const email = clean(profile.email);
+  if (first || last) parts.push(`Guest name: ${[first, last].filter(Boolean).join(" ")}.`);
+  if (email) parts.push(`Guest email: ${email}.`);
+  if (!parts.length) return "";
+  return `The guest you are speaking with — use their first name naturally. ${parts.join(" ")}`;
+}
+
+function clean(v) {
+  return typeof v === "string" ? v.trim().slice(0, 120) : "";
+}
+
+function corsHeaders(origin) {
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
+
+function json(obj, status, extra) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { "content-type": "application/json", ...extra },
+  });
+}
