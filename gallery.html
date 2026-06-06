@@ -725,9 +725,21 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    /* Push the bottle hard to the far right on phones (cropping it) so it
-       fully clears the editorial text. */
-    .feature-img { object-position: 90% center; }
+    /* Push the photo to the far-right edge on phones (cropping it) so the
+       bottle sits clear of the editorial text on any width. */
+    .feature-img { object-position: 100% center; }
+    /* Darken the left two-thirds harder on phones so text never sits on the photo. */
+    .feature::after {
+      background:
+        linear-gradient(90deg,
+          rgba(4,8,26,0.96) 0%,
+          rgba(4,8,26,0.9) 42%,
+          rgba(4,8,26,0.6) 68%,
+          rgba(4,8,26,0.12) 100%),
+        linear-gradient(0deg,
+          rgba(4,8,26,0.5) 0%,
+          rgba(4,8,26,0) 34%);
+    }
     .feature-bar { top: 84px; left: 20px; right: 20px; padding: 15px 20px; }
     .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
     .feature-inner { padding: 104px 26px 64px; }
@@ -979,7 +991,6 @@
         <p class="feature-copy">A potent blend crafted to transform hair from within. Strengthens, nourishes, and restores natural luster.</p>
 
         <a class="scroll-cue" href="#film" aria-label="Scroll down to the film">
-          <span class="scroll-cue-label">Scroll</span>
           <span class="scroll-cue-line"></span>
         </a>
       </div>
