@@ -401,8 +401,13 @@
      ═══════════════════════════════════════════════════════════ */
   .hero {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    max-height: 920px;
+    /* Span the viewport, cut just short so the section below peeks.
+       --header-total adapts per breakpoint; the trailing value is the
+       peek of the section beneath the video. */
+    height: calc(100vh - var(--header-total) - 96px);
+    height: calc(100svh - var(--header-total) - 96px);
+    min-height: 460px;
+    max-height: 940px;
     position: relative;
     overflow: hidden;
     background: var(--navy-deep);
@@ -564,7 +569,8 @@
      ═══════════════════════════════════════════════════════════ */
   .purchase-section {
     background: var(--warm-white);
-    padding: 110px 0;
+    /* Reduced top padding so the "Vue 14" label peeks beneath the hero. */
+    padding: 76px 0 110px;
     text-align: center;
   }
 
@@ -2572,39 +2578,42 @@
     }
 
     .hero {
-      aspect-ratio: auto;
-      max-height: none;
-      display: flex;
-      flex-direction: column;
+      /* Keep the spanning-video height from the base rule; the video
+         now fills the frame and the content overlays its lower edge,
+         matching the desktop treatment. */
       background: var(--navy-deep);
     }
 
     .hero-image,
     .hero-image-placeholder {
-      position: relative;
+      position: absolute;
+      inset: 0;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      inset: auto;
-      height: auto;
+      height: 100%;
+      aspect-ratio: auto;
     }
 
     .hero-content {
-      position: static;
-      left: auto;
-      bottom: auto;
-      transform: none;
+      position: absolute;
+      left: 50%;
+      bottom: 7%;
+      transform: translateX(-50%);
       max-width: 100%;
-      padding: 36px 24px 44px;
-      background: var(--navy-deep);
+      padding: 0 24px;
+      background: transparent;
     }
 
-    .hero-content::before,
-    .hero::after {
+    .hero-content::before {
       display: none;
     }
 
+    .hero::after {
+      display: block;
+    }
+
     .purchase-section {
-      padding: 84px 0;
+      /* Trim the top so the label peeks under the spanning hero. */
+      padding: 56px 0 84px;
     }
 
     .purchase-options {
@@ -2896,6 +2905,7 @@
 
     <div class="hero-content">
       <p class="hero-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
+      <a href="gallery.html" class="hero-cta">See more</a>
     </div>
   </section>
 
@@ -3474,6 +3484,7 @@
 
         <div class="footer-col">
           <div class="footer-col-label">The Product</div>
+          <a href="gallery.html">The Collection</a>
           <a href="product.html#formulation">The Formula</a>
           <a href="product.html#ritual">The Ritual</a>
           <a href="product.html#origins">Origins</a>
