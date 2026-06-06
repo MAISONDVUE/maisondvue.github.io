@@ -299,7 +299,7 @@
      ═══════════════════════════════════════════════════════════ */
   .feature {
     position: relative;
-    min-height: min(90svh, 940px);
+    min-height: min(94svh, 1000px);
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -343,26 +343,27 @@
     padding: 132px 48px 96px;
   }
 
-  /* Collapsible-style label bar at the top of the feature. */
+  /* Category bar — sits just below the transparent header, flat and
+     semi-transparent in the Chanel manner. */
   .feature-bar {
     position: absolute;
-    top: 28px;
+    top: 160px;
     left: 48px;
     right: 48px;
     z-index: 4;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 26px;
-    background: rgba(11, 31, 58, 0.55);
-    border: 1px solid rgba(201, 169, 110, 0.28);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    padding: 19px 26px;
+    background: rgba(7, 13, 34, 0.42);
+    border: 1px solid rgba(249, 246, 240, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     cursor: pointer;
-    transition: background 280ms ease, border-color 280ms ease;
+    transition: background 280ms ease;
   }
 
-  .feature-bar:hover { background: rgba(11, 31, 58, 0.78); border-color: rgba(201, 169, 110, 0.5); }
+  .feature-bar:hover { background: rgba(7, 13, 34, 0.62); }
 
   .feature-bar span {
     font-family: var(--font-body);
@@ -373,7 +374,7 @@
     color: var(--cream);
   }
 
-  .feature-bar svg { width: 18px; height: 18px; stroke: var(--gold); }
+  .feature-bar svg { width: 18px; height: 18px; stroke: var(--cream); }
 
   .feature-text { max-width: 480px; }
 
@@ -723,9 +724,9 @@
     .header-mobile-toggle { display: block; left: 14px; padding: 6px; }
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
-    .feature { min-height: calc(100svh - var(--logo-h) - var(--ribbon-h)); }
+    .feature { min-height: calc(100svh - var(--ribbon-h)); }
     .feature-img { object-position: center 30%; }
-    .feature-bar { top: 20px; left: 20px; right: 20px; padding: 15px 20px; }
+    .feature-bar { top: 84px; left: 20px; right: 20px; padding: 15px 20px; }
     .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
     .feature-inner { padding: 104px 26px 64px; }
     .feature-copy { max-width: 300px; }
@@ -749,6 +750,34 @@
   @media (max-width: 560px) {
     .collection-grid { column-count: 1; max-width: 460px; }
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TRANSPARENT OVERLAY HEADER — banner shows through behind the
+     wordmark; solidifies to deep navy once scrolled past the hero.
+     ═══════════════════════════════════════════════════════════ */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    margin-bottom: calc(-1 * (var(--logo-h) + var(--nav-h)));
+    background: linear-gradient(180deg, rgba(4,8,26,0.5), rgba(4,8,26,0));
+    transition: background 320ms ease, border-color 320ms ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .header-logo-row,
+  .header-nav-row {
+    background: transparent;
+    border-bottom-color: transparent;
+    transition: background 320ms ease, border-color 320ms ease;
+  }
+
+  .header-logo { text-shadow: 0 1px 22px rgba(4,8,26,0.85); }
+
+  .site-header.solid {
+    background: var(--navy-deep);
+    border-bottom-color: rgba(201,169,110,0.14);
   }
 </style>
 </head>
@@ -996,6 +1025,23 @@
 </footer>
 
 <script>
+  /* ─── TRANSPARENT HEADER → SOLIDIFY ON SCROLL ─── */
+  (function () {
+    var header = document.querySelector('.site-header');
+    var hero = document.querySelector('.feature');
+    if (!header || !hero) return;
+    function update() {
+      if (hero.getBoundingClientRect().bottom <= header.offsetHeight) {
+        header.classList.add('solid');
+      } else {
+        header.classList.remove('solid');
+      }
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+
   /* ─── PROMO RIBBON DISMISS ─── */
   function dismissPromoRibbon() {
     const ribbon = document.getElementById('promoRibbon');

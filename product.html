@@ -401,11 +401,10 @@
      ═══════════════════════════════════════════════════════════ */
   .hero {
     width: 100%;
-    /* Span the viewport, cut just short so the section below peeks.
-       --header-total adapts per breakpoint; the trailing value is the
-       peek of the section beneath the video. */
-    height: calc(100vh - var(--header-total) - 96px);
-    height: calc(100svh - var(--header-total) - 96px);
+    /* Fills behind the transparent overlay header up to the ribbon, then
+       cuts just short so the section below peeks. */
+    height: calc(100vh - var(--ribbon-h) - 96px);
+    height: calc(100svh - var(--ribbon-h) - 96px);
     min-height: 460px;
     max-height: 940px;
     position: relative;
@@ -2808,6 +2807,48 @@
     .card-price { font-size: 26px; }
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
   }
+
+  /* ═══════════════════════════════════════════════════════════
+     TRANSPARENT OVERLAY HEADER — banner shows through behind the
+     wordmark; solidifies to warm-white once scrolled past the hero.
+     ═══════════════════════════════════════════════════════════ */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    margin-bottom: calc(-1 * (var(--logo-h) + var(--nav-h)));
+    background: linear-gradient(180deg, rgba(4,8,26,0.5), rgba(4,8,26,0));
+    transition: background 320ms ease, box-shadow 320ms ease;
+  }
+
+  .header-logo-row,
+  .header-nav-row {
+    background: transparent;
+    border-bottom-color: transparent;
+    transition: background 320ms ease, border-color 320ms ease;
+  }
+
+  .header-logo { color: var(--cream); text-shadow: 0 1px 22px rgba(4,8,26,0.85); }
+  .header-utility-btn,
+  .header-mobile-toggle { color: var(--cream); }
+  .header-utility-btn:hover { color: var(--gold-soft); }
+  .header-nav a { color: rgba(249,246,240,0.92); }
+  .header-nav a:hover,
+  .header-nav a.active { color: var(--gold-soft); }
+
+  .site-header.solid {
+    background: var(--warm-white);
+    box-shadow: 0 1px 0 rgba(11,31,58,0.06);
+  }
+  .site-header.solid .header-logo-row { background: var(--warm-white); border-bottom-color: rgba(11,31,58,0.06); }
+  .site-header.solid .header-nav-row { background: var(--warm-white); border-bottom-color: rgba(11,31,58,0.08); }
+  .site-header.solid .header-logo { color: var(--navy); text-shadow: none; }
+  .site-header.solid .header-utility-btn,
+  .site-header.solid .header-mobile-toggle { color: var(--navy); }
+  .site-header.solid .header-utility-btn:hover { color: var(--gold-muted); }
+  .site-header.solid .header-nav a { color: var(--navy); }
+  .site-header.solid .header-nav a:hover,
+  .site-header.solid .header-nav a.active { color: var(--gold-muted); }
 </style>
 </head>
 
@@ -3569,6 +3610,23 @@
       heroVideo.addEventListener('loadeddata', attemptPlay, { once: true });
       heroVideo.addEventListener('canplay', attemptPlay, { once: true });
     }
+  })();
+
+  /* ─── TRANSPARENT HEADER → SOLIDIFY ON SCROLL ─── */
+  (function () {
+    var header = document.querySelector('.site-header');
+    var hero = document.querySelector('.hero');
+    if (!header || !hero) return;
+    function update() {
+      if (hero.getBoundingClientRect().bottom <= header.offsetHeight) {
+        header.classList.add('solid');
+      } else {
+        header.classList.remove('solid');
+      }
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
   })();
 
   /* ─── PROMO RIBBON DISMISS ─── */
