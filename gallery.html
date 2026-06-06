@@ -707,11 +707,11 @@
     body { font-size: 16px; }
 
     .promo-ribbon-text {
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      padding: 0 52px;
-      white-space: normal;
-      line-height: 1.3;
+      font-size: clamp(8px, 2.3vw, 11px);
+      letter-spacing: 0.06em;
+      padding: 0 50px;
+      white-space: nowrap;
+      line-height: 1;
     }
 
     :root { --logo-h: 68px; --nav-h: 0px; }
@@ -725,7 +725,8 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    .feature-img { object-position: center 30%; }
+    /* Push the bottle to the right on phones so it clears the editorial text. */
+    .feature-img { object-position: 82% center; }
     .feature-bar { top: 84px; left: 20px; right: 20px; padding: 15px 20px; }
     .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
     .feature-inner { padding: 104px 26px 64px; }
@@ -859,10 +860,7 @@
 
   <!-- ═══ FEATURE HERO ═══ -->
   <section class="feature">
-    <picture>
-      <source media="(min-width: 901px)" srcset="maison-dvue-elixir-banner.jpg">
-      <img class="feature-img" src="maison-dvue-elixir-pour.jpg" alt="Golden Hair Elixir pouring from the dropper into the cobalt MAISON D'VUE bottle on dark marble">
-    </picture>
+    <img class="feature-img" src="maison-dvue-elixir-banner.jpg" alt="Golden Hair Elixir pouring from the dropper into the cobalt MAISON D'VUE bottle on dark marble">
 
     <a class="feature-bar" href="#collection" aria-label="Scroll to the collection">
       <span>The Elixir</span>
