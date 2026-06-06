@@ -725,12 +725,13 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    /* Push the bottle to the right on phones so it clears the editorial text. */
-    .feature-img { object-position: 82% center; }
+    /* Push the bottle hard to the far right on phones (cropping it) so it
+       fully clears the editorial text. */
+    .feature-img { object-position: 90% center; }
     .feature-bar { top: 84px; left: 20px; right: 20px; padding: 15px 20px; }
     .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
     .feature-inner { padding: 104px 26px 64px; }
-    .feature-copy { max-width: 300px; }
+    .feature-copy { max-width: 250px; }
 
     .collection { padding: 72px 0 84px; }
     .collection-head { margin-bottom: 40px; padding: 0 26px; }
