@@ -31,16 +31,17 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=3">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
 <link rel="shortcut icon" href="/favicon.ico?v=3">
-<meta name="theme-color" content="#0B1F3A">
+<meta name="theme-color" content="#070D22">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
     --navy: #0B1F3A;
     --navy-deep: #070D22;
+    --navy-deeper: #04081A;
     --navy-center: #122749;
     --cobalt: #1A2744;
 
@@ -72,13 +73,13 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; background: var(--warm-white); }
+  html { scroll-behavior: smooth; background: var(--navy-deep); }
 
   body {
     font-family: var(--font-body);
     font-weight: 300;
-    color: var(--dark);
-    background: var(--warm-white);
+    color: var(--cream);
+    background: var(--navy-deep);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -92,7 +93,7 @@
   /* ═══ PROMO RIBBON ═══ */
   .promo-ribbon {
     height: var(--ribbon-h);
-    background: var(--navy-deep);
+    background: var(--navy-deeper);
     color: var(--cream);
     display: flex;
     align-items: center;
@@ -134,15 +135,15 @@
 
   .promo-ribbon-close:hover { color: var(--gold); }
 
-  /* ═══ HEADER ═══ */
+  /* ═══ HEADER (kept dark to suit the cinematic page) ═══ */
   .header-logo-row {
-    background: var(--warm-white);
+    background: var(--navy-deep);
     height: var(--logo-h);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(11, 31, 58, 0.06);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.12);
   }
 
   .header-logo {
@@ -151,7 +152,7 @@
     font-weight: 400;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: var(--cream);
     line-height: 1;
     white-space: nowrap;
   }
@@ -169,23 +170,23 @@
   .header-utility-btn {
     background: transparent;
     border: 0;
-    color: var(--navy);
+    color: var(--cream);
     cursor: pointer;
     padding: 6px;
     line-height: 0;
     transition: color 240ms ease;
   }
 
-  .header-utility-btn:hover { color: var(--gold-muted); }
+  .header-utility-btn:hover { color: var(--gold); }
   .header-utility-btn svg { width: 18px; height: 18px; display: block; }
 
   .header-nav-row {
-    background: var(--warm-white);
+    background: var(--navy-deep);
     height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.12);
     position: relative;
   }
 
@@ -201,7 +202,7 @@
     font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: rgba(249, 246, 240, 0.82);
     line-height: 1;
     position: relative;
     padding: 4px 0;
@@ -219,10 +220,10 @@
     transition: width 280ms ease;
   }
 
-  .header-nav a:hover { color: var(--gold-muted); }
+  .header-nav a:hover { color: var(--gold); }
   .header-nav a:hover::after,
   .header-nav a.active::after { width: 100%; }
-  .header-nav a.active { color: var(--gold-muted); }
+  .header-nav a.active { color: var(--gold); }
 
   .site-header {
     position: sticky;
@@ -241,7 +242,7 @@
     background: transparent;
     border: 0;
     cursor: pointer;
-    color: var(--navy);
+    color: var(--cream);
     padding: 8px;
   }
 
@@ -251,7 +252,7 @@
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--warm-white);
+    background: var(--navy-deep);
     z-index: 200;
     flex-direction: column;
     padding: 80px 40px 40px;
@@ -273,7 +274,7 @@
     top: 24px; right: 24px;
     background: transparent;
     border: 0;
-    color: var(--navy);
+    color: var(--cream);
     font-size: 28px;
     cursor: pointer;
     padding: 8px;
@@ -285,129 +286,323 @@
     font-size: 18px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: var(--cream);
     padding: 18px 0;
-    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.14);
     display: block;
   }
 
   .mobile-menu a:last-child { border-bottom: 0; }
 
-  /* ═══ GALLERY INTRO ═══ */
-  .gallery-intro {
-    text-align: center;
-    padding: 84px 40px 56px;
-    max-width: 760px;
-    margin: 0 auto;
+  /* ═══════════════════════════════════════════════════════════
+     FEATURE HERO — cinematic, full-bleed, overlaid editorial text
+     ═══════════════════════════════════════════════════════════ */
+  .feature {
+    position: relative;
+    min-height: min(90svh, 940px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--navy-deeper);
   }
 
-  .gallery-eyebrow {
-    font-family: var(--font-display);
+  .feature-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 74% center;
+    z-index: 1;
+  }
+
+  /* Darken the left so the editorial text stays legible. */
+  .feature::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(90deg,
+        rgba(4, 8, 26, 0.92) 0%,
+        rgba(4, 8, 26, 0.78) 32%,
+        rgba(4, 8, 26, 0.30) 62%,
+        rgba(4, 8, 26, 0.05) 100%),
+      linear-gradient(0deg,
+        rgba(4, 8, 26, 0.55) 0%,
+        rgba(4, 8, 26, 0) 36%);
+    pointer-events: none;
+  }
+
+  .feature-inner {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 132px 48px 96px;
+  }
+
+  /* Collapsible-style label bar at the top of the feature. */
+  .feature-bar {
+    position: absolute;
+    top: 28px;
+    left: 48px;
+    right: 48px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 26px;
+    background: rgba(11, 31, 58, 0.55);
+    border: 1px solid rgba(201, 169, 110, 0.28);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: background 280ms ease, border-color 280ms ease;
+  }
+
+  .feature-bar:hover { background: rgba(11, 31, 58, 0.78); border-color: rgba(201, 169, 110, 0.5); }
+
+  .feature-bar span {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .feature-bar svg { width: 18px; height: 18px; stroke: var(--gold); }
+
+  .feature-text { max-width: 480px; }
+
+  .feature-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+  }
+
+  .feature-title .t-lead,
+  .feature-title .t-main {
+    display: block;
+    font-size: clamp(46px, 11vw, 104px);
+  }
+
+  .feature-title .t-de {
+    display: block;
+    font-weight: 400;
+    font-size: clamp(13px, 1.4vw, 16px);
+    letter-spacing: 0.42em;
+    margin: 14px 0 8px;
+    color: rgba(249, 246, 240, 0.7);
+  }
+
+  .feature-title .t-house {
+    display: block;
+    font-weight: 600;
+    font-size: clamp(22px, 3.4vw, 40px);
+    letter-spacing: 0.06em;
+  }
+
+  .feature-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 230px;
+    max-width: 70%;
+    margin: 34px 0 30px;
+  }
+
+  .feature-divider .rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201, 169, 110, 0.6), rgba(201, 169, 110, 0.05));
+  }
+
+  .feature-divider .mark {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    line-height: 1;
+  }
+
+  .feature-copy {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(14px, 1.05vw, 16px);
+    letter-spacing: 0.16em;
+    line-height: 1.9;
+    text-transform: uppercase;
+    color: rgba(249, 246, 240, 0.86);
+    max-width: 360px;
+    margin-bottom: 34px;
+  }
+
+  .feature-link {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--cream);
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--gold);
+    transition: color 260ms ease, border-color 260ms ease;
+  }
+
+  .feature-link:hover { color: var(--gold-soft); border-bottom-color: var(--gold-soft); }
+
+  /* ═══════════════════════════════════════════════════════════
+     THE COLLECTION — dark masonry of photographs & films
+     ═══════════════════════════════════════════════════════════ */
+  .collection {
+    background: var(--navy-deep);
+    padding: 96px 0 110px;
+  }
+
+  .collection-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 56px;
+    padding: 0 40px;
+  }
+
+  .collection-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 400;
     font-size: 11px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 22px;
-    line-height: 1;
+    margin-bottom: 20px;
   }
 
-  .gallery-title {
+  .collection-title {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(34px, 5vw, 60px);
+    font-size: clamp(30px, 4.4vw, 52px);
     line-height: 1.1;
-    letter-spacing: 0.005em;
-    color: var(--navy);
-    margin-bottom: 22px;
+    color: var(--warm-white);
+    margin-bottom: 18px;
   }
 
-  .gallery-sub {
+  .collection-sub {
     font-family: var(--font-italic);
     font-style: italic;
-    font-size: clamp(16px, 1.6vw, 20px);
+    font-size: clamp(15px, 1.5vw, 19px);
     line-height: 1.6;
-    color: var(--mid);
-    max-width: 540px;
+    color: rgba(249, 246, 240, 0.6);
+    max-width: 520px;
     margin: 0 auto;
   }
 
-  /* ═══ MASONRY GRID ═══ */
-  .gallery {
+  .collection-grid {
     max-width: var(--page);
     margin: 0 auto;
-    padding: 0 32px 110px;
+    padding: 0 32px;
     column-count: 3;
-    column-gap: 18px;
+    column-gap: 20px;
   }
 
-  .g-item {
-    position: relative;
+  .c-item {
     break-inside: avoid;
-    margin-bottom: 18px;
-    overflow: hidden;
-    background: var(--navy-deep);
-    border-radius: 2px;
-    line-height: 0;
+    margin-bottom: 28px;
   }
 
-  .g-item img,
-  .g-item video {
+  .c-media {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-deeper);
+    line-height: 0;
+    border: 1px solid rgba(201, 169, 110, 0.1);
+  }
+
+  .c-media img,
+  .c-media video {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
   }
 
-  .g-item img {
+  .c-media img {
     transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  .g-item:hover img { transform: scale(1.035); }
+  .c-item:hover .c-media img { transform: scale(1.04); }
 
-  /* Motion marker for video tiles */
-  .g-item.is-video::after {
+  .c-item.is-video .c-media::after {
     content: 'Motion';
     position: absolute;
-    left: 14px;
-    bottom: 12px;
+    left: 12px;
+    bottom: 11px;
     z-index: 2;
-    font-family: var(--font-display);
-    font-size: 10px;
+    font-family: var(--font-body);
+    font-size: 9px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--cream);
-    padding: 5px 10px;
-    background: rgba(7, 13, 34, 0.55);
+    padding: 5px 9px;
+    background: rgba(4, 8, 26, 0.6);
     border: 1px solid rgba(201, 169, 110, 0.4);
     line-height: 1;
     pointer-events: none;
   }
 
-  /* ═══ CLOSING NOTE ═══ */
+  .c-cap {
+    padding: 14px 2px 0;
+  }
+
+  .c-cap .eb {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .c-cap .ln {
+    display: block;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.4;
+    color: rgba(249, 246, 240, 0.78);
+  }
+
+  /* ═══ CLOSING ═══ */
   .gallery-close {
     text-align: center;
-    padding: 0 40px 110px;
+    padding: 8px 40px 96px;
   }
 
   .gallery-close .cta {
     display: inline-block;
-    border: 1px solid var(--navy);
-    color: var(--navy);
+    border: 1px solid var(--gold);
+    color: var(--cream);
     background: transparent;
-    padding: 16px 44px;
-    font-family: var(--font-display);
+    padding: 16px 46px;
+    font-family: var(--font-body);
     font-weight: 500;
     font-size: 12px;
-    letter-spacing: 0.36em;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     transition: background 280ms ease, color 280ms ease;
   }
 
-  .gallery-close .cta:hover { background: var(--navy); color: var(--cream); }
+  .gallery-close .cta:hover { background: var(--gold); color: var(--navy-deep); }
 
   /* ═══ FOOTER ═══ */
   footer {
-    background: var(--navy-deep);
+    background: var(--navy-deeper);
     color: var(--cream);
     padding: 96px 0 40px;
   }
@@ -504,7 +699,7 @@
 
   /* ═══ RESPONSIVE ═══ */
   @media (max-width: 1024px) {
-    .gallery { column-count: 2; }
+    .collection-grid { column-count: 2; }
   }
 
   @media (max-width: 900px) {
@@ -528,9 +723,17 @@
     .header-mobile-toggle { display: block; left: 14px; padding: 6px; }
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
-    .gallery-intro { padding: 60px 28px 40px; }
-    .gallery { padding: 0 20px 84px; column-gap: 14px; }
-    .g-item { margin-bottom: 14px; }
+    .feature { min-height: calc(100svh - var(--logo-h) - var(--ribbon-h)); }
+    .feature-img { object-position: 70% center; }
+    .feature-bar { top: 20px; left: 20px; right: 20px; padding: 15px 20px; }
+    .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
+    .feature-inner { padding: 104px 26px 64px; }
+    .feature-copy { max-width: 300px; }
+
+    .collection { padding: 72px 0 84px; }
+    .collection-head { margin-bottom: 40px; padding: 0 26px; }
+    .collection-grid { padding: 0 20px; column-gap: 16px; }
+    .c-item { margin-bottom: 22px; }
 
     footer { padding: 64px 0 36px; }
     .footer-inner { padding: 0 24px; }
@@ -544,7 +747,7 @@
   }
 
   @media (max-width: 560px) {
-    .gallery { column-count: 1; }
+    .collection-grid { column-count: 1; max-width: 460px; }
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
   }
 </style>
@@ -625,79 +828,122 @@
 
 <main>
 
-  <!-- ═══ INTRO ═══ -->
-  <section class="gallery-intro">
-    <p class="gallery-eyebrow">The Collection</p>
-    <h1 class="gallery-title">The Elixir, in Light &amp; Motion</h1>
-    <p class="gallery-sub">Vue 14&trade; as it is seen and as it moves &mdash; a gathering of photographs and films, composed in Beverly Hills.</p>
+  <!-- ═══ FEATURE HERO ═══ -->
+  <section class="feature">
+    <img class="feature-img" src="maison-dvue-elixir-studio.jpg" alt="The MAISON D'VUE Hair Elixir in cobalt frosted glass with a gold collar, lit against a deep navy studio backdrop">
+
+    <a class="feature-bar" href="#collection" aria-label="Scroll to the collection">
+      <span>The Elixir</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+
+    <div class="feature-inner">
+      <div class="feature-text">
+        <h1 class="feature-title">
+          <span class="t-lead">The</span>
+          <span class="t-main">Elixir</span>
+          <span class="t-de">De</span>
+          <span class="t-house">Maison D&rsquo;Vue</span>
+        </h1>
+
+        <div class="feature-divider" aria-hidden="true">
+          <span class="rule"></span>
+          <span class="mark">&#10070;</span>
+          <span class="rule" style="transform:scaleX(-1)"></span>
+        </div>
+
+        <p class="feature-copy">A potent blend crafted to transform hair from within. Strengthens, nourishes, and restores natural luster.</p>
+
+        <a class="feature-link" href="product.html">Get to know the Elixir</a>
+      </div>
+    </div>
   </section>
 
-  <!-- ═══ MASONRY GALLERY ═══ -->
-  <section class="gallery">
+  <!-- ═══ THE COLLECTION ═══ -->
+  <section class="collection" id="collection">
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-studio.jpg" alt="The Signature 30ml MAISON D'VUE Hair Elixir in cobalt frosted glass with matte gold cap on a dark studio background">
-    </figure>
+    <div class="collection-head">
+      <p class="collection-eyebrow">The Collection</p>
+      <h2 class="collection-title">In Light &amp; Motion</h2>
+      <p class="collection-sub">Vue 14&trade; as it is seen and as it moves &mdash; a gathering of photographs and films, composed in Beverly Hills.</p>
+    </div>
 
-    <figure class="g-item is-video">
-      <video class="g-video" src="ritual-drops.mp4" poster="ritual-drops.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="Golden drops of the Hair Elixir falling" onerror="this.closest('.g-item').style.display='none';"></video>
-    </figure>
+    <div class="collection-grid">
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single golden drop of MAISON D'VUE Hair Elixir suspended from the dropper above the gold cap" loading="lazy">
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single golden drop of MAISON D'VUE Hair Elixir suspended from the dropper above the gold cap" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Dropper</span><span class="ln">A single golden drop.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-silk.jpg" alt="MAISON D'VUE Hair Elixir bottle resting on draped golden silk" loading="lazy">
-    </figure>
+      <figure class="c-item is-video">
+        <div class="c-media"><video class="c-video" src="ritual-drops.mp4" poster="ritual-drops.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="Golden drops of the Hair Elixir falling" onerror="this.closest('.c-item').style.display='none';"></video></div>
+        <figcaption class="c-cap"><span class="eb">In Motion</span><span class="ln">The first drops fall.</span></figcaption>
+      </figure>
 
-    <figure class="g-item is-video">
-      <video class="g-video" src="ritual-style.mp4" poster="ritual-style.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="The Hair Elixir worked through styled hair" onerror="this.closest('.g-item').style.display='none';"></video>
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-silk.jpg" alt="MAISON D'VUE Hair Elixir bottle resting on draped golden silk" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">On Silk</span><span class="ln">Resting on golden silk.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-styling.jpg" alt="Model with luminous, freshly styled hair holding the MAISON D'VUE Hair Elixir bottle" loading="lazy">
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-results.jpg" alt="Long, glossy brunette hair beside the MAISON D'VUE Hair Elixir bottle on navy silk" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Mirror</span><span class="ln">Glass-glossed lengths.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-results.jpg" alt="Long, glossy brunette hair beside the MAISON D'VUE Hair Elixir bottle on navy silk" loading="lazy">
-    </figure>
+      <figure class="c-item is-video">
+        <div class="c-media"><video class="c-video" src="ritual-style.mp4" poster="ritual-style.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="The Hair Elixir worked through styled hair" onerror="this.closest('.c-item').style.display='none';"></video></div>
+        <figcaption class="c-cap"><span class="eb">The Ritual</span><span class="ln">Worked through the lengths.</span></figcaption>
+      </figure>
 
-    <figure class="g-item is-video">
-      <video class="g-video" src="oildrop.mp4" poster="maison-dvue-elixir-dropper-drop.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="A drop of golden elixir oil" onerror="this.closest('.g-item').style.display='none';"></video>
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-styling.jpg" alt="Model with luminous, freshly styled hair holding the MAISON D'VUE Hair Elixir bottle" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Result</span><span class="ln">Luminous, freshly styled.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-ingredients.jpg" alt="MAISON D'VUE Hair Elixir bottle with prickly pear and dried botanicals on a dark surface" loading="lazy">
-    </figure>
+      <figure class="c-item is-video">
+        <div class="c-media"><video class="c-video" src="oildrop.mp4" poster="maison-dvue-elixir-dropper-drop.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="A drop of golden elixir oil" onerror="this.closest('.c-item').style.display='none';"></video></div>
+        <figcaption class="c-cap"><span class="eb">The Essence</span><span class="ln">Fourteen essences, suspended.</span></figcaption>
+      </figure>
 
-    <figure class="g-item is-video">
-      <video class="g-video" src="ritual-warm.mp4" poster="ritual-warm.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="Warm light across the Hair Elixir ritual" onerror="this.closest('.g-item').style.display='none';"></video>
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-ingredients.jpg" alt="MAISON D'VUE Hair Elixir bottle with prickly pear and dried botanicals on a dark surface" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Origins</span><span class="ln">Botanicals, gathered.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-cap-detail.jpg" alt="Macro detail of the polished gold collar and frosted cobalt glass of the MAISON D'VUE Hair Elixir bottle" loading="lazy">
-    </figure>
+      <figure class="c-item is-video">
+        <div class="c-media"><video class="c-video" src="ritual-warm.mp4" poster="ritual-warm.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="Warm light across the Hair Elixir ritual" onerror="this.closest('.c-item').style.display='none';"></video></div>
+        <figcaption class="c-cap"><span class="eb">Warmth</span><span class="ln">Warm light, slow ritual.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-voyage.jpg" alt="A hand holding the Voyage 10ml MAISON D'VUE Hair Elixir travel size in cobalt frosted glass" loading="lazy">
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-cap-detail.jpg" alt="Macro detail of the polished gold collar and frosted cobalt glass of the MAISON D'VUE Hair Elixir bottle" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Detail</span><span class="ln">Polished gold, frosted glass.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="paparazzi-elixir.jpg" alt="The MAISON D'VUE Hair Elixir captured amid paparazzi flashes" loading="lazy">
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-voyage.jpg" alt="A hand holding the Voyage 10ml MAISON D'VUE Hair Elixir travel size in cobalt frosted glass" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Voyage</span><span class="ln">Ten millilitres, anywhere.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-elixir-heirloom-pearl-bandeau.jpg" alt="The MAISON D'VUE Hair Elixir beside an heirloom pearl bandeau" loading="lazy">
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="paparazzi-elixir.jpg" alt="The MAISON D'VUE Hair Elixir captured amid paparazzi flashes" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Moment</span><span class="ln">Caught in the flash.</span></figcaption>
+      </figure>
 
-    <figure class="g-item">
-      <img src="maison-dvue-signed-elixir.jpg" alt="A signed MAISON D'VUE Hair Elixir bottle" loading="lazy">
-    </figure>
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-elixir-heirloom-pearl-bandeau.jpg" alt="The MAISON D'VUE Hair Elixir beside an heirloom pearl bandeau" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">The Heirloom</span><span class="ln">Beside a pearl bandeau.</span></figcaption>
+      </figure>
 
+      <figure class="c-item">
+        <div class="c-media"><img src="maison-dvue-signed-elixir.jpg" alt="A signed MAISON D'VUE Hair Elixir bottle" loading="lazy"></div>
+        <figcaption class="c-cap"><span class="eb">Hand-Sealed</span><span class="ln">Signed in Beverly Hills.</span></figcaption>
+      </figure>
+
+    </div>
   </section>
 
-  <!-- ═══ CLOSING NOTE ═══ -->
+  <!-- ═══ CLOSING ═══ -->
   <section class="gallery-close">
     <a href="product.html#buy" class="cta">Reserve the Elixir</a>
   </section>
@@ -787,9 +1033,9 @@
     document.body.style.overflow = '';
   }
 
-  /* ─── GALLERY VIDEOS — coax autoplay where browsers allow ─── */
+  /* ─── COLLECTION VIDEOS — coax autoplay where browsers allow ─── */
   (function () {
-    var vids = document.querySelectorAll('.g-video');
+    var vids = document.querySelectorAll('.c-video');
     if (!vids.length) return;
 
     vids.forEach(function (v) {
@@ -798,7 +1044,6 @@
       else v.addEventListener('loadeddata', attempt, { once: true });
     });
 
-    // Unlock on first interaction if autoplay was blocked.
     var unlock = function () {
       vids.forEach(function (v) { v.play().catch(function () {}); });
       document.removeEventListener('touchstart', unlock);
