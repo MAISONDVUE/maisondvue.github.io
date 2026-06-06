@@ -725,9 +725,9 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    /* Push the photo to the far-right edge on phones (cropping it) so the
-       bottle sits clear of the editorial text on any width. */
-    .feature-img { object-position: 100% center; }
+    /* iPhone uses a portrait hero composed with the bottle on the right and
+       dark space on the left (set via <picture>); cover from center. */
+    .feature-img { object-position: center center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
       background:
@@ -968,7 +968,10 @@
 
   <!-- ═══ FEATURE HERO ═══ -->
   <section class="feature">
-    <img class="feature-img" src="maison-dvue-elixir-banner.jpg" alt="Golden Hair Elixir pouring from the dropper into the cobalt MAISON D'VUE bottle on dark marble">
+    <picture>
+      <source media="(min-width: 901px)" srcset="maison-dvue-elixir-banner.jpg">
+      <img class="feature-img" src="maison-dvue-elixir-banner-mobile.jpg" alt="The MAISON D'VUE Hair Elixir bottle with the dropper pouring golden serum, on dark marble">
+    </picture>
 
     <a class="feature-bar" href="#film" aria-label="Scroll to the film">
       <span>The Elixir</span>
