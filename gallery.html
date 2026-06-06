@@ -781,6 +781,101 @@
     background: var(--navy-deep);
     border-bottom-color: rgba(201,169,110,0.14);
   }
+
+  /* ═══════════════════════════════════════════════════════════
+     SCROLL CUE — replaces the click CTA with a scroll-down line
+     ═══════════════════════════════════════════════════════════ */
+  .scroll-cue {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+    margin-top: 4px;
+  }
+  .scroll-cue-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .scroll-cue-line {
+    position: relative;
+    width: 1px;
+    height: 72px;
+    background: rgba(249, 246, 240, 0.22);
+    overflow: hidden;
+  }
+  .scroll-cue-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 42%;
+    background: linear-gradient(180deg, transparent, var(--gold-soft));
+    animation: cueDown 1.9s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  }
+  @keyframes cueDown {
+    0% { transform: translateY(-100%); }
+    65%, 100% { transform: translateY(238%); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     FILM STAGE — dynamic scroll: statement, then the film
+     ═══════════════════════════════════════════════════════════ */
+  .film-stage { background: var(--navy-deep); padding: 0 0 30px; }
+
+  .film-statement {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 19vh 40px 16vh;
+    text-align: center;
+  }
+  .film-line {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(26px, 4.2vw, 54px);
+    line-height: 1.22;
+    letter-spacing: 0.01em;
+    color: var(--warm-white);
+  }
+  .film-line .accent { color: var(--gold); font-style: italic; }
+
+  .film {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .film-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--navy-deeper);
+    border: 1px solid rgba(201, 169, 110, 0.12);
+  }
+
+  /* Scroll-reveal */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(46px);
+    transition: opacity 1000ms ease, transform 1100ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .reveal-up.in { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .film-statement { padding: 14vh 26px 11vh; }
+    .film { padding: 0 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-up { opacity: 1; transform: none; transition: none; }
+    .scroll-cue-line::after { animation: none; }
+  }
 </style>
 </head>
 
@@ -863,7 +958,7 @@
   <section class="feature">
     <img class="feature-img" src="maison-dvue-elixir-banner.jpg" alt="Golden Hair Elixir pouring from the dropper into the cobalt MAISON D'VUE bottle on dark marble">
 
-    <a class="feature-bar" href="#collection" aria-label="Scroll to the collection">
+    <a class="feature-bar" href="#film" aria-label="Scroll to the film">
       <span>The Elixir</span>
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </a>
@@ -883,9 +978,25 @@
 
         <p class="feature-copy">A potent blend crafted to transform hair from within. Strengthens, nourishes, and restores natural luster.</p>
 
-        <a class="feature-link" href="product.html">Get to know the Elixir</a>
+        <a class="scroll-cue" href="#film" aria-label="Scroll down to the film">
+          <span class="scroll-cue-label">Scroll</span>
+          <span class="scroll-cue-line"></span>
+        </a>
       </div>
     </div>
+  </section>
+
+  <!-- ═══ FILM — dynamic scroll: statement fades in, then the film ═══ -->
+  <section class="film-stage" id="film">
+    <div class="film-statement reveal-up">
+      <p class="film-line">Fourteen rare essences, composed into a single ritual &mdash; <span class="accent">the Elixir, in motion.</span></p>
+    </div>
+    <figure class="film reveal-up">
+      <!-- Replace elixir-film.mp4 with the provided film; the poster shows until then. -->
+      <video class="film-video" poster="maison-dvue-elixir-studio.jpg" muted loop playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture>
+        <source src="elixir-film.mp4" type="video/mp4">
+      </video>
+    </figure>
   </section>
 
   <!-- ═══ THE COLLECTION ═══ -->
@@ -1097,6 +1208,48 @@
     };
     document.addEventListener('touchstart', unlock, { passive: true, once: true });
     document.addEventListener('click', unlock, { once: true });
+  })();
+
+  /* ─── DYNAMIC SCROLL: reveals, film playback, hero parallax ─── */
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Fade-up reveals
+    var ups = document.querySelectorAll('.reveal-up');
+    if ('IntersectionObserver' in window && !reduce) {
+      var revIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); } });
+      }, { threshold: 0.18 });
+      ups.forEach(function (el) { revIO.observe(el); });
+    } else {
+      ups.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    // Play the film only while it is on screen
+    var film = document.querySelector('.film-video');
+    if (film && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { film.play().catch(function () {}); }
+          else { film.pause(); }
+        });
+      }, { threshold: 0.45 }).observe(film);
+    }
+
+    // Subtle parallax on the hero banner (desktop only, motion allowed)
+    var img = document.querySelector('.feature-img');
+    if (img && !reduce && window.innerWidth > 900) {
+      img.style.willChange = 'transform';
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          img.style.transform = 'scale(1.06) translateY(' + (window.scrollY * 0.06) + 'px)';
+          ticking = false;
+        });
+      }, { passive: true });
+    }
   })();
 </script>
 
