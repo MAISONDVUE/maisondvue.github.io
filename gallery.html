@@ -313,12 +313,11 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    /* Portrait hero shown whole (eye, negative space, and jewelry intact);
-       the matched background fills the sides seamlessly. Anchor right so the
-       subject hugs the right edge and all pillarbox navy pools on the left,
-       behind the editorial text. */
-    object-fit: contain;
-    object-position: right center;
+    /* Fill the hero with the portrait (no pillarbox gap) so the face sits
+       close to the editorial text, over the image's own dark-left space.
+       The vertical anchor keeps the eye and the sapphire brooch in frame. */
+    object-fit: cover;
+    object-position: center 45%;
     z-index: 1;
   }
 
@@ -731,9 +730,9 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    /* Phones use a dedicated tall crop (maison-dvue-elixir-banner-mobile.jpg)
-       composed with the subject on the right and dark space on the left, so it
-       fills the hero edge-to-edge with cover rather than letterboxing. */
+    /* Phones use a dedicated face-forward crop (maison-dvue-elixir-banner-mobile.jpg):
+       the woman framed with dark space on the left for the text, filling the hero
+       edge-to-edge with cover. */
     .feature-img { object-fit: cover; object-position: center center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
