@@ -732,10 +732,10 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    /* Phones use a dedicated face-forward crop (maison-dvue-elixir-banner-mobile.jpg):
-       the woman framed with dark space on the left for the text, filling the hero
-       edge-to-edge with cover. */
-    .feature-img { inset: 0; width: 100%; object-fit: cover; object-position: center center; }
+    /* Phones show the whole portrait full-bleed: on a tall screen cover keeps the
+       complete top-to-bottom composition (eye, hand, ring, brooch) while the dark
+       left stays clear for the editorial text. */
+    .feature-img { inset: 0; width: 100%; object-fit: cover; object-position: 44% center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
       background:
@@ -976,10 +976,7 @@
 
   <!-- ═══ FEATURE HERO ═══ -->
   <section class="feature">
-    <picture>
-      <source media="(min-width: 901px)" srcset="maison-dvue-elixir-banner.jpg">
-      <img class="feature-img" src="maison-dvue-elixir-banner-mobile.jpg" alt="Close-up editorial portrait of a woman with luminous blonde hair and a striking blue eye, wearing antique gold sapphire jewellery against a deep navy backdrop">
-    </picture>
+    <img class="feature-img" src="maison-dvue-elixir-banner.jpg" alt="Close-up editorial portrait of a woman with luminous blonde hair and a striking blue eye, wearing antique gold sapphire jewellery against a deep navy backdrop">
 
     <a class="feature-bar" href="#film" aria-label="Scroll to the film">
       <span>The Elixir</span>
