@@ -314,9 +314,11 @@
     width: 100%;
     height: 100%;
     /* Portrait hero shown whole (eye, negative space, and jewelry intact);
-       the matched background fills the sides seamlessly. */
+       the matched background fills the sides seamlessly. Anchor right so the
+       subject hugs the right edge and all pillarbox navy pools on the left,
+       behind the editorial text. */
     object-fit: contain;
-    object-position: center center;
+    object-position: right center;
     z-index: 1;
   }
 
@@ -731,7 +733,7 @@
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
     /* iPhone uses a portrait hero composed with the bottle on the right and
        dark space on the left (set via <picture>); cover from center. */
-    .feature-img { object-position: center center; }
+    .feature-img { object-position: right center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
       background:
@@ -974,7 +976,7 @@
   <section class="feature">
     <picture>
       <source media="(min-width: 901px)" srcset="maison-dvue-elixir-banner.jpg">
-      <img class="feature-img" src="maison-dvue-elixir-banner-mobile.jpg" alt="The MAISON D'VUE Hair Elixir bottle with the dropper pouring golden serum, on dark marble">
+      <img class="feature-img" src="maison-dvue-elixir-banner-mobile.jpg" alt="Close-up editorial portrait of a woman with luminous blonde hair and a striking blue eye, wearing antique gold sapphire jewellery against a deep navy backdrop">
     </picture>
 
     <a class="feature-bar" href="#film" aria-label="Scroll to the film">
