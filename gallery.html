@@ -323,21 +323,14 @@
     z-index: 1;
   }
 
-  /* Darken the left so the editorial text stays legible. */
+  /* No darkening overlay — the woman stays fully visible; the text rests on
+     the photo's own deep-navy left. */
   .feature::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 2;
-    background:
-      linear-gradient(90deg,
-        rgba(4, 8, 26, 0.92) 0%,
-        rgba(4, 8, 26, 0.78) 32%,
-        rgba(4, 8, 26, 0.30) 62%,
-        rgba(4, 8, 26, 0.05) 100%),
-      linear-gradient(0deg,
-        rgba(4, 8, 26, 0.55) 0%,
-        rgba(4, 8, 26, 0) 36%);
+    background: none;
     pointer-events: none;
   }
 
@@ -735,18 +728,14 @@
     /* Phones show the whole portrait full-bleed: on a tall screen cover keeps the
        complete top-to-bottom composition (eye, hand, ring, brooch) while the dark
        left stays clear for the editorial text. */
-    .feature-img { inset: 0; width: 100%; object-fit: cover; object-position: 44% center; }
-    /* Darken the left two-thirds harder on phones so text never sits on the photo. */
+    .feature-img { inset: 0; width: 100%; object-fit: cover; object-position: 62% center; }
+    /* The woman stays fully visible — a soft scrim sits ONLY behind the text on
+       the far left and fades to nothing before it reaches her. */
     .feature::after {
-      background:
-        linear-gradient(90deg,
-          rgba(4,8,26,0.96) 0%,
-          rgba(4,8,26,0.9) 42%,
-          rgba(4,8,26,0.6) 68%,
-          rgba(4,8,26,0.12) 100%),
-        linear-gradient(0deg,
-          rgba(4,8,26,0.5) 0%,
-          rgba(4,8,26,0) 34%);
+      background: linear-gradient(90deg,
+        rgba(6,11,26,0.82) 0%,
+        rgba(6,11,26,0.66) 34%,
+        rgba(6,11,26,0) 56%);
     }
     .feature-bar { top: 84px; left: 20px; right: 20px; padding: 15px 20px; }
     .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
