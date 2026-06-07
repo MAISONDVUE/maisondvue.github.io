@@ -310,14 +310,16 @@
 
   .feature-img {
     position: absolute;
-    inset: 0;
-    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 64%;
     height: 100%;
-    /* Fill the hero with the portrait (no pillarbox gap) so the face sits
-       close to the editorial text, over the image's own dark-left space.
-       The vertical anchor keeps the eye and the sapphire brooch in frame. */
+    /* Shrink the photo into the right portion so its whole eye-to-brooch span
+       shows (less crop than a full-bleed fill), while the dark left stays clear
+       for the editorial text, which sits just beside it. */
     object-fit: cover;
-    object-position: center 45%;
+    object-position: center 46%;
     z-index: 1;
   }
 
@@ -733,7 +735,7 @@
     /* Phones use a dedicated face-forward crop (maison-dvue-elixir-banner-mobile.jpg):
        the woman framed with dark space on the left for the text, filling the hero
        edge-to-edge with cover. */
-    .feature-img { object-fit: cover; object-position: center center; }
+    .feature-img { inset: 0; width: 100%; object-fit: cover; object-position: center center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
       background:
