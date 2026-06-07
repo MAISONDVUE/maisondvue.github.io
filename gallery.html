@@ -731,9 +731,10 @@
     .header-mobile-toggle svg { width: 20px; height: 20px; }
 
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
-    /* iPhone uses a portrait hero composed with the bottle on the right and
-       dark space on the left (set via <picture>); cover from center. */
-    .feature-img { object-position: right center; }
+    /* Phones use a dedicated tall crop (maison-dvue-elixir-banner-mobile.jpg)
+       composed with the subject on the right and dark space on the left, so it
+       fills the hero edge-to-edge with cover rather than letterboxing. */
+    .feature-img { object-fit: cover; object-position: center center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
       background:
