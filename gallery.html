@@ -303,7 +303,9 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: var(--navy-deeper);
+    /* Matches the portrait's own edge navy so the contained image's
+       pillarbox reads as one continuous dark field. */
+    background: #07121d;
   }
 
   .feature-img {
@@ -311,7 +313,9 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* Portrait hero shown whole (eye, negative space, and jewelry intact);
+       the matched background fills the sides seamlessly. */
+    object-fit: contain;
     object-position: center center;
     z-index: 1;
   }
