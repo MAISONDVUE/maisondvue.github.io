@@ -166,7 +166,7 @@
     <div class="mdv-chat-panel" role="dialog" aria-label="Live chat" aria-modal="false">
       <div class="mdv-chat-header">
         <span class="mdv-chat-headleft">
-          <img class="mdv-chat-ava" src="/favicon.svg" alt="" aria-hidden="true">
+          <img class="mdv-chat-ava" src="/monogram-bw.svg" alt="" aria-hidden="true">
           <span class="mdv-chat-title">Live Chat</span>
         </span>
         <button class="mdv-chat-close" type="button" aria-label="Close chat">&times;</button>
@@ -350,7 +350,7 @@
     if (who === "bot") {
       var ava = document.createElement("img");
       ava.className = "mdv-chat-msg-ava";
-      ava.src = "/favicon.svg";
+      ava.src = "/monogram-bw.svg";
       ava.alt = "";
       ava.setAttribute("aria-hidden", "true");
       msg.appendChild(ava);
@@ -384,7 +384,7 @@
   function addTyping() {
     var msg = document.createElement("div");
     msg.className = "mdv-chat-msg bot";
-    msg.innerHTML = '<img class="mdv-chat-msg-ava" src="/favicon.svg" alt="" aria-hidden="true"><div class="mdv-chat-bubble"><span class="mdv-chat-typing"><span></span><span></span><span></span></span></div>';
+    msg.innerHTML = '<img class="mdv-chat-msg-ava" src="/monogram-bw.svg" alt="" aria-hidden="true"><div class="mdv-chat-bubble"><span class="mdv-chat-typing"><span></span><span></span><span></span></span></div>';
     body.appendChild(msg);
     body.scrollTop = body.scrollHeight;
     return msg;
