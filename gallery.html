@@ -299,7 +299,7 @@
      ═══════════════════════════════════════════════════════════ */
   .feature {
     position: relative;
-    min-height: min(94svh, 1000px);
+    min-height: min(94svh, 980px);
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -312,7 +312,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center center;
+    object-position: 50% 42%;
     z-index: 1;
   }
 
@@ -329,8 +329,9 @@
         rgba(4, 8, 26, 0.30) 62%,
         rgba(4, 8, 26, 0.05) 100%),
       linear-gradient(0deg,
-        rgba(4, 8, 26, 0.55) 0%,
-        rgba(4, 8, 26, 0) 36%);
+        rgb(7, 13, 34) 0%,
+        rgba(7, 13, 34, 0.82) 6%,
+        rgba(7, 13, 34, 0) 22%);
     pointer-events: none;
   }
 
@@ -340,7 +341,7 @@
     width: 100%;
     max-width: var(--page);
     margin: 0 auto;
-    padding: 132px 48px 96px;
+    padding: 198px 48px 64px;
   }
 
   /* Category bar — sits just below the transparent header, flat and
@@ -727,7 +728,7 @@
     .feature { min-height: calc(100svh - var(--ribbon-h)); }
     /* iPhone uses a portrait hero composed with the bottle on the right and
        dark space on the left (set via <picture>); cover from center. */
-    .feature-img { object-position: center center; }
+    .feature-img { object-fit: cover; object-position: 78% center; }
     /* Darken the left two-thirds harder on phones so text never sits on the photo. */
     .feature::after {
       background:
@@ -742,7 +743,7 @@
     }
     .feature-bar { top: 84px; left: 20px; right: 20px; padding: 15px 20px; }
     .feature-bar span { font-size: 11px; letter-spacing: 0.3em; }
-    .feature-inner { padding: 104px 26px 64px; }
+    .feature-inner { padding: 168px 26px 64px; }
     .feature-copy { max-width: 250px; }
 
     .collection { padding: 72px 0 84px; }
@@ -837,7 +838,7 @@
   /* ═══════════════════════════════════════════════════════════
      FILM STAGE — dynamic scroll: statement, then the film
      ═══════════════════════════════════════════════════════════ */
-  .film-stage { background: var(--navy-deep); padding: 0 0 30px; }
+  .film-stage { background: var(--navy-deep); padding: 130px 0 30px; }
 
   .film-statement {
     max-width: 940px;
@@ -868,7 +869,14 @@
     aspect-ratio: 16 / 9;
     object-fit: cover;
     background: var(--navy-deeper);
-    border: 1px solid rgba(201, 169, 110, 0.12);
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%),
+      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%),
+      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask-composite: intersect;
   }
 
   /* Scroll-reveal */
@@ -969,14 +977,9 @@
   <!-- ═══ FEATURE HERO ═══ -->
   <section class="feature">
     <picture>
-      <source media="(min-width: 901px)" srcset="maison-dvue-elixir-banner.jpg">
-      <img class="feature-img" src="maison-dvue-elixir-banner-mobile.jpg" alt="The MAISON D'VUE Hair Elixir bottle with the dropper pouring golden serum, on dark marble">
+      <source media="(min-width: 901px)" srcset="maison-dvue-gallery-hero-woman-wide.jpg">
+      <img class="feature-img" src="maison-dvue-gallery-hero-woman.jpg" alt="A woman with luminous blue eyes wearing sapphire-and-diamond jewelry against deep navy, evoking the MAISON D'VUE Hair Elixir">
     </picture>
-
-    <a class="feature-bar" href="#film" aria-label="Scroll to the film">
-      <span>The Elixir</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
-    </a>
 
     <div class="feature-inner">
       <div class="feature-text">
@@ -984,12 +987,6 @@
           <span class="t-lead">The</span>
           <span class="t-main">Elixir</span>
         </h1>
-
-        <div class="feature-divider" aria-hidden="true">
-          <span class="rule"></span>
-          <span class="mark">&#10070;</span>
-          <span class="rule" style="transform:scaleX(-1)"></span>
-        </div>
 
         <p class="feature-copy">A potent blend crafted to transform hair from within. Strengthens, nourishes, and restores natural luster.</p>
 
@@ -1002,9 +999,6 @@
 
   <!-- ═══ FILM — dynamic scroll: statement fades in, then the film ═══ -->
   <section class="film-stage" id="film">
-    <div class="film-statement reveal-up">
-      <p class="film-line">Fourteen rare essences, composed into a single ritual &mdash; <span class="accent">the Elixir, in motion.</span></p>
-    </div>
     <figure class="film reveal-up">
       <!-- Replace elixir-film.mp4 with the provided film; the poster shows until then. -->
       <video class="film-video" poster="maison-dvue-elixir-studio.jpg" muted loop playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture>
