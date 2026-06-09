@@ -31,9 +31,9 @@
     position: fixed; bottom: 22px; right: 22px; z-index: 2147483000;
     width: 62px; height: 62px; border: 0; padding: 0; cursor: pointer;
     border-radius: 50%; overflow: hidden;
-    background: var(--mdv-warm);
+    background: #fff;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 30px rgba(11,31,58,0.32), inset 0 0 0 1px rgba(11,31,58,0.14);
+    box-shadow: 0 8px 30px rgba(11,31,58,0.32), inset 0 0 0 1px rgba(0,0,0,0.18);
     transition: transform 240ms ease, opacity 240ms ease;
   }
   .mdv-chat-launcher:hover { transform: translateY(-2px); }
@@ -161,7 +161,7 @@
   root.className = "mdv-chat";
   root.innerHTML = `
     <button class="mdv-chat-launcher" type="button" aria-label="Open live chat">
-      <img src="/favicon.svg" alt="MAISON D&rsquo;VUE">
+      <img src="/monogram-bw.svg" alt="MAISON D&rsquo;VUE">
     </button>
     <div class="mdv-chat-panel" role="dialog" aria-label="Live chat" aria-modal="false">
       <div class="mdv-chat-header">
