@@ -1,0 +1,1252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Founding Creator Program &mdash; MAISON D&rsquo;VUE</title>
+<meta name="description" content="The MAISON D'VUE Founding Creator Program. By invitation. Early access, complimentary product consideration, and affiliate opportunities. Composed in Beverly Hills.">
+<meta name="robots" content="noindex, follow">
+
+<link rel="canonical" href="https://maisondvue.com/creators.html">
+
+<meta property="og:title" content="Founding Creator Program &mdash; MAISON D&rsquo;VUE">
+<meta property="og:description" content="Not everyone discovers MAISON D'VUE. Some help introduce it. An invitation to our Founding Creator Program.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com/creators.html">
+<meta property="og:image" content="https://maisondvue.com/maison-dvue-gallery-hero-woman-wide.jpg">
+<meta property="og:site_name" content="MAISON D&rsquo;VUE">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+<link rel="shortcut icon" href="/favicon.ico?v=4">
+<meta name="theme-color" content="#F4EDE1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* House palette — cream-forward, deep sapphire navy accents */
+    --cream: #F4EDE1;
+    --cream-deep: #ECE2D0;
+    --warm-white: #FBF7F0;
+    --navy: #0B1F3A;
+    --navy-deep: #070D22;
+    --sapphire: #14305A;
+
+    --gold: #C9A96E;
+    --gold-muted: #B8996A;
+
+    --ink: #0B1F3A;
+    --mid: rgba(11, 31, 58, 0.62);
+    --soft: rgba(11, 31, 58, 0.42);
+    --line: rgba(11, 31, 58, 0.16);
+    --line-soft: rgba(11, 31, 58, 0.10);
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-italic: 'EB Garamond', Georgia, serif;
+    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+
+    --page: 1240px;
+    --logo-h: 88px;
+    --nav-h: 56px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; background: var(--cream); }
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, input, textarea, select { font: inherit; }
+
+  /* ─── HEADER ─── */
+  .header-logo-row {
+    background: var(--cream);
+    height: var(--logo-h);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .header-logo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(24px, 3vw, 40px);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .header-utility {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 22px;
+    align-items: center;
+  }
+  .header-utility-btn {
+    background: transparent;
+    border: 0;
+    color: var(--navy);
+    cursor: pointer;
+    padding: 6px;
+    line-height: 0;
+    transition: color 240ms ease;
+  }
+  .header-utility-btn:hover { color: var(--gold-muted); }
+  .header-utility-btn svg { width: 18px; height: 18px; display: block; }
+
+  .header-nav-row {
+    background: var(--cream);
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .header-nav { display: flex; gap: 48px; list-style: none; align-items: center; }
+  .header-nav a {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    position: relative;
+    padding: 4px 0;
+    transition: color 240ms ease;
+  }
+  .header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--navy);
+    transition: width 280ms ease;
+  }
+  .header-nav a:hover::after, .header-nav a.active::after { width: 100%; }
+  .header-nav a.active { color: var(--navy); }
+  .site-header { position: sticky; top: 0; z-index: 90; }
+
+  .header-mobile-toggle {
+    display: none;
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--navy);
+    padding: 8px;
+  }
+  .header-mobile-toggle svg { width: 22px; height: 22px; display: block; }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    z-index: 200;
+    flex-direction: column;
+    padding: 80px 40px 40px;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 320ms ease, transform 320ms ease;
+    pointer-events: none;
+  }
+  .mobile-menu.open { display: flex; opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .mobile-menu-close {
+    position: absolute; top: 24px; right: 24px;
+    background: transparent; border: 0; color: var(--navy);
+    font-size: 28px; cursor: pointer; padding: 8px; line-height: 1;
+  }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--navy);
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-soft);
+    display: block;
+  }
+  .mobile-menu a:last-child { border-bottom: 0; }
+
+  /* ─── SHARED SECTION SCAFFOLD ─── */
+  .section-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--navy);
+    opacity: 0.55;
+    line-height: 1;
+  }
+  .rule {
+    width: 46px;
+    height: 1px;
+    background: var(--navy);
+    opacity: 0.55;
+  }
+  .tm { font-size: 0.62em; vertical-align: super; letter-spacing: 0.05em; margin-left: 1px; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 82vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--navy-deep);
+  }
+  .hero-media,
+  .hero-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(7, 13, 34, 0.18) 0%,
+      rgba(7, 13, 34, 0.05) 38%,
+      rgba(7, 13, 34, 0.42) 78%,
+      rgba(7, 13, 34, 0.66) 100%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: var(--page);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px 96px;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.44em;
+    text-transform: uppercase;
+    color: rgba(244, 237, 225, 0.82);
+    margin-bottom: 28px;
+    line-height: 1;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(34px, 5vw, 68px);
+    line-height: 1.06;
+    letter-spacing: 0.002em;
+    color: var(--cream);
+    max-width: 16ch;
+    margin-bottom: 30px;
+  }
+  .hero-sub {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.6;
+    color: rgba(244, 237, 225, 0.9);
+    max-width: 50ch;
+    margin-bottom: 44px;
+  }
+  .btn-line {
+    display: inline-block;
+    border: 1px solid var(--cream);
+    background: transparent;
+    color: var(--cream);
+    padding: 17px 52px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 300ms ease, color 300ms ease;
+  }
+  .btn-line:hover { background: var(--cream); color: var(--navy); }
+
+  /* ─── ABOUT THE HOUSE ─── */
+  .about {
+    background: var(--cream);
+    padding: 132px 0 124px;
+  }
+  .about-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .about .section-eyebrow { margin-bottom: 30px; }
+  .about-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1.12;
+    color: var(--navy);
+    margin-bottom: 40px;
+  }
+  .about-belief {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: clamp(19px, 1.8vw, 24px);
+    line-height: 1.55;
+    color: var(--sapphire);
+    max-width: 30ch;
+    margin: 0 auto 40px;
+  }
+  .about-body p {
+    font-family: var(--font-display);
+    font-size: clamp(17px, 1.3vw, 19px);
+    line-height: 1.85;
+    color: var(--navy);
+    margin-bottom: 18px;
+    letter-spacing: 0.004em;
+  }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-provenance {
+    margin-top: 48px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--mid);
+    line-height: 2;
+  }
+
+  /* ─── BENEFITS ─── */
+  .benefits {
+    background: var(--warm-white);
+    padding: 120px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .benefits-inner { max-width: var(--page); margin: 0 auto; padding: 0 40px; }
+  .benefits-head { text-align: center; margin-bottom: 76px; display: flex; flex-direction: column; align-items: center; }
+  .benefits-head .section-eyebrow { margin-bottom: 26px; }
+  .benefits-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.12;
+    color: var(--navy);
+  }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  .benefit-card {
+    background: var(--warm-white);
+    padding: 52px 36px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .benefit-icon {
+    width: 34px;
+    height: 34px;
+    color: var(--sapphire);
+    margin-bottom: 28px;
+  }
+  .benefit-icon svg { width: 100%; height: 100%; display: block; }
+  .benefit-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+  .benefit-copy {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+
+  /* ─── COMMISSION ─── */
+  .commission {
+    background: var(--cream);
+    padding: 124px 0 132px;
+  }
+  .commission-inner { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+  .commission-head { text-align: center; margin-bottom: 76px; display: flex; flex-direction: column; align-items: center; }
+  .commission-head .section-eyebrow { margin-bottom: 26px; }
+  .commission-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.12;
+    color: var(--navy);
+  }
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .tier {
+    padding: 64px 36px;
+    text-align: center;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tier:last-child { border-right: 0; }
+  .tier-name {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 28px;
+    line-height: 1;
+  }
+  .tier-pct {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(52px, 6vw, 76px);
+    line-height: 1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .tier-pct span {
+    display: block;
+    margin-top: 14px;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--soft);
+    font-family: var(--font-body);
+    font-weight: 400;
+  }
+  .commission-note {
+    margin-top: 44px;
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--mid);
+    letter-spacing: 0.01em;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── APPLICATION ─── */
+  .apply {
+    background: var(--warm-white);
+    padding: 124px 0 140px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .apply-inner { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+  .apply-head { text-align: center; margin-bottom: 60px; display: flex; flex-direction: column; align-items: center; }
+  .apply-head .section-eyebrow { margin-bottom: 26px; }
+  .apply-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1.12;
+    color: var(--navy);
+    margin-bottom: 22px;
+  }
+  .apply-lede {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--mid);
+    max-width: 46ch;
+  }
+
+  .apply-form { display: flex; flex-direction: column; gap: 28px; text-align: left; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .form-field { display: flex; flex-direction: column; }
+  .form-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .form-label .opt {
+    color: var(--soft);
+    font-style: normal;
+    letter-spacing: 0.18em;
+    margin-left: 6px;
+  }
+  .form-label .required { color: var(--gold-muted); margin-left: 5px; }
+
+  .apply-form input[type="text"],
+  .apply-form input[type="email"],
+  .apply-form textarea,
+  .apply-form select {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--navy);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 18px;
+    padding: 10px 0 13px;
+    outline: none;
+    transition: border-color 240ms ease;
+    letter-spacing: 0.01em;
+    border-radius: 0;
+  }
+  .apply-form textarea {
+    resize: vertical;
+    min-height: 56px;
+    line-height: 1.6;
+  }
+  .apply-form input::placeholder,
+  .apply-form textarea::placeholder {
+    color: rgba(11, 31, 58, 0.32);
+    font-family: var(--font-italic);
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+  .apply-form input:focus,
+  .apply-form textarea:focus,
+  .apply-form select:focus { border-bottom-color: var(--navy); }
+
+  .apply-form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image:
+      url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230B1F3A' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+    padding-right: 28px;
+    cursor: pointer;
+    color: var(--navy);
+  }
+  .apply-form select.placeholder { color: rgba(11, 31, 58, 0.32); font-family: var(--font-italic); font-style: italic; }
+  .apply-form select option { color: var(--navy); font-family: var(--font-body); font-style: normal; font-size: 15px; }
+
+  /* CONSENT CHECKBOX */
+  .form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+  .form-consent input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .form-consent .box {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--navy);
+    margin-top: 3px;
+    position: relative;
+    transition: background 200ms ease;
+  }
+  .form-consent input:checked + .box { background: var(--navy); }
+  .form-consent input:checked + .box::after {
+    content: '';
+    position: absolute;
+    left: 5px; top: 1px;
+    width: 5px; height: 10px;
+    border: solid var(--cream);
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+  .form-consent input:focus-visible + .box { outline: 2px solid var(--gold-muted); outline-offset: 2px; }
+  .form-consent .consent-text {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--mid);
+    letter-spacing: 0.01em;
+  }
+
+  .apply-submit-wrap { margin-top: 18px; text-align: center; }
+  .btn-solid {
+    display: inline-block;
+    border: 1px solid var(--navy);
+    background: var(--navy);
+    color: var(--cream);
+    padding: 17px 64px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 280ms ease, color 280ms ease, border-color 280ms ease;
+    border-radius: 0;
+  }
+  .btn-solid:hover { background: var(--sapphire); border-color: var(--sapphire); }
+  .btn-solid:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .apply-reassurance {
+    margin-top: 34px;
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--soft);
+    letter-spacing: 0.01em;
+  }
+  .apply-feedback {
+    margin-top: 22px;
+    min-height: 22px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 15px;
+    text-align: center;
+    color: var(--gold-muted);
+    line-height: 1.5;
+  }
+  .apply-feedback.error { color: #B26A6A; }
+
+  /* HONEYPOT */
+  .hp {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+
+  /* SUCCESS STATE */
+  .apply-success { display: none; text-align: center; padding: 30px 0 20px; }
+  .apply-success.visible { display: block; animation: successIn 700ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+  @keyframes successIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .apply-success .section-eyebrow { margin-bottom: 30px; }
+  .success-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1.12;
+    color: var(--navy);
+    margin-bottom: 32px;
+  }
+  .success-body p {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.3vw, 18px);
+    line-height: 1.85;
+    color: var(--navy);
+    margin: 0 auto 18px;
+    max-width: 52ch;
+  }
+  .success-signoff {
+    margin-top: 34px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold-muted);
+    letter-spacing: 0.02em;
+  }
+  .apply-form-wrap.submitted .apply-form,
+  .apply-form-wrap.submitted .apply-reassurance,
+  .apply-form-wrap.submitted .apply-feedback { display: none; }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--navy-deep); color: var(--cream); padding: 96px 0 40px; }
+  .footer-inner { max-width: var(--page); margin: 0 auto; padding: 0 40px; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 2.6fr;
+    gap: 80px;
+    padding-bottom: 72px;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    margin-bottom: 56px;
+  }
+  .footer-brand .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 400;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    margin-bottom: 22px; color: var(--cream);
+  }
+  .footer-brand .footer-category {
+    font-family: var(--font-display);
+    font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 14px 0; line-height: 1.4;
+  }
+  .footer-brand .footer-line {
+    font-family: var(--font-italic); font-size: 15px; line-height: 1.7;
+    color: rgba(249, 246, 240, 0.78); font-style: italic; max-width: 280px; margin: 0 0 22px 0;
+  }
+  .footer-brand .footer-provenance {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: rgba(249, 246, 240, 0.6); margin: 0;
+  }
+  .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .footer-col { display: flex; flex-direction: column; }
+  .footer-col-label {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+  }
+  .footer-col a {
+    font-family: var(--font-display); font-size: 15px; color: rgba(249, 246, 240, 0.82);
+    margin-bottom: 14px; transition: color 240ms ease; line-height: 1.5; display: block;
+  }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    padding-top: 28px; border-top: 1px solid rgba(201, 169, 110, 0.18);
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em;
+    color: rgba(249, 246, 240, 0.4); text-align: center;
+  }
+
+  /* ─── REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 900ms ease, transform 900ms ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .header-nav { gap: 30px; }
+    .header-nav a { font-size: 11px; letter-spacing: 0.26em; }
+    .header-utility { right: 24px; }
+    .benefits-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    :root { --logo-h: 68px; --nav-h: 0px; }
+    body { font-size: 16px; }
+    .header-logo { font-size: 18px; letter-spacing: 0.34em; }
+    .header-utility { right: 14px; gap: 10px; }
+    .header-utility-btn svg { width: 15px; height: 15px; }
+    .header-utility-btn[aria-label="Account"] { display: none; }
+    .header-nav-row { display: none; }
+    .header-mobile-toggle { display: block; left: 14px; padding: 6px; }
+    .header-mobile-toggle svg { width: 20px; height: 20px; }
+
+    .hero { min-height: 74vh; }
+    .hero-inner { padding: 0 24px 72px; }
+
+    .about { padding: 88px 0 80px; }
+    .about-inner { padding: 0 24px; }
+
+    .benefits { padding: 84px 0; }
+    .benefits-inner { padding: 0 24px; }
+    .benefits-head { margin-bottom: 56px; }
+
+    .commission { padding: 84px 0 88px; }
+    .commission-inner { padding: 0 24px; }
+    .commission-head { margin-bottom: 52px; }
+    .tiers { grid-template-columns: 1fr; border-bottom: 0; }
+    .tier { border-right: 0; border-bottom: 1px solid var(--line); padding: 48px 24px; }
+
+    .apply { padding: 84px 0 96px; }
+    .apply-inner { padding: 0 24px; }
+
+    .footer-inner { padding: 0 24px; }
+    footer { padding: 64px 0 36px; }
+    .footer-top { grid-template-columns: 1fr; gap: 56px; padding-bottom: 56px; margin-bottom: 40px; }
+    .footer-nav { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .footer-brand .footer-logo { font-size: 18px; }
+  }
+
+  @media (max-width: 640px) {
+    .benefits-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; gap: 28px; }
+    .btn-line { padding: 15px 40px; letter-spacing: 0.3em; }
+    .btn-solid { padding: 16px 48px; letter-spacing: 0.3em; }
+  }
+
+  @media (max-width: 520px) {
+    .footer-nav { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══ STICKY HEADER ═══ -->
+<header class="site-header">
+  <div class="header-logo-row">
+    <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <line x1="3" y1="7" x2="21" y2="7"/>
+        <line x1="3" y1="13" x2="21" y2="13"/>
+        <line x1="3" y1="19" x2="21" y2="19"/>
+      </svg>
+    </button>
+
+    <a href="index.html" class="header-logo">MAISON D&rsquo;VUE</a>
+
+    <div class="header-utility">
+      <a href="product.html" class="header-utility-btn" aria-label="Shop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 7h12l-1 14H7L6 7z"/>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </a>
+      <button class="header-utility-btn" type="button" aria-label="Account" onclick="window.location='mailto:hello@maisondvue.com'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="header-nav-row">
+    <ul class="header-nav">
+      <li><a href="about.html">About</a></li>
+      <li><a href="product.html">The Elixir</a></li>
+      <li><a href="product.html#origins">Origins</a></li>
+      <li><a href="creators.html" class="active">Creators</a></li>
+      <li><a href="product.html#reserve">Reserve</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ═══ MOBILE MENU ═══ -->
+<nav class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
+  <a href="product.html#origins" onclick="closeMobileMenu()">Origins</a>
+  <a href="creators.html" onclick="closeMobileMenu()">Creators</a>
+  <a href="product.html#reserve" onclick="closeMobileMenu()">Reserve</a>
+</nav>
+
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <picture class="hero-media" aria-hidden="true">
+      <img src="maison-dvue-gallery-hero-woman-wide.jpg"
+           alt=""
+           loading="eager"
+           onerror="this.closest('.hero').style.background='radial-gradient(120% 90% at 50% 20%, #14305A 0%, #070D22 70%)';">
+    </picture>
+    <div class="hero-inner reveal">
+      <p class="hero-eyebrow">The Founding Creator Program</p>
+      <h1 class="hero-title">Not everyone discovers MAISON D&rsquo;VUE. Some help introduce it.</h1>
+      <p class="hero-sub">Join our Founding Creator Program and receive early access, complimentary product consideration, and affiliate opportunities.</p>
+      <a href="#apply" class="btn-line">Apply for Consideration</a>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT THE HOUSE ═══ -->
+  <section class="about">
+    <div class="about-inner reveal">
+      <p class="section-eyebrow">A New Hair Ritual House</p>
+      <h2 class="about-title">A House composed in Beverly Hills</h2>
+
+      <p class="about-belief">&ldquo;What is worthy of the skin is worthy of the hair.&rdquo;</p>
+
+      <div class="about-body">
+        <p>MAISON D&rsquo;VUE was founded on a simple belief. Our debut creation, VUE&nbsp;14<span class="tm">&trade;</span> Hair Elixir, is a carefully composed treatment designed to enhance shine, softness, and movement &mdash; while preserving the natural beauty of the hair.</p>
+      </div>
+
+      <p class="about-provenance">Hand-sealed in Beverly Hills<br>Produced in limited allocations</p>
+    </div>
+  </section>
+
+  <!-- ═══ PROGRAM BENEFITS ═══ -->
+  <section class="benefits">
+    <div class="benefits-inner">
+      <div class="benefits-head reveal">
+        <p class="section-eyebrow">The Invitation</p>
+        <h2 class="benefits-title">Founding Creator Benefits</h2>
+      </div>
+
+      <div class="benefits-grid reveal">
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1">
+              <path d="M16 4c4 6 7 9.5 7 14a7 7 0 0 1-14 0c0-4.5 3-8 7-14z"/>
+              <path d="M13 19a3 3 0 0 0 3 3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="benefit-name">Complimentary Product Consideration</h3>
+          <p class="benefit-copy">Approved creators may receive a complimentary bottle of VUE&nbsp;14<span class="tm">&trade;</span> Hair Elixir.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1">
+              <path d="M13 19l6-6" stroke-linecap="round"/>
+              <path d="M11 17l-2.5 2.5a4 4 0 0 0 5.66 5.66L17 22.5" stroke-linecap="round"/>
+              <path d="M21 15l2.5-2.5a4 4 0 0 0-5.66-5.66L15 9.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="benefit-name">Personal Affiliate Link</h3>
+          <p class="benefit-copy">A referral link of your own. Earn commission on every verified sale.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1">
+              <circle cx="12" cy="13" r="5"/>
+              <path d="M15.5 16.5L25 26" stroke-linecap="round"/>
+              <path d="M22 23l3-1-1 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="benefit-name">Early Access</h3>
+          <p class="benefit-copy">Preview future launches before they are released to the public.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1">
+              <path d="M16 5l3.1 6.3 6.9 1-5 4.9 1.2 6.9L16 20.8 9.8 24l1.2-6.9-5-4.9 6.9-1L16 5z" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="benefit-name">Creator Opportunities</h3>
+          <p class="benefit-copy">Potential inclusion in future campaigns, editorials, and brand features.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COMMISSION STRUCTURE ═══ -->
+  <section class="commission">
+    <div class="commission-inner">
+      <div class="commission-head reveal">
+        <p class="section-eyebrow">Affiliate Rewards</p>
+        <h2 class="commission-title">A structure that rewards contribution</h2>
+      </div>
+
+      <div class="tiers reveal">
+        <div class="tier">
+          <p class="tier-name">Founding Creator</p>
+          <p class="tier-pct">20%<span>Commission</span></p>
+        </div>
+        <div class="tier">
+          <p class="tier-name">House Ambassador</p>
+          <p class="tier-pct">25%<span>Commission</span></p>
+        </div>
+        <div class="tier">
+          <p class="tier-name">Founder Circle</p>
+          <p class="tier-pct">30%<span>Commission</span></p>
+        </div>
+      </div>
+
+      <p class="commission-note reveal">Advancement is based on performance, alignment, and contribution to the growth of the House.</p>
+    </div>
+  </section>
+
+  <!-- ═══ APPLICATION ═══ -->
+  <section class="apply" id="apply">
+    <div class="apply-inner">
+      <div class="apply-head reveal">
+        <p class="section-eyebrow">By Invitation</p>
+        <h2 class="apply-title">Apply for Consideration</h2>
+        <p class="apply-lede">A few details. No essays, no obligation. Applications are reviewed on a rolling basis.</p>
+      </div>
+
+      <div class="apply-form-wrap reveal" id="applyFormWrap">
+
+        <form class="apply-form" id="applyForm" novalidate>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="firstName">First Name <span class="required">*</span></label>
+              <input type="text" id="firstName" name="firstName" required autocomplete="given-name" placeholder="Your first name">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="lastName">Last Name <span class="required">*</span></label>
+              <input type="text" id="lastName" name="lastName" required autocomplete="family-name" placeholder="Your last name">
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="your@email.com">
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="instagram">Instagram Handle <span class="required">*</span></label>
+              <input type="text" id="instagram" name="instagram" required autocomplete="off" placeholder="@yourhandle">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="tiktok">TikTok Handle <span class="opt">Optional</span></label>
+              <input type="text" id="tiktok" name="tiktok" autocomplete="off" placeholder="@yourhandle">
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="followers">Follower Count <span class="required">*</span></label>
+            <select id="followers" name="followers" required class="placeholder">
+              <option value="" disabled selected>Select a range</option>
+              <option value="Under 5,000">Under 5,000</option>
+              <option value="5,000–25,000">5,000&ndash;25,000</option>
+              <option value="25,000–100,000">25,000&ndash;100,000</option>
+              <option value="100,000–500,000">100,000&ndash;500,000</option>
+              <option value="500,000+">500,000+</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="shipping">Shipping Address <span class="required">*</span></label>
+            <textarea id="shipping" name="shipping" required rows="2" autocomplete="street-address" placeholder="Street, city, state, postal code, country"></textarea>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="note">Anything you&rsquo;d like us to know? <span class="opt">Optional</span></label>
+            <textarea id="note" name="note" rows="2" placeholder="A few words, if you wish"></textarea>
+          </div>
+
+          <!-- HONEYPOT — must remain present, hidden, and untouched -->
+          <div class="hp" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label class="form-consent" for="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <span class="box" aria-hidden="true"></span>
+            <span class="consent-text">I would like to be considered for the MAISON D&rsquo;VUE Founding Creator Program.</span>
+          </label>
+
+          <div class="apply-submit-wrap">
+            <button type="submit" class="btn-solid" id="applySubmit">Apply</button>
+          </div>
+        </form>
+
+        <p class="apply-feedback" id="applyFeedback" role="status" aria-live="polite"></p>
+        <p class="apply-reassurance">Your details are received in confidence and used only to consider your application.</p>
+
+        <!-- SUCCESS STATE -->
+        <div class="apply-success" id="applySuccess">
+          <p class="section-eyebrow">Application Received</p>
+          <h2 class="success-title">Thank you for your interest in MAISON D&rsquo;VUE.</h2>
+          <div class="success-body">
+            <p>Applications are reviewed on a rolling basis. Selected creators will receive additional details regarding product allocation, affiliate access, and next steps.</p>
+            <p>We appreciate your interest in becoming part of the House.</p>
+          </div>
+          <p class="success-signoff">&mdash; MAISON D&rsquo;VUE</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">MAISON D&rsquo;VUE</div>
+        <p class="footer-category">The House of Affinity Compositions<span class="tm">&trade;</span></p>
+        <p class="footer-line">Rare by origin. Refined by design.</p>
+        <div class="footer-provenance">Hand-sealed &middot; Beverly Hills</div>
+      </div>
+
+      <div class="footer-nav">
+        <div class="footer-col">
+          <div class="footer-col-label">The House</div>
+          <a href="about.html#founder">Masiela Lusha</a>
+          <a href="about.html#house">The House of Vue</a>
+          <a href="about.html#inside">Inside MAISON D&rsquo;VUE</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-label">The Product</div>
+          <a href="product.html#formulation">The Formula</a>
+          <a href="product.html#ritual">The Ritual</a>
+          <a href="product.html#origins">Origins</a>
+          <a href="product.html#reviews">Reviews</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-label">Access</div>
+          <a href="product.html#reserve">Reserve</a>
+          <a href="founders-circle.html">Join the Founder&rsquo;s Circle</a>
+          <a href="creators.html">Founding Creator Program</a>
+          <a href="mailto:hello@maisondvue.com">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">&copy; 2026 MAISON D&rsquo;VUE &nbsp;&middot;&nbsp; hello@maisondvue.com &nbsp;&middot;&nbsp; Made in USA</div>
+  </div>
+</footer>
+
+<script>
+  /* ─── CONFIGURATION ───────────────────────────────────────────────
+     Paste the Web App URL of your deployed Google Apps Script
+     (see creator-program.gs + creator-program-README.md). Until it is
+     set, the form validates and shows the success state without
+     transmitting — so the page is never "broken" in preview. */
+  var APPLICATION_ENDPOINT = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+
+  /* ─── MOBILE MENU ─── */
+  function openMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ─── REVEAL ON SCROLL ─── */
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ─── SELECT PLACEHOLDER STYLING ─── */
+  (function () {
+    var sel = document.getElementById('followers');
+    function sync() { sel.classList.toggle('placeholder', !sel.value); }
+    sel.addEventListener('change', sync);
+    sync();
+  })();
+
+  /* ─── APPLICATION FORM ─── */
+  (function () {
+    var form = document.getElementById('applyForm');
+    var submit = document.getElementById('applySubmit');
+    var feedback = document.getElementById('applyFeedback');
+    var wrap = document.getElementById('applyFormWrap');
+    var success = document.getElementById('applySuccess');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setMsg(text, type) {
+      feedback.textContent = text || '';
+      feedback.classList.toggle('error', type === 'error');
+    }
+
+    function showSuccess() {
+      wrap.classList.add('submitted');
+      success.classList.add('visible');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      setMsg('');
+
+      var firstName = form.firstName.value.trim();
+      var lastName = form.lastName.value.trim();
+      var email = form.email.value.trim();
+      var instagram = form.instagram.value.trim();
+      var tiktok = form.tiktok.value.trim();
+      var followers = form.followers.value;
+      var shipping = form.shipping.value.trim();
+      var note = form.note.value.trim();
+      var honey = form.website.value.trim();
+
+      /* Bots that fill the honeypot get a silent success and nothing is sent. */
+      if (honey) { showSuccess(); form.reset(); return; }
+
+      if (!firstName) { setMsg('A first name, please.', 'error'); form.firstName.focus(); return; }
+      if (!lastName) { setMsg('A last name, please.', 'error'); form.lastName.focus(); return; }
+      if (!emailRe.test(email)) { setMsg('A valid email, please.', 'error'); form.email.focus(); return; }
+      if (!instagram) { setMsg('An Instagram handle, please.', 'error'); form.instagram.focus(); return; }
+      if (!followers) { setMsg('Please select a follower range.', 'error'); form.followers.focus(); return; }
+      if (!shipping) { setMsg('A shipping address, please.', 'error'); form.shipping.focus(); return; }
+      if (!form.consent.checked) { setMsg('Please confirm you wish to be considered.', 'error'); form.consent.focus(); return; }
+
+      /* Endpoint not yet wired — validate, then show the success state. */
+      if (!APPLICATION_ENDPOINT || APPLICATION_ENDPOINT.indexOf('REPLACE_') === 0) {
+        showSuccess();
+        form.reset();
+        return;
+      }
+
+      submit.disabled = true;
+      var orig = submit.textContent;
+      submit.textContent = 'Sending…';
+
+      try {
+        var fd = new FormData();
+        fd.append('firstName', firstName);
+        fd.append('lastName', lastName);
+        fd.append('email', email);
+        fd.append('instagram', instagram);
+        fd.append('tiktok', tiktok);
+        fd.append('followers', followers);
+        fd.append('shipping', shipping);
+        fd.append('note', note);
+        fd.append('source', 'creators-page');
+        fd.append('userAgent', navigator.userAgent || '');
+        fd.append('referrer', document.referrer || '');
+
+        var res = await fetch(APPLICATION_ENDPOINT, { method: 'POST', body: fd });
+        var ok = res.ok;
+        try { var data = await res.json(); ok = ok && data && data.ok !== false; } catch (_) {}
+
+        if (ok) { form.reset(); showSuccess(); }
+        else { throw new Error('Server returned an error'); }
+      } catch (err) {
+        setMsg('Forgive us — something faltered in transit. Please write to hello@maisondvue.com.', 'error');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = orig;
+      }
+    });
+  })();
+</script>
+
+<script src="assets/chat.js" defer></script>
+
+</body>
+</html>

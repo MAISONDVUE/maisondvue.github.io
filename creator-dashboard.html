@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Creator Dashboard &mdash; MAISON D&rsquo;VUE</title>
+<meta name="description" content="The MAISON D'VUE creator dashboard. Your affiliate link, creator code, and performance.">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="canonical" href="https://maisondvue.com/creator-dashboard.html">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+<link rel="shortcut icon" href="/favicon.ico?v=4">
+<meta name="theme-color" content="#F4EDE1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F4EDE1;
+    --warm-white: #FBF7F0;
+    --navy: #0B1F3A;
+    --navy-deep: #070D22;
+    --sapphire: #14305A;
+    --gold: #C9A96E;
+    --gold-muted: #B8996A;
+    --ink: #0B1F3A;
+    --mid: rgba(11, 31, 58, 0.62);
+    --soft: rgba(11, 31, 58, 0.42);
+    --line: rgba(11, 31, 58, 0.16);
+    --line-soft: rgba(11, 31, 58, 0.10);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-italic: 'EB Garamond', Georgia, serif;
+    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+    --page: 1080px;
+    --logo-h: 88px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--cream); }
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    font-size: 17px;
+    line-height: 1.65;
+    display: flex;
+    flex-direction: column;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; }
+
+  /* HEADER */
+  .header-logo-row {
+    background: var(--cream);
+    height: var(--logo-h);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .header-logo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(22px, 3vw, 38px);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  main { flex: 1 0 auto; }
+
+  .dash {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 96px 40px 120px;
+    width: 100%;
+  }
+
+  .dash-head { text-align: center; margin-bottom: 64px; }
+  .dash-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--navy);
+    opacity: 0.55;
+    margin-bottom: 26px;
+    line-height: 1;
+  }
+  .dash-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(32px, 4.2vw, 54px);
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .dash-sub {
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  /* SIGN-IN (code entry) */
+  .signin {
+    max-width: 460px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .signin-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .signin-row { display: flex; gap: 0; align-items: stretch; }
+  .signin-row input {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-right: 0;
+    color: var(--navy);
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 16px 18px;
+    outline: none;
+    transition: border-color 240ms ease;
+    border-radius: 0;
+  }
+  .signin-row input::placeholder { color: var(--soft); letter-spacing: 0.08em; }
+  .signin-row input:focus { border-color: var(--navy); }
+  .signin-row button {
+    background: var(--navy);
+    color: var(--cream);
+    border: 1px solid var(--navy);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 0 32px;
+    cursor: pointer;
+    transition: background 260ms ease;
+  }
+  .signin-row button:hover { background: var(--sapphire); }
+  .signin-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .signin-feedback {
+    margin-top: 18px;
+    min-height: 20px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 15px;
+    color: #B26A6A;
+    line-height: 1.5;
+  }
+  .signin-help {
+    margin-top: 28px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--soft);
+    line-height: 1.6;
+  }
+  .signin-help a { border-bottom: 1px solid var(--line); }
+
+  /* PANEL (revealed after lookup) */
+  .panel { display: none; }
+  .panel.visible { display: block; animation: fadeIn 600ms ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .panel-greeting {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .panel-status {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sapphire);
+    border: 1px solid var(--line);
+    padding: 8px 18px;
+    margin-bottom: 20px;
+  }
+  .panel-name {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 3.4vw, 40px);
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .panel-tier {
+    margin-top: 12px;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--gold-muted);
+  }
+
+  /* STAT CARDS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+    margin-bottom: 48px;
+  }
+  .stat {
+    background: var(--warm-white);
+    padding: 44px 32px;
+    text-align: center;
+  }
+  .stat-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+
+  /* CREDENTIAL ROWS */
+  .credentials {
+    border-top: 1px solid var(--line);
+  }
+  .cred {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cred-info { min-width: 0; }
+  .cred-label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+  .cred-value {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+    word-break: break-all;
+  }
+  .cred-copy {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: background 240ms ease, color 240ms ease;
+    white-space: nowrap;
+  }
+  .cred-copy:hover { background: var(--navy); color: var(--cream); }
+  .cred-copy.copied { background: var(--sapphire); border-color: var(--sapphire); color: var(--cream); }
+
+  .panel-note {
+    margin-top: 40px;
+    text-align: center;
+    font-family: var(--font-italic);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--soft);
+    line-height: 1.6;
+  }
+  .panel-signout {
+    margin-top: 18px;
+    text-align: center;
+  }
+  .panel-signout button {
+    background: transparent;
+    border: 0;
+    color: var(--mid);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 1px solid var(--line);
+    padding: 6px 2px;
+    transition: color 240ms ease;
+  }
+  .panel-signout button:hover { color: var(--navy); }
+
+  /* FOOTER */
+  footer {
+    flex-shrink: 0;
+    background: var(--navy-deep);
+    color: rgba(249, 246, 240, 0.5);
+    text-align: center;
+    padding: 28px 24px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+  }
+  footer a { color: rgba(249, 246, 240, 0.72); border-bottom: 1px solid rgba(201, 169, 110, 0.3); }
+
+  @media (max-width: 720px) {
+    :root { --logo-h: 64px; }
+    .header-logo { font-size: 17px; letter-spacing: 0.34em; }
+    .dash { padding: 64px 24px 88px; }
+    .stats { grid-template-columns: 1fr; }
+    .cred { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .cred-copy { align-self: stretch; text-align: center; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-logo-row">
+    <a href="index.html" class="header-logo">MAISON D&rsquo;VUE</a>
+  </div>
+</header>
+
+<main>
+  <section class="dash">
+
+    <div class="dash-head">
+      <p class="dash-eyebrow">Founding Creator Program</p>
+      <h1 class="dash-title">Creator Dashboard</h1>
+      <p class="dash-sub">Your link, your code, your contribution to the House.</p>
+    </div>
+
+    <!-- CODE ENTRY -->
+    <div class="signin" id="signin">
+      <label class="signin-label" for="codeInput">Enter your creator code</label>
+      <form class="signin-row" id="signinForm" novalidate>
+        <input type="text" id="codeInput" name="code" placeholder="e.g. MASIELA10" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        <button type="submit" id="signinBtn">View</button>
+      </form>
+      <p class="signin-feedback" id="signinFeedback" role="status" aria-live="polite"></p>
+      <p class="signin-help">Approved creators receive a code by email. Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></p>
+    </div>
+
+    <!-- DASHBOARD PANEL -->
+    <div class="panel" id="panel">
+
+      <div class="panel-greeting">
+        <span class="panel-status" id="panelStatus">Active Affiliate</span>
+        <h2 class="panel-name" id="panelName">&mdash;</h2>
+        <p class="panel-tier" id="panelTier">&mdash;</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <p class="stat-label">Total Sales</p>
+          <p class="stat-value" id="statSales">&mdash;</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Total Revenue Generated</p>
+          <p class="stat-value" id="statRevenue">&mdash;</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Commission Earned</p>
+          <p class="stat-value" id="statCommission">&mdash;</p>
+        </div>
+      </div>
+
+      <div class="credentials">
+        <div class="cred">
+          <div class="cred-info">
+            <p class="cred-label">Affiliate Link</p>
+            <p class="cred-value" id="credLink">&mdash;</p>
+          </div>
+          <button type="button" class="cred-copy" data-target="credLink">Copy Affiliate Link</button>
+        </div>
+        <div class="cred">
+          <div class="cred-info">
+            <p class="cred-label">Creator Code</p>
+            <p class="cred-value" id="credCode">&mdash;</p>
+          </div>
+          <button type="button" class="cred-copy" data-target="credCode">Copy Creator Code</button>
+        </div>
+      </div>
+
+      <p class="panel-note">Sales are reflected once verified. Commission is calculated at your current tier rate.</p>
+      <div class="panel-signout"><button type="button" id="signoutBtn">Sign out</button></div>
+
+    </div>
+
+  </section>
+</main>
+
+<footer>&copy; 2026 MAISON D&rsquo;VUE &middot; <a href="creators.html">Founding Creator Program</a></footer>
+
+<script>
+  /* ─── CONFIGURATION ───────────────────────────────────────────────
+     Same Apps Script Web App URL used by creators.html. The dashboard
+     reads a creator's figures with GET ?action=dashboard&code=CODE.
+     Until set, a demonstration record is shown so the layout is never
+     blank in preview. */
+  var DASHBOARD_ENDPOINT = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+
+  var els = {
+    signin: document.getElementById('signin'),
+    form: document.getElementById('signinForm'),
+    input: document.getElementById('codeInput'),
+    btn: document.getElementById('signinBtn'),
+    feedback: document.getElementById('signinFeedback'),
+    panel: document.getElementById('panel'),
+    status: document.getElementById('panelStatus'),
+    name: document.getElementById('panelName'),
+    tier: document.getElementById('panelTier'),
+    sales: document.getElementById('statSales'),
+    revenue: document.getElementById('statRevenue'),
+    commission: document.getElementById('statCommission'),
+    link: document.getElementById('credLink'),
+    code: document.getElementById('credCode'),
+    signout: document.getElementById('signoutBtn')
+  };
+
+  function money(n) {
+    var v = Number(n) || 0;
+    return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function render(d) {
+    els.status.textContent = d.status || 'Active Affiliate';
+    els.name.textContent = d.name || 'Creator';
+    els.tier.textContent = d.tier ? d.tier + ' · ' + (d.commissionRate || '') + ' commission' : '';
+    els.sales.textContent = (Number(d.totalSales) || 0).toLocaleString('en-US');
+    els.revenue.textContent = money(d.totalRevenue);
+    els.commission.textContent = money(d.commissionEarned);
+    els.link.textContent = d.affiliateLink || '';
+    els.code.textContent = d.creatorCode || '';
+    els.signin.style.display = 'none';
+    els.panel.classList.add('visible');
+  }
+
+  function setMsg(t) { els.feedback.textContent = t || ''; }
+
+  /* Demonstration record for preview before the endpoint is wired. */
+  function demoRecord(code) {
+    return {
+      name: 'Founding Creator',
+      status: 'Active Affiliate',
+      tier: 'Founding Creator',
+      commissionRate: '20%',
+      totalSales: 0,
+      totalRevenue: 0,
+      commissionEarned: 0,
+      affiliateLink: 'https://shop.maisondvue.com/?ref=' + code,
+      creatorCode: code
+    };
+  }
+
+  async function lookup(code) {
+    code = (code || '').trim().toUpperCase();
+    if (!code) { setMsg('Please enter your creator code.'); els.input.focus(); return; }
+
+    if (!DASHBOARD_ENDPOINT || DASHBOARD_ENDPOINT.indexOf('REPLACE_') === 0) {
+      render(demoRecord(code));
+      history.replaceState(null, '', '?code=' + encodeURIComponent(code));
+      return;
+    }
+
+    els.btn.disabled = true;
+    var orig = els.btn.textContent;
+    els.btn.textContent = '…';
+    setMsg('');
+
+    try {
+      var url = DASHBOARD_ENDPOINT + (DASHBOARD_ENDPOINT.indexOf('?') === -1 ? '?' : '&') +
+        'action=dashboard&code=' + encodeURIComponent(code);
+      var res = await fetch(url, { method: 'GET' });
+      var data = await res.json();
+      if (data && data.ok !== false && data.creatorCode) {
+        render(data);
+        history.replaceState(null, '', '?code=' + encodeURIComponent(code));
+      } else {
+        setMsg('That code was not recognized. Please check your email, or write to us.');
+        els.input.select();
+      }
+    } catch (err) {
+      setMsg('We could not reach the House just now. Please try again shortly.');
+    } finally {
+      els.btn.disabled = false;
+      els.btn.textContent = orig;
+    }
+  }
+
+  els.form.addEventListener('submit', function (e) { e.preventDefault(); lookup(els.input.value); });
+
+  els.signout.addEventListener('click', function () {
+    els.panel.classList.remove('visible');
+    els.signin.style.display = '';
+    els.input.value = '';
+    els.input.focus();
+    history.replaceState(null, '', location.pathname);
+  });
+
+  /* COPY BUTTONS */
+  document.querySelectorAll('.cred-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.getAttribute('data-target')).textContent.trim();
+      if (!text) return;
+      var done = function () {
+        var orig = btn.textContent;
+        btn.classList.add('copied');
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.classList.remove('copied'); btn.textContent = orig; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(done);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta); done();
+      }
+    });
+  });
+
+  /* Deep link: /creator-dashboard.html?code=XXXX opens straight to the panel. */
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var code = params.get('code');
+    if (code) { els.input.value = code.toUpperCase(); lookup(code); }
+  })();
+</script>
+
+</body>
+</html>
