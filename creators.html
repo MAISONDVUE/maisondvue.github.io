@@ -1137,11 +1137,20 @@
 
 <script>
   /* ─── CONFIGURATION ───────────────────────────────────────────────
-     Paste the Web App URL of your deployed Google Apps Script
-     (see creator-program.gs + creator-program-README.md). Until it is
-     set, the form validates and shows the success state without
-     transmitting — so the page is never "broken" in preview. */
+     PRIMARY: once the Google Apps Script is deployed (see
+     creator-program.gs + creator-program-README.md), paste its Web App
+     URL here. It unlocks auto-generated codes/links, approval emails,
+     and the creator dashboard.
+
+     FALLBACK (live now): until the endpoint is set, applications post
+     straight into the MAISON D'VUE Mailchimp audience — the same
+     no-server method the Founder's Circle form uses — so applicants are
+     captured from day one with nothing to deploy. */
   var APPLICATION_ENDPOINT = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+
+  /* Mailchimp audience (us20) — mirrors founders-circle.html. */
+  var MAILCHIMP_ACTION = "https://maisondvue.us20.list-manage.com/subscribe/post?u=ece90c707751d2379f6f22e77&id=3a9da7ab07&f_id=004802eef0";
+  var MAILCHIMP_HONEYPOT = "b_ece90c707751d2379f6f22e77_3a9da7ab07";
 
   /* ─── MOBILE MENU ─── */
   function openMobileMenu() {
@@ -1196,6 +1205,60 @@
       success.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
+    /* Posts the application into Mailchimp's classic embedded-form endpoint
+       via a hidden iframe, so the applicant never leaves the page. Name and
+       email are stored on every audience; the remaining fields populate if
+       matching merge tags exist (IG, TIKTOK, FOLLOWERS, SHIPADDR, NOTE),
+       and are harmlessly ignored otherwise. */
+    function postToMailchimp(data, done) {
+      var iframe = document.createElement('iframe');
+      iframe.name = 'mc_target_' + Date.now();
+      iframe.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px';
+      iframe.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(iframe);
+
+      var f = document.createElement('form');
+      f.action = MAILCHIMP_ACTION;
+      f.method = 'post';
+      f.target = iframe.name;
+      f.style.display = 'none';
+
+      var fields = {
+        EMAIL: data.email,
+        FNAME: data.firstName,
+        LNAME: data.lastName,
+        IG: data.instagram,
+        TIKTOK: data.tiktok,
+        FOLLOWERS: data.followers,
+        SHIPADDR: data.shipping,
+        NOTE: data.note
+      };
+      fields[MAILCHIMP_HONEYPOT] = ''; // honeypot must post empty
+      Object.keys(fields).forEach(function (name) {
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = name;
+        input.value = fields[name] == null ? '' : fields[name];
+        f.appendChild(input);
+      });
+
+      var finished = false;
+      function finish() {
+        if (finished) return;
+        finished = true;
+        setTimeout(function () {
+          if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+          if (f.parentNode) f.parentNode.removeChild(f);
+        }, 1500);
+        done();
+      }
+      iframe.addEventListener('load', finish);
+      setTimeout(finish, 3500); // safety net if the load event never fires
+
+      document.body.appendChild(f);
+      f.submit();
+    }
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       setMsg('');
@@ -1221,16 +1284,26 @@
       if (!shipping) { setMsg('A shipping address, please.', 'error'); form.shipping.focus(); return; }
       if (!form.consent.checked) { setMsg('Please confirm you wish to be considered.', 'error'); form.consent.focus(); return; }
 
-      /* Endpoint not yet wired — validate, then show the success state. */
-      if (!APPLICATION_ENDPOINT || APPLICATION_ENDPOINT.indexOf('REPLACE_') === 0) {
-        showSuccess();
-        form.reset();
-        return;
-      }
+      var appData = {
+        firstName: firstName, lastName: lastName, email: email,
+        instagram: instagram, tiktok: tiktok, followers: followers,
+        shipping: shipping, note: note
+      };
 
       submit.disabled = true;
       var orig = submit.textContent;
       submit.textContent = 'Sending…';
+
+      /* Apps Script not yet wired — capture the application in Mailchimp now. */
+      if (!APPLICATION_ENDPOINT || APPLICATION_ENDPOINT.indexOf('REPLACE_') === 0) {
+        postToMailchimp(appData, function () {
+          submit.disabled = false;
+          submit.textContent = orig;
+          form.reset();
+          showSuccess();
+        });
+        return;
+      }
 
       try {
         var fd = new FormData();
