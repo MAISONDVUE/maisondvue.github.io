@@ -7,6 +7,10 @@
  *
  *   POST  (form fields)                         → record a new application
  *   GET   ?action=dashboard&code=CODE           → a creator's dashboard figures
+ *   GET   ?action=click&code=CODE               → log a referral click, then redirect to the shop
+ *
+ * Emails (best-effort): an "Application Received" receipt on submit, and a
+ * "Welcome to the House" approval email the moment a creator is approved.
  *
  * The Google Sheet itself IS the admin dashboard: the founder reviews, approves,
  * and tracks everything from the rows. Changing an applicant's Status to
@@ -35,6 +39,9 @@ var SHOP_BASE_URL = "https://shop.maisondvue.com/";
 // Notify the House when a new application arrives ("" to disable).
 var NOTIFY_EMAIL = "hello@maisondvue.com";
 
+// Display name on the automated emails sent to applicants/creators.
+var SENDER_NAME = "MAISON D'VUE";
+
 // Commission rate by status / tier. Advancement is set by editing Status.
 var COMMISSION_RATES = {
   "Applied": 0,
@@ -54,16 +61,18 @@ var STATUS_OPTIONS = [
 
 var APPLICATIONS_TAB = "Applications";
 var SALES_TAB = "Sales";
+var CLICKS_TAB = "Clicks";
 var DASHBOARD_TAB = "Admin Dashboard";
 
 var APP_HEADERS = [
   "Application Date", "First Name", "Last Name", "Email",
   "Instagram", "TikTok", "Follower Count", "Shipping Address",
   "Note", "Status", "Creator Code", "Referral Link",
-  "Total Sales", "Total Revenue", "Commission Owed", "Source"
+  "Clicks", "Total Sales", "Total Revenue", "Commission Owed", "Source"
 ];
 
 var SALES_HEADERS = ["Date", "Creator Code", "Order ID", "Order Value", "Status"];
+var CLICKS_HEADERS = ["Date", "Creator Code", "Referrer"];
 
 // ── HTTP entry points ─────────────────────────────────────────────────────────
 function doPost(e) {
@@ -93,11 +102,15 @@ function doPost(e) {
       "Applied",
       "",            // Creator Code — minted on approval
       "",            // Referral Link — minted on approval
+      0,             // Clicks
       0,             // Total Sales
       0,             // Total Revenue
       0,             // Commission Owed
       clean(p.source) || "creators-page"
     ]);
+
+    // Quiet on-brand receipt to the applicant.
+    sendApplicationReceived(email, clean(p.firstName));
 
     if (NOTIFY_EMAIL) {
       try {
@@ -128,7 +141,29 @@ function doPost(e) {
 function doGet(e) {
   var p = (e && e.parameter) || {};
   if (p.action === "dashboard") return dashboardForCode(p.code);
+  if (p.action === "click") return clickRedirect(p.code, p.r);
   return json({ ok: true, service: "MAISON D'VUE Founding Creator Program" });
+}
+
+// Logs a referral click, then forwards to the shop with the ?ref= attached.
+// Use this URL form as the trackable link: …/exec?action=click&code=CODE
+function clickRedirect(code, referrer) {
+  code = String(code || "").trim().toUpperCase();
+  var dest = SHOP_BASE_URL + (code ? "?ref=" + encodeURIComponent(code) : "");
+  if (code) {
+    try {
+      tab(CLICKS_TAB, CLICKS_HEADERS).appendRow([new Date(), code, clean(referrer, 300)]);
+    } catch (err) { /* never block the redirect */ }
+  }
+  var safe = JSON.stringify(dest);
+  return HtmlService
+    .createHtmlOutput(
+      '<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<meta http-equiv="refresh" content="0;url=' + dest.replace(/"/g, "&quot;") + '">' +
+      '<script>location.replace(' + safe + ');</script>' +
+      '<p style="font-family:Georgia,serif;color:#0B1F3A;text-align:center;margin-top:40px">Taking you to MAISON D&rsquo;VUE&hellip;</p>'
+    )
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
 // ── Dashboard read ──────────────────────────────────────────────────────────
@@ -184,9 +219,14 @@ function onStatusEdit(e) {
     if (minting) {
       var first = String(sh.getRange(row, col["First Name"] + 1).getValue());
       var last = String(sh.getRange(row, col["Last Name"] + 1).getValue());
+      var email = String(sh.getRange(row, col["Email"] + 1).getValue());
       var code = generateCode(first, last, sh, col);
+      var link = SHOP_BASE_URL + "?ref=" + code;
       codeCell.setValue(code);
-      linkCell.setValue(SHOP_BASE_URL + "?ref=" + code);
+      linkCell.setValue(link);
+
+      // Approval triggers the "Welcome to the House" email with affiliate details.
+      sendApprovalEmail(email, first, code, link);
     }
 
     refreshTotalsRow(sh, row, col);
@@ -237,9 +277,23 @@ function refreshTotalsRow(sh, row, col) {
   var status = String(sh.getRange(row, col["Status"] + 1).getValue()).trim();
   var rate = COMMISSION_RATES[status] != null ? COMMISSION_RATES[status] : 0.20;
   var t = code ? salesTotals(code) : { count: 0, revenue: 0 };
+  sh.getRange(row, col["Clicks"] + 1).setValue(code ? clickTotal(code) : 0);
   sh.getRange(row, col["Total Sales"] + 1).setValue(t.count);
   sh.getRange(row, col["Total Revenue"] + 1).setValue(t.revenue);
   sh.getRange(row, col["Commission Owed"] + 1).setValue(Math.round(t.revenue * rate * 100) / 100);
+}
+
+// Counts logged referral clicks for a creator code.
+function clickTotal(code) {
+  var sheet = tab(CLICKS_TAB, CLICKS_HEADERS);
+  var rows = sheet.getDataRange().getValues();
+  if (rows.length < 2) return 0;
+  var col = headerIndex(rows[0]);
+  var n = 0;
+  for (var i = 1; i < rows.length; i++) {
+    if (String(rows[i][col["Creator Code"]]).trim().toUpperCase() === code) n++;
+  }
+  return n;
 }
 
 // Recompute every creator's totals + the admin summary. Run on a daily trigger,
@@ -261,7 +315,7 @@ function buildDashboard() {
   var totalApps = apps.length - 1;
   var counts = {};
   STATUS_OPTIONS.forEach(function (s) { counts[s] = 0; });
-  var productSent = 0, totalRevenue = 0, totalCommission = 0;
+  var productSent = 0, totalRevenue = 0, totalCommission = 0, totalClicks = 0;
   var performers = [];
 
   for (var i = 1; i < apps.length; i++) {
@@ -272,6 +326,7 @@ function buildDashboard() {
     var comm = Number(apps[i][col["Commission Owed"]]) || 0;
     totalRevenue += rev;
     totalCommission += comm;
+    totalClicks += Number(apps[i][col["Clicks"]]) || 0;
     if (apps[i][col["Creator Code"]]) {
       performers.push({
         name: [apps[i][col["First Name"]], apps[i][col["Last Name"]]].join(" ").trim(),
@@ -295,6 +350,7 @@ function buildDashboard() {
     ["Approvals", approved],
     ["Product shipments", productSent],
     ["Active affiliates", counts["Active Affiliate"] + counts["House Ambassador"] + counts["Founder Circle"]],
+    ["Total referral clicks", totalClicks],
     ["Total revenue generated", totalRevenue],
     ["Commission owed", totalCommission],
     ["", ""],
@@ -307,7 +363,14 @@ function buildDashboard() {
   dash.getRange(1, 1, out.length, 4 < out[0].length ? out[0].length : 4)
     .setValues(out.map(function (r) { while (r.length < 4) r.push(""); return r; }));
   dash.getRange("A1").setFontWeight("bold").setFontSize(14);
-  dash.getRange("A12:D12").setFontWeight("bold");
+  // Bold the "Top performing creators" label and its column header,
+  // located by content so it survives changes to the summary rows above.
+  for (var r = 0; r < out.length; r++) {
+    if (out[r][0] === "Top performing creators") {
+      dash.getRange(r + 1, 1, 2, 4).setFontWeight("bold");
+      break;
+    }
+  }
   dash.setColumnWidth(1, 240);
 }
 
@@ -315,6 +378,7 @@ function buildDashboard() {
 function setup() {
   tab(APPLICATIONS_TAB, APP_HEADERS);
   tab(SALES_TAB, SALES_HEADERS);
+  tab(CLICKS_TAB, CLICKS_HEADERS);
 
   // Status dropdown on the Applications tab.
   var sh = tab(APPLICATIONS_TAB, APP_HEADERS);
@@ -332,6 +396,79 @@ function setup() {
   }
 
   buildDashboard();
+}
+
+// ── Emails ────────────────────────────────────────────────────────────────────
+// All mail is best-effort: failures never block the sheet or the response.
+function sendApplicationReceived(email, first) {
+  if (!email) return;
+  try {
+    MailApp.sendEmail({
+      to: email,
+      name: SENDER_NAME,
+      subject: "Application Received",
+      htmlBody: emailShell(
+        "Application Received",
+        "<p>" + greeting(first) + "</p>" +
+        "<p>Thank you for your interest in MAISON D&rsquo;VUE.</p>" +
+        "<p>Applications are reviewed on a rolling basis. If approved, you will receive details regarding product allocation, affiliate access, and next steps.</p>" +
+        "<p>We appreciate your interest in becoming part of the House.</p>" +
+        "<p style='margin-top:28px'>Warm regards,<br>MAISON D&rsquo;VUE</p>"
+      )
+    });
+  } catch (err) { /* best-effort */ }
+}
+
+function sendApprovalEmail(email, first, code, link) {
+  if (!email) return;
+  try {
+    var benefits =
+      "<ul style='margin:16px 0;padding-left:18px;line-height:1.9'>" +
+      "<li>A complimentary bottle of VUE&nbsp;14&trade; Hair Elixir</li>" +
+      "<li>A personal affiliate link</li>" +
+      "<li>A unique referral code</li>" +
+      "<li>20% commission on verified sales</li>" +
+      "<li>Early access to future releases</li>" +
+      "</ul>";
+    var details =
+      "<table style='margin:8px 0 4px;font-size:15px'>" +
+      "<tr><td style='padding:4px 16px 4px 0;color:#5D6A7E'>Referral code</td><td style='font-weight:600'>" + code + "</td></tr>" +
+      "<tr><td style='padding:4px 16px 4px 0;color:#5D6A7E'>Affiliate link</td><td><a href='" + link + "' style='color:#14305A'>" + link + "</a></td></tr>" +
+      "</table>";
+    MailApp.sendEmail({
+      to: email,
+      name: SENDER_NAME,
+      subject: "Welcome to the House",
+      htmlBody: emailShell(
+        "Welcome to the House",
+        "<p>" + greeting(first) + "</p>" +
+        "<p>Thank you for applying to the MAISON D&rsquo;VUE Founding Creator Program. We are delighted to welcome you.</p>" +
+        "<p>As an approved creator, you will receive:</p>" +
+        benefits +
+        details +
+        "<p>Your full affiliate details will arrive shortly.</p>" +
+        "<p style='margin-top:28px'>Warm regards,<br>MAISON D&rsquo;VUE</p>"
+      )
+    });
+  } catch (err) { /* best-effort */ }
+}
+
+function greeting(first) {
+  first = clean(first);
+  return first ? ("Dear " + first + ",") : "Dear Creator,";
+}
+
+// A restrained cream/navy serif email frame, in the house register.
+function emailShell(title, inner) {
+  return "" +
+    "<div style='background:#F4EDE1;padding:40px 0;font-family:Georgia,\"Times New Roman\",serif;color:#0B1F3A'>" +
+    "<div style='max-width:560px;margin:0 auto;background:#FBF7F0;padding:48px 44px;border:1px solid rgba(11,31,58,0.12)'>" +
+    "<div style='font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#0B1F3A;text-align:center'>MAISON D&rsquo;VUE</div>" +
+    "<h1 style='font-weight:400;font-size:26px;text-align:center;margin:24px 0 28px;color:#0B1F3A'>" + title + "</h1>" +
+    "<div style='font-size:16px;line-height:1.7;color:#0B1F3A'>" + inner + "</div>" +
+    "</div>" +
+    "<div style='max-width:560px;margin:18px auto 0;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a8170'>Hand-sealed &middot; Beverly Hills</div>" +
+    "</div>";
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

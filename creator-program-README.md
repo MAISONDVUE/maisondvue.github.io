@@ -55,8 +55,9 @@ That is the entire wiring. Commit and the program is live.
 ### Application → sheet
 Submitting `creators.html` appends a row to **Applications** with the
 application date, name, email, social handles, follower range, shipping
-address, optional note, and a `Status` of **Applied**. The House is emailed a
-notification (`NOTIFY_EMAIL`).
+address, optional note, and a `Status` of **Applied**. The applicant receives
+a quiet *Application Received* email, and the House is notified
+(`NOTIFY_EMAIL`).
 
 ### Approval → automatic affiliate account
 The **Status** column is a dropdown:
@@ -65,8 +66,10 @@ The **Status** column is a dropdown:
 
 The moment you move someone off **Applied**, the script automatically:
 
-- generates a **unique creator code** (e.g. `MASIELA10`),
-- writes their **referral link** (`SHOP_BASE_URL?ref=CODE`).
+- generates a **unique referral code** (e.g. `MASIELA10`),
+- writes their **affiliate link** (`SHOP_BASE_URL?ref=CODE`),
+- sends the **“Welcome to the House”** approval email — a cream/navy serif
+  note with their code, link, 20% commission, and benefits.
 
 No extra step — editing the dropdown *is* the approval action.
 
@@ -75,7 +78,8 @@ A creator opens `creator-dashboard.html`, enters their code (or visits
 `creator-dashboard.html?code=THEIRCODE`), and sees:
 
 - **Total Sales**, **Total Revenue Generated**, **Commission Earned**
-- their **Affiliate Link** and **Creator Code**, each with a **Copy** button.
+- their **Affiliate Link** and **Referral Code**, each with a **Copy** button,
+  plus a **Request Support** button (mails `hello@maisondvue.com`).
 
 ### Commission tiers
 Rates are read from the `Status`/tier in `COMMISSION_RATES`:
@@ -100,12 +104,25 @@ To attribute orders automatically, capture the `?ref=` parameter at checkout
 with each order — most carts support this with a small snippet or a Zapier /
 Make step.
 
+### Tracking clicks (optional)
+The clean `…?ref=CODE` link works on its own. If you also want **click**
+counts, hand creators the trackable form of their link instead:
+
+```
+https://script.google.com/macros/s/……/exec?action=click&code=CODE
+```
+
+It logs the click to the **Clicks** tab and instantly forwards to the shop
+with `?ref=CODE` attached. Clicks then roll up per creator and into the admin
+summary on the next `refreshAllTotals`.
+
 ### Admin dashboard
 The Google Sheet **is** the admin console. The **Admin Dashboard** tab
-summarizes Applications, Approvals, Product shipments, Active affiliates, Total
-revenue, Commission owed, and the **Top performing creators**. Run
+summarizes Applications, Approvals, Product shipments, Active affiliates,
+Referral clicks, Total revenue, Commission owed, and the **Top performing
+creators**. Approve or reject by hand via the Status dropdown. Run
 **`refreshAllTotals`** (or add a daily time-based trigger) to recompute every
-creator's totals and rebuild the summary.
+creator's clicks/sales/commission and rebuild the summary.
 
 ---
 

@@ -301,8 +301,15 @@
   .cred-copy:hover { background: var(--navy); color: var(--cream); }
   .cred-copy.copied { background: var(--sapphire); border-color: var(--sapphire); color: var(--cream); }
 
+  .panel-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+  }
+  .panel-actions .cred-copy { text-align: center; }
+
   .panel-note {
-    margin-top: 40px;
+    margin-top: 36px;
     text-align: center;
     font-family: var(--font-italic);
     font-style: italic;
@@ -420,11 +427,15 @@
         </div>
         <div class="cred">
           <div class="cred-info">
-            <p class="cred-label">Creator Code</p>
+            <p class="cred-label">Referral Code</p>
             <p class="cred-value" id="credCode">&mdash;</p>
           </div>
-          <button type="button" class="cred-copy" data-target="credCode">Copy Creator Code</button>
+          <button type="button" class="cred-copy" data-target="credCode">Copy Referral Code</button>
         </div>
+      </div>
+
+      <div class="panel-actions">
+        <a class="cred-copy" href="mailto:hello@maisondvue.com?subject=Founding%20Creator%20Support">Request Support</a>
       </div>
 
       <p class="panel-note">Sales are reflected once verified. Commission is calculated at your current tier rate.</p>
