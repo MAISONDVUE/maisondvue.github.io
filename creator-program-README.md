@@ -10,8 +10,18 @@ quiet standard as the rest of the house. Three pieces:
 | `creator-program.gs` | The backend: a Google Apps Script Web App with a Google Sheet as the data store and admin dashboard. |
 
 The pages work **immediately** as a polished preview without any backend — the
-form validates and shows its success state, and the dashboard shows a
-demonstration record. Wiring the backend below turns it live.
+dashboard shows a demonstration record. And the application form is **already
+live**: until the Apps Script endpoint is set, submissions post straight into
+the MAISON D'VUE Mailchimp audience (the same no-server method the Founder's
+Circle form uses), so applicants are captured from day one. Name and email land
+on every audience; the social/shipping fields populate too if matching merge
+tags exist (`IG`, `TIKTOK`, `FOLLOWERS`, `SHIPADDR`, `NOTE`) — add those in
+Mailchimp ▸ Audience ▸ Settings ▸ Merge fields if you want them stored now.
+
+Deploying the Apps Script below upgrades the experience: structured rows,
+auto-generated referral codes/links, the approval + receipt emails, the creator
+dashboard, and click tracking. Once `APPLICATION_ENDPOINT` is set, the form uses
+the script instead of the Mailchimp fallback automatically.
 
 ---
 
