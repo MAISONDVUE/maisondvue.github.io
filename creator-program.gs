@@ -16,22 +16,25 @@
  * and tracks everything from the rows. Changing an applicant's Status to
  * "Approved" automatically mints their affiliate code and referral link.
  *
- * ── DEPLOY ──────────────────────────────────────────────────────────────────
- *  1. Create a Google Sheet. Note its ID from the URL
- *     (https://docs.google.com/spreadsheets/d/<THIS_IS_THE_ID>/edit).
- *  2. Extensions ▸ Apps Script. Paste this file in. Set SHEET_ID below.
+ * ── DEPLOY (about a minute, nothing to edit) ────────────────────────────────
+ *  1. Open a blank Google Sheet (sheets.new).
+ *  2. Extensions ▸ Apps Script. Delete the placeholder, paste this whole file.
+ *     (Leave SHEET_ID empty — a bound script uses its own sheet automatically.)
  *  3. Run `setup` once (Run ▸ setup) and authorize. It builds the tabs and
  *     installs the on-edit trigger that mints codes on approval.
  *  4. Deploy ▸ New deployment ▸ Web app.
  *       Execute as: Me   |   Who has access: Anyone
  *     Copy the Web App URL.
- *  5. Paste that URL into APPLICATION_ENDPOINT in creators.html and
- *     DASHBOARD_ENDPOINT in creator-dashboard.html.
+ *  5. Send that URL over — it gets pasted into APPLICATION_ENDPOINT in
+ *     creators.html and DASHBOARD_ENDPOINT in creator-dashboard.html.
  * ---------------------------------------------------------------------------
  */
 
 // ── Configuration ────────────────────────────────────────────────────────────
-var SHEET_ID = "REPLACE_WITH_GOOGLE_SHEET_ID";
+// Leave SHEET_ID empty when this script is bound to its sheet (the normal case:
+// created via Extensions ▸ Apps Script). Only set it if you run the script
+// standalone, pointing at a sheet by ID from its URL (…/d/<ID>/edit).
+var SHEET_ID = "";
 
 // Where verified purchases send shoppers. The creator's code is appended as ?ref=.
 var SHOP_BASE_URL = "https://shop.maisondvue.com/";
@@ -308,7 +311,7 @@ function refreshAllTotals() {
 
 // ── Admin summary tab ─────────────────────────────────────────────────────────
 function buildDashboard() {
-  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var ss = book();
   var apps = tab(APPLICATIONS_TAB, APP_HEADERS).getDataRange().getValues();
   var col = headerIndex(apps[0]);
 
@@ -392,7 +395,7 @@ function setup() {
   });
   if (!has) {
     ScriptApp.newTrigger("onStatusEdit")
-      .forSpreadsheet(SHEET_ID).onEdit().create();
+      .forSpreadsheet(book().getId()).onEdit().create();
   }
 
   buildDashboard();
@@ -472,8 +475,14 @@ function emailShell(title, inner) {
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
+// The program's spreadsheet: the bound sheet by default, or one named by
+// SHEET_ID when running standalone. Lets the same script work either way.
+function book() {
+  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
+
 function tab(name, headers) {
-  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var ss = book();
   var sh = ss.getSheetByName(name);
   if (!sh) {
     sh = ss.insertSheet(name);
