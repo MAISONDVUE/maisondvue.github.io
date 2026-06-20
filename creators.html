@@ -804,6 +804,17 @@
     .reveal { transition: none; opacity: 1; transform: none; }
     html { scroll-behavior: auto; }
   }
+
+  /* ─── TYPOGRAPHY — prevent orphans/widows (a lone word or two
+     dropping to the last line). `balance` evens out short headings;
+     `pretty` keeps the final line of body copy from stranding. ─── */
+  .hero-title, .about-title, .about-belief, .benefits-title, .benefit-name,
+  .commission-title, .commission-head .commission-title, .apply-title,
+  .success-title { text-wrap: balance; }
+
+  .hero-sub, .about-body p, .about-provenance, .benefit-copy,
+  .commission-note, .apply-lede, .success-body p, .consent-text,
+  .apply-reassurance, .tier-name { text-wrap: pretty; }
 </style>
 </head>
 

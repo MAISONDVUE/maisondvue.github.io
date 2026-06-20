@@ -343,6 +343,10 @@
   }
   footer a { color: rgba(249, 246, 240, 0.72); border-bottom: 1px solid rgba(201, 169, 110, 0.3); }
 
+  /* Prevent orphans/widows on wraps. */
+  .dash-title, .panel-name, .success-title { text-wrap: balance; }
+  .dash-sub, .panel-tier, .panel-note, .signin-help, .stat-label { text-wrap: pretty; }
+
   @media (max-width: 720px) {
     :root { --logo-h: 64px; }
     .header-logo { font-size: 17px; letter-spacing: 0.34em; }
