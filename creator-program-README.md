@@ -27,17 +27,16 @@ the script instead of the Mailchimp fallback automatically.
 
 ## 1 · Stand up the backend (Google Apps Script)
 
-1. Create a new **Google Sheet**. From its URL, copy the ID:
-   `https://docs.google.com/spreadsheets/d/`**`<SHEET_ID>`**`/edit`.
-2. In that sheet: **Extensions ▸ Apps Script**. Delete the placeholder and
-   paste the contents of `creator-program.gs`.
-3. Set the two values at the top:
-   - `SHEET_ID` → the ID from step 1.
-   - `SHOP_BASE_URL` → your store URL (referral links become `…/?ref=CODE`).
-4. Run **`setup`** once (Run ▸ `setup`) and grant authorization. This builds
-   the `Applications`, `Sales`, and `Admin Dashboard` tabs, adds the Status
-   dropdown, and installs the trigger that mints codes on approval.
-5. **Deploy ▸ New deployment ▸ Web app.**
+Nothing in the script needs editing — it binds to its own sheet.
+
+1. Open a blank **Google Sheet** (visit **sheets.new**).
+2. **Extensions ▸ Apps Script**. Delete the placeholder and paste the contents
+   of `creator-program.gs`. Leave `SHEET_ID` empty. (Optionally set
+   `SHOP_BASE_URL` if your store isn't `shop.maisondvue.com`.)
+3. Run **`setup`** once (Run ▸ `setup`) and grant authorization. This builds
+   the `Applications`, `Sales`, `Clicks`, and `Admin Dashboard` tabs, adds the
+   Status dropdown, and installs the trigger that mints codes on approval.
+4. **Deploy ▸ New deployment ▸ Web app.**
    - *Execute as:* **Me**
    - *Who has access:* **Anyone**
    - Deploy and copy the **Web App URL**.
