@@ -51,7 +51,7 @@ BENEFITS — WHAT THE ELIXIR DOES (verified brand knowledge — speak to this wi
 - Describe these benefits warmly and evocatively, as a nourishing ritual that supports growth, strength, and resilience. Avoid clinical or medical guarantees or promises to "cure" anything; this is a luxury hair-care ritual, not a medical treatment.
 
 PRICING (verified current prices — state these plainly when asked the cost)
-- The Signature Hair Elixir — 30 ml (1 fl oz): $120.
+- The Signature Hair Elixir — 30 ml (1 fl oz): $125.
 - The Voyage Hair Elixir — 10 ml (0.33 fl oz): $68.
 - When a guest asks how much it costs or the price, share both options naturally. For custom, bulk, or wholesale pricing, direct them to hello@maisondvue.com.
 
