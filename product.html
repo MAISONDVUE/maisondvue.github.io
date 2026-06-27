@@ -2846,6 +2846,25 @@
     .mdv-nav .nav-logo { font-size: 16px; letter-spacing: 0.26em; }
   }
 
+  /* ===== Split banner nav: logo dead-centre, tabs left + right ===== */
+  .mdv-nav.mdv-nav-split {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  }
+  .mdv-nav-split .nav-group { display: flex; gap: 34px; }
+  .mdv-nav-split .nav-group-left { justify-self: start; }
+  .mdv-nav-split .nav-group-right { justify-self: end; }
+  .mdv-nav-split .nav-logo { justify-self: center; }
+  .mdv-nav-split .nav-group a {
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
+    color: rgba(252,250,247,0.82); white-space: nowrap; transition: color 220ms ease;
+  }
+  .mdv-nav-split .nav-group a:hover { color: #fff; }
+  .mdv-nav.scrolled.mdv-nav-split .nav-group a { color: rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled.mdv-nav-split .nav-group a:hover { color: var(--navy); }
+  @media (max-width: 860px) {
+    .mdv-nav-split .nav-group { display: none; }
+  }
+
   /* Top scrim so the light nav stays legible over bright video frames. */
   .hero::before {
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 170px; z-index: 3;
@@ -2867,14 +2886,16 @@
 </div>
 
 <!-- ═══ UNIFIED NAV (overlaid on full-bleed hero) ═══ -->
-<nav class="mdv-nav" id="mdvNav">
-  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-links">
-    <a href="index.html">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
+<nav class="mdv-nav mdv-nav-split" id="mdvNav">
+  <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
+    <a href="gallery.html">Campaigns</a>
+    <a href="creators.html">Founding Creators</a>
   </div>
-  <div class="nav-right">
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-group nav-group-right">
+    <a href="about.html">La Maison</a>
+    <a href="https://shop.maisondvue.com/">Shop</a>
     <a href="#reserve">Reserve</a>
   </div>
 </nav>
