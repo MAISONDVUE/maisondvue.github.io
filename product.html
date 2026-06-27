@@ -117,9 +117,9 @@
     --navy-center: #122749;
     --cobalt: #1A2744;
 
-    --gold: #C9A96E;
-    --gold-soft: #D9BE8B;
-    --gold-muted: #B8996A;
+    --gold: #0B1F3A;
+    --gold-soft: #0B1F3A;
+    --gold-muted: #0B1F3A;
 
     --cream: #F0E6D0;
     --warm-white: #FDFBF8;
@@ -129,7 +129,7 @@
     --mid: #62584E;
     --muted: rgba(14, 14, 14, 0.48);
 
-    --line: rgba(201, 169, 110, 0.22);
+    --line: rgba(11, 31, 58, 0.18);
     --line-dark: rgba(249, 246, 240, 0.16);
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -172,7 +172,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     transition: height 360ms ease, opacity 360ms ease;
     overflow: hidden;
   }
@@ -196,7 +196,7 @@
   }
 
   .promo-ribbon-text .accent {
-    color: var(--gold);
+    color: #FCFAF7;
     margin: 0 14px;
   }
 
@@ -216,7 +216,7 @@
   }
 
   .promo-ribbon-close:hover {
-    color: var(--gold);
+    color: #FCFAF7;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -449,7 +449,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 18px;
-    color: rgba(201, 169, 110, 0.4);
+    color: rgba(252, 250, 247, 0.4);
   }
 
   .hero-content {
@@ -639,7 +639,7 @@
 
   .purchase-rating a {
     color: var(--navy);
-    border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+    border-bottom: 1px solid rgba(11, 31, 58, 0.18);
     transition: color 240ms ease;
   }
 
@@ -700,7 +700,7 @@
   }
 
   .purchase-card:hover {
-    border-color: rgba(201, 169, 110, 0.5);
+    border-color: rgba(11, 31, 58, 0.18);
     transform: translateY(-2px);
   }
 
@@ -724,7 +724,7 @@
 
   .purchase-card.featured .card-image {
     background-color: var(--navy);
-    border-bottom-color: rgba(201, 169, 110, 0.2);
+    border-bottom-color: rgba(252, 250, 247, 0.35);
   }
 
   /* ─── CARD CAROUSEL ─── */
@@ -800,7 +800,7 @@
     transition: background 0.3s ease, transform 0.3s ease;
   }
 
-  .carousel-dot.active { background: var(--gold); transform: scale(1.3); }
+  .carousel-dot.active { background: #FCFAF7; transform: scale(1.3); }
 
   @media (hover: none) {
     .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
@@ -820,8 +820,9 @@
   }
 
   .purchase-card.featured .card-name,
-  .purchase-card.featured .card-price {
-    color: var(--cream);
+  .purchase-card.featured .card-price,
+  .purchase-card.featured .card-tag {
+    color: #FCFAF7;
   }
 
   .purchase-card.featured .card-size {
@@ -893,20 +894,20 @@
   }
 
   .card-cta:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--navy);
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #FCFAF7;
   }
 
   .purchase-card.featured .card-cta {
-    background: var(--gold);
-    border-color: var(--gold);
+    background: #FCFAF7;
+    border-color: #FCFAF7;
     color: var(--navy);
   }
 
   .purchase-card.featured .card-cta:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold-soft);
+    background: rgba(252, 250, 247, 0.85);
+    border-color: rgba(252, 250, 247, 0.85);
   }
 
   .purchase-provenance {
@@ -1186,6 +1187,9 @@
 
   /* ─── RITUAL (NAVY) — REBUILT WITH IMAGERY ─── */
   .ritual {
+    --gold: #FCFAF7;
+    --gold-soft: #FCFAF7;
+    --gold-muted: #FCFAF7;
     background: var(--navy);
     color: var(--cream);
   }
@@ -1247,7 +1251,7 @@
     font-size: 10px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: var(--gold-muted);
+    color: rgba(252, 250, 247, 0.6);
     line-height: 1;
   }
 
@@ -1264,7 +1268,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    background: var(--gold);
+    background: #FCFAF7;
   }
 
   .ritual-toggle-icon::before {
@@ -1334,7 +1338,7 @@
     font-weight: 300;
     font-size: 38px;
     line-height: 1;
-    color: var(--gold);
+    color: #FCFAF7;
     margin-bottom: 18px;
   }
 
@@ -1372,7 +1376,7 @@
   }
 
   .origins-head .label {
-    color: var(--gold);
+    color: #FCFAF7;
     margin-bottom: 28px;
   }
 
@@ -1429,7 +1433,7 @@
     font-size: 10px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: var(--gold-muted);
+    color: rgba(252, 250, 247, 0.6);
     line-height: 1;
   }
 
@@ -1446,7 +1450,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    background: var(--gold);
+    background: #FCFAF7;
   }
 
   .origins-toggle-icon::before {
@@ -1534,7 +1538,7 @@
     font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
     margin-bottom: 22px;
     line-height: 1.4;
   }
@@ -1630,7 +1634,7 @@
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
     margin-bottom: 10px;
     line-height: 1.4;
   }
@@ -1757,7 +1761,7 @@
   }
 
   .review-card:hover {
-    border-color: rgba(201, 169, 110, 0.45);
+    border-color: rgba(11, 31, 58, 0.18);
     transform: translateY(-2px);
   }
 
@@ -1811,7 +1815,7 @@
     width: 44px;
     height: 44px;
     border-radius: 999px;
-    border: 1px solid rgba(201, 169, 110, 0.5);
+    border: 1px solid rgba(11, 31, 58, 0.18);
     background: var(--warm-white);
     color: var(--gold);
     cursor: pointer;
@@ -1825,9 +1829,9 @@
   }
 
   .reviews-arrow:hover {
-    background: var(--gold);
-    color: var(--cream);
-    border-color: var(--gold);
+    background: var(--navy);
+    color: #FCFAF7;
+    border-color: var(--navy);
   }
 
   .reviews-arrow.prev { left: -12px; }
@@ -1894,7 +1898,7 @@
     border: 0;
     padding: 4px;
     cursor: pointer;
-    color: rgba(201, 169, 110, 0.3);
+    color: rgba(11, 31, 58, 0.3);
     font-size: 28px;
     line-height: 1;
     transition: color 200ms ease, transform 200ms ease;
@@ -1963,9 +1967,9 @@
   }
 
   .review-submit:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--navy);
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #FCFAF7;
   }
 
   .review-submit:disabled {
@@ -2178,6 +2182,9 @@
 
   /* ─── FINAL BUY (NAVY) ─── */
   .final-buy {
+    --gold: #FCFAF7;
+    --gold-soft: #FCFAF7;
+    --gold-muted: #FCFAF7;
     background: var(--navy);
     background:
       radial-gradient(
@@ -2211,8 +2218,8 @@
   .final-card {
     max-width: 460px;
     margin: 0 auto;
-    border-top: 1px solid rgba(201, 169, 110, 0.35);
-    border-bottom: 1px solid rgba(201, 169, 110, 0.35);
+    border-top: 1px solid rgba(252, 250, 247, 0.35);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     padding: 32px 0 38px;
   }
 
@@ -2261,8 +2268,8 @@
 
   .final-card .cta {
     width: 100%;
-    border: 1px solid var(--gold);
-    background: var(--gold);
+    border: 1px solid #FCFAF7;
+    background: #FCFAF7;
     color: var(--navy);
     padding: 16px 22px;
     cursor: pointer;
@@ -2278,17 +2285,17 @@
   }
 
   .final-card .cta:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold-soft);
+    background: rgba(252, 250, 247, 0.85);
+    border-color: rgba(252, 250, 247, 0.85);
   }
 
   .final-card .cta-ghost {
     background: transparent;
-    color: var(--gold);
+    color: #FCFAF7;
   }
 
   .final-card .cta-ghost:hover {
-    background: var(--gold);
+    background: #FCFAF7;
     color: var(--navy);
   }
 
@@ -2373,7 +2380,7 @@
     grid-template-columns: 1.4fr 2.6fr;
     gap: 80px;
     padding-bottom: 72px;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     margin-bottom: 56px;
   }
 
@@ -2392,7 +2399,7 @@
     font-size: 13px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
     margin: 0 0 14px 0;
     line-height: 1.4;
   }
@@ -2439,7 +2446,7 @@
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
     margin-bottom: 22px;
   }
 
@@ -2453,12 +2460,12 @@
   }
 
   .footer-col a:hover {
-    color: var(--gold);
+    color: #FCFAF7;
   }
 
   .footer-bottom {
     padding-top: 28px;
-    border-top: 1px solid rgba(201, 169, 110, 0.18);
+    border-top: 1px solid rgba(252, 250, 247, 0.35);
     font-family: var(--font-display);
     font-size: 11px;
     letter-spacing: 0.18em;

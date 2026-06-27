@@ -53,10 +53,10 @@
     --cobalt: #1A2744;
     --sapphire: #14305A;
 
-    --gold: #C9A96E;
-    --gold-soft: #D9BE8B;
-    --gold-muted: #B8996A;
-    --gold-deep: #B8996A;
+    --gold: #0B1F3A;
+    --gold-soft: #0B1F3A;
+    --gold-muted: #0B1F3A;
+    --gold-deep: #0B1F3A;
 
     --cream: #F0E6D0;
     --warm-white: #FDFBF8;
@@ -74,7 +74,7 @@
 
     --line: rgba(11, 31, 58, 0.14);
     --line-soft: rgba(11, 31, 58, 0.08);
-    --line-gold: rgba(201, 169, 110, 0.22);
+    --line-gold: rgba(11, 31, 58, 0.18);
     --line-dark: rgba(249, 246, 240, 0.16);
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -115,7 +115,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     transition: height 360ms ease, opacity 360ms ease;
     overflow: hidden;
   }
@@ -149,7 +149,7 @@
     transition: color 240ms ease;
   }
 
-  .promo-ribbon-close:hover { color: var(--gold); }
+  .promo-ribbon-close:hover { color: #FCFAF7; }
 
   /* ═══ HEADER (kept dark to suit the cinematic page) ═══ */
   .header-logo-row {
@@ -159,7 +159,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.12);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
   }
 
   .header-logo {
@@ -193,7 +193,7 @@
     transition: color 240ms ease;
   }
 
-  .header-utility-btn:hover { color: var(--gold); }
+  .header-utility-btn:hover { color: #FCFAF7; }
   .header-utility-btn svg { width: 18px; height: 18px; display: block; }
 
   .header-nav-row {
@@ -202,7 +202,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.12);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     position: relative;
   }
 
@@ -232,14 +232,14 @@
     bottom: -2px;
     width: 0;
     height: 1px;
-    background: var(--gold);
+    background: #FCFAF7;
     transition: width 280ms ease;
   }
 
-  .header-nav a:hover { color: var(--gold); }
+  .header-nav a:hover { color: #FCFAF7; }
   .header-nav a:hover::after,
   .header-nav a.active::after { width: 100%; }
-  .header-nav a.active { color: var(--gold); }
+  .header-nav a.active { color: #FCFAF7; }
 
   .site-header {
     position: sticky;
@@ -304,7 +304,7 @@
     text-transform: uppercase;
     color: var(--cream);
     padding: 18px 0;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.14);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     display: block;
   }
 
@@ -442,11 +442,11 @@
   .feature-divider .rule {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, rgba(201, 169, 110, 0.6), rgba(201, 169, 110, 0.05));
+    background: linear-gradient(90deg, rgba(252, 250, 247, 0.6), rgba(252, 250, 247, 0.05));
   }
 
   .feature-divider .mark {
-    color: var(--gold);
+    color: #FCFAF7;
     font-size: 13px;
     letter-spacing: 0.3em;
     line-height: 1;
@@ -474,11 +474,11 @@
     text-transform: uppercase;
     color: var(--cream);
     padding-bottom: 5px;
-    border-bottom: 1px solid var(--gold);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     transition: color 260ms ease, border-color 260ms ease;
   }
 
-  .feature-link:hover { color: var(--gold-soft); border-bottom-color: var(--gold-soft); }
+  .feature-link:hover { color: #FCFAF7; border-bottom-color: #FCFAF7; }
 
   /* ═══════════════════════════════════════════════════════════
      THE COLLECTION — dark masonry of photographs & films
@@ -542,7 +542,7 @@
     overflow: hidden;
     background: var(--navy-deeper);
     line-height: 0;
-    border: 1px solid rgba(201, 169, 110, 0.1);
+    border: 1px solid rgba(11, 31, 58, 0.18);
   }
 
   .c-media img,
@@ -572,7 +572,7 @@
     color: var(--cream);
     padding: 5px 9px;
     background: rgba(4, 8, 26, 0.6);
-    border: 1px solid rgba(201, 169, 110, 0.4);
+    border: 1px solid rgba(11, 31, 58, 0.18);
     line-height: 1;
     pointer-events: none;
   }
@@ -637,7 +637,7 @@
     grid-template-columns: 1.4fr 2.6fr;
     gap: 80px;
     padding-bottom: 72px;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
     margin-bottom: 56px;
   }
 
@@ -656,7 +656,7 @@
     font-size: 13px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
     margin: 0 0 14px 0;
     line-height: 1.4;
   }
@@ -695,7 +695,7 @@
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
     margin-bottom: 22px;
   }
 
@@ -708,11 +708,11 @@
     line-height: 1.5;
   }
 
-  .footer-col a:hover { color: var(--gold); }
+  .footer-col a:hover { color: #FCFAF7; }
 
   .footer-bottom {
     padding-top: 28px;
-    border-top: 1px solid rgba(201, 169, 110, 0.18);
+    border-top: 1px solid rgba(252, 250, 247, 0.35);
     font-family: var(--font-display);
     font-size: 11px;
     letter-spacing: 0.18em;
@@ -813,7 +813,7 @@
 
   .site-header.solid {
     background: var(--navy-deep);
-    border-bottom-color: rgba(201,169,110,0.14);
+    border-bottom-color: rgba(252,250,247,0.35);
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -832,7 +832,7 @@
     font-size: 10px;
     letter-spacing: 0.36em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #FCFAF7;
   }
   .scroll-cue-line {
     position: relative;
@@ -848,7 +848,7 @@
     top: 0;
     width: 1px;
     height: 42%;
-    background: linear-gradient(180deg, transparent, var(--gold-soft));
+    background: linear-gradient(180deg, transparent, #FCFAF7);
     animation: cueDown 1.9s cubic-bezier(0.7, 0, 0.3, 1) infinite;
   }
   @keyframes cueDown {
@@ -875,7 +875,7 @@
     letter-spacing: 0.01em;
     color: var(--warm-white);
   }
-  .film-line .accent { color: var(--gold); font-style: italic; }
+  .film-line .accent { color: #FCFAF7; font-style: italic; }
 
   .film {
     position: relative;
