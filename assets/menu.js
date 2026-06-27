@@ -14,8 +14,9 @@
   // Big centered destinations.
   var PRIMARY = [
     { label: "The Elixir", href: "product.html" },
+    { label: "The Science", href: "product.html#formulation" },
     { label: "The Story", href: "gallery.html" },
-    { label: "Founding Creators", href: "creators.html" }
+    { label: "The Ritual", href: "product.html#ritual" }
   ];
   // Small utility links along the bottom.
   var SECONDARY = [
@@ -24,6 +25,9 @@
     { label: "Campaigns", href: "gallery.html" },
     { label: "Login", href: "creator-dashboard.html" }
   ];
+
+  // YSL-style menu typeface (native Helvetica Neue on iOS).
+  var SANS = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 
   var css =
     ".mdv-burger{display:none;background:none;border:0;cursor:pointer;padding:8px;margin:0 -8px 0 0;color:" + PAPER + ";align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color 320ms ease}" +
@@ -38,15 +42,19 @@
     ".mdv-menu-top{flex:0 0 auto;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}" +
     ".mdv-menu-icon{background:none;border:0;cursor:pointer;padding:8px;color:" + NAVY + ";display:inline-flex;align-items:center;-webkit-tap-highlight-color:transparent}" +
     ".mdv-menu-icon svg{width:22px;height:22px;display:block}" +
-    ".mdv-menu-primary{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:24px 20px}" +
-    ".mdv-menu-primary a{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(28px,8vw,38px);letter-spacing:0.05em;text-transform:uppercase;color:" + NAVY + ";line-height:1.04;text-align:center}" +
+    ".mdv-menu-primary{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px 20px}" +
+    ".mdv-menu-primary a{font-family:" + SANS + ";font-weight:700;font-size:clamp(20px,5.6vw,26px);letter-spacing:0.01em;text-transform:uppercase;color:" + NAVY + ";line-height:1.1;text-align:center}" +
     ".mdv-menu-secondary{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;padding:0 20px calc(48px + env(safe-area-inset-bottom))}" +
-    ".mdv-menu-secondary a{font-family:'Jost',Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:" + NAVY + "}" +
+    ".mdv-menu-secondary a{font-family:" + SANS + ";font-weight:700;font-size:13px;letter-spacing:0.03em;text-transform:uppercase;color:" + NAVY + "}" +
     ".mdv-menu-primary a,.mdv-menu-secondary a{text-decoration:none;transition:opacity 200ms ease}" +
     ".mdv-menu-primary a:active,.mdv-menu-secondary a:active{opacity:0.55}" +
     "body.mdv-menu-open{overflow:hidden}" +
     /* keep the floating chat badge from sitting on top of the open menu */
-    "body.mdv-menu-open .mdv-chat-launcher{opacity:0;visibility:hidden;pointer-events:none}";
+    "body.mdv-menu-open .mdv-chat-launcher{opacity:0;visibility:hidden;pointer-events:none}" +
+    /* YSL-style bold Helvetica on every nav bar, site-wide (logo stays serif) */
+    ".mdv-nav .nav-links a,.mdv-nav .nav-right a,.mdv-nav .nav-group a," +
+      ".nav .nav-links a,.nav .nav-login,.nav .nav-welcome{" +
+      "font-family:" + SANS + "!important;font-weight:700!important;letter-spacing:0.05em!important}";
 
   var styleEl = document.createElement("style");
   styleEl.textContent = css;
