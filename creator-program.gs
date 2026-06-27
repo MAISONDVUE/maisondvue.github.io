@@ -45,6 +45,34 @@ var NOTIFY_EMAIL = "hello@maisondvue.com";
 // Display name on the automated emails sent to applicants/creators.
 var SENDER_NAME = "MAISON D'VUE";
 
+// -- Mailchimp --------------------------------------------------------------
+// Applicant-facing emails are sent by Mailchimp Customer Journeys, triggered by
+// tags this script applies: MC_TAG_APPLIED on submit, MC_TAG_APPROVED on
+// approval. The API key lives in Script Properties (Project Settings > Script
+// Properties) under MAILCHIMP_API_KEY so it never touches the repo; the
+// datacenter is read from the key's suffix. Run `setupMailchimp` once after
+// adding the key to create the merge fields the approval email needs.
+//
+// STATUS (on hold): the Mailchimp path is built but DORMANT. The script needs
+// the script.external_request OAuth scope (declared in appsscript.json) to call
+// the Mailchimp API. Granting a NEW scope to an already-authorized script
+// requires a one-time re-authorization that the editor will not auto-prompt for
+// -- revoke the project's access at myaccount.google.com/connections, then run
+// `setupMailchimp` to get a fresh consent screen. Until then every mc* call
+// fails silently (best-effort) and applicant emails are sent via Gmail instead
+// (MC_OWNS_APPLICANT_EMAILS = false), which works today.
+var MC_AUDIENCE_ID = "3a9da7ab07";          // us20 "MAISON D'VUE" audience
+var MC_TAG_APPLIED = "creator-applied";
+var MC_TAG_APPROVED = "creator-approved";
+
+// When true, Mailchimp owns the applicant receipt + approval emails and the
+// script's own Gmail versions are suppressed (no duplicates). The internal
+// founder notification still sends.
+// ROLLOUT: keep false until the two Customer Journeys are built and verified --
+// Gmail keeps sending receipts meanwhile (no gap) while tags sync in parallel.
+// Flip to true for Mailchimp-only once the Journeys are live.
+var MC_OWNS_APPLICANT_EMAILS = false;
+
 // Commission rate by status / tier. Advancement is set by editing Status.
 var COMMISSION_RATES = {
   "Applied": 0,
@@ -112,8 +140,14 @@ function doPost(e) {
       clean(p.source) || "creators-page"
     ]);
 
-    // Quiet on-brand receipt to the applicant.
-    sendApplicationReceived(email, clean(p.firstName));
+    // Sync to Mailchimp and tag "creator-applied" -> the Journey on that tag
+    // sends the branded "Application Received" email. Only standard merge
+    // fields (FNAME/LNAME) are sent here so an audience without custom fields
+    // never rejects the subscribe + tag.
+    mcUpsert(email, { FNAME: clean(p.firstName), LNAME: clean(p.lastName) }, [MC_TAG_APPLIED]);
+
+    // Fall back to a Gmail receipt only when Mailchimp isn't handling it.
+    if (!MC_OWNS_APPLICANT_EMAILS) sendApplicationReceived(email, clean(p.firstName));
 
     if (NOTIFY_EMAIL) {
       try {
@@ -240,8 +274,14 @@ function onStatusEdit(e) {
       codeCell.setValue(code);
       linkCell.setValue(link);
 
-      // Approval triggers the "Welcome to the House" email with affiliate details.
-      sendApprovalEmail(email, first, code, link);
+      // Approval: write the code + link into Mailchimp merge fields and tag
+      // "creator-approved" -> the Journey on that tag sends the "Welcome to the
+      // House" email with their affiliate details (via the CREATORCODE / AFFLINK
+      // merge tags). Run `setupMailchimp` once so those merge fields exist.
+      mcUpsert(email, { FNAME: first, CREATORCODE: code, AFFLINK: link }, [MC_TAG_APPROVED]);
+
+      // Fall back to a Gmail approval email only when Mailchimp isn't handling it.
+      if (!MC_OWNS_APPLICANT_EMAILS) sendApprovalEmail(email, first, code, link);
     }
 
     refreshTotalsRow(sh, row, col);
@@ -484,6 +524,165 @@ function emailShell(title, inner) {
     "</div>" +
     "<div style='max-width:560px;margin:18px auto 0;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a8170'>Hand-sealed &middot; Beverly Hills</div>" +
     "</div>";
+}
+
+// -- Mailchimp API -------------------------------------------------------------
+// All calls are best-effort: a Mailchimp hiccup must never block intake,
+// approval, or the sheet. The audience emails come from Journeys, not here.
+
+function mcKey() {
+  return PropertiesService.getScriptProperties().getProperty("MAILCHIMP_API_KEY") || "";
+}
+
+// Configured only once a real "<key>-<dc>" value is present in Script Properties.
+function mcConfigured() { return mcKey().indexOf("-") !== -1; }
+
+// API base for this key's datacenter (the part after the dash, e.g. "us20").
+function mcBase() {
+  var dc = mcKey().split("-")[1] || "us20";
+  return "https://" + dc + ".api.mailchimp.com/3.0";
+}
+
+function mcAuth() {
+  return "Basic " + Utilities.base64Encode("key:" + mcKey());
+}
+
+// Mailchimp's subscriber id is the MD5 of the lowercased email address.
+function mcHash(email) {
+  var bytes = Utilities.computeDigest(
+    Utilities.DigestAlgorithm.MD5, String(email).trim().toLowerCase(), Utilities.Charset.UTF_8);
+  return bytes.map(function (b) { return ("0" + (b & 0xff).toString(16)).slice(-2); }).join("");
+}
+
+// Add or update a member with merge fields, then apply tags. Tags drive the
+// Customer Journeys, so the member upsert deliberately carries only fields the
+// audience is known to have (avoids a 400 that would skip the tag).
+function mcUpsert(email, mergeFields, tags) {
+  if (!mcConfigured() || !email) return;
+  var hash = mcHash(email);
+  var members = mcBase() + "/lists/" + MC_AUDIENCE_ID + "/members/" + hash;
+  try {
+    UrlFetchApp.fetch(members, {
+      method: "put",
+      contentType: "application/json",
+      headers: { Authorization: mcAuth() },
+      muteHttpExceptions: true,
+      payload: JSON.stringify({
+        email_address: email,
+        status_if_new: "subscribed",
+        merge_fields: mergeFields || {}
+      })
+    });
+  } catch (err) { /* best-effort */ }
+
+  if (tags && tags.length) {
+    try {
+      UrlFetchApp.fetch(members + "/tags", {
+        method: "post",
+        contentType: "application/json",
+        headers: { Authorization: mcAuth() },
+        muteHttpExceptions: true,
+        payload: JSON.stringify({
+          tags: tags.map(function (t) { return { name: t, status: "active" }; })
+        })
+      });
+    } catch (err) { /* best-effort */ }
+  }
+}
+
+// One-time (idempotent): create the CREATORCODE + AFFLINK merge fields the
+// approval Journey email reads. Run once after setting MAILCHIMP_API_KEY.
+function setupMailchimp() {
+  if (!mcConfigured()) throw new Error("Set MAILCHIMP_API_KEY in Script Properties first (Project Settings).");
+  var url = mcBase() + "/lists/" + MC_AUDIENCE_ID + "/merge-fields";
+  var existing = {};
+  try {
+    var res = UrlFetchApp.fetch(url + "?count=100&fields=merge_fields.tag", {
+      headers: { Authorization: mcAuth() }, muteHttpExceptions: true
+    });
+    (JSON.parse(res.getContentText()).merge_fields || []).forEach(function (m) { existing[m.tag] = true; });
+  } catch (err) { /* fall through and attempt creation */ }
+
+  [
+    { tag: "CREATORCODE", name: "Creator Code" },
+    { tag: "AFFLINK", name: "Affiliate Link" }
+  ].forEach(function (f) {
+    if (existing[f.tag]) return;
+    try {
+      UrlFetchApp.fetch(url, {
+        method: "post", contentType: "application/json",
+        headers: { Authorization: mcAuth() }, muteHttpExceptions: true,
+        payload: JSON.stringify({ tag: f.tag, name: f.name, type: "text", required: false, "public": false })
+      });
+    } catch (err) { /* best-effort */ }
+  });
+
+  // Install a daily trigger that mirrors the whole audience back into the sheet
+  // (idempotent), so the Applications tab stays the complete record even for
+  // contacts who join Mailchimp by some route other than the application form.
+  var hasSync = ScriptApp.getProjectTriggers().some(function (t) {
+    return t.getHandlerFunction() === "syncFromMailchimp";
+  });
+  if (!hasSync) {
+    ScriptApp.newTrigger("syncFromMailchimp").timeBased().everyDays(1).atHour(6).create();
+  }
+
+  // Pull anything already in the audience in now.
+  return syncFromMailchimp();
+}
+
+// Mirror every Mailchimp audience member into the Applications tab. The sheet
+// stays the single complete record: applicants from the form are written here
+// first (doPost), and this back-fills anyone who entered the audience another
+// way. Idempotent -- existing emails are skipped, so it is safe to re-run and
+// safe on a daily trigger. Best-effort and paginated. Returns rows added.
+function syncFromMailchimp() {
+  if (!mcConfigured()) throw new Error("Set MAILCHIMP_API_KEY in Script Properties first (Project Settings).");
+  var sh = tab(APPLICATIONS_TAB, APP_HEADERS);
+  var rows = sh.getDataRange().getValues();
+  var col = headerIndex(rows[0]);
+
+  var have = {};
+  for (var i = 1; i < rows.length; i++) {
+    var e = String(rows[i][col["Email"]]).trim().toLowerCase();
+    if (e) have[e] = true;
+  }
+
+  var offset = 0, pageSize = 1000, added = 0;
+  while (true) {
+    var url = mcBase() + "/lists/" + MC_AUDIENCE_ID + "/members" +
+      "?count=" + pageSize + "&offset=" + offset +
+      "&fields=total_items,members.email_address,members.merge_fields,members.tags,members.timestamp_opt";
+    var res;
+    try {
+      res = UrlFetchApp.fetch(url, { headers: { Authorization: mcAuth() }, muteHttpExceptions: true });
+    } catch (err) { break; }
+    var data = JSON.parse(res.getContentText() || "{}");
+    var members = data.members || [];
+    if (!members.length) break;
+
+    members.forEach(function (m) {
+      var email = String(m.email_address || "").trim().toLowerCase();
+      if (!email || have[email]) return;
+      have[email] = true;
+      var mf = m.merge_fields || {};
+      var tagNames = (m.tags || []).map(function (t) { return String(t.name).toLowerCase(); });
+      var status = tagNames.indexOf(MC_TAG_APPROVED) !== -1 ? "Approved" : "Applied";
+      sh.appendRow([
+        m.timestamp_opt ? new Date(m.timestamp_opt) : new Date(),
+        clean(mf.FNAME), clean(mf.LNAME), email,
+        clean(mf.IG), clean(mf.TIKTOK), clean(mf.FOLLOWERS), clean(mf.SHIPADDR, 500),
+        clean(mf.NOTE, 1000), status,
+        clean(mf.CREATORCODE), clean(mf.AFFLINK),
+        0, 0, 0, 0, "mailchimp-sync"
+      ]);
+      added++;
+    });
+
+    offset += members.length;
+    if (offset >= (data.total_items || offset)) break;
+  }
+  return added;
 }
 
 // -- Helpers -------------------------------------------------------------------

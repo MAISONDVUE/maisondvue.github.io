@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Hair Elixir &mdash; MAISON D&rsquo;VUE</title>
 <meta name="description" content="MAISON D'VUE Hair Elixir. Vue 14&trade;. A ritual of fourteen essences, scented in &Acirc;me de Vue&trade;. Hand-sealed in Beverly Hills.">
@@ -147,7 +154,6 @@
     background: var(--warm-white);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
     font-size: 17px;
     line-height: 1.65;
   }
@@ -400,13 +406,12 @@
      HERO
      ═══════════════════════════════════════════════════════════ */
   .hero {
-    width: 100%;
-    /* Span the viewport below the header, cut just short so the section
-       below peeks. */
-    height: calc(100vh - var(--header-total) - 96px);
-    height: calc(100svh - var(--header-total) - 96px);
-    min-height: 460px;
-    max-height: 940px;
+    /* Full-bleed: as big and wide as the browser screen, edge to edge. */
+    width: 100%; margin-left: 0;
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+    max-height: none;
     position: relative;
     overflow: hidden;
     background: var(--navy-deep);
@@ -1480,7 +1485,6 @@
   .origin-hero {
     position: relative;
     width: 100%;
-    aspect-ratio: 21 / 9;
     overflow: hidden;
     margin-bottom: 32px;
   }
@@ -1515,13 +1519,12 @@
   }
 
   .origin-hero-content {
-    position: absolute;
-    inset: 0;
+    position: relative;
     z-index: 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 8% 0 7%;
+    padding: 72px 8% 72px 7%;
     max-width: 48%;
   }
 
@@ -2807,6 +2810,49 @@
     .card-price { font-size: 26px; }
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
   }
+
+  /* ===== Unified house nav — overlaid on the full-bleed hero, solid on scroll ===== */
+  .promo-ribbon { display: none !important; }
+  .site-header { display: none !important; }
+
+  .mdv-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 72px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+    border-bottom: 1px solid transparent;
+    transition: background 320ms ease, border-color 320ms ease;
+  }
+  .mdv-nav .nav-logo {
+    font-family: var(--font-display); font-weight: 500; font-size: 20px;
+    letter-spacing: 0.34em; text-transform: uppercase; color: #FCFAF7; white-space: nowrap;
+    transition: color 320ms ease;
+  }
+  .mdv-nav .nav-links { display: flex; gap: 40px; }
+  .mdv-nav .nav-links a, .mdv-nav .nav-right a {
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
+    color: rgba(252,250,247,0.82); transition: color 220ms ease;
+  }
+  .mdv-nav .nav-right { display: flex; align-items: center; gap: 18px; }
+  .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover { color: #fff; }
+  .mdv-nav.scrolled {
+    background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
+    border-bottom-color: rgba(11,31,58,0.08);
+  }
+  .mdv-nav.scrolled .nav-logo { color: var(--navy); }
+  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a { color: rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled .nav-links a:hover, .mdv-nav.scrolled .nav-right a:hover { color: var(--navy); }
+  @media (max-width: 860px) {
+    .mdv-nav { padding: 0 22px; }
+    .mdv-nav .nav-links { display: none; }
+    .mdv-nav .nav-logo { font-size: 16px; letter-spacing: 0.26em; }
+  }
+
+  /* Top scrim so the light nav stays legible over bright video frames. */
+  .hero::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 170px; z-index: 3;
+    background: linear-gradient(to bottom, rgba(7,13,34,0.46), rgba(7,13,34,0));
+    pointer-events: none;
+  }
+  main [id] { scroll-margin-top: 84px; }
 </style>
 </head>
 
@@ -2820,60 +2866,32 @@
   <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
 
-<!-- ═══ STICKY HEADER ═══ -->
-<header class="site-header">
-
-  <div class="header-logo-row">
-    <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <line x1="3" y1="7" x2="21" y2="7"/>
-        <line x1="3" y1="13" x2="21" y2="13"/>
-        <line x1="3" y1="19" x2="21" y2="19"/>
-      </svg>
-    </button>
-
-    <a href="index.html" class="header-logo">MAISON D&rsquo;VUE</a>
-
-    <div class="header-utility">
-      <button class="header-utility-btn" type="button" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="11" cy="11" r="7"/>
-          <line x1="16.5" y1="16.5" x2="21" y2="21"/>
-        </svg>
-      </button>
-      <button class="header-utility-btn" type="button" aria-label="Account" onclick="window.location='mailto:hello@maisondvue.com'">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
-        </svg>
-      </button>
-      <a href="https://shop.maisondvue.com/cart" class="header-utility-btn" aria-label="Bag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M6 7h12l-1 14H7L6 7z"/>
-          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-        </svg>
-      </a>
-    </div>
+<!-- ═══ UNIFIED NAV (overlaid on full-bleed hero) ═══ -->
+<nav class="mdv-nav" id="mdvNav">
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-links">
+    <a href="index.html">La Maison</a>
+    <a href="https://shop.maisondvue.com/">Shop</a>
+    <a href="product.html">The Elixir</a>
   </div>
-
-  <nav class="header-nav-row">
-    <ul class="header-nav">
-      <li><a href="about.html">About</a></li>
-      <li><a href="product.html" class="active">The Elixir</a></li>
-      <li><a href="#formulation">The Formula</a></li>
-      <li><a href="#ritual">The Ritual</a></li>
-      <li><a href="#origins">Origins</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#reserve">Reserve</a></li>
-    </ul>
-  </nav>
-
-</header>
+  <div class="nav-right">
+    <a href="#reserve">Reserve</a>
+  </div>
+</nav>
+<script>
+  (function () {
+    var nav = document.getElementById('mdvNav');
+    function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 60); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 
 <!-- ═══ MOBILE MENU OVERLAY ═══ -->
 <nav class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" type="button" aria-label="Close menu" onclick="closeMobileMenu()">&times;</button>
   <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="gallery.html" onclick="closeMobileMenu()">The Story</a>
   <a href="product.html" onclick="closeMobileMenu()">The Elixir</a>
   <a href="#formulation" onclick="closeMobileMenu()">The Formula</a>
   <a href="#ritual" onclick="closeMobileMenu()">The Ritual</a>

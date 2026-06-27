@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
 <title>About — MAISON D&rsquo;VUE</title>
@@ -15,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
 <link rel="shortcut icon" href="/favicon.ico?v=4">
-<meta name="theme-color" content="#0B1F3A">
+<meta name="theme-color" content="#FCFAF7">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://maisondvue.com/about.html">
@@ -36,7 +43,7 @@
 :root{--navy:#0B1F3A;--navy-deep:#070D22;--navy-deeper:#04081A;--cobalt:#1A2744;--gold:#C9A96E;--gold-muted:#B8996A;--cream:#F0E6D0;--warm-white:#FDFBF8;--ivory:#F9F6F0;--dark:#0E0E0E;--line:rgba(11,31,58,0.18);--font-display:'Cormorant Garamond',Georgia,serif;--font-italic:'EB Garamond',Georgia,serif;--font-body:'Jost',Helvetica,Arial,sans-serif;--ribbon-h:44px;--logo-h:88px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--font-body);font-weight:300;color:var(--dark);background:var(--warm-white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;font-size:17px;line-height:1.65}
+body{font-family:var(--font-body);font-weight:300;color:var(--dark);background:var(--warm-white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:17px;line-height:1.65;padding-top:72px}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
 
@@ -234,6 +241,30 @@ button{font:inherit;cursor:pointer}
 .house-closer p{font-family:var(--font-italic);font-style:italic;font-size:clamp(20px,1.8vw,26px);line-height:1.5;color:var(--navy);max-width:620px;margin:0 auto 22px}
 .house-closer .signoff{font-family:var(--font-display);font-size:11px;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold-muted);line-height:1}
 
+/* ===== UNIFIED HOUSE NAV — overlaid on the founder hero, solid on scroll ===== */
+.promo-ribbon{display:none !important}
+.site-header{display:none !important}
+.mdv-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid transparent;background:transparent;transition:background 320ms ease,border-color 320ms ease}
+.mdv-nav .nav-logo{font-family:var(--font-display);font-weight:500;font-size:20px;letter-spacing:0.34em;text-transform:uppercase;color:var(--navy);white-space:nowrap;transition:color 320ms ease}
+.mdv-nav .nav-links{display:flex;gap:40px}
+.mdv-nav .nav-links a,.mdv-nav .nav-right a{font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:400;color:rgba(11,31,58,0.62);transition:color 220ms ease}
+.mdv-nav .nav-right{display:flex;align-items:center;gap:18px}
+.mdv-nav .nav-links a:hover,.mdv-nav .nav-right a:hover{color:var(--navy)}
+.mdv-nav.scrolled{background:rgba(252,250,247,0.94);backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);border-bottom-color:rgba(11,31,58,0.08)}
+/* Mobile hamburger lives inside the unified nav on narrow screens */
+.mdv-nav-toggle{display:none;background:transparent;border:0;color:var(--navy);padding:8px;line-height:0;cursor:pointer}
+.mdv-nav-toggle svg{width:22px;height:22px;display:block}
+@media (max-width:860px){
+.mdv-nav{padding:0 22px}
+.mdv-nav .nav-links{display:none}
+.mdv-nav .nav-logo{font-size:16px;letter-spacing:0.26em}
+.mdv-nav-toggle{display:block}
+}
+/* About tabs stick just below the fixed nav (72px). Body padding-top:72px
+   already clears the fixed nav, so the tab bar pins cleanly beneath it. */
+.about-tabs{top:72px}
+.house-section,.slideshow-section,.about-panel{scroll-margin-top:140px}
+
 /* FOOTER */
 footer{background:var(--navy-deep);color:var(--cream);padding:96px 0 40px}
 .footer-inner{max-width:1240px;margin:0 auto;padding:0 40px}
@@ -259,7 +290,7 @@ footer{background:var(--navy-deep);color:var(--cream);padding:96px 0 40px}
 .header-utility-btn[aria-label="Account"]{display:none}
 .header-mobile-toggle{display:block;left:14px;padding:6px}
 .header-mobile-toggle svg{width:20px;height:20px}
-.about-tabs{gap:10px;padding:18px 12px;overflow-x:auto;justify-content:center;scrollbar-width:none;top:var(--logo-h)}
+.about-tabs{gap:10px;padding:18px 12px;overflow-x:auto;justify-content:center;scrollbar-width:none;top:72px}
 .about-tabs::-webkit-scrollbar{display:none}
 .about-tab{font-size:10px;letter-spacing:0.08em;white-space:nowrap;flex-shrink:0}
 .founder-hero{padding:56px 0 72px}
@@ -309,12 +340,38 @@ footer{padding:64px 0 36px}
 </head>
 <body>
 
+<!-- Promo ribbon retained (hidden via CSS) so existing JS resolves #promoRibbon -->
 <div class="promo-ribbon" id="promoRibbon">
   <p class="promo-ribbon-text">Complimentary shipping on every Allocation</p>
   <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
 
-<header class="site-header">
+<!-- ═══ UNIFIED HOUSE NAV (overlaid on the founder hero) ═══ -->
+<nav class="mdv-nav" id="mdvNav">
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-links">
+    <a href="index.html">La Maison</a>
+    <a href="https://shop.maisondvue.com/">Shop</a>
+    <a href="product.html">The Elixir</a>
+  </div>
+  <div class="nav-right">
+    <a href="product.html#reserve">Reserve</a>
+    <button class="mdv-nav-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="13" x2="21" y2="13"/><line x1="3" y1="19" x2="21" y2="19"/></svg>
+    </button>
+  </div>
+</nav>
+<script>
+  (function () {
+    var nav = document.getElementById('mdvNav');
+    function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 60); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<!-- Legacy header retained (hidden via CSS) so existing JS/ids still resolve -->
+<header class="site-header" aria-hidden="true">
   <div class="header-logo-row">
     <button class="header-mobile-toggle" type="button" aria-label="Menu" onclick="openMobileMenu()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="13" x2="21" y2="13"/><line x1="3" y1="19" x2="21" y2="19"/></svg>

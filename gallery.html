@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>The Story &mdash; MAISON D&rsquo;VUE</title>
 <meta name="description" content="The Story — MAISON D'VUE Hair Elixir in light and motion. A gallery of photographs and films of Vue 14&trade;, hand-sealed in Beverly Hills.">
@@ -31,7 +38,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
 <link rel="shortcut icon" href="/favicon.ico?v=4">
-<meta name="theme-color" content="#070D22">
+<meta name="theme-color" content="#FCFAF7">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,20 +51,30 @@
     --navy-deeper: #04081A;
     --navy-center: #122749;
     --cobalt: #1A2744;
+    --sapphire: #14305A;
 
     --gold: #C9A96E;
     --gold-soft: #D9BE8B;
     --gold-muted: #B8996A;
+    --gold-deep: #B8996A;
 
     --cream: #F0E6D0;
     --warm-white: #FDFBF8;
     --ivory: #F9F6F0;
 
-    --dark: #0E0E0E;
-    --mid: #62584E;
-    --muted: rgba(14, 14, 14, 0.48);
+    /* Light editorial paper system (matches creators.html) */
+    --paper: #FCFAF7;
+    --paper-2: #F6F2EB;
+    --ink: #0B1F3A;
 
-    --line: rgba(201, 169, 110, 0.22);
+    --dark: #0E0E0E;
+    --mid: rgba(11, 31, 58, 0.60);
+    --soft: rgba(11, 31, 58, 0.40);
+    --muted: rgba(11, 31, 58, 0.48);
+
+    --line: rgba(11, 31, 58, 0.14);
+    --line-soft: rgba(11, 31, 58, 0.08);
+    --line-gold: rgba(201, 169, 110, 0.22);
     --line-dark: rgba(249, 246, 240, 0.16);
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -73,16 +90,15 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; background: var(--navy-deep); }
+  html { scroll-behavior: smooth; background: var(--paper); }
 
   body {
     font-family: var(--font-body);
     font-weight: 300;
-    color: var(--cream);
-    background: var(--navy-deep);
+    color: var(--ink);
+    background: var(--paper);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
     font-size: 17px;
     line-height: 1.65;
   }
@@ -299,7 +315,11 @@
      ═══════════════════════════════════════════════════════════ */
   .feature {
     position: relative;
-    min-height: min(94svh, 980px);
+    /* Full-bleed: edge to edge, full viewport height, nav overlaid. */
+    width: 100%; margin-left: 0;
+    height: 100vh;
+    height: 100svh;
+    min-height: 560px;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -897,6 +917,100 @@
     .reveal-up { opacity: 1; transform: none; transition: none; }
     .scroll-cue-line::after { animation: none; }
   }
+
+  /* ═══════════════════════════════════════════════════════════
+     EDITORIAL RESTYLE — unified house nav, light paper palette
+     (matches creators.html / product.html). Overrides above.
+     ═══════════════════════════════════════════════════════════ */
+
+  /* Hide the legacy triple-row header + promo ribbon; the JS ids
+     (#promoRibbon, #mobileMenu) stay in the DOM so scripts resolve. */
+  .promo-ribbon { display: none !important; }
+  .site-header { display: none !important; }
+
+  /* ── Unified nav: transparent over the hero, solid on scroll ── */
+  .mdv-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 72px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+    border-bottom: 1px solid transparent;
+    transition: background 320ms ease, border-color 320ms ease;
+  }
+  .mdv-nav .nav-logo {
+    font-family: var(--font-display); font-weight: 500; font-size: 20px;
+    letter-spacing: 0.34em; text-transform: uppercase; color: #FCFAF7; white-space: nowrap;
+    transition: color 320ms ease;
+  }
+  .mdv-nav .nav-links { display: flex; gap: 40px; }
+  .mdv-nav .nav-links a, .mdv-nav .nav-right a {
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
+    color: rgba(252,250,247,0.82); transition: color 220ms ease;
+  }
+  .mdv-nav .nav-right { display: flex; align-items: center; gap: 18px; }
+  .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover { color: #fff; }
+  .mdv-nav.scrolled {
+    background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom-color: rgba(11,31,58,0.08);
+  }
+  .mdv-nav.scrolled .nav-logo { color: var(--navy); }
+  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a { color: rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled .nav-links a:hover, .mdv-nav.scrolled .nav-right a:hover { color: var(--navy); }
+  @media (max-width: 860px) {
+    .mdv-nav { padding: 0 22px; }
+    .mdv-nav .nav-links { display: none; }
+    .mdv-nav .nav-logo { font-size: 16px; letter-spacing: 0.26em; }
+  }
+
+  /* Top scrim so the light nav stays legible over bright hero frames. */
+  .feature::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 170px; z-index: 4;
+    background: linear-gradient(to bottom, rgba(7,13,34,0.46), rgba(7,13,34,0));
+    pointer-events: none;
+  }
+  main [id] { scroll-margin-top: 84px; }
+
+  /* Hero text sits clear of the overlaid nav. */
+  .feature-bar { top: 100px; }
+  .feature-inner { padding: 150px 48px 70px; }
+
+  /* ── THE COLLECTION — light editorial masonry ── */
+  .collection { background: var(--paper); padding: 110px 0; }
+  .collection-eyebrow { color: var(--gold-deep); }
+  .collection-title { color: var(--navy); }
+  .collection-sub { color: var(--mid); }
+
+  .c-media {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+  }
+  .c-item.is-video .c-media::after {
+    color: var(--navy);
+    background: rgba(252,250,247,0.86);
+    border: 1px solid var(--line);
+  }
+  .c-cap .eb { color: var(--gold-deep); }
+  .c-cap .ln {
+    font-family: var(--font-italic);
+    color: var(--mid);
+  }
+
+  /* ── FILM STAGE — kept as one intentional dark cinematic band ── */
+  /* (inherits its navy styling from the rules above) */
+
+  /* ── CLOSING — light band, navy CTA ── */
+  .gallery-close { background: var(--paper); padding: 8px 40px 110px; }
+  .gallery-close .cta {
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    background: transparent;
+  }
+  .gallery-close .cta:hover { background: var(--navy); color: var(--paper); border-color: var(--navy); }
+
+  @media (max-width: 900px) {
+    .feature-inner { padding: 132px 26px 64px; }
+    .feature-bar { top: 90px; }
+    .collection { padding: 80px 0; }
+  }
 </style>
 </head>
 
@@ -910,7 +1024,29 @@
   <button class="promo-ribbon-close" type="button" aria-label="Dismiss" onclick="dismissPromoRibbon()">&times;</button>
 </div>
 
-<!-- ═══ STICKY HEADER ═══ -->
+<!-- ═══ UNIFIED NAV (overlaid on full-bleed hero) ═══ -->
+<nav class="mdv-nav" id="mdvNav">
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-links">
+    <a href="index.html">La Maison</a>
+    <a href="https://shop.maisondvue.com/">Shop</a>
+    <a href="product.html">The Elixir</a>
+  </div>
+  <div class="nav-right">
+    <a href="product.html#buy">Reserve</a>
+  </div>
+</nav>
+<script>
+  (function () {
+    var nav = document.getElementById('mdvNav');
+    if (!nav) return;
+    function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 60); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<!-- ═══ STICKY HEADER (hidden; kept in DOM for legacy scripts) ═══ -->
 <header class="site-header">
 
   <div class="header-logo-row">
