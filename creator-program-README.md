@@ -83,8 +83,11 @@ The moment you move someone off **Applied**, the script automatically:
 No extra step — editing the dropdown *is* the approval action.
 
 ### The creator dashboard
-A creator opens `creator-dashboard.html`, enters their code (or visits
-`creator-dashboard.html?code=THEIRCODE`), and sees:
+A creator opens `creator-dashboard.html` and enters **both their creator code
+and the email they applied with** — the code alone won't release their figures,
+a light second factor since codes are guessable. A deep link may prefill the
+code (`creator-dashboard.html?code=THEIRCODE`); the creator still confirms the
+email before anything is shown. Once verified they see:
 
 - **Total Sales**, **Total Revenue Generated**, **Commission Earned**
 - their **Affiliate Link** and **Referral Code**, each with a **Copy** button,

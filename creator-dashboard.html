@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Creator Dashboard &mdash; MAISON D&rsquo;VUE</title>
 <meta name="description" content="The MAISON D'VUE creator dashboard. Your affiliate link, creator code, and performance.">
@@ -130,9 +137,26 @@
     letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--navy);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     display: block;
+    text-align: left;
   }
+  .signin-label.stacked { margin-top: 22px; }
+  .signin-field {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--navy);
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    padding: 16px 18px;
+    outline: none;
+    transition: border-color 240ms ease;
+    border-radius: 0;
+  }
+  .signin-field::placeholder { color: var(--soft); }
+  .signin-field:focus { border-color: var(--navy); }
   .signin-row { display: flex; gap: 0; align-items: stretch; }
   .signin-row input {
     flex: 1;
@@ -384,13 +408,17 @@
 
     <!-- CODE ENTRY -->
     <div class="signin" id="signin">
-      <label class="signin-label" for="codeInput">Enter your creator code</label>
-      <form class="signin-row" id="signinForm" novalidate>
-        <input type="text" id="codeInput" name="code" placeholder="e.g. MASIELA10" autocomplete="off" autocapitalize="characters" spellcheck="false">
-        <button type="submit" id="signinBtn">View</button>
+      <form id="signinForm" novalidate>
+        <label class="signin-label" for="emailInput">Email on file</label>
+        <input type="email" id="emailInput" name="email" class="signin-field" placeholder="you@example.com" autocomplete="email" autocapitalize="off" spellcheck="false" inputmode="email">
+        <label class="signin-label stacked" for="codeInput">Creator code</label>
+        <div class="signin-row">
+          <input type="text" id="codeInput" name="code" placeholder="e.g. MASIELA10" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button type="submit" id="signinBtn">View</button>
+        </div>
       </form>
       <p class="signin-feedback" id="signinFeedback" role="status" aria-live="polite"></p>
-      <p class="signin-help">Approved creators receive a code by email. Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></p>
+      <p class="signin-help">Approved creators receive a code by email. Enter the same email you applied with. Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></p>
     </div>
 
     <!-- DASHBOARD PANEL -->
@@ -454,12 +482,13 @@
      reads a creator's figures with GET ?action=dashboard&code=CODE.
      Until set, a demonstration record is shown so the layout is never
      blank in preview. */
-  var DASHBOARD_ENDPOINT = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+  var DASHBOARD_ENDPOINT = "https://script.google.com/macros/s/AKfycby2kfS1JR4HvNI6-CqdHntoislU_lpsPP22SsHmostPkbNXnGBgeG5B0O4Ce0VJYKgk/exec";
 
   var els = {
     signin: document.getElementById('signin'),
     form: document.getElementById('signinForm'),
     input: document.getElementById('codeInput'),
+    email: document.getElementById('emailInput'),
     btn: document.getElementById('signinBtn'),
     feedback: document.getElementById('signinFeedback'),
     panel: document.getElementById('panel'),
@@ -509,13 +538,18 @@
     };
   }
 
-  async function lookup(code) {
+  function emailLooksValid(s) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s); }
+
+  async function lookup(code, email) {
     code = (code || '').trim().toUpperCase();
+    email = (email || '').trim();
+    if (!email || !emailLooksValid(email)) {
+      setMsg('Please enter the email you applied with.'); els.email.focus(); return;
+    }
     if (!code) { setMsg('Please enter your creator code.'); els.input.focus(); return; }
 
     if (!DASHBOARD_ENDPOINT || DASHBOARD_ENDPOINT.indexOf('REPLACE_') === 0) {
       render(demoRecord(code));
-      history.replaceState(null, '', '?code=' + encodeURIComponent(code));
       return;
     }
 
@@ -526,14 +560,14 @@
 
     try {
       var url = DASHBOARD_ENDPOINT + (DASHBOARD_ENDPOINT.indexOf('?') === -1 ? '?' : '&') +
-        'action=dashboard&code=' + encodeURIComponent(code);
+        'action=dashboard&code=' + encodeURIComponent(code) +
+        '&email=' + encodeURIComponent(email);
       var res = await fetch(url, { method: 'GET' });
       var data = await res.json();
       if (data && data.ok !== false && data.creatorCode) {
         render(data);
-        history.replaceState(null, '', '?code=' + encodeURIComponent(code));
       } else {
-        setMsg('That code was not recognized. Please check your email, or write to us.');
+        setMsg('That code and email were not recognized. Please check your approval email, or write to us.');
         els.input.select();
       }
     } catch (err) {
@@ -544,13 +578,14 @@
     }
   }
 
-  els.form.addEventListener('submit', function (e) { e.preventDefault(); lookup(els.input.value); });
+  els.form.addEventListener('submit', function (e) { e.preventDefault(); lookup(els.input.value, els.email.value); });
 
   els.signout.addEventListener('click', function () {
     els.panel.classList.remove('visible');
     els.signin.style.display = '';
     els.input.value = '';
-    els.input.focus();
+    els.email.value = '';
+    els.email.focus();
     history.replaceState(null, '', location.pathname);
   });
 
@@ -576,11 +611,17 @@
     });
   });
 
-  /* Deep link: /creator-dashboard.html?code=XXXX opens straight to the panel. */
+  /* Deep link: /creator-dashboard.html?code=XXXX prefills the code; the creator
+     still confirms the email on file before any figures are shown. If an email
+     is also supplied (?code=XXXX&email=…), open straight to the panel. */
   (function () {
     var params = new URLSearchParams(location.search);
     var code = params.get('code');
-    if (code) { els.input.value = code.toUpperCase(); lookup(code); }
+    var email = params.get('email');
+    if (code) els.input.value = code.toUpperCase();
+    if (email) els.email.value = email;
+    if (code && email) { lookup(code, email); }
+    else if (code) { els.email.focus(); }
   })();
 </script>
 

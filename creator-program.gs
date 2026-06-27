@@ -1,13 +1,13 @@
 /**
- * MAISON D'VUE — Founding Creator Program backend (Google Apps Script)
+ * MAISON D'VUE - Founding Creator Program backend (Google Apps Script)
  * ---------------------------------------------------------------------------
  * A single Web App that powers the creator program with a Google Sheet as the
- * data store — the same lightweight pattern the boutique already uses for its
+ * data store - the same lightweight pattern the boutique already uses for its
  * reservation waitlist. No server to maintain, no database to provision.
  *
- *   POST  (form fields)                         → record a new application
- *   GET   ?action=dashboard&code=CODE           → a creator's dashboard figures
- *   GET   ?action=click&code=CODE               → log a referral click, then redirect to the shop
+ *   POST  (form fields)                         -> record a new application
+ *   GET   ?action=dashboard&code=CODE           -> a creator's dashboard figures
+ *   GET   ?action=click&code=CODE               -> log a referral click, then redirect to the shop
  *
  * Emails (best-effort): an "Application Received" receipt on submit, and a
  * "Welcome to the House" approval email the moment a creator is approved.
@@ -16,24 +16,24 @@
  * and tracks everything from the rows. Changing an applicant's Status to
  * "Approved" automatically mints their affiliate code and referral link.
  *
- * ── DEPLOY (about a minute, nothing to edit) ────────────────────────────────
+ * -- DEPLOY (about a minute, nothing to edit) --------------------------------
  *  1. Open a blank Google Sheet (sheets.new).
- *  2. Extensions ▸ Apps Script. Delete the placeholder, paste this whole file.
- *     (Leave SHEET_ID empty — a bound script uses its own sheet automatically.)
- *  3. Run `setup` once (Run ▸ setup) and authorize. It builds the tabs and
+ *  2. Extensions > Apps Script. Delete the placeholder, paste this whole file.
+ *     (Leave SHEET_ID empty - a bound script uses its own sheet automatically.)
+ *  3. Run `setup` once (Run > setup) and authorize. It builds the tabs and
  *     installs the on-edit trigger that mints codes on approval.
- *  4. Deploy ▸ New deployment ▸ Web app.
+ *  4. Deploy > New deployment > Web app.
  *       Execute as: Me   |   Who has access: Anyone
  *     Copy the Web App URL.
- *  5. Send that URL over — it gets pasted into APPLICATION_ENDPOINT in
+ *  5. Send that URL over - it gets pasted into APPLICATION_ENDPOINT in
  *     creators.html and DASHBOARD_ENDPOINT in creator-dashboard.html.
  * ---------------------------------------------------------------------------
  */
 
-// ── Configuration ────────────────────────────────────────────────────────────
+// -- Configuration ------------------------------------------------------------
 // Leave SHEET_ID empty when this script is bound to its sheet (the normal case:
-// created via Extensions ▸ Apps Script). Only set it if you run the script
-// standalone, pointing at a sheet by ID from its URL (…/d/<ID>/edit).
+// created via Extensions > Apps Script). Only set it if you run the script
+// standalone, pointing at a sheet by ID from its URL (.../d/<ID>/edit).
 var SHEET_ID = "";
 
 // Where verified purchases send shoppers. The creator's code is appended as ?ref=.
@@ -77,12 +77,12 @@ var APP_HEADERS = [
 var SALES_HEADERS = ["Date", "Creator Code", "Order ID", "Order Value", "Status"];
 var CLICKS_HEADERS = ["Date", "Creator Code", "Referrer"];
 
-// ── HTTP entry points ─────────────────────────────────────────────────────────
+// -- HTTP entry points ---------------------------------------------------------
 function doPost(e) {
   try {
     var p = (e && e.parameter) || {};
 
-    // Honeypot — silently accept and discard.
+    // Honeypot - silently accept and discard.
     if (p.website) return json({ ok: true });
 
     var email = String(p.email || "").trim().toLowerCase();
@@ -103,8 +103,8 @@ function doPost(e) {
       clean(p.shipping, 500),
       clean(p.note, 1000),
       "Applied",
-      "",            // Creator Code — minted on approval
-      "",            // Referral Link — minted on approval
+      "",            // Creator Code - minted on approval
+      "",            // Referral Link - minted on approval
       0,             // Clicks
       0,             // Total Sales
       0,             // Total Revenue
@@ -119,7 +119,7 @@ function doPost(e) {
       try {
         MailApp.sendEmail(
           NOTIFY_EMAIL,
-          "New Founding Creator application — " + clean(p.firstName) + " " + clean(p.lastName),
+          "New Founding Creator application - " + clean(p.firstName) + " " + clean(p.lastName),
           [
             "A new application has been received.",
             "",
@@ -143,13 +143,13 @@ function doPost(e) {
 
 function doGet(e) {
   var p = (e && e.parameter) || {};
-  if (p.action === "dashboard") return dashboardForCode(p.code);
+  if (p.action === "dashboard") return dashboardForCode(p.code, p.email);
   if (p.action === "click") return clickRedirect(p.code, p.r);
   return json({ ok: true, service: "MAISON D'VUE Founding Creator Program" });
 }
 
 // Logs a referral click, then forwards to the shop with the ?ref= attached.
-// Use this URL form as the trackable link: …/exec?action=click&code=CODE
+// Use this URL form as the trackable link: .../exec?action=click&code=CODE
 function clickRedirect(code, referrer) {
   code = String(code || "").trim().toUpperCase();
   var dest = SHOP_BASE_URL + (code ? "?ref=" + encodeURIComponent(code) : "");
@@ -169,17 +169,29 @@ function clickRedirect(code, referrer) {
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
-// ── Dashboard read ──────────────────────────────────────────────────────────
-function dashboardForCode(code) {
+// -- Dashboard read ----------------------------------------------------------
+// Credentials lookup requires BOTH the creator code and the email on file - a
+// light second factor so a guessed code alone can't expose someone's figures.
+// Not-found and email-mismatch return the same generic message on purpose, so
+// the endpoint never confirms whether a given code exists.
+function dashboardForCode(code, email) {
   code = String(code || "").trim().toUpperCase();
+  email = String(email || "").trim().toLowerCase();
   if (!code) return json({ ok: false, error: "No code provided." });
+  if (!email) return json({ ok: false, error: "Email required." });
 
   var sheet = tab(APPLICATIONS_TAB, APP_HEADERS);
   var rows = sheet.getDataRange().getValues();
   var col = headerIndex(rows[0]);
 
+  var NOT_RECOGNIZED = { ok: false, error: "Code and email do not match our records." };
+
   for (var i = 1; i < rows.length; i++) {
     if (String(rows[i][col["Creator Code"]]).trim().toUpperCase() === code) {
+      // Verify the email on file before releasing any credentials or figures.
+      var onFile = String(rows[i][col["Email"]]).trim().toLowerCase();
+      if (!onFile || onFile !== email) return json(NOT_RECOGNIZED);
+
       var status = String(rows[i][col["Status"]]).trim();
       var rate = COMMISSION_RATES[status] != null ? COMMISSION_RATES[status] : 0.20;
       var totals = salesTotals(code);
@@ -197,10 +209,10 @@ function dashboardForCode(code) {
       });
     }
   }
-  return json({ ok: false, error: "Code not found." });
+  return json(NOT_RECOGNIZED);
 }
 
-// ── On-edit: mint code + link the moment Status becomes "Approved" ────────────
+// -- On-edit: mint code + link the moment Status becomes "Approved" ------------
 // Installed by `setup`. Fires whenever a Status cell is edited.
 function onStatusEdit(e) {
   try {
@@ -236,7 +248,7 @@ function onStatusEdit(e) {
   } catch (err) { /* never block the edit */ }
 }
 
-// ── Code generation ───────────────────────────────────────────────────────────
+// -- Code generation -----------------------------------------------------------
 function generateCode(first, last, sh, col) {
   var base = String(first || "").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 8);
   if (!base) base = String(last || "").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 8);
@@ -256,7 +268,7 @@ function generateCode(first, last, sh, col) {
   return candidate;
 }
 
-// ── Sales aggregation ─────────────────────────────────────────────────────────
+// -- Sales aggregation ---------------------------------------------------------
 function salesTotals(code) {
   var sheet = tab(SALES_TAB, SALES_HEADERS);
   var rows = sheet.getDataRange().getValues();
@@ -309,7 +321,7 @@ function refreshAllTotals() {
   buildDashboard();
 }
 
-// ── Admin summary tab ─────────────────────────────────────────────────────────
+// -- Admin summary tab ---------------------------------------------------------
 function buildDashboard() {
   var ss = book();
   var apps = tab(APPLICATIONS_TAB, APP_HEADERS).getDataRange().getValues();
@@ -346,7 +358,7 @@ function buildDashboard() {
   var dash = ss.getSheetByName(DASHBOARD_TAB) || ss.insertSheet(DASHBOARD_TAB);
   dash.clear();
   var out = [
-    ["MAISON D'VUE — Founding Creator Program", ""],
+    ["MAISON D'VUE - Founding Creator Program", ""],
     ["Last refreshed", new Date()],
     ["", ""],
     ["Applications", totalApps],
@@ -377,7 +389,7 @@ function buildDashboard() {
   dash.setColumnWidth(1, 240);
 }
 
-// ── One-time setup ────────────────────────────────────────────────────────────
+// -- One-time setup ------------------------------------------------------------
 function setup() {
   tab(APPLICATIONS_TAB, APP_HEADERS);
   tab(SALES_TAB, SALES_HEADERS);
@@ -401,7 +413,7 @@ function setup() {
   buildDashboard();
 }
 
-// ── Emails ────────────────────────────────────────────────────────────────────
+// -- Emails --------------------------------------------------------------------
 // All mail is best-effort: failures never block the sheet or the response.
 function sendApplicationReceived(email, first) {
   if (!email) return;
@@ -474,7 +486,7 @@ function emailShell(title, inner) {
     "</div>";
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// -- Helpers -------------------------------------------------------------------
 // The program's spreadsheet: the bound sheet by default, or one named by
 // SHEET_ID when running standalone. Lets the same script work either way.
 function book() {

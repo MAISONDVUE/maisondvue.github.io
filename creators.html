@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Founding Creator Program &mdash; MAISON D&rsquo;VUE</title>
 <meta name="description" content="The MAISON D'VUE Founding Creator Program. By invitation. Early access, complimentary product consideration, and affiliate opportunities. Composed in Beverly Hills.">
@@ -1154,7 +1161,7 @@
      straight into the MAISON D'VUE Mailchimp audience — the same
      no-server method the Founder's Circle form uses — so applicants are
      captured from day one with nothing to deploy. */
-  var APPLICATION_ENDPOINT = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+  var APPLICATION_ENDPOINT = "https://script.google.com/macros/s/AKfycby2kfS1JR4HvNI6-CqdHntoislU_lpsPP22SsHmostPkbNXnGBgeG5B0O4Ce0VJYKgk/exec";
 
   /* Mailchimp audience (us20) — mirrors founders-circle.html. */
   var MAILCHIMP_ACTION = "https://maisondvue.us20.list-manage.com/subscribe/post?u=ece90c707751d2379f6f22e77&id=3a9da7ab07&f_id=004802eef0";
