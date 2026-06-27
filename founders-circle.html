@@ -348,6 +348,7 @@
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
   }
 </style>
+<link rel="stylesheet" href="assets/nav.css?v=3">
 </head>
 
 <body>
@@ -356,16 +357,20 @@
 <div class="promo-ribbon" id="promoRibbon" style="display:none"></div>
 
 <!-- ═══ UNIFIED NAV (overlaid on hero) ═══ -->
-<nav class="mdv-nav" id="mdvNav">
-  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-links">
-    <a href="index.html">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
+<nav class="mdv-nav mdv-nav-split" id="mdvNav">
+  <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
+    <a href="product.html#formulation">The Science</a>
+    <a href="gallery.html">The Story</a>
+    <a href="product.html#ritual">The Ritual</a>
   </div>
-  <div class="nav-right">
-    <a href="#circleFormWrap">Join the Circle</a>
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-group nav-group-right">
+    <a href="about.html">La Maison</a>
+    <a href="https://shop.maisondvue.com/">Shop</a>
+    <a href="product.html#reserve">Reserve</a>
   </div>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
 </nav>
 <script>
   (function () {
@@ -643,8 +648,8 @@
   })();
 </script>
 
-<script src="assets/chat.js" defer></script>
-<script src="assets/menu.js" defer></script>
+<script src="assets/chat.js?v=3" defer></script>
+<script src="assets/menu.js?v=3" defer></script>
 
 </body>
 </html>

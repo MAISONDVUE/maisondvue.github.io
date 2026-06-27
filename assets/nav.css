@@ -1,0 +1,59 @@
+/* MAISON D'VUE — unified centred nav (identical on every page)
+   Render-blocking stylesheet, linked AFTER each page's inline <style> so it
+   overrides any older per-page nav rules. Logo dead-centre, tabs split left
+   and right; transparent light over a dark hero, solid navy on scroll. Pages
+   with no dark hero behind the nav add the class `mdv-nav--light` for a solid
+   navy bar from the top. */
+
+.mdv-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 72px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 40px; border-bottom: 1px solid transparent;
+  transition: background 320ms ease, border-color 320ms ease;
+}
+.mdv-nav .nav-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500;
+  font-size: 20px; letter-spacing: 0.34em; text-transform: uppercase;
+  color: #FCFAF7; white-space: nowrap; justify-self: center;
+  transition: color 320ms ease;
+}
+.mdv-nav .nav-group { display: flex; gap: 34px; }
+.mdv-nav .nav-group-left { justify-self: start; }
+.mdv-nav .nav-group-right { justify-self: end; }
+.mdv-nav .nav-group a {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(252,250,247,0.82); white-space: nowrap; transition: color 220ms ease;
+}
+.mdv-nav .nav-group a:hover { color: #fff; }
+.mdv-nav .nav-bag {
+  display: none; justify-self: end; align-items: center; color: #FCFAF7;
+  transition: color 320ms ease;
+}
+.mdv-nav .nav-bag svg { width: 21px; height: 21px; display: block; }
+.mdv-nav .mdv-burger { justify-self: start; }
+
+/* Scrolled past the hero → solid navy-on-paper */
+.mdv-nav.scrolled {
+  background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
+  border-bottom-color: rgba(11,31,58,0.08);
+}
+.mdv-nav.scrolled .nav-logo, .mdv-nav.scrolled .nav-bag { color: #0B1F3A !important; }
+.mdv-nav.scrolled .nav-group a { color: rgba(11,31,58,0.62) !important; }
+.mdv-nav.scrolled .nav-group a:hover { color: #0B1F3A !important; }
+
+/* Light pages (no dark hero behind the nav): solid navy from the top */
+.mdv-nav.mdv-nav--light {
+  background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
+  border-bottom-color: rgba(11,31,58,0.08);
+}
+.mdv-nav.mdv-nav--light .nav-logo, .mdv-nav.mdv-nav--light .nav-bag { color: #0B1F3A !important; }
+.mdv-nav.mdv-nav--light .nav-group a { color: rgba(11,31,58,0.62) !important; }
+.mdv-nav.mdv-nav--light .nav-group a:hover { color: #0B1F3A !important; }
+
+@media (max-width: 860px) {
+  .mdv-nav { padding: 0 22px; }
+  .mdv-nav .nav-group { display: none; }
+  .mdv-nav .nav-bag { display: inline-flex; }
+  .mdv-nav .nav-logo { font-size: 16px; letter-spacing: 0.26em; }
+}

@@ -170,20 +170,25 @@
 
   .dash-name, .signin-title { text-wrap: balance; }
 </style>
+<link rel="stylesheet" href="assets/nav.css?v=3">
 </head>
 
 <body>
 
-<nav class="nav">
-  <a href="/" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-links">
-    <a href="/">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
+<nav class="mdv-nav mdv-nav-split mdv-nav--light" id="mdvNav">
+  <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
+    <a href="product.html#formulation">The Science</a>
+    <a href="gallery.html">The Story</a>
+    <a href="product.html#ritual">The Ritual</a>
   </div>
-  <div class="nav-right" id="navRight">
-    <a href="creators.html" class="nav-welcome">Founding Creator Program</a>
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-group nav-group-right">
+    <a href="about.html">La Maison</a>
+    <a href="https://shop.maisondvue.com/">Shop</a>
+    <a href="product.html#reserve">Reserve</a>
   </div>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
 </nav>
 
 <main>
@@ -372,8 +377,8 @@
       }).join('');
     }
 
-    // Nav greeting + avatar
-    els.navRight.innerHTML = '<span class="nav-welcome">Welcome, ' + firstName(d.name) +
+    // Nav greeting + avatar (nav-right slot may not exist on the unified nav)
+    if (els.navRight) els.navRight.innerHTML = '<span class="nav-welcome">Welcome, ' + firstName(d.name) +
       '</span><span class="nav-avatar">' + initials(d.name) + '</span>';
 
     els.signin.style.display = 'none';
@@ -424,7 +429,7 @@
     els.dash.classList.remove('visible');
     els.signin.style.display = '';
     els.code.value = ''; els.email.value = '';
-    els.navRight.innerHTML = '<a href="creators.html" class="nav-welcome">Founding Creator Program</a>';
+    if (els.navRight) els.navRight.innerHTML = '<a href="creators.html" class="nav-welcome">Founding Creator Program</a>';
     els.email.focus();
     history.replaceState(null, '', location.pathname);
   });
@@ -453,6 +458,6 @@
   })();
 </script>
 
-<script src="assets/menu.js" defer></script>
+<script src="assets/menu.js?v=3" defer></script>
 </body>
 </html>
