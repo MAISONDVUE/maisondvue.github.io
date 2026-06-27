@@ -28,12 +28,12 @@
   }
   /* Launcher bubble — the monogram as the advisor's face */
   .mdv-chat-launcher {
-    position: fixed; bottom: 22px; right: 22px; z-index: 2147483000;
-    width: 62px; height: 62px; border: 0; padding: 0; cursor: pointer;
+    position: fixed; bottom: 20px; right: 20px; z-index: 2147483000;
+    width: 44px; height: 44px; border: 0; padding: 0; cursor: pointer;
     border-radius: 50%; overflow: hidden;
     background: #fff;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 30px rgba(11,31,58,0.32), inset 0 0 0 1px rgba(0,0,0,0.18);
+    box-shadow: 0 6px 22px rgba(11,31,58,0.28), inset 0 0 0 1px rgba(0,0,0,0.16);
     transition: transform 240ms ease, opacity 240ms ease;
   }
   .mdv-chat-launcher:hover { transform: translateY(-2px); }

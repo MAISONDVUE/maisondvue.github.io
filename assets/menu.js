@@ -31,7 +31,7 @@
 
   var css =
     ".mdv-burger{display:none;background:none;border:0;cursor:pointer;padding:8px;margin:0 -8px 0 0;color:" + PAPER + ";align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:color 320ms ease}" +
-    ".mdv-burger svg{width:24px;height:18px;display:block}" +
+    ".mdv-burger svg{width:24px;height:12px;display:block}" +
     /* solid/scrolled nav and the always-light creator pages get dark burger */
     ".mdv-nav.scrolled .mdv-burger,.nav .mdv-burger{color:" + NAVY + "}" +
     "@media(max-width:860px){.mdv-burger{display:inline-flex;order:-1}}" +
@@ -61,7 +61,7 @@
   document.head.appendChild(styleEl);
 
   function svgBurger() {
-    return '<svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="0" y1="2" x2="24" y2="2"/><line x1="0" y1="9" x2="24" y2="9"/><line x1="0" y1="16" x2="24" y2="16"/></svg>';
+    return '<svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><line x1="0" y1="3" x2="26" y2="3"/><line x1="0" y1="9" x2="26" y2="9"/></svg>';
   }
   function svgClose() {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';

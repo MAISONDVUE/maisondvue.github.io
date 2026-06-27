@@ -2861,8 +2861,17 @@
   .mdv-nav-split .nav-group a:hover { color: #fff; }
   .mdv-nav.scrolled.mdv-nav-split .nav-group a { color: rgba(11,31,58,0.62); }
   .mdv-nav.scrolled.mdv-nav-split .nav-group a:hover { color: var(--navy); }
+  /* Bag (right), shown on mobile in place of the right tab group */
+  .mdv-nav-split .nav-bag {
+    display: none; justify-self: end; align-items: center; color: #FCFAF7;
+    transition: color 320ms ease;
+  }
+  .mdv-nav-split .nav-bag svg { width: 21px; height: 21px; display: block; }
+  .mdv-nav.scrolled.mdv-nav-split .nav-bag { color: var(--navy); }
+  .mdv-nav-split .mdv-burger { justify-self: start; }
   @media (max-width: 860px) {
     .mdv-nav-split .nav-group { display: none; }
+    .mdv-nav-split .nav-bag { display: inline-flex; }
   }
 
   /* Top scrim so the light nav stays legible over bright video frames. */
@@ -2899,6 +2908,9 @@
     <a href="https://shop.maisondvue.com/">Shop</a>
     <a href="#reserve">Reserve</a>
   </div>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+  </a>
 </nav>
 <script>
   (function () {
