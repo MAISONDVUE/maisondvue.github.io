@@ -142,24 +142,29 @@
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 40px; }
   @media (max-width: 860px) { .wrap { padding: 0 22px; } }
 
-  /* Stepper */
+  /* Stepper — single evenly-spaced row, no wrapping */
   .stepper {
-    display: flex; align-items: center; gap: 0;
-    padding: 44px 0 8px; border-bottom: 1px solid var(--line);
-    margin-bottom: 56px; flex-wrap: wrap;
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 14px; flex-wrap: nowrap;
+    padding: 44px 0 16px; border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
   }
-  .step { display: flex; align-items: baseline; gap: 12px; padding-bottom: 18px; }
-  .step + .step { margin-left: 44px; }
+  .step { display: flex; align-items: baseline; gap: 10px; white-space: nowrap; padding-bottom: 16px; }
   .step-num {
     font-family: var(--font-body); font-size: 11px; font-weight: 500;
     letter-spacing: 0.18em; color: var(--soft);
   }
   .step-label {
-    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;
     color: var(--soft); font-weight: 400;
   }
   .step.active .step-num, .step.active .step-label { color: var(--navy); }
   .step.active { box-shadow: inset 0 -1px 0 var(--navy); }
+  @media (max-width: 560px) {
+    .stepper { gap: 6px; padding: 36px 0 14px; }
+    .step { gap: 5px; padding-bottom: 12px; }
+    .step-num, .step-label { font-size: 9.5px; letter-spacing: 0.08em; }
+  }
 
   /* Sections */
   .sec-title {
