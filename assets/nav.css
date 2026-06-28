@@ -29,6 +29,12 @@
   color: rgba(255, 255, 255,0.82); white-space: nowrap; transition: color 220ms ease;
 }
 .mdv-nav .nav-group a:hover { color: #fff; }
+/* WORLD carries a small filled square — the house's cultural-universe mark. */
+.mdv-nav .nav-group a[href="gallery.html"] { display: inline-flex; align-items: center; }
+.mdv-nav .nav-group a[href="gallery.html"]::before {
+  content: ""; flex: 0 0 auto; width: 7px; height: 7px;
+  background: currentColor; margin-right: 9px;
+}
 .mdv-nav .nav-bag {
   display: inline-flex; justify-self: end; align-items: center; color: #FFFFFF;
   transition: color 320ms ease;

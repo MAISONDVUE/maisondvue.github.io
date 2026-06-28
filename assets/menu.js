@@ -42,6 +42,7 @@
     ".mdv-menu-primary a{font-family:" + SANS + ";font-weight:700;font-size:clamp(22px,6.4vw,30px);letter-spacing:0.01em;text-transform:uppercase;color:" + NAVY + ";line-height:1.2;text-align:center}" +
     ".mdv-menu-secondary{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;padding:0 20px calc(48px + env(safe-area-inset-bottom))}" +
     ".mdv-menu-secondary a{font-family:" + SANS + ";font-weight:500;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:" + NAVY + "}" +
+    ".mdv-menu-primary a[href=\"gallery.html\"]::before{content:\"\";display:inline-block;width:10px;height:10px;background:currentColor;margin-right:14px;vertical-align:baseline}" +
     ".mdv-menu-primary a,.mdv-menu-secondary a{text-decoration:none;transition:opacity 200ms ease}" +
     ".mdv-menu-primary a:active,.mdv-menu-secondary a:active{opacity:0.55}" +
     "body.mdv-menu-open{overflow:hidden}" +
