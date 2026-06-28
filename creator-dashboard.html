@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
 <link rel="shortcut icon" href="/favicon.ico?v=4">
-<meta name="theme-color" content="#FCFAF7">
+<meta name="theme-color" content="#FFFFFF">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,20 +26,20 @@
 
 <style>
   :root {
-    --paper: #FCFAF7;
-    --paper-2: #F6F2EB;
-    --ink: #0B1F3A;
-    --navy: #0B1F3A;
-    --sapphire: #14305A;
-    --gold: #0B1F3A;
-    --gold-deep: #0B1F3A;
-    --mid: rgba(11, 31, 58, 0.60);
-    --soft: rgba(11, 31, 58, 0.40);
-    --line: rgba(11, 31, 58, 0.14);
-    --line-soft: rgba(11, 31, 58, 0.08);
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-italic: 'EB Garamond', Georgia, serif;
-    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+    --paper: #FFFFFF;
+    --paper-2: #F6F5F2;
+    --ink: #0A0A0A;
+    --navy: #0A0A0A;
+    --sapphire: #1A1A1A;
+    --gold: #0A0A0A;
+    --gold-deep: #0A0A0A;
+    --mid: rgba(10, 10, 10, 0.60);
+    --soft: rgba(10, 10, 10, 0.40);
+    --line: rgba(10, 10, 10, 0.14);
+    --line-soft: rgba(10, 10, 10, 0.08);
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
     --page: 1180px;
     --nav-h: 72px;
   }
@@ -59,7 +59,7 @@
   .nav {
     position: sticky; top: 0; z-index: 50; height: var(--nav-h);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 40px; background: rgba(252,250,247,0.92);
+    padding: 0 40px; background: rgba(255, 255, 255,0.92);
     backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid var(--line-soft);
   }
   .nav-logo { font-family: var(--font-display); font-weight: 500; font-size: 20px; letter-spacing: 0.34em; text-transform: uppercase; white-space: nowrap; }
@@ -132,13 +132,13 @@
   .tool-action:hover { color: var(--gold-deep); }
   .tool-action.copied { color: var(--gold-deep); }
 
-  .feature { position: relative; overflow: hidden; min-height: 320px; display: flex; align-items: flex-end; background: #0A0F1F; }
+  .feature { position: relative; overflow: hidden; min-height: 320px; display: flex; align-items: flex-end; background: #050505; }
   .feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .feature::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,12,28,0.72) 0%, rgba(8,12,28,0.12) 55%, rgba(8,12,28,0.05) 100%); }
+  .feature::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0,0.72) 0%, rgba(0, 0, 0,0.12) 55%, rgba(0, 0, 0,0.05) 100%); }
   .feature-text { position: relative; z-index: 2; padding: 30px; color: var(--paper); }
   .feature-title { font-family: var(--font-display); font-weight: 400; font-size: 26px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
-  .feature-sub { font-family: var(--font-italic); font-style: italic; font-size: 16px; color: rgba(252,250,247,0.88); margin-bottom: 18px; }
-  .feature-link { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--paper); border-bottom: 1px solid rgba(252,250,247,0.5); padding-bottom: 4px; }
+  .feature-sub { font-family: var(--font-italic); font-style: italic; font-size: 16px; color: rgba(255, 255, 255,0.88); margin-bottom: 18px; }
+  .feature-link { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--paper); border-bottom: 1px solid rgba(255, 255, 255,0.5); padding-bottom: 4px; }
 
   /* Activity + news */
   .lower { display: grid; grid-template-columns: 1.55fr 1fr; gap: 40px; }
@@ -170,7 +170,8 @@
 
   .dash-name, .signin-title { text-wrap: balance; }
 </style>
-<link rel="stylesheet" href="assets/nav.css?v=3">
+<link rel="stylesheet" href="assets/nav.css?v=8">
+<link rel="stylesheet" href="assets/house.css?v=2">
 </head>
 
 <body>
@@ -178,17 +179,12 @@
 <nav class="mdv-nav mdv-nav-split mdv-nav--light" id="mdvNav">
   <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
-    <a href="product.html#formulation">The Science</a>
-    <a href="gallery.html">The Story</a>
     <a href="product.html#ritual">The Ritual</a>
+    <a href="about.html">The House</a>
+    <a href="gallery.html">World</a>
   </div>
   <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-group nav-group-right">
-    <a href="about.html">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
-    <a href="product.html#reserve">Reserve</a>
-  </div>
-  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
 </nav>
 
 <main>
@@ -223,7 +219,7 @@
         </div>
         <div class="dash-badge">
           <div class="dash-monogram">
-            <svg viewBox="0 0 100 100" fill="none" stroke="#0B1F3A" stroke-width="3" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#0A0A0A" stroke-width="3" aria-hidden="true">
               <path d="M20 74V32l30 30 30-30v42" stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </div>
@@ -458,6 +454,7 @@
   })();
 </script>
 
-<script src="assets/menu.js?v=3" defer></script>
+<script src="assets/menu.js?v=7" defer></script>
+<script src="assets/house.js?v=1" defer></script>
 </body>
 </html>

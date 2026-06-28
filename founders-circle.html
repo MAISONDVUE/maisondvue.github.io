@@ -28,7 +28,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
 <link rel="shortcut icon" href="/favicon.ico?v=4">
-<meta name="theme-color" content="#FCFAF7">
+<meta name="theme-color" content="#FFFFFF">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,22 +36,22 @@
 
 <style>
   :root {
-    --paper: #FCFAF7;
-    --paper-2: #F6F2EB;
-    --ink: #0B1F3A;
-    --navy: #0B1F3A;
-    --navy-deep: #070D22;
-    --sapphire: #14305A;
-    --gold: #0B1F3A;
-    --gold-deep: #0B1F3A;
-    --cream: #F0E6D0;
-    --mid: rgba(11, 31, 58, 0.60);
-    --soft: rgba(11, 31, 58, 0.40);
-    --line: rgba(11, 31, 58, 0.14);
-    --line-soft: rgba(11, 31, 58, 0.08);
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-italic: 'EB Garamond', Georgia, serif;
-    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+    --paper: #FFFFFF;
+    --paper-2: #F6F5F2;
+    --ink: #0A0A0A;
+    --navy: #0A0A0A;
+    --navy-deep: #000000;
+    --sapphire: #1A1A1A;
+    --gold: #0A0A0A;
+    --gold-deep: #0A0A0A;
+    --cream: #FFFFFF;
+    --mid: rgba(10, 10, 10, 0.60);
+    --soft: rgba(10, 10, 10, 0.40);
+    --line: rgba(10, 10, 10, 0.14);
+    --line-soft: rgba(10, 10, 10, 0.08);
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
     --page: 1180px;
     --nav-h: 72px;
   }
@@ -81,22 +81,22 @@
   }
   .mdv-nav .nav-logo {
     font-family: var(--font-display); font-weight: 500; font-size: 20px;
-    letter-spacing: 0.34em; text-transform: uppercase; color: #FCFAF7; white-space: nowrap;
+    letter-spacing: 0.34em; text-transform: uppercase; color: #FFFFFF; white-space: nowrap;
     transition: color 320ms ease;
   }
   .mdv-nav .nav-links { display: flex; gap: 40px; }
   .mdv-nav .nav-links a, .mdv-nav .nav-right a {
     font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
-    color: rgba(252,250,247,0.82); transition: color 220ms ease;
+    color: rgba(255, 255, 255,0.82); transition: color 220ms ease;
   }
   .mdv-nav .nav-right { display: flex; align-items: center; gap: 18px; }
   .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover { color: #fff; }
   .mdv-nav.scrolled {
-    background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
-    border-bottom-color: rgba(11,31,58,0.08);
+    background: rgba(255, 255, 255,0.94); backdrop-filter: saturate(140%) blur(8px);
+    border-bottom-color: rgba(10, 10, 10,0.08);
   }
   .mdv-nav.scrolled .nav-logo { color: var(--navy); }
-  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a { color: rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a { color: rgba(10, 10, 10,0.62); }
   .mdv-nav.scrolled .nav-links a:hover, .mdv-nav.scrolled .nav-right a:hover { color: var(--navy); }
   @media (max-width: 860px) {
     .mdv-nav { padding: 0 22px; }
@@ -119,12 +119,12 @@
   /* Top scrim so the light nav stays legible. */
   .hero::before {
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 170px; z-index: 3;
-    background: linear-gradient(to bottom, rgba(7,13,34,0.46), rgba(7,13,34,0));
+    background: linear-gradient(to bottom, rgba(0, 0, 0,0.46), rgba(0, 0, 0,0));
     pointer-events: none;
   }
   .hero::after {
     content: ""; position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(to bottom, rgba(7,13,34,0.10) 0%, rgba(7,13,34,0.05) 40%, rgba(7,13,34,0.55) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0,0.10) 0%, rgba(0, 0, 0,0.05) 40%, rgba(0, 0, 0,0.55) 100%);
     pointer-events: none;
   }
   .hero-inner {
@@ -135,21 +135,21 @@
   .hero-eyebrow {
     font-family: var(--font-display);
     font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
-    color: #FCFAF7; margin-bottom: 22px; font-weight: 400;
-    text-shadow: 0 2px 20px rgba(7,13,34,0.6);
+    color: #FFFFFF; margin-bottom: 22px; font-weight: 400;
+    text-shadow: 0 2px 20px rgba(0, 0, 0,0.6);
   }
   .hero-title {
     font-family: var(--font-display); font-weight: 300;
     font-size: clamp(38px, 5.4vw, 66px); line-height: 1.04;
     letter-spacing: 0.005em;
-    color: #FCFAF7; margin-bottom: 18px;
-    text-shadow: 0 4px 32px rgba(7,13,34,0.7);
+    color: #FFFFFF; margin-bottom: 18px;
+    text-shadow: 0 4px 32px rgba(0, 0, 0,0.7);
   }
   .hero-sub {
     font-family: var(--font-italic); font-style: italic;
-    font-size: clamp(16px, 1.7vw, 21px); color: rgba(252,250,247,0.90);
+    font-size: clamp(16px, 1.7vw, 21px); color: rgba(255, 255, 255,0.90);
     letter-spacing: 0.01em;
-    text-shadow: 0 2px 24px rgba(7,13,34,0.7);
+    text-shadow: 0 2px 24px rgba(0, 0, 0,0.7);
   }
   @media (max-width: 860px) {
     .hero { min-height: 56vh; height: 56vh; }
@@ -301,7 +301,7 @@
   .footer-inner { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
   .footer-top {
     display: grid; grid-template-columns: 1.4fr 2.6fr; gap: 80px;
-    padding-bottom: 72px; border-bottom: 1px solid rgba(252,250,247,0.35); margin-bottom: 56px;
+    padding-bottom: 72px; border-bottom: 1px solid rgba(255, 255, 255,0.35); margin-bottom: 56px;
   }
   .footer-brand .footer-logo {
     font-family: var(--font-display); font-size: 22px; font-weight: 400;
@@ -309,32 +309,32 @@
   }
   .footer-brand .footer-category {
     font-family: var(--font-display); font-size: 13px; letter-spacing: 0.28em;
-    text-transform: uppercase; color: #FCFAF7; margin: 0 0 14px 0; line-height: 1.4;
+    text-transform: uppercase; color: #FFFFFF; margin: 0 0 14px 0; line-height: 1.4;
   }
   .footer-brand .footer-category .tm { font-size: 0.7em; vertical-align: super; letter-spacing: 0.05em; margin-left: 1px; }
   .footer-brand .footer-line {
     font-family: var(--font-italic); font-size: 15px; line-height: 1.7;
-    color: rgba(249,246,240,0.78); font-style: italic; max-width: 280px; margin: 0 0 22px 0;
+    color: rgba(255, 255, 255,0.78); font-style: italic; max-width: 280px; margin: 0 0 22px 0;
   }
   .footer-brand .footer-provenance {
     font-family: var(--font-display); font-size: 11px; letter-spacing: 0.32em;
-    text-transform: uppercase; color: rgba(249,246,240,0.6); margin: 0;
+    text-transform: uppercase; color: rgba(255, 255, 255,0.6); margin: 0;
   }
   .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
   .footer-col { display: flex; flex-direction: column; }
   .footer-col-label {
     font-family: var(--font-display); font-size: 11px; letter-spacing: 0.32em;
-    text-transform: uppercase; color: #FCFAF7; margin-bottom: 22px;
+    text-transform: uppercase; color: #FFFFFF; margin-bottom: 22px;
   }
   .footer-col a {
-    font-family: var(--font-display); font-size: 15px; color: rgba(249,246,240,0.82);
+    font-family: var(--font-display); font-size: 15px; color: rgba(255, 255, 255,0.82);
     margin-bottom: 14px; transition: color 240ms ease; line-height: 1.5; display: block;
   }
-  .footer-col a:hover { color: #FCFAF7; }
+  .footer-col a:hover { color: #FFFFFF; }
   .footer-bottom {
-    padding-top: 28px; border-top: 1px solid rgba(252,250,247,0.35);
+    padding-top: 28px; border-top: 1px solid rgba(255, 255, 255,0.35);
     font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em;
-    color: rgba(249,246,240,0.4); text-align: center;
+    color: rgba(255, 255, 255,0.4); text-align: center;
   }
 
   @media (max-width: 900px) {
@@ -348,7 +348,8 @@
     .footer-nav { grid-template-columns: 1fr; gap: 32px; }
   }
 </style>
-<link rel="stylesheet" href="assets/nav.css?v=3">
+<link rel="stylesheet" href="assets/nav.css?v=8">
+<link rel="stylesheet" href="assets/house.css?v=2">
 </head>
 
 <body>
@@ -360,17 +361,12 @@
 <nav class="mdv-nav mdv-nav-split" id="mdvNav">
   <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
-    <a href="product.html#formulation">The Science</a>
-    <a href="gallery.html">The Story</a>
     <a href="product.html#ritual">The Ritual</a>
+    <a href="about.html">The House</a>
+    <a href="gallery.html">World</a>
   </div>
   <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-group nav-group-right">
-    <a href="about.html">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
-    <a href="product.html#reserve">Reserve</a>
-  </div>
-  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
 </nav>
 <script>
   (function () {
@@ -648,8 +644,9 @@
   })();
 </script>
 
-<script src="assets/chat.js?v=3" defer></script>
-<script src="assets/menu.js?v=3" defer></script>
+<script src="assets/chat.js?v=5" defer></script>
+<script src="assets/menu.js?v=7" defer></script>
+<script src="assets/house.js?v=1" defer></script>
 
 </body>
 </html>

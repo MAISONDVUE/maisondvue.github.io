@@ -104,7 +104,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
 <link rel="shortcut icon" href="/favicon.ico?v=4">
-<meta name="theme-color" content="#0B1F3A">
+<meta name="theme-color" content="#0A0A0A">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,29 +112,29 @@
 
 <style>
   :root {
-    --navy: #0B1F3A;
-    --navy-deep: #070D22;
-    --navy-center: #122749;
-    --cobalt: #1A2744;
+    --navy: #0A0A0A;
+    --navy-deep: #000000;
+    --navy-center: #1A1A1A;
+    --cobalt: #1A1A1A;
 
-    --gold: #0B1F3A;
-    --gold-soft: #0B1F3A;
-    --gold-muted: #0B1F3A;
+    --gold: #0A0A0A;
+    --gold-soft: #0A0A0A;
+    --gold-muted: #0A0A0A;
 
-    --cream: #F0E6D0;
-    --warm-white: #FDFBF8;
-    --ivory: #F9F6F0;
+    --cream: #FFFFFF;
+    --warm-white: #FFFFFF;
+    --ivory: #FFFFFF;
 
-    --dark: #0E0E0E;
-    --mid: #62584E;
-    --muted: rgba(14, 14, 14, 0.48);
+    --dark: #0A0A0A;
+    --mid: #6B6B6B;
+    --muted: rgba(10, 10, 10, 0.48);
 
-    --line: rgba(11, 31, 58, 0.18);
-    --line-dark: rgba(249, 246, 240, 0.16);
+    --line: rgba(10, 10, 10, 0.18);
+    --line-dark: rgba(255, 255, 255, 0.16);
 
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-italic: 'EB Garamond', Georgia, serif;
-    --font-body: 'Jost', Helvetica, Arial, sans-serif;
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
 
     --page: 1240px;
     --ribbon-h: 44px;
@@ -172,7 +172,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
     transition: height 360ms ease, opacity 360ms ease;
     overflow: hidden;
   }
@@ -188,7 +188,7 @@
     font-size: 12px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.88);
+    color: rgba(255, 255, 255, 0.88);
     text-align: center;
     padding: 0 60px;
     line-height: 1;
@@ -196,7 +196,7 @@
   }
 
   .promo-ribbon-text .accent {
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin: 0 14px;
   }
 
@@ -207,7 +207,7 @@
     transform: translateY(-50%);
     background: transparent;
     border: 0;
-    color: rgba(249, 246, 240, 0.7);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 18px;
     cursor: pointer;
     line-height: 1;
@@ -216,7 +216,7 @@
   }
 
   .promo-ribbon-close:hover {
-    color: #FCFAF7;
+    color: #FFFFFF;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -229,7 +229,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(11, 31, 58, 0.06);
+    border-bottom: 1px solid rgba(10, 10, 10, 0.06);
   }
 
   .header-logo {
@@ -279,7 +279,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    border-bottom: 1px solid rgba(10, 10, 10, 0.08);
     position: relative;
   }
 
@@ -394,7 +394,7 @@
     text-transform: uppercase;
     color: var(--navy);
     padding: 18px 0;
-    border-bottom: 1px solid rgba(11, 31, 58, 0.08);
+    border-bottom: 1px solid rgba(10, 10, 10, 0.08);
     display: block;
   }
 
@@ -449,7 +449,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 18px;
-    color: rgba(252, 250, 247, 0.4);
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .hero-content {
@@ -474,11 +474,11 @@
     background:
       linear-gradient(
         to bottom,
-        rgba(7, 13, 34, 0) 0%,
-        rgba(7, 13, 34, 0) 35%,
-        rgba(7, 13, 34, 0.45) 60%,
-        rgba(7, 13, 34, 0.78) 85%,
-        rgba(7, 13, 34, 0.92) 100%
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 35%,
+        rgba(0, 0, 0, 0.45) 60%,
+        rgba(0, 0, 0, 0.78) 85%,
+        rgba(0, 0, 0, 0.92) 100%
       );
     pointer-events: none;
   }
@@ -493,10 +493,10 @@
     font-size: clamp(14px, 1.4vw, 18px);
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin-bottom: 28px;
     line-height: 1.2;
-    text-shadow: 0 2px 20px rgba(7, 13, 34, 0.95), 0 0 40px rgba(7, 13, 34, 0.6);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.6);
     opacity: 0;
     transform: translateY(16px);
     animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 200ms forwards;
@@ -517,7 +517,7 @@
     letter-spacing: 0.005em;
     color: var(--cream);
     margin-bottom: 24px;
-    text-shadow: 0 4px 32px rgba(7, 13, 34, 0.95), 0 0 60px rgba(7, 13, 34, 0.5);
+    text-shadow: 0 4px 32px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 0, 0, 0.5);
     opacity: 0;
     transform: translateY(16px);
     animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 300ms forwards;
@@ -527,14 +527,14 @@
     font-family: var(--font-italic);
     font-style: italic;
     font-size: clamp(17px, 1.5vw, 22px);
-    color: rgba(249, 246, 240, 0.98);
+    color: rgba(255, 255, 255, 0.98);
     margin-bottom: 36px;
     letter-spacing: 0.01em;
     line-height: 1.5;
     max-width: 560px;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 0 2px 24px rgba(7, 13, 34, 0.95), 0 0 40px rgba(7, 13, 34, 0.5);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.5);
     opacity: 0;
     transform: translateY(16px);
     animation: heroIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 400ms forwards;
@@ -639,7 +639,7 @@
 
   .purchase-rating a {
     color: var(--navy);
-    border-bottom: 1px solid rgba(11, 31, 58, 0.18);
+    border-bottom: 1px solid rgba(10, 10, 10, 0.18);
     transition: color 240ms ease;
   }
 
@@ -700,7 +700,7 @@
   }
 
   .purchase-card:hover {
-    border-color: rgba(11, 31, 58, 0.18);
+    border-color: rgba(10, 10, 10, 0.18);
     transform: translateY(-2px);
   }
 
@@ -724,7 +724,7 @@
 
   .purchase-card.featured .card-image {
     background-color: var(--navy);
-    border-bottom-color: rgba(252, 250, 247, 0.35);
+    border-bottom-color: rgba(255, 255, 255, 0.35);
   }
 
   /* ─── CARD CAROUSEL ─── */
@@ -758,9 +758,9 @@
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: rgba(7, 13, 34, 0.42);
+    background: rgba(0, 0, 0, 0.42);
     color: var(--cream);
-    border: 1px solid rgba(249, 246, 240, 0.34);
+    border: 1px solid rgba(255, 255, 255, 0.34);
     font-family: var(--font-display);
     font-size: 22px;
     line-height: 1;
@@ -776,7 +776,7 @@
     transition: background 0.3s ease, opacity 0.3s ease;
   }
 
-  .carousel-arrow:hover { background: rgba(7, 13, 34, 0.72); opacity: 1; }
+  .carousel-arrow:hover { background: rgba(0, 0, 0, 0.72); opacity: 1; }
   .carousel-arrow.prev { left: 12px; }
   .carousel-arrow.next { right: 12px; }
 
@@ -793,14 +793,14 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: rgba(249, 246, 240, 0.42);
+    background: rgba(255, 255, 255, 0.42);
     border: 0;
     padding: 0;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.3s ease;
   }
 
-  .carousel-dot.active { background: #FCFAF7; transform: scale(1.3); }
+  .carousel-dot.active { background: #FFFFFF; transform: scale(1.3); }
 
   @media (hover: none) {
     .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
@@ -822,11 +822,11 @@
   .purchase-card.featured .card-name,
   .purchase-card.featured .card-price,
   .purchase-card.featured .card-tag {
-    color: #FCFAF7;
+    color: #FFFFFF;
   }
 
   .purchase-card.featured .card-size {
-    color: rgba(249, 246, 240, 0.7);
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .card-tag {
@@ -852,7 +852,7 @@
   }
 
   .purchase-card.featured .card-name {
-    color: rgba(249, 246, 240, 0.75);
+    color: rgba(255, 255, 255, 0.75);
   }
 
   .card-size {
@@ -896,18 +896,18 @@
   .card-cta:hover {
     background: var(--navy);
     border-color: var(--navy);
-    color: #FCFAF7;
+    color: #FFFFFF;
   }
 
   .purchase-card.featured .card-cta {
-    background: #FCFAF7;
-    border-color: #FCFAF7;
+    background: #FFFFFF;
+    border-color: #FFFFFF;
     color: var(--navy);
   }
 
   .purchase-card.featured .card-cta:hover {
-    background: rgba(252, 250, 247, 0.85);
-    border-color: rgba(252, 250, 247, 0.85);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.85);
   }
 
   .purchase-provenance {
@@ -1187,15 +1187,15 @@
 
   /* ─── RITUAL (NAVY) — REBUILT WITH IMAGERY ─── */
   .ritual {
-    --gold: #FCFAF7;
-    --gold-soft: #FCFAF7;
-    --gold-muted: #FCFAF7;
+    --gold: #FFFFFF;
+    --gold-soft: #FFFFFF;
+    --gold-muted: #FFFFFF;
     background: var(--navy);
     color: var(--cream);
   }
 
   .ritual .copy {
-    color: rgba(249, 246, 240, 0.88);
+    color: rgba(255, 255, 255, 0.88);
     font-size: 18px;
     line-height: 1.8;
   }
@@ -1251,7 +1251,7 @@
     font-size: 10px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: rgba(252, 250, 247, 0.6);
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1;
   }
 
@@ -1268,7 +1268,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    background: #FCFAF7;
+    background: #FFFFFF;
   }
 
   .ritual-toggle-icon::before {
@@ -1338,7 +1338,7 @@
     font-weight: 300;
     font-size: 38px;
     line-height: 1;
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin-bottom: 18px;
   }
 
@@ -1358,7 +1358,7 @@
     font-style: italic;
     font-size: 17px;
     line-height: 1.5;
-    color: rgba(249, 246, 240, 0.78);
+    color: rgba(255, 255, 255, 0.78);
   }
 
   /* ─── ORIGINS ─── */
@@ -1376,7 +1376,7 @@
   }
 
   .origins-head .label {
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin-bottom: 28px;
   }
 
@@ -1433,7 +1433,7 @@
     font-size: 10px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: rgba(252, 250, 247, 0.6);
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1;
   }
 
@@ -1450,7 +1450,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    background: #FCFAF7;
+    background: #FFFFFF;
   }
 
   .origins-toggle-icon::before {
@@ -1513,11 +1513,11 @@
     z-index: 2;
     background: linear-gradient(
       to right,
-      rgba(7, 13, 34, 0.82) 0%,
-      rgba(7, 13, 34, 0.70) 18%,
-      rgba(7, 13, 34, 0.45) 36%,
-      rgba(7, 13, 34, 0.15) 56%,
-      rgba(7, 13, 34, 0) 75%
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.70) 18%,
+      rgba(0, 0, 0, 0.45) 36%,
+      rgba(0, 0, 0, 0.15) 56%,
+      rgba(0, 0, 0, 0) 75%
     );
     pointer-events: none;
   }
@@ -1538,7 +1538,7 @@
     font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin-bottom: 22px;
     line-height: 1.4;
   }
@@ -1634,7 +1634,7 @@
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin-bottom: 10px;
     line-height: 1.4;
   }
@@ -1761,7 +1761,7 @@
   }
 
   .review-card:hover {
-    border-color: rgba(11, 31, 58, 0.18);
+    border-color: rgba(10, 10, 10, 0.18);
     transform: translateY(-2px);
   }
 
@@ -1815,7 +1815,7 @@
     width: 44px;
     height: 44px;
     border-radius: 999px;
-    border: 1px solid rgba(11, 31, 58, 0.18);
+    border: 1px solid rgba(10, 10, 10, 0.18);
     background: var(--warm-white);
     color: var(--gold);
     cursor: pointer;
@@ -1825,12 +1825,12 @@
     transition: background 240ms ease, border-color 240ms ease, opacity 240ms ease;
     font-size: 18px;
     line-height: 1;
-    box-shadow: 0 2px 12px rgba(11, 31, 58, 0.08);
+    box-shadow: 0 2px 12px rgba(10, 10, 10, 0.08);
   }
 
   .reviews-arrow:hover {
     background: var(--navy);
-    color: #FCFAF7;
+    color: #FFFFFF;
     border-color: var(--navy);
   }
 
@@ -1898,7 +1898,7 @@
     border: 0;
     padding: 4px;
     cursor: pointer;
-    color: rgba(11, 31, 58, 0.3);
+    color: rgba(10, 10, 10, 0.3);
     font-size: 28px;
     line-height: 1;
     transition: color 200ms ease, transform 200ms ease;
@@ -1940,7 +1940,7 @@
 
   .review-form input::placeholder,
   .review-form textarea::placeholder {
-    color: rgba(14, 14, 14, 0.4);
+    color: rgba(10, 10, 10, 0.4);
     font-style: italic;
   }
 
@@ -1969,7 +1969,7 @@
   .review-submit:hover {
     background: var(--navy);
     border-color: var(--navy);
-    color: #FCFAF7;
+    color: #FFFFFF;
   }
 
   .review-submit:disabled {
@@ -2001,7 +2001,7 @@
   .letters-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(11, 31, 58, 0.42);
+    background: rgba(10, 10, 10, 0.42);
     backdrop-filter: blur(6px);
     z-index: 300;
     display: flex;
@@ -2023,7 +2023,7 @@
     width: 100%;
     max-width: 520px;
     background: var(--warm-white);
-    border: 1px solid rgba(11, 31, 58, 0.12);
+    border: 1px solid rgba(10, 10, 10, 0.12);
     padding: 64px 56px 48px;
     text-align: left;
     transform: translateY(20px) scale(0.98);
@@ -2101,7 +2101,7 @@
   }
 
   .letters-input::placeholder {
-    color: rgba(14, 14, 14, 0.45);
+    color: rgba(10, 10, 10, 0.45);
     font-family: var(--font-display);
     letter-spacing: 0.02em;
   }
@@ -2182,9 +2182,9 @@
 
   /* ─── FINAL BUY (NAVY) ─── */
   .final-buy {
-    --gold: #FCFAF7;
-    --gold-soft: #FCFAF7;
-    --gold-muted: #FCFAF7;
+    --gold: #FFFFFF;
+    --gold-soft: #FFFFFF;
+    --gold-muted: #FFFFFF;
     background: var(--navy);
     background:
       radial-gradient(
@@ -2210,7 +2210,7 @@
   .final-buy .copy {
     max-width: 500px;
     margin: 0 auto 44px;
-    color: rgba(249, 246, 240, 0.88);
+    color: rgba(255, 255, 255, 0.88);
     font-size: 18px;
     line-height: 1.8;
   }
@@ -2218,8 +2218,8 @@
   .final-card {
     max-width: 460px;
     margin: 0 auto;
-    border-top: 1px solid rgba(252, 250, 247, 0.35);
-    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
     padding: 32px 0 38px;
   }
 
@@ -2242,7 +2242,7 @@
     font-size: 13px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.82);
+    color: rgba(255, 255, 255, 0.82);
     margin-top: 8px;
   }
 
@@ -2260,7 +2260,7 @@
     font-style: italic;
     font-size: 13px;
     letter-spacing: 0.18em;
-    color: rgba(249, 246, 240, 0.55);
+    color: rgba(255, 255, 255, 0.55);
   }
 
   .final-card .price-row.voyage .price-title { font-size: 18px; }
@@ -2268,8 +2268,8 @@
 
   .final-card .cta {
     width: 100%;
-    border: 1px solid #FCFAF7;
-    background: #FCFAF7;
+    border: 1px solid #FFFFFF;
+    background: #FFFFFF;
     color: var(--navy);
     padding: 16px 22px;
     cursor: pointer;
@@ -2285,17 +2285,17 @@
   }
 
   .final-card .cta:hover {
-    background: rgba(252, 250, 247, 0.85);
-    border-color: rgba(252, 250, 247, 0.85);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.85);
   }
 
   .final-card .cta-ghost {
     background: transparent;
-    color: #FCFAF7;
+    color: #FFFFFF;
   }
 
   .final-card .cta-ghost:hover {
-    background: #FCFAF7;
+    background: #FFFFFF;
     color: var(--navy);
   }
 
@@ -2306,7 +2306,7 @@
     font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.82);
+    color: rgba(255, 255, 255, 0.82);
   }
 
   /* ─── FAQ ─── */
@@ -2380,7 +2380,7 @@
     grid-template-columns: 1.4fr 2.6fr;
     gap: 80px;
     padding-bottom: 72px;
-    border-bottom: 1px solid rgba(252, 250, 247, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
     margin-bottom: 56px;
   }
 
@@ -2399,7 +2399,7 @@
     font-size: 13px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin: 0 0 14px 0;
     line-height: 1.4;
   }
@@ -2415,7 +2415,7 @@
     font-family: var(--font-italic);
     font-size: 15px;
     line-height: 1.7;
-    color: rgba(249, 246, 240, 0.78);
+    color: rgba(255, 255, 255, 0.78);
     font-style: italic;
     max-width: 280px;
     margin: 0 0 22px 0;
@@ -2426,7 +2426,7 @@
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: rgba(249, 246, 240, 0.6);
+    color: rgba(255, 255, 255, 0.6);
     margin: 0;
   }
 
@@ -2446,30 +2446,30 @@
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: #FCFAF7;
+    color: #FFFFFF;
     margin-bottom: 22px;
   }
 
   .footer-col a {
     font-family: var(--font-display);
     font-size: 15px;
-    color: rgba(249, 246, 240, 0.82);
+    color: rgba(255, 255, 255, 0.82);
     margin-bottom: 14px;
     transition: color 240ms ease;
     line-height: 1.5;
   }
 
   .footer-col a:hover {
-    color: #FCFAF7;
+    color: #FFFFFF;
   }
 
   .footer-bottom {
     padding-top: 28px;
-    border-top: 1px solid rgba(252, 250, 247, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
     font-family: var(--font-display);
     font-size: 11px;
     letter-spacing: 0.18em;
-    color: rgba(249, 246, 240, 0.4);
+    color: rgba(255, 255, 255, 0.4);
     text-align: center;
   }
 
@@ -2705,8 +2705,8 @@
     .origin-hero::after {
       background: linear-gradient(
         to bottom,
-        rgba(7, 13, 34, 0) 50%,
-        rgba(7, 13, 34, 0.85) 100%
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.85) 100%
       );
     }
 
@@ -2830,22 +2830,22 @@
   }
   .mdv-nav .nav-logo {
     font-family: var(--font-display); font-weight: 500; font-size: 20px;
-    letter-spacing: 0.34em; text-transform: uppercase; color: #FCFAF7; white-space: nowrap;
+    letter-spacing: 0.34em; text-transform: uppercase; color: #FFFFFF; white-space: nowrap;
     transition: color 320ms ease;
   }
   .mdv-nav .nav-links { display: flex; gap: 40px; }
   .mdv-nav .nav-links a, .mdv-nav .nav-right a {
     font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
-    color: rgba(252,250,247,0.82); transition: color 220ms ease;
+    color: rgba(255, 255, 255,0.82); transition: color 220ms ease;
   }
   .mdv-nav .nav-right { display: flex; align-items: center; gap: 18px; }
   .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover { color: #fff; }
   .mdv-nav.scrolled {
-    background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
-    border-bottom-color: rgba(11,31,58,0.08);
+    background: rgba(255, 255, 255,0.94); backdrop-filter: saturate(140%) blur(8px);
+    border-bottom-color: rgba(10, 10, 10,0.08);
   }
   .mdv-nav.scrolled .nav-logo { color: var(--navy); }
-  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a { color: rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a { color: rgba(10, 10, 10,0.62); }
   .mdv-nav.scrolled .nav-links a:hover, .mdv-nav.scrolled .nav-right a:hover { color: var(--navy); }
   @media (max-width: 860px) {
     .mdv-nav { padding: 0 22px; }
@@ -2863,14 +2863,14 @@
   .mdv-nav-split .nav-logo { justify-self: center; }
   .mdv-nav-split .nav-group a {
     font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
-    color: rgba(252,250,247,0.82); white-space: nowrap; transition: color 220ms ease;
+    color: rgba(255, 255, 255,0.82); white-space: nowrap; transition: color 220ms ease;
   }
   .mdv-nav-split .nav-group a:hover { color: #fff; }
-  .mdv-nav.scrolled.mdv-nav-split .nav-group a { color: rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled.mdv-nav-split .nav-group a { color: rgba(10, 10, 10,0.62); }
   .mdv-nav.scrolled.mdv-nav-split .nav-group a:hover { color: var(--navy); }
   /* Bag (right), shown on mobile in place of the right tab group */
   .mdv-nav-split .nav-bag {
-    display: none; justify-self: end; align-items: center; color: #FCFAF7;
+    display: none; justify-self: end; align-items: center; color: #FFFFFF;
     transition: color 320ms ease;
   }
   .mdv-nav-split .nav-bag svg { width: 21px; height: 21px; display: block; }
@@ -2884,12 +2884,13 @@
   /* Top scrim so the light nav stays legible over bright video frames. */
   .hero::before {
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 170px; z-index: 3;
-    background: linear-gradient(to bottom, rgba(7,13,34,0.46), rgba(7,13,34,0));
+    background: linear-gradient(to bottom, rgba(0, 0, 0,0.46), rgba(0, 0, 0,0));
     pointer-events: none;
   }
   main [id] { scroll-margin-top: 84px; }
 </style>
-<link rel="stylesheet" href="assets/nav.css?v=3">
+<link rel="stylesheet" href="assets/nav.css?v=8">
+<link rel="stylesheet" href="assets/house.css?v=2">
 </head>
 
 <body>
@@ -2905,20 +2906,13 @@
 <!-- ═══ UNIFIED NAV (overlaid on full-bleed hero) ═══ -->
 <nav class="mdv-nav mdv-nav-split" id="mdvNav">
   <div class="nav-group nav-group-left">
-    <a href="#top">The Elixir</a>
-    <a href="#formulation">The Science</a>
-    <a href="gallery.html">The Story</a>
-    <a href="#ritual">The Ritual</a>
+    <a href="product.html">The Elixir</a>
+    <a href="product.html#ritual">The Ritual</a>
+    <a href="about.html">The House</a>
+    <a href="gallery.html">World</a>
   </div>
   <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-group nav-group-right">
-    <a href="about.html">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
-    <a href="#reserve">Reserve</a>
-  </div>
-  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
-  </a>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
 </nav>
 <script>
   (function () {
@@ -4096,8 +4090,9 @@
   })();
 </script>
 
-<script src="assets/chat.js?v=3" defer></script>
-<script src="assets/menu.js?v=3" defer></script>
+<script src="assets/chat.js?v=5" defer></script>
+<script src="assets/menu.js?v=7" defer></script>
+<script src="assets/house.js?v=1" defer></script>
 
 </body>
 </html>

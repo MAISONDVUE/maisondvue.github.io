@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
 <link rel="shortcut icon" href="/favicon.ico?v=4">
-<meta name="theme-color" content="#FCFAF7">
+<meta name="theme-color" content="#FFFFFF">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://maisondvue.com/">
@@ -79,38 +79,38 @@
 <style>
   :root{
     /* ── Light editorial palette (matches creators.html) ── */
-    --paper:#FCFAF7;
-    --paper-2:#F6F2EB;
-    --ink:#0B1F3A;
-    --sapphire:#14305A;
-    --soft:rgba(11,31,58,0.40);
-    --line-soft:rgba(11,31,58,0.08);
+    --paper:#FFFFFF;
+    --paper-2:#F6F5F2;
+    --ink:#0A0A0A;
+    --sapphire:#1A1A1A;
+    --soft:rgba(10, 10, 10,0.40);
+    --line-soft:rgba(10, 10, 10,0.08);
 
-    --navy:#0B1F3A;
-    --navy-deep:#070D22;
-    --navy-center:#122749;
-    --cobalt:#1A2744;
+    --navy:#0A0A0A;
+    --navy-deep:#000000;
+    --navy-center:#1A1A1A;
+    --cobalt:#1A1A1A;
 
-    --gold:#0B1F3A;
-    --gold-soft:#0B1F3A;
-    --gold-light:#0B1F3A;
-    --gold-muted:#0B1F3A;
-    --gold-deep:#0B1F3A;
+    --gold:#0A0A0A;
+    --gold-soft:#0A0A0A;
+    --gold-light:#0A0A0A;
+    --gold-muted:#0A0A0A;
+    --gold-deep:#0A0A0A;
 
-    --cream:#F0E6D0;
-    --warm-white:#FDFBF8;
-    --ivory:#F9F6F0;
+    --cream:#FFFFFF;
+    --warm-white:#FFFFFF;
+    --ivory:#FFFFFF;
 
-    --line:rgba(11,31,58,0.14);
-    --mid:rgba(11,31,58,0.60);
+    --line:rgba(10, 10, 10,0.14);
+    --mid:rgba(10, 10, 10,0.60);
 
     /* Documentary navy tones - bridge to photograph above */
-    --navy-charcoal:#0A0F1F;
-    --navy-deeper:#04081A;
+    --navy-charcoal:#050505;
+    --navy-deeper:#000000;
 
-    --font-display:'Cormorant Garamond','EB Garamond',Garamond,Georgia,serif;
-    --font-italic:'EB Garamond',Georgia,serif;
-    --font-sans:'Jost','Helvetica Neue',Arial,sans-serif;
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
 
     --page:1180px;
     --nav-h:72px;
@@ -157,7 +157,7 @@
     align-items:center;
     justify-content:center;
     position:relative;
-    border-bottom:1px solid rgba(252,250,247,0.35);
+    border-bottom:1px solid rgba(255, 255, 255,0.35);
     transition:height 360ms ease, opacity 360ms ease;
     overflow:hidden;
   }
@@ -173,7 +173,7 @@
     font-size:12px;
     letter-spacing:0.24em;
     text-transform:uppercase;
-    color:rgba(249,246,240,0.88);
+    color:rgba(255, 255, 255,0.88);
     text-align:center;
     padding:0 60px;
     line-height:1;
@@ -181,7 +181,7 @@
   }
 
   .promo-ribbon-text .accent{
-    color:#FCFAF7;
+    color:#FFFFFF;
     margin:0 14px;
   }
 
@@ -192,7 +192,7 @@
     transform:translateY(-50%);
     background:transparent;
     border:0;
-    color:rgba(249,246,240,0.7);
+    color:rgba(255, 255, 255,0.7);
     font-size:18px;
     cursor:pointer;
     line-height:1;
@@ -201,7 +201,7 @@
   }
 
   .promo-ribbon-close:hover{
-    color:#FCFAF7;
+    color:#FFFFFF;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -214,7 +214,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    border-bottom:1px solid rgba(11,31,58,0.06);
+    border-bottom:1px solid rgba(10, 10, 10,0.06);
   }
 
   .header-logo{
@@ -281,22 +281,22 @@
   }
   .mdv-nav .nav-logo{
     font-family:var(--font-display); font-weight:500; font-size:20px;
-    letter-spacing:0.34em; text-transform:uppercase; color:#FCFAF7; white-space:nowrap;
+    letter-spacing:0.34em; text-transform:uppercase; color:#FFFFFF; white-space:nowrap;
     transition:color 320ms ease;
   }
   .mdv-nav .nav-links{ display:flex; gap:40px; }
   .mdv-nav .nav-links a, .mdv-nav .nav-right a{
     font-size:11px; letter-spacing:0.26em; text-transform:uppercase; font-weight:400;
-    color:rgba(252,250,247,0.82); transition:color 220ms ease;
+    color:rgba(255, 255, 255,0.82); transition:color 220ms ease;
   }
   .mdv-nav .nav-right{ display:flex; align-items:center; gap:18px; }
   .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover{ color:#fff; }
   .mdv-nav.scrolled{
-    background:rgba(252,250,247,0.94); backdrop-filter:saturate(140%) blur(8px);
-    border-bottom-color:rgba(11,31,58,0.08);
+    background:rgba(255, 255, 255,0.94); backdrop-filter:saturate(140%) blur(8px);
+    border-bottom-color:rgba(10, 10, 10,0.08);
   }
   .mdv-nav.scrolled .nav-logo{ color:var(--navy); }
-  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a{ color:rgba(11,31,58,0.62); }
+  .mdv-nav.scrolled .nav-links a, .mdv-nav.scrolled .nav-right a{ color:rgba(10, 10, 10,0.62); }
   .mdv-nav.scrolled .nav-links a:hover, .mdv-nav.scrolled .nav-right a:hover{ color:var(--navy); }
   @media (max-width:860px){
     .mdv-nav{ padding:0 22px; }
@@ -345,7 +345,7 @@
   /* Top scrim so the light nav stays legible over bright video frames. */
   .photograph-pane::before{
     content:""; position:absolute; top:0; left:0; right:0; height:170px; z-index:3;
-    background:linear-gradient(to bottom, rgba(7,13,34,0.46), rgba(7,13,34,0));
+    background:linear-gradient(to bottom, rgba(0, 0, 0,0.46), rgba(0, 0, 0,0));
     pointer-events:none;
   }
 
@@ -354,10 +354,10 @@
     content:""; position:absolute; inset:0; z-index:2;
     background:linear-gradient(
       to bottom,
-      rgba(7,13,34,0) 0%,
-      rgba(7,13,34,0) 45%,
-      rgba(7,13,34,0.40) 72%,
-      rgba(7,13,34,0.78) 100%);
+      rgba(0, 0, 0,0) 0%,
+      rgba(0, 0, 0,0) 45%,
+      rgba(0, 0, 0,0.40) 72%,
+      rgba(0, 0, 0,0.78) 100%);
     pointer-events:none;
   }
 
@@ -380,7 +380,7 @@
     font-style:italic;
     font-size:clamp(96px,14vw,220px);
     line-height:1;
-    color:#FCFAF7;
+    color:#FFFFFF;
     opacity:0.5;
   }
 
@@ -391,14 +391,50 @@
     font-size:11px;
     letter-spacing:0.5em;
     text-transform:uppercase;
-    color:#FCFAF7;
+    color:#FFFFFF;
     padding-left:0.5em;
   }
+
+  /* ── DISCOVER CUE — invites the eye down into the House ── */
+  .hero-discover{
+    position:absolute; left:50%; bottom:38px; transform:translateX(-50%);
+    z-index:4; display:flex; flex-direction:column; align-items:center; gap:14px;
+    text-decoration:none; color:#FFFFFF;
+    -webkit-tap-highlight-color:transparent;
+    animation:heroDrift 3.6s ease-in-out infinite;
+  }
+  .hero-discover-label{
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size:10.5px; font-weight:500; letter-spacing:0.42em; text-transform:uppercase;
+    text-indent:0.42em; color:rgba(255,255,255,0.92); white-space:nowrap;
+    transition:color 240ms ease;
+  }
+  @media (max-width:480px){
+    .hero-discover-label{ font-size:9.5px; letter-spacing:0.3em; text-indent:0.3em; }
+  }
+  .hero-discover-v{ width:30px; height:11px; display:block; overflow:visible; }
+  .hero-discover-v path{
+    fill:none; stroke:rgba(255,255,255,0.88); stroke-width:1;
+    stroke-linecap:round; stroke-linejoin:round; transition:stroke 240ms ease;
+  }
+  .hero-discover:hover .hero-discover-label{ color:#FFFFFF; }
+  .hero-discover:hover .hero-discover-v path{ stroke:#FFFFFF; }
+  /* A slow, weighted drift — a descent, never a bounce. */
+  @keyframes heroDrift{
+    0%,100%{ transform:translateX(-50%) translateY(0); }
+    50%{ transform:translateX(-50%) translateY(7px); }
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-discover{ animation:none; } }
+
+  /* Settle a scroll gesture onto the start of each pane (gentle, never trapping). */
+  html{ scroll-snap-type:y proximity; }
+  .photograph-pane{ scroll-snap-align:start; }
 
   /* RESERVATION PANE — light paper palette */
   .reservation-pane{
     position:relative;
     z-index:3;
+    scroll-snap-align:start;
     scroll-margin-top:84px;
     display:flex;
     align-items:flex-start;
@@ -897,7 +933,7 @@
   /* ─── PHONE (under 640px) ─── */
   @media (max-width:640px){
     .reservation-pane{
-      padding:64px 24px 80px;
+      padding:104px 24px 80px;
     }
 
     .reservation-frame{
@@ -1005,7 +1041,7 @@
 
   @media (max-width:380px){
     .reservation-pane{
-      padding:48px 18px 64px;
+      padding:96px 18px 64px;
     }
 
     .reservation-frame{
@@ -1017,7 +1053,8 @@
     }
   }
 </style>
-<link rel="stylesheet" href="assets/nav.css?v=3">
+<link rel="stylesheet" href="assets/nav.css?v=8">
+<link rel="stylesheet" href="assets/house.css?v=2">
 </head>
 <body>
 
@@ -1033,17 +1070,12 @@
 <nav class="mdv-nav mdv-nav-split" id="mdvNav">
   <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
-    <a href="product.html#formulation">The Science</a>
-    <a href="gallery.html">The Story</a>
     <a href="product.html#ritual">The Ritual</a>
+    <a href="about.html">The House</a>
+    <a href="gallery.html">World</a>
   </div>
   <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
-  <div class="nav-group nav-group-right">
-    <a href="about.html">La Maison</a>
-    <a href="https://shop.maisondvue.com/">Shop</a>
-    <a href="product.html#reserve">Reserve</a>
-  </div>
-  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+  <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
 </nav>
 <script>
   (function () {
@@ -1088,7 +1120,7 @@
 <!-- ═══ MAIN — full-bleed hero then reservation ═══ -->
 <main id="top">
 
-  <aside class="photograph-pane reveal" aria-hidden="true">
+  <aside class="photograph-pane reveal">
     <video
       class="hero-video"
       src="paparazzi-hero.mp4"
@@ -1104,10 +1136,15 @@
       aria-hidden="true"
       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
     </video>
-    <div class="photo-fallback">
+    <div class="photo-fallback" aria-hidden="true">
       <div class="mark">XIV</div>
       <div class="label">Essences</div>
     </div>
+
+    <a class="hero-discover" href="#reserve" aria-label="Discover the Elixir">
+      <span class="hero-discover-label">Discover the Elixir</span>
+      <svg class="hero-discover-v" viewBox="0 0 30 11" aria-hidden="true"><path d="M1 1 L15 9 L29 1"/></svg>
+    </a>
   </aside>
 
   <section class="reservation-pane" id="reserve">
@@ -1202,6 +1239,30 @@
   document.querySelectorAll('.reveal').forEach(function(el, i){
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
+
+  /* ─── DISCOVER CUE — a proper snap: the Compositions pane simply arrives.
+     No animated scroll to follow — a whisper-fast dissolve masks an instant jump,
+     so the eye reads a cut between rooms, never a slide. ─── */
+  (function(){
+    var cue = document.querySelector('.hero-discover');
+    var target = document.getElementById('reserve');
+    if (!cue || !target) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Land the pane flush at the top so the hero clears entirely — no sliver, a clean cut.
+    function snapTo(){ window.scrollTo({ top: window.pageYOffset + target.getBoundingClientRect().top, behavior: 'instant' }); }
+    cue.addEventListener('click', function(e){
+      e.preventDefault();
+      if (reduce){ snapTo(); return; }
+      var b = document.body;
+      b.style.transition = 'opacity 150ms ease';
+      b.style.opacity = '0';
+      setTimeout(function(){
+        snapTo();
+        // next frame, fade back — the snap has already happened behind the dissolve
+        requestAnimationFrame(function(){ b.style.opacity = '1'; setTimeout(function(){ b.style.transition = ''; }, 200); });
+      }, 150);
+    });
+  })();
 
   /* ─── HERO VIDEO — force autoplay where possible ─── */
   (function(){
@@ -1360,8 +1421,9 @@
   });
 </script>
 
-<script src="assets/chat.js?v=3" defer></script>
-<script src="assets/menu.js?v=3" defer></script>
+<script src="assets/chat.js?v=5" defer></script>
+<script src="assets/menu.js?v=7" defer></script>
+<script src="assets/house.js?v=1" defer></script>
 
 </body>
 </html>

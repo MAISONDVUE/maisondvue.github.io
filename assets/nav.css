@@ -12,48 +12,50 @@
   transition: background 320ms ease, border-color 320ms ease;
 }
 .mdv-nav .nav-logo {
-  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500;
-  font-size: 20px; letter-spacing: 0.34em; text-transform: uppercase;
-  color: #FCFAF7; white-space: nowrap; justify-self: center;
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 500;
+  font-size: 27px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: #FFFFFF; white-space: nowrap; justify-self: center;
+  /* The wordmark is the hero: larger than the tabs and lifted a touch above
+     their row, the way the Saint Laurent logo rides above its nav links. */
+  align-self: center; transform: translateY(-3px);
   transition: color 320ms ease;
 }
 .mdv-nav .nav-group { display: flex; gap: 34px; }
 .mdv-nav .nav-group-left { justify-self: start; }
 .mdv-nav .nav-group-right { justify-self: end; }
 .mdv-nav .nav-group a {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700;
-  font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
-  color: rgba(252,250,247,0.82); white-space: nowrap; transition: color 220ms ease;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255, 255, 255,0.82); white-space: nowrap; transition: color 220ms ease;
 }
 .mdv-nav .nav-group a:hover { color: #fff; }
 .mdv-nav .nav-bag {
-  display: none; justify-self: end; align-items: center; color: #FCFAF7;
+  display: inline-flex; justify-self: end; align-items: center; color: #FFFFFF;
   transition: color 320ms ease;
 }
-.mdv-nav .nav-bag svg { width: 21px; height: 21px; display: block; }
+.mdv-nav .nav-bag svg { width: 19px; height: 19px; display: block; }
 .mdv-nav .mdv-burger { justify-self: start; }
 
 /* Scrolled past the hero → solid navy-on-paper */
 .mdv-nav.scrolled {
-  background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
-  border-bottom-color: rgba(11,31,58,0.08);
+  background: rgba(255, 255, 255,0.94); backdrop-filter: saturate(140%) blur(8px);
+  border-bottom-color: rgba(10, 10, 10,0.08);
 }
-.mdv-nav.scrolled .nav-logo, .mdv-nav.scrolled .nav-bag { color: #0B1F3A !important; }
-.mdv-nav.scrolled .nav-group a { color: rgba(11,31,58,0.62) !important; }
-.mdv-nav.scrolled .nav-group a:hover { color: #0B1F3A !important; }
+.mdv-nav.scrolled .nav-logo, .mdv-nav.scrolled .nav-bag, .mdv-nav.scrolled .nav-reserve-m { color: #0A0A0A !important; }
+.mdv-nav.scrolled .nav-group a { color: rgba(10, 10, 10,0.62) !important; }
+.mdv-nav.scrolled .nav-group a:hover { color: #0A0A0A !important; }
 
 /* Light pages (no dark hero behind the nav): solid navy from the top */
 .mdv-nav.mdv-nav--light {
-  background: rgba(252,250,247,0.94); backdrop-filter: saturate(140%) blur(8px);
-  border-bottom-color: rgba(11,31,58,0.08);
+  background: rgba(255, 255, 255,0.94); backdrop-filter: saturate(140%) blur(8px);
+  border-bottom-color: rgba(10, 10, 10,0.08);
 }
-.mdv-nav.mdv-nav--light .nav-logo, .mdv-nav.mdv-nav--light .nav-bag { color: #0B1F3A !important; }
-.mdv-nav.mdv-nav--light .nav-group a { color: rgba(11,31,58,0.62) !important; }
-.mdv-nav.mdv-nav--light .nav-group a:hover { color: #0B1F3A !important; }
+.mdv-nav.mdv-nav--light .nav-logo, .mdv-nav.mdv-nav--light .nav-bag, .mdv-nav.mdv-nav--light .nav-reserve-m { color: #0A0A0A !important; }
+.mdv-nav.mdv-nav--light .nav-group a { color: rgba(10, 10, 10,0.62) !important; }
+.mdv-nav.mdv-nav--light .nav-group a:hover { color: #0A0A0A !important; }
 
 @media (max-width: 860px) {
   .mdv-nav { padding: 0 22px; }
   .mdv-nav .nav-group { display: none; }
-  .mdv-nav .nav-bag { display: inline-flex; }
-  .mdv-nav .nav-logo { font-size: 16px; letter-spacing: 0.26em; }
+  .mdv-nav .nav-logo { font-size: 19px; letter-spacing: 0.24em; transform: translateY(-2px); }
 }
