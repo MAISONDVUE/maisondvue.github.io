@@ -889,25 +889,20 @@
 
   .film {
     position: relative;
-    max-width: 1100px;
     margin: 0 auto;
     padding: 0 24px;
+    display: flex;
+    justify-content: center;
   }
+  /* Portrait launch film — a single vertical film centred on the dark stage. */
   .film-video {
-    width: 100%;
-    height: auto;
+    height: min(86vh, 900px);
+    width: auto;
+    max-width: 100%;
     display: block;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 16;
     object-fit: cover;
     background: var(--navy-deeper);
-    -webkit-mask-image:
-      linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%),
-      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%),
-      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-    mask-composite: intersect;
   }
 
   /* Scroll-reveal */
@@ -1164,96 +1159,12 @@
   <!-- ═══ FILM — dynamic scroll: statement fades in, then the film ═══ -->
   <section class="film-stage" id="film">
     <figure class="film reveal-up">
-      <!-- Replace elixir-film.mp4 with the provided film; the poster shows until then. -->
-      <video class="film-video" poster="maison-dvue-elixir-studio.jpg" muted loop playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture>
-        <source src="elixir-film.mp4" type="video/mp4">
+      <video class="film-video" poster="launch-film-poster.jpg?v=1" autoplay muted loop playsinline webkit-playsinline="true" preload="metadata" controls controlslist="nodownload noremoteplayback" disablepictureinpicture aria-label="MAISON D&rsquo;VUE — the launch film">
+        <source src="launch-film.mp4?v=1" type="video/mp4">
       </video>
     </figure>
   </section>
 
-  <!-- ═══ THE COLLECTION ═══ -->
-  <section class="collection" id="collection">
-
-    <div class="collection-head">
-      <p class="collection-eyebrow">The Story</p>
-      <h2 class="collection-title">In Light &amp; Motion</h2>
-      <p class="collection-sub">Vue 14&trade; as it is seen and as it moves &mdash; a gathering of photographs and films, composed in Beverly Hills.</p>
-    </div>
-
-    <div class="collection-grid">
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single golden drop of MAISON D'VUE Hair Elixir suspended from the dropper above the gold cap" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Dropper</span><span class="ln">A single golden drop.</span></figcaption>
-      </figure>
-
-      <figure class="c-item is-video">
-        <div class="c-media"><video class="c-video" src="ritual-drops.mp4" poster="ritual-drops.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="Golden drops of the Hair Elixir falling" onerror="this.closest('.c-item').style.display='none';"></video></div>
-        <figcaption class="c-cap"><span class="eb">In Motion</span><span class="ln">The first drops fall.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-silk.jpg" alt="MAISON D'VUE Hair Elixir bottle resting on draped golden silk" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">On Silk</span><span class="ln">Resting on golden silk.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-results.jpg" alt="Long, glossy brunette hair beside the MAISON D'VUE Hair Elixir bottle on navy silk" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Mirror</span><span class="ln">Glass-glossed lengths.</span></figcaption>
-      </figure>
-
-      <figure class="c-item is-video">
-        <div class="c-media"><video class="c-video" src="ritual-style.mp4" poster="ritual-style.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="The Hair Elixir worked through styled hair" onerror="this.closest('.c-item').style.display='none';"></video></div>
-        <figcaption class="c-cap"><span class="eb">The Ritual</span><span class="ln">Worked through the lengths.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-styling.jpg" alt="Model with luminous, freshly styled hair holding the MAISON D'VUE Hair Elixir bottle" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Result</span><span class="ln">Luminous, freshly styled.</span></figcaption>
-      </figure>
-
-      <figure class="c-item is-video">
-        <div class="c-media"><video class="c-video" src="oildrop.mp4" poster="maison-dvue-elixir-dropper-drop.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="A drop of golden elixir oil" onerror="this.closest('.c-item').style.display='none';"></video></div>
-        <figcaption class="c-cap"><span class="eb">The Essence</span><span class="ln">Fourteen essences, suspended.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-ingredients.jpg" alt="MAISON D'VUE Hair Elixir bottle with prickly pear and dried botanicals on a dark surface" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Origins</span><span class="ln">Botanicals, gathered.</span></figcaption>
-      </figure>
-
-      <figure class="c-item is-video">
-        <div class="c-media"><video class="c-video" src="ritual-warm.mp4" poster="ritual-warm.jpg" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture aria-label="Warm light across the Hair Elixir ritual" onerror="this.closest('.c-item').style.display='none';"></video></div>
-        <figcaption class="c-cap"><span class="eb">Warmth</span><span class="ln">Warm light, slow ritual.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-cap-detail.jpg" alt="Macro detail of the polished gold collar and frosted cobalt glass of the MAISON D'VUE Hair Elixir bottle" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Detail</span><span class="ln">Polished gold, frosted glass.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-voyage.jpg" alt="A hand holding the Voyage 10ml MAISON D'VUE Hair Elixir travel size in cobalt frosted glass" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Voyage</span><span class="ln">Ten millilitres, anywhere.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="paparazzi-elixir.jpg" alt="The MAISON D'VUE Hair Elixir captured amid paparazzi flashes" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Moment</span><span class="ln">Caught in the flash.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-elixir-heirloom-pearl-bandeau.jpg" alt="The MAISON D'VUE Hair Elixir beside an heirloom pearl bandeau" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">The Heirloom</span><span class="ln">Beside a pearl bandeau.</span></figcaption>
-      </figure>
-
-      <figure class="c-item">
-        <div class="c-media"><img src="maison-dvue-signed-elixir.jpg" alt="A signed MAISON D'VUE Hair Elixir bottle" loading="lazy"></div>
-        <figcaption class="c-cap"><span class="eb">Hand-Sealed</span><span class="ln">Signed in Beverly Hills.</span></figcaption>
-      </figure>
-
-    </div>
-  </section>
 
   <!-- ═══ CLOSING ═══ -->
   <section class="gallery-close">
