@@ -20,8 +20,11 @@
   align-self: center; transform: translateY(-3px);
   transition: color 320ms ease;
 }
-.mdv-nav .nav-group { display: flex; gap: 34px; }
+.mdv-nav .nav-group { display: flex; gap: 40px; }
 .mdv-nav .nav-group-left { justify-self: start; }
+/* Right cluster: the two right-hand tabs, then the bag at the far edge —
+   mirrors the left group so the wordmark sits centred with even air on both sides. */
+.mdv-nav .nav-right-cluster { justify-self: end; display: flex; align-items: center; gap: 40px; }
 .mdv-nav .nav-group-right { justify-self: end; }
 .mdv-nav .nav-group a {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500;
