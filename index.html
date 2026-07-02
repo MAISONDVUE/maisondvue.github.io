@@ -312,7 +312,9 @@
     background:var(--paper);
   }
 
-  /* ── FULL-BLEED HERO (matches product.html) ── */
+  /* ── FULL-BLEED HERO (matches product.html) ──
+     Pinned: the hero holds while the next panel slides up and covers it,
+     like a second photograph drawn over the first. */
   .photograph-pane{
     /* Full-bleed: as big and wide as the browser screen, edge to edge. */
     width: 100%; margin-left: 0;
@@ -320,7 +322,9 @@
     height:100svh;
     min-height:520px;
     max-height:none;
-    position:relative;
+    position:sticky;
+    top:0;
+    z-index:1;
     overflow:hidden;
     background:var(--navy-deep);
   }
@@ -426,16 +430,11 @@
   }
   @media (prefers-reduced-motion: reduce){ .hero-discover{ animation:none; } }
 
-  /* Settle a scroll gesture onto the start of each pane (gentle, never trapping). */
-  html{ scroll-snap-type:y proximity; }
-  .photograph-pane{ scroll-snap-align:start; }
 
   /* RESERVATION PANE — light paper palette */
   .reservation-pane{
     position:relative;
     z-index:3;
-    scroll-snap-align:start;
-    scroll-margin-top:84px;
     display:flex;
     align-items:flex-start;
     justify-content:center;
@@ -1240,27 +1239,28 @@
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
 
-  /* ─── DISCOVER CUE — a proper snap: the Compositions pane simply arrives.
-     No animated scroll to follow — a whisper-fast dissolve masks an instant jump,
-     so the eye reads a cut between rooms, never a slide. ─── */
+  /* ─── DISCOVER CUE — slide the Compositions panel up over the pinned hero.
+     The hero is sticky, so scrolling draws the white panel up to cover it. We
+     animate that scroll so the eye watches one photograph cover another. ─── */
   (function(){
     var cue = document.querySelector('.hero-discover');
     var target = document.getElementById('reserve');
     if (!cue || !target) return;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Land the pane flush at the top so the hero clears entirely — no sliver, a clean cut.
-    function snapTo(){ window.scrollTo({ top: window.pageYOffset + target.getBoundingClientRect().top, behavior: 'instant' }); }
+    function endY(){ return window.pageYOffset + target.getBoundingClientRect().top; }
     cue.addEventListener('click', function(e){
       e.preventDefault();
-      if (reduce){ snapTo(); return; }
-      var b = document.body;
-      b.style.transition = 'opacity 150ms ease';
-      b.style.opacity = '0';
-      setTimeout(function(){
-        snapTo();
-        // next frame, fade back — the snap has already happened behind the dissolve
-        requestAnimationFrame(function(){ b.style.opacity = '1'; setTimeout(function(){ b.style.transition = ''; }, 200); });
-      }, 150);
+      var end = endY();
+      if (reduce){ window.scrollTo({ top: end, behavior: 'instant' }); return; }
+      var start = window.pageYOffset, dur = 760, t0 = null;
+      function ease(p){ return p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2; } // easeInOutCubic
+      function step(ts){
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        window.scrollTo({ top: start + (end - start) * ease(p), behavior: 'instant' });
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
     });
   })();
 
