@@ -1002,14 +1002,14 @@
   /* ── FILM STAGE — kept as one intentional dark cinematic band ── */
   /* (inherits its navy styling from the rules above) */
 
-  /* ── CLOSING — light band, navy CTA ── */
-  .gallery-close { background: var(--paper); padding: 8px 40px 110px; }
+  /* ── CLOSING — dark band, continuous with the film stage and footer ── */
+  .gallery-close { background: var(--navy-deep); padding: 90px 40px 110px; }
   .gallery-close .cta {
-    border: 1px solid var(--navy);
-    color: var(--navy);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: var(--cream);
     background: transparent;
   }
-  .gallery-close .cta:hover { background: var(--navy); color: var(--paper); border-color: var(--navy); }
+  .gallery-close .cta:hover { background: var(--cream); color: var(--navy-deep); border-color: var(--cream); }
 
   @media (max-width: 900px) {
     .feature-inner { padding: 132px 26px 64px; }
