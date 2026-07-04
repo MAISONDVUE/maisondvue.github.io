@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>window.addEventListener('pageshow',function(e){if(e.persisted)window.location.reload();});</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Voyage &mdash; MAISON D&rsquo;VUE</title>
+<meta name="description" content="The Voyage — MAISON D'VUE Hair Elixir, 10ml travel size. Fourteen rare essences, scented in Âme de Vue™. Hand-sealed in Beverly Hills.">
+<link rel="canonical" href="https://maisondvue.com/elixir-voyage.html">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+<link rel="shortcut icon" href="/favicon.ico?v=4">
+<meta name="theme-color" content="#FFFFFF">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#FFFFFF; --paper-2:#F1EFEB; --ink:#0A0A0A; --navy-deep:#000000;
+    --mid:rgba(10,10,10,0.58); --soft:rgba(10,10,10,0.42); --line:rgba(10,10,10,0.12);
+    --font-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-serif:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif;
+    --font-italic:'EB Garamond',Georgia,serif;
+  }
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ background:var(--paper); }
+  body{
+    font-family:var(--font-sans); font-weight:300; color:var(--ink);
+    background:var(--paper); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    padding-top:72px;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; }
+
+  .pdp{ max-width:1320px; margin:0 auto; padding:clamp(28px,4vw,64px) clamp(20px,4vw,56px) 40px; }
+  .pdp-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(28px,4vw,72px); align-items:start; }
+
+  .pdp-gallery{ display:grid; grid-template-columns:66px 1fr; gap:16px; }
+  .pdp-thumbs{ display:flex; flex-direction:column; gap:14px; }
+  .pdp-thumb, .pdp-photo{ position:relative; background:var(--paper-2); overflow:hidden; }
+  .pdp-thumb{ aspect-ratio:1; }
+  .pdp-photo{ aspect-ratio:1/1; }
+  .pdp-thumb::after, .pdp-photo::after{
+    content:""; position:absolute; top:50%; left:50%; width:22px; height:22px;
+    transform:translate(-50%,-50%) rotate(45deg); border:1px solid rgba(10,10,10,0.16);
+  }
+  .pdp-photo::after{ width:46px; height:46px; }
+  .pdp-thumb.is-active{ outline:1px solid var(--ink); outline-offset:-1px; }
+
+  .pdp-info{ padding-top:6px; max-width:520px; }
+  .pdp-name{ font-family:var(--font-serif); font-weight:500; font-size:clamp(38px,4.6vw,60px); letter-spacing:0.01em; line-height:1; color:var(--ink); }
+  .pdp-subrow{ display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:22px; padding-bottom:26px; border-bottom:1px solid var(--line); }
+  .pdp-cat{ font-family:var(--font-sans); font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--soft); }
+  .pdp-rating{ display:inline-flex; align-items:center; gap:8px; font-size:12px; white-space:nowrap; }
+  .pdp-rating .stars{ color:var(--ink); letter-spacing:2px; }
+  .pdp-rating span{ color:var(--mid); letter-spacing:0.06em; }
+  .pdp-desc{ font-family:var(--font-sans); font-weight:300; font-size:15.5px; line-height:1.75; color:rgba(10,10,10,0.78); margin:28px 0; }
+  .pdp-desc em{ font-family:var(--font-italic); font-style:italic; }
+
+  .pdp-buy{ display:flex; align-items:center; justify-content:center; text-align:center; width:100%; padding:20px 24px; margin-top:8px; background:var(--ink); color:#FFFFFF; font-family:var(--font-sans); font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; transition:opacity 220ms ease; }
+  .pdp-buy:hover{ opacity:0.84; }
+  .pdp-pay{ margin-top:14px; font-size:12px; color:var(--mid); letter-spacing:0.02em; }
+  .pdp-provenance{ margin-top:28px; padding-top:26px; border-top:1px solid var(--line); font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--soft); }
+
+  .pdp-cross{ margin-top:40px; }
+  .pdp-cross-label{ font-family:var(--font-serif); font-weight:500; font-size:19px; letter-spacing:0.02em; color:var(--ink); margin-bottom:18px; }
+  .pdp-cross-item{ display:flex; align-items:center; gap:18px; border:1px solid var(--line); padding:16px 18px; background:var(--paper); transition:border-color 220ms ease; }
+  .pdp-cross-item:hover{ border-color:rgba(10,10,10,0.30); }
+  .pdp-cross-thumb{ flex:0 0 auto; width:64px; height:76px; background:var(--paper-2); overflow:hidden; }
+  .pdp-cross-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .pdp-cross-text{ flex:1 1 auto; display:flex; flex-direction:column; gap:5px; }
+  .pdp-cross-name{ font-family:var(--font-sans); font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
+  .pdp-cross-sub{ font-family:var(--font-italic); font-style:italic; font-size:14px; color:var(--mid); }
+  .pdp-cross-price{ font-size:13px; letter-spacing:0.06em; color:var(--ink); margin-top:2px; }
+  .pdp-cross-add{ flex:0 0 auto; width:30px; height:30px; border:1.4px solid var(--ink); display:inline-flex; align-items:center; justify-content:center; color:var(--ink); background:transparent; cursor:pointer; transition:background 200ms ease, color 200ms ease; }
+  .pdp-cross-add::before{ content:"+"; font-size:20px; font-weight:400; line-height:1; }
+  .pdp-cross-add:hover{ background:var(--ink); color:#FFFFFF; }
+
+  footer{ background:var(--navy-deep); color:#FFFFFF; text-align:center; padding:60px 24px; font-family:var(--font-sans); font-size:12px; letter-spacing:0.14em; line-height:2; margin-top:60px; }
+  .footer-logo{ font-family:var(--font-serif); font-size:20px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:16px; }
+  footer a{ color:#FFFFFF; } footer a:hover{ opacity:0.75; }
+
+  @media (max-width:860px){ .pdp-grid{ grid-template-columns:1fr; gap:32px; } .pdp-info{ max-width:none; } }
+  @media (max-width:520px){ .pdp-gallery{ grid-template-columns:52px 1fr; } }
+</style>
+
+<link rel="stylesheet" href="assets/nav.css?v=11">
+<link rel="stylesheet" href="assets/house.css?v=4">
+</head>
+<body>
+
+<nav class="mdv-nav mdv-nav-split mdv-nav--light" id="mdvNav">
+  <div class="nav-group nav-group-left">
+    <a href="product.html">The Elixir</a>
+    <a href="product.html#ritual">The Ritual</a>
+  </div>
+  <a href="index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-right-cluster">
+    <div class="nav-group nav-group-right">
+      <a href="about.html">The House</a>
+      <a href="gallery.html">World</a>
+    </div>
+    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+  </div>
+</nav>
+
+<main class="pdp">
+  <div class="pdp-grid">
+
+    <!-- LEFT — PHOTO PLACEHOLDERS: swap these boxes with product photography -->
+    <div class="pdp-gallery">
+      <div class="pdp-thumbs">
+        <div class="pdp-thumb is-active" aria-hidden="true"></div>
+        <div class="pdp-thumb" aria-hidden="true"></div>
+        <div class="pdp-thumb" aria-hidden="true"></div>
+        <div class="pdp-thumb" aria-hidden="true"></div>
+      </div>
+      <div class="pdp-photo" aria-hidden="true"></div>
+    </div>
+
+    <!-- RIGHT — INFO -->
+    <div class="pdp-info">
+      <h1 class="pdp-name">The Voyage</h1>
+      <div class="pdp-subrow">
+        <span class="pdp-cat">Hair Elixir &middot; 10 ml &middot; 0.33 fl oz</span>
+        <span class="pdp-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>5.0 (9)</span></span>
+      </div>
+
+      <p class="pdp-desc">The Signature, reduced to its essential. Ten millilitres of the Hair Elixir in cobalt frosted glass &mdash; the full ritual, anywhere. Fourteen rare essences, scented in <em>&Acirc;me de Vue&trade;</em>. 10 ml &middot; 0.33 fl oz.</p>
+
+      <a class="pdp-buy" href="https://shop.maisondvue.com/cart/48287241371896:1?checkout">Reserve The Voyage &mdash; $68</a>
+      <p class="pdp-pay">Hand-sealed in Beverly Hills &middot; Reserved by request.</p>
+
+      <!-- COMPLETE THE RITUAL -->
+      <div class="pdp-cross">
+        <p class="pdp-cross-label">The Signature, in full</p>
+        <div class="pdp-cross-item">
+          <span class="pdp-cross-thumb"><img src="maison-dvue-elixir-studio.jpg" alt="The Signature — 30ml MAISON D'VUE Hair Elixir"></span>
+          <span class="pdp-cross-text">
+            <span class="pdp-cross-name">The Signature</span>
+            <span class="pdp-cross-sub">Thirty millilitres, in full.</span>
+            <span class="pdp-cross-price">30 ml &middot; $125</span>
+          </span>
+          <a class="pdp-cross-add" href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" aria-label="Add The Signature to cart"></a>
+        </div>
+      </div>
+
+      <p class="pdp-provenance">Hand-sealed &middot; Beverly Hills</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">MAISON D&rsquo;VUE</div>
+  <div>&copy; 2026 MAISON D&rsquo;VUE &middot; Composed in Beverly Hills</div>
+  <div>Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></div>
+</footer>
+
+<script src="assets/chat.js?v=5" defer></script>
+<script src="assets/menu.js?v=10" defer></script>
+<script src="assets/house.js?v=1" defer></script>
+</body>
+</html>
