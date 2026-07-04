@@ -126,7 +126,7 @@
     padding:0;
   }
 
-  html{ scroll-behavior:smooth; scroll-snap-type:y mandatory; }
+  html{ scroll-behavior:smooth; }
 
   html,body{
     background:var(--paper);
@@ -437,8 +437,6 @@
     height:100vh; height:100svh; min-height:520px;
     overflow:hidden; background:var(--navy-deep);
     display:flex; align-items:flex-end; justify-content:center;
-    /* Each slide clicks fully into place; you can't fling past one. */
-    scroll-snap-align:start; scroll-snap-stop:always;
   }
   .slide-media{
     position:absolute; inset:0; width:100%; height:100%;
@@ -461,6 +459,7 @@
     font-weight:700; font-size:13px; letter-spacing:0.14em;
     text-transform:uppercase; color:#FFFFFF;
   }
+  .slide-tm{ font-size:0.6em; vertical-align:super; letter-spacing:0; margin-left:1px; }
   .slide-cue{
     font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-weight:400; font-size:11px; letter-spacing:0.2em;
@@ -483,9 +482,7 @@
     padding:100px 56px;
     background:var(--paper);
     box-shadow:0 -22px 60px -10px rgba(0,0,0,0.42);
-    scroll-snap-align:start;
   }
-  footer{ scroll-snap-align:start; }
 
   .reservation-pane::before{
     display:none;
@@ -1195,9 +1192,9 @@
     <section class="slide" id="slide-matrix">
       <img class="slide-media" src="slide-affinity-matrix.jpg?v=1" alt="" aria-hidden="true">
       <div class="slide-scrim" aria-hidden="true"></div>
-      <a class="slide-label" href="#slide-ritual">
-        <span class="slide-title">Vue Affinity Matrix</span>
-        <span class="slide-cue">Discover</span>
+      <a class="slide-label" href="product.html#formulation">
+        <span class="slide-title">Vue Affinity Matrix<sup class="slide-tm">&trade;</sup></span>
+        <span class="slide-cue">Patent Pending &middot; Tap to Read</span>
       </a>
     </section>
 
@@ -1326,9 +1323,7 @@
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
 
-  /* ─── SLIDE CUES — each slide's label glides the next slide up over it.
-     The slides are sticky, so animating the scroll draws the next full-screen
-     image up to cover the current one — an overlay slide, never a snap. ─── */
+  /* ─── SLIDE CUES — each slide's label glides the next slide up over it. ─── */
   (function(){
     var labels = document.querySelectorAll('.slide-label');
     if (!labels.length) return;
@@ -1336,27 +1331,59 @@
     labels.forEach(function(cue){
       cue.addEventListener('click', function(e){
         var href = cue.getAttribute('href') || '';
-        if (href.charAt(0) !== '#') return;
+        if (href.charAt(0) !== '#') return;            // external links (patent) navigate normally
         var target = document.getElementById(href.slice(1));
         if (!target) return;
         e.preventDefault();
-        var end = window.pageYOffset + target.getBoundingClientRect().top;
-        if (reduce){ window.scrollTo({ top: end, behavior: 'instant' }); return; }
-        // Suspend scroll-snap during the glide so mandatory snapping doesn't fight it.
-        var root = document.documentElement;
-        root.style.scrollSnapType = 'none';
-        var start = window.pageYOffset, dur = 760, t0 = null;
-        function ease(p){ return p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2; } // easeInOutCubic
-        function step(ts){
-          if (t0 === null) t0 = ts;
-          var p = Math.min(1, (ts - t0) / dur);
-          window.scrollTo({ top: start + (end - start) * ease(p), behavior: 'instant' });
-          if (p < 1) { requestAnimationFrame(step); }
-          else { root.style.scrollSnapType = ''; }
-        }
-        requestAnimationFrame(step);
+        glideTo(window.pageYOffset + target.getBoundingClientRect().top, 760);
       });
     });
+  })();
+
+  /* ─── SNAP-ON-STOP — the slides settle firmly into place once you lift your
+     hand, but scrolling stays free in both directions (never locked). ─── */
+  var __mdvGliding = false, __mdvCancel = false;
+  function glideTo(end, dur){
+    __mdvGliding = true; __mdvCancel = false;
+    var start = window.pageYOffset, t0 = null;
+    function ease(p){ return 1 - Math.pow(1 - p, 3); } // easeOutCubic
+    function step(ts){
+      if (__mdvCancel){ __mdvGliding = false; return; }   // user took over — never fight them
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      window.scrollTo({ top: start + (end - start) * ease(p), behavior: 'instant' });
+      if (p < 1) { requestAnimationFrame(step); } else { __mdvGliding = false; }
+    }
+    requestAnimationFrame(step);
+  }
+  window.addEventListener('wheel', function(){ if (__mdvGliding) __mdvCancel = true; }, { passive: true });
+  window.addEventListener('touchstart', function(){ if (__mdvGliding) __mdvCancel = true; }, { passive: true });
+  (function(){
+    var slidesEl = document.querySelector('.slides');
+    if (!slidesEl) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var reserve = document.getElementById('reserve');
+    var timer = null;
+    function targets(){
+      var ys = [];
+      document.querySelectorAll('.slide').forEach(function(s){ ys.push(s.offsetTop); });
+      if (reserve) ys.push(reserve.offsetTop);
+      return ys;
+    }
+    function settle(){
+      if (__mdvGliding) return;
+      var y = window.pageYOffset, vh = window.innerHeight;
+      var best = null, bestD = Infinity;
+      targets().forEach(function(t){ var d = Math.abs(t - y); if (d < bestD){ bestD = d; best = t; } });
+      // Snap only when reasonably near a slide edge; leave the footer & long content free.
+      if (best === null || bestD < 3 || bestD > vh * 0.6) return;
+      glideTo(best, 380);
+    }
+    window.addEventListener('scroll', function(){
+      if (__mdvGliding) return;
+      clearTimeout(timer);
+      timer = setTimeout(settle, 120);   // fire shortly after scrolling stops
+    }, { passive: true });
   })();
 
   /* ─── HERO VIDEO — force autoplay where possible ─── */
