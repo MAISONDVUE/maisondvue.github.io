@@ -126,7 +126,7 @@
     padding:0;
   }
 
-  html{ scroll-behavior:smooth; scroll-snap-type:y proximity; }
+  html{ scroll-behavior:smooth; scroll-snap-type:y mandatory; }
 
   html,body{
     background:var(--paper);
@@ -475,14 +475,17 @@
   .reservation-pane{
     position:relative;
     z-index:3;
+    min-height:100svh;
     display:flex;
-    align-items:flex-start;
+    align-items:center;
     justify-content:center;
     width:100%;
-    padding:120px 56px 120px;
+    padding:100px 56px;
     background:var(--paper);
     box-shadow:0 -22px 60px -10px rgba(0,0,0,0.42);
+    scroll-snap-align:start;
   }
+  footer{ scroll-snap-align:start; }
 
   .reservation-pane::before{
     display:none;
@@ -1336,13 +1339,17 @@
         e.preventDefault();
         var end = window.pageYOffset + target.getBoundingClientRect().top;
         if (reduce){ window.scrollTo({ top: end, behavior: 'instant' }); return; }
+        // Suspend scroll-snap during the glide so mandatory snapping doesn't fight it.
+        var root = document.documentElement;
+        root.style.scrollSnapType = 'none';
         var start = window.pageYOffset, dur = 760, t0 = null;
         function ease(p){ return p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2; } // easeInOutCubic
         function step(ts){
           if (t0 === null) t0 = ts;
           var p = Math.min(1, (ts - t0) / dur);
           window.scrollTo({ top: start + (end - start) * ease(p), behavior: 'instant' });
-          if (p < 1) requestAnimationFrame(step);
+          if (p < 1) { requestAnimationFrame(step); }
+          else { root.style.scrollSnapType = ''; }
         }
         requestAnimationFrame(step);
       });
