@@ -38,8 +38,12 @@
   a{ color:inherit; text-decoration:none; }
   img{ display:block; }
 
+  /* ── CINEMATIC BANNER ── */
+  .pdp-banner{ width:100%; height:58vh; min-height:340px; overflow:hidden; background:var(--navy-deep); }
+  .pdp-banner-video{ width:100%; height:100%; object-fit:cover; display:block; }
+
   /* ── PRODUCT LAYOUT ── */
-  .pdp{ max-width:1320px; margin:0 auto; padding:clamp(28px,4vw,64px) clamp(20px,4vw,56px) 40px; }
+  .pdp{ max-width:1320px; margin:0 auto; padding:clamp(40px,5vw,72px) clamp(20px,4vw,56px) 40px; }
   .pdp-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(28px,4vw,72px); align-items:start; }
 
   /* Left — photo placeholders (swap with product photography) */
@@ -157,6 +161,12 @@
   </div>
 </nav>
 
+<section class="pdp-banner" aria-hidden="true">
+  <video class="pdp-banner-video" src="signature-salon.mp4?v=1" poster="signature-salon-poster.jpg?v=1"
+    muted loop autoplay playsinline webkit-playsinline="true" preload="auto"
+    disablepictureinpicture onerror="this.style.display='none';"></video>
+</section>
+
 <main class="pdp">
   <div class="pdp-grid">
 
@@ -164,12 +174,14 @@
     <div class="pdp-gallery">
       <div class="pdp-thumbs">
         <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo one"></button>
-        <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo two"></button>
+        <button class="pdp-thumb" type="button" data-media="video" data-src="signature-salon.mp4?v=1" data-poster="signature-salon-poster.jpg?v=1" aria-label="At the salon">
+          <video src="signature-salon.mp4?v=1" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
+        </button>
         <button class="pdp-thumb is-active" type="button" data-media="video" data-src="signature-open.mp4?v=1" data-poster="signature-open-poster.jpg?v=1" aria-label="Opening the box">
           <video src="signature-open.mp4?v=1" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
         </button>
-        <button class="pdp-thumb" type="button" data-media="video" data-src="signature-apply.mp4?v=1" data-poster="signature-apply-poster.jpg?v=1" aria-label="Applying the elixir">
-          <video src="signature-apply.mp4?v=1" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
+        <button class="pdp-thumb" type="button" data-media="video" data-src="signature-apply.mp4?v=2" data-poster="signature-apply-poster.jpg?v=2" aria-label="Applying the elixir">
+          <video src="signature-apply.mp4?v=2" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
         </button>
       </div>
       <div class="pdp-photo has-media">
