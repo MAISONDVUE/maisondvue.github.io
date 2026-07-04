@@ -126,7 +126,9 @@
     padding:0;
   }
 
-  html{ scroll-behavior:smooth; scroll-snap-type:y mandatory; }
+  /* No smooth-scroll on the snap container — it makes mandatory snap glide
+     loosely instead of locking. !important overrides the shared house.css. */
+  html{ scroll-snap-type:y mandatory; scroll-behavior:auto !important; }
 
   html,body{
     background:var(--paper);
