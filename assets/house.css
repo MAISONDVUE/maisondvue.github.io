@@ -66,3 +66,22 @@ body.mdv-fade.mdv-fade-out { opacity: 0; transition: opacity 380ms var(--mdv-eas
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 400;
   letter-spacing: 0.01em; line-height: 1.04; color: var(--mdv-ink);
 }
+
+/* ── The wordmark — a high-contrast Didone, the one designed letterform ────────
+   Set here (after every page's own styles) so MAISON D'VUE reads as an elegant
+   serif house-mark against the clean Helvetica navigation, the Saint Laurent
+   register. Applies to the nav logo, the footer logo, and any header logo. */
+.nav-logo, .footer-logo, .header-logo {
+  font-family: 'Bodoni Moda', 'Didot', 'Bodoni MT', 'Didot LT STD', Georgia, serif !important;
+}
+
+/* ── Display headlines — the Didone extends to the big titles (Vogue-runway).
+   Eyebrows, labels, prices, stats, UI and body stay clean Helvetica. ──────────── */
+.res-headline, .hero-title, .purchase-title, .formulation-title,
+.ritual-head h2, .origins-head h2, .origin-hero-name, .reviews-head h2,
+.review-form-headline, .final-buy h2, .display,
+.feature-title .t-main, .feature-title .t-house, .film-line, .collection-title,
+.founder-hero-name, .slideshow-title, .slide-chapter, .house-title, .house-future-title,
+.success-title, .policy-hero h1, .signin-title, .dash-name {
+  font-family: 'Bodoni Moda', 'Didot', 'Bodoni MT', 'Didot LT STD', Georgia, serif !important;
+}

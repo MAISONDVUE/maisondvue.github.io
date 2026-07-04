@@ -48,10 +48,10 @@
     "body.mdv-menu-open{overflow:hidden}" +
     /* keep the floating chat badge from sitting on top of the open menu */
     "body.mdv-menu-open .mdv-chat-launcher{opacity:0;visibility:hidden;pointer-events:none}" +
-    /* Restrained, wide-tracked nav lettering, site-wide (logo stays serif) */
+    /* Clean, tightly-tracked Helvetica nav lettering, site-wide (logo stays Didone serif) */
     ".mdv-nav .nav-links a,.mdv-nav .nav-right a,.mdv-nav .nav-group a,.mdv-nav .nav-reserve-m," +
       ".nav .nav-links a,.nav .nav-login,.nav .nav-welcome{" +
-      "font-family:" + SANS + "!important;font-weight:500!important;letter-spacing:0.2em!important}";
+      "font-family:" + SANS + "!important;font-weight:400!important;letter-spacing:0.1em!important}";
 
   var styleEl = document.createElement("style");
   styleEl.textContent = css;

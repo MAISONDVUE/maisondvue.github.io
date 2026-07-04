@@ -12,8 +12,8 @@
   transition: background 320ms ease, border-color 320ms ease;
 }
 .mdv-nav .nav-logo {
-  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 500;
-  font-size: 27px; letter-spacing: 0.3em; text-transform: uppercase;
+  font-family: 'Bodoni Moda','Didot','Bodoni MT',Georgia,serif; font-weight: 500;
+  font-size: 30px; letter-spacing: 0.22em; text-transform: uppercase;
   color: #FFFFFF; white-space: nowrap; justify-self: center;
   /* The wordmark is the hero: larger than the tabs and lifted a touch above
      their row, the way the Saint Laurent logo rides above its nav links. */
@@ -27,8 +27,8 @@
 .mdv-nav .nav-right-cluster { justify-self: end; display: flex; align-items: center; gap: 40px; }
 .mdv-nav .nav-group-right { justify-self: end; }
 .mdv-nav .nav-group a {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500;
-  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
   color: rgba(255, 255, 255,0.82); white-space: nowrap; transition: color 220ms ease;
 }
 .mdv-nav .nav-group a:hover { color: #fff; }
