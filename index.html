@@ -431,7 +431,9 @@
   @media (prefers-reduced-motion: reduce){ .hero-discover{ animation:none; } }
 
 
-  /* RESERVATION PANE — light paper palette */
+  /* RESERVATION PANE — light paper palette.
+     A soft shadow on the leading (top) edge so the panel reads as a sheet
+     gliding up over the pinned hero — an overlay, not a scroll into white. */
   .reservation-pane{
     position:relative;
     z-index:3;
@@ -441,6 +443,7 @@
     width:100%;
     padding:120px 56px 120px;
     background:var(--paper);
+    box-shadow:0 -22px 60px -10px rgba(0,0,0,0.42);
   }
 
   .reservation-pane::before{
