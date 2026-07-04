@@ -874,6 +874,10 @@
     line-height: 1;
   }
 
+  .card-cta-form {
+    width: 100%;
+    margin-top: auto;
+  }
   .card-cta {
     width: 100%;
     border: 1px solid var(--navy);
@@ -890,7 +894,6 @@
     text-decoration: none;
     display: inline-block;
     text-align: center;
-    margin-top: auto;
   }
 
   .card-cta:hover {
@@ -2888,7 +2891,7 @@
   }
   main [id] { scroll-margin-top: 84px; }
 </style>
-<link rel="stylesheet" href="assets/nav.css?v=11">
+<link rel="stylesheet" href="assets/nav.css?v=12">
 <link rel="stylesheet" href="assets/house.css?v=4">
 </head>
 
@@ -2914,7 +2917,7 @@
       <a href="about.html">The House</a>
       <a href="gallery.html">World</a>
     </div>
-    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="nav-bag-count" aria-hidden="true"></span></a>
   </div>
 </nav>
 <script>
@@ -3006,7 +3009,12 @@
             <p class="card-name">Hair Elixir</p>
             <p class="card-size">30 ml &middot; 1 fl oz</p>
             <p class="card-price">$125</p>
-            <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="card-cta">Reserve</a>
+            <form class="card-cta-form" method="post" action="https://shop.maisondvue.com/cart/add">
+              <input type="hidden" name="id" value="48287241339128">
+              <input type="hidden" name="quantity" value="1">
+              <input type="hidden" name="return_to" value="/checkout">
+              <button type="submit" class="card-cta">Reserve</button>
+            </form>
           </div>
         </div>
 
@@ -3019,7 +3027,12 @@
             <p class="card-name">Hair Elixir</p>
             <p class="card-size">10 ml &middot; 0.33 fl oz</p>
             <p class="card-price">$68</p>
-            <a href="https://shop.maisondvue.com/cart/49653578531064:1?checkout" class="card-cta">Reserve</a>
+            <form class="card-cta-form" method="post" action="https://shop.maisondvue.com/cart/add">
+              <input type="hidden" name="id" value="49653578531064">
+              <input type="hidden" name="quantity" value="1">
+              <input type="hidden" name="return_to" value="/checkout">
+              <button type="submit" class="card-cta">Reserve</button>
+            </form>
           </div>
         </div>
 
@@ -3496,7 +3509,12 @@
           </div>
           <div class="price">$125</div>
         </div>
-        <a href="https://shop.maisondvue.com/cart/48287241339128:1?checkout" class="cta">Reserve the Signature</a>
+        <form class="cta-form" method="post" action="https://shop.maisondvue.com/cart/add">
+          <input type="hidden" name="id" value="48287241339128">
+          <input type="hidden" name="quantity" value="1">
+          <input type="hidden" name="return_to" value="/checkout">
+          <button type="submit" class="cta">Reserve the Signature</button>
+        </form>
 
         <div class="voyage-divider">or begin with</div>
 
@@ -3507,7 +3525,12 @@
           </div>
           <div class="price">$68</div>
         </div>
-        <a href="https://shop.maisondvue.com/cart/49653578531064:1?checkout" class="cta cta-ghost">Reserve the Voyage</a>
+        <form class="cta-form" method="post" action="https://shop.maisondvue.com/cart/add">
+          <input type="hidden" name="id" value="49653578531064">
+          <input type="hidden" name="quantity" value="1">
+          <input type="hidden" name="return_to" value="/checkout">
+          <button type="submit" class="cta cta-ghost">Reserve the Voyage</button>
+        </form>
 
         <p class="shipping-note">Hand-sealed &middot; Beverly Hills</p>
       </div>
@@ -4096,6 +4119,7 @@
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>
+<script src="assets/cart.js?v=1" defer></script>
 
 </body>
 </html>

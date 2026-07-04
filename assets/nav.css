@@ -39,10 +39,19 @@
   background: currentColor; margin-right: 9px;
 }
 .mdv-nav .nav-bag {
+  position: relative;
   display: inline-flex; justify-self: end; align-items: center; color: #FFFFFF;
   transition: color 320ms ease;
 }
 .mdv-nav .nav-bag svg { width: 19px; height: 19px; display: block; }
+/* Small "believed" cart-count badge — updated by assets/cart.js */
+.mdv-nav .nav-bag-count {
+  position: absolute; top: -6px; right: -9px; min-width: 15px; height: 15px; padding: 0 3px;
+  border-radius: 50%; background: #0A0A0A; color: #FFFFFF; border: 1.5px solid #FFFFFF;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 9px; font-weight: 600;
+  line-height: 15px; text-align: center; display: none;
+}
+.mdv-nav .nav-bag-count.is-visible { display: block; }
 .mdv-nav .mdv-burger { justify-self: start; }
 
 /* Scrolled past the hero → solid navy-on-paper */

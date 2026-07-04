@@ -108,10 +108,11 @@
   }
   .pdp-desc em{ font-family:var(--font-italic); font-style:italic; }
 
+  .pdp-buy-form{ width:100%; }
   .pdp-buy{
     display:flex; align-items:center; justify-content:center; text-align:center;
     width:100%; padding:20px 24px; margin-top:8px;
-    background:var(--ink); color:#FFFFFF;
+    background:var(--ink); color:#FFFFFF; border:0; cursor:pointer;
     font-family:var(--font-sans); font-size:12px; font-weight:500;
     letter-spacing:0.22em; text-transform:uppercase; transition:opacity 220ms ease;
   }
@@ -138,15 +139,27 @@
   .pdp-cross-name{ font-family:var(--font-sans); font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
   .pdp-cross-sub{ font-family:var(--font-italic); font-style:italic; font-size:14px; color:var(--mid); }
   .pdp-cross-price{ font-size:13px; letter-spacing:0.06em; color:var(--ink); margin-top:2px; }
-  /* the clickable square */
+  /* the clickable square — adds silently to the real cart, no navigation */
   .pdp-cross-add{
-    flex:0 0 auto; width:30px; height:30px; border:1.4px solid var(--ink);
+    position:relative; flex:0 0 auto; width:30px; height:30px; border:1.4px solid var(--ink);
     display:inline-flex; align-items:center; justify-content:center;
-    color:var(--ink); background:transparent; cursor:pointer;
-    transition:background 200ms ease, color 200ms ease;
+    color:var(--ink); background:transparent; cursor:pointer; padding:0;
+    font-family:var(--font-sans); transition:background 200ms ease, color 200ms ease;
   }
   .pdp-cross-add::before{ content:"+"; font-size:20px; font-weight:400; line-height:1; }
   .pdp-cross-add:hover{ background:var(--ink); color:#FFFFFF; }
+  .pdp-cross-add.is-added{ background:var(--ink); color:#FFFFFF; }
+  .pdp-cross-add.is-added::before{ content:"\2713"; font-size:15px; }
+  .pdp-cross-pop{
+    position:absolute; left:50%; top:-4px; transform:translate(-50%,0);
+    font-size:12px; font-weight:600; color:var(--ink); pointer-events:none;
+    animation:pdpCrossPop 900ms ease-out forwards;
+  }
+  @keyframes pdpCrossPop{
+    0%{ opacity:0; transform:translate(-50%,4px); }
+    20%{ opacity:1; }
+    100%{ opacity:0; transform:translate(-50%,-22px); }
+  }
 
   /* ── FOOTER ── */
   footer{ background:var(--navy-deep); color:#FFFFFF; text-align:center; padding:60px 24px; font-family:var(--font-sans); font-size:12px; letter-spacing:0.14em; line-height:2; margin-top:60px; }
@@ -162,7 +175,7 @@
   }
 </style>
 
-<link rel="stylesheet" href="assets/nav.css?v=11">
+<link rel="stylesheet" href="assets/nav.css?v=12">
 <link rel="stylesheet" href="assets/house.css?v=4">
 </head>
 <body>
@@ -178,7 +191,7 @@
       <a href="about.html">The House</a>
       <a href="gallery.html">World</a>
     </div>
-    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg><span class="nav-bag-count" aria-hidden="true"></span></a>
   </div>
 </nav>
 
@@ -225,7 +238,12 @@
 
       <p class="pdp-desc">The house signature, in full. Fourteen rare botanical essences, drawn into affinity with the hair fiber &mdash; weightless nourishment, glass-like luminosity, and fluid movement from first light to last. Composed in Beverly Hills, scented in <em>&Acirc;me de Vue&trade;</em>. 30 ml &middot; 1 fl oz.</p>
 
-      <a class="pdp-buy" href="https://shop.maisondvue.com/cart/48287241339128:1?checkout">Reserve The Signature &mdash; $125</a>
+      <form class="pdp-buy-form" method="post" action="https://shop.maisondvue.com/cart/add">
+        <input type="hidden" name="id" value="48287241339128">
+        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" name="return_to" value="/checkout">
+        <button class="pdp-buy" type="submit">Reserve The Signature &mdash; $125</button>
+      </form>
       <p class="pdp-pay">Hand-sealed in Beverly Hills &middot; Reserved by request.</p>
 
       <!-- TRAVEL WITH YOUR ELIXIR -->
@@ -238,7 +256,7 @@
             <span class="pdp-cross-sub">Ten millilitres, anywhere.</span>
             <span class="pdp-cross-price">10 ml &middot; $68</span>
           </span>
-          <a class="pdp-cross-add" href="https://shop.maisondvue.com/cart/49653578531064:1?checkout" aria-label="Add The Voyage to cart"></a>
+          <button class="pdp-cross-add" type="button" data-variant-id="49653578531064" data-qty="1" data-label="The Voyage" aria-label="Add The Voyage to your bag"></button>
         </div>
       </div>
 
@@ -287,5 +305,6 @@
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>
+<script src="assets/cart.js?v=1" defer></script>
 </body>
 </html>
