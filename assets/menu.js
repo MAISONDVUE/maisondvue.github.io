@@ -88,7 +88,7 @@
     function syncBurger() {
       // Solidify the nav once scrolled past the hero, then match the hamburger
       // to the (now updated) logo colour. Light pages stay solid regardless.
-      if (!nav.classList.contains("mdv-nav--light")) {
+      if (!nav.classList.contains("mdv-nav--light") && !nav.classList.contains("mdv-nav--overlay")) {
         nav.classList.toggle("scrolled", window.scrollY > 60);
       }
       if (sampler) burger.style.color = getComputedStyle(sampler).color;
