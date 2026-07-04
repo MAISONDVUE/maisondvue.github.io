@@ -452,8 +452,12 @@
       rgba(0,0,0,0) 64%, rgba(0,0,0,0.58) 100%);
   }
   .slide-label{
-    position:relative; z-index:3; margin-bottom:46px;
+    position:relative; z-index:3;
+    /* Seat the label well clear of the bottom edge so it's always on-screen and
+       clickable even if the snap lands a hair off. */
+    margin-bottom:clamp(84px,14vh,160px);
     display:flex; flex-direction:column; align-items:center; gap:11px;
+    padding:14px 26px;   /* larger, more forgiving hit area */
     text-decoration:none; text-align:center; -webkit-tap-highlight-color:transparent;
   }
   .slide-title{
