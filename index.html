@@ -1102,6 +1102,105 @@
       font-size:36px;
     }
   }
+
+  /* ═══════════════════════════════════════════════════════════
+     TESTIMONIALS — scrollable film + review wall
+     ═══════════════════════════════════════════════════════════ */
+  .testimonials{ background:var(--paper); padding:100px 0 96px; }
+  .testimonials-head{ max-width:720px; margin:0 auto 48px; padding:0 24px; text-align:center; }
+  .testimonials-eyebrow{
+    font-family:var(--font-display); font-size:11px; font-weight:500;
+    letter-spacing:0.32em; text-transform:uppercase; color:var(--soft);
+    margin-bottom:18px;
+  }
+  .testimonials-title{
+    font-family:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif;
+    font-weight:500; font-size:clamp(32px,4.6vw,52px);
+    letter-spacing:0.01em; color:var(--ink); margin-bottom:20px;
+  }
+  .testimonials-summary{ display:inline-flex; align-items:center; gap:12px; font-size:14px; }
+  .testimonials-summary .stars{ color:var(--ink); letter-spacing:2px; }
+  .testimonials-summary span:last-child{
+    font-family:var(--font-display); font-size:12px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--mid);
+  }
+
+  .t-track{ position:relative; max-width:1400px; margin:0 auto; padding:0 24px; }
+
+  :root{ --t-card-w: clamp(180px, 19vw, 236px); --t-gap: 16px; }
+
+  .t-scroller{
+    display:flex; gap:var(--t-gap); overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    padding:6px 4px 20px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .t-scroller::-webkit-scrollbar{ display:none; }
+
+  .t-card{
+    flex:0 0 var(--t-card-w); width:var(--t-card-w);
+    height:calc(var(--t-card-w) * 16 / 9);
+    scroll-snap-align:start; position:relative; overflow:hidden;
+    background:var(--paper-2);
+  }
+  .t-card--wide{ flex-basis:calc(var(--t-card-w) * 2 + var(--t-gap)); width:calc(var(--t-card-w) * 2 + var(--t-gap)); }
+
+  .t-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+  .t-card--quote{
+    padding:32px 34px; display:flex; flex-direction:column; justify-content:center; gap:16px;
+  }
+  .t-card--ink{ background:var(--navy-deep); color:#FFFFFF; }
+  .t-card--paper{ background:var(--paper-2); color:var(--ink); border:1px solid var(--line); }
+  .t-stars{ font-size:13px; letter-spacing:2.5px; }
+  .t-card--ink .t-stars{ color:#FFFFFF; }
+  .t-card--paper .t-stars{ color:var(--ink); }
+  .t-text{
+    font-family:'Bodoni Moda','Didot',Georgia,serif; font-style:italic; font-weight:400;
+    font-size:clamp(14px,1.15vw,16px); line-height:1.5;
+  }
+  .t-name{
+    font-family:var(--font-display); font-size:10.5px; font-weight:500;
+    letter-spacing:0.18em; text-transform:uppercase; opacity:0.66;
+  }
+
+  .t-card--name{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; text-align:center; padding:20px;
+    background:rgba(253,251,248,0.6); border:1px solid var(--line);
+  }
+  .t-card--name .t-stars{ color:var(--ink); }
+  .t-card--name .t-name{ color:var(--mid); opacity:1; }
+
+  .t-card--cta{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:18px; text-align:center; padding:24px; background:var(--ink);
+  }
+  .t-cta-label{
+    font-family:'Bodoni Moda',Georgia,serif; font-style:italic; font-size:17px;
+    color:#FFFFFF; line-height:1.4;
+  }
+  .t-cta-btn{
+    display:inline-block; padding:12px 20px; border:1px solid rgba(255,255,255,0.55);
+    color:#FFFFFF; font-family:var(--font-display); font-size:10.5px; font-weight:500;
+    letter-spacing:0.2em; text-transform:uppercase; transition:background 220ms ease, color 220ms ease;
+  }
+  .t-cta-btn:hover{ background:#FFFFFF; color:var(--ink); }
+
+  .t-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+    width:44px; height:44px; border-radius:999px; border:1px solid var(--line);
+    background:var(--paper); color:var(--ink); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:18px; line-height:1;
+    box-shadow:0 2px 12px rgba(10,10,10,0.08);
+    transition:background 220ms ease, color 220ms ease, border-color 220ms ease, opacity 220ms ease;
+  }
+  .t-arrow:hover{ background:var(--ink); color:#FFFFFF; border-color:var(--ink); }
+  .t-arrow.prev{ left:-6px; } .t-arrow.next{ right:-6px; }
+  .t-arrow[disabled]{ opacity:0.25; cursor:default; pointer-events:none; }
+
+  @media (max-width:860px){
+    .t-arrow{ display:none; }
+  }
 </style>
 <link rel="stylesheet" href="assets/nav.css?v=12">
 <link rel="stylesheet" href="assets/house.css?v=4">
@@ -1316,6 +1415,116 @@
     </div>
   </section>
 
+  <!-- ═══ TESTIMONIALS — scrollable film + review wall ═══ -->
+  <section class="testimonials mdv-reveal" id="testimonials">
+    <div class="testimonials-head">
+      <p class="testimonials-eyebrow">In Their Words</p>
+      <h2 class="testimonials-title">From the maison&rsquo;s clients.</h2>
+      <div class="testimonials-summary">
+        <span class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>5.0 &middot; 9 Reviews</span>
+      </div>
+    </div>
+
+    <div class="t-track">
+      <button type="button" class="t-arrow prev" aria-label="Previous">&larr;</button>
+      <button type="button" class="t-arrow next" aria-label="Next">&rarr;</button>
+
+      <div class="t-scroller" id="tScroller">
+
+        <div class="t-card">
+          <video class="t-video" src="testimonial-1.mp4?v=1" poster="testimonial-1-poster.jpg?v=1"
+            autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+            disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+            aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+
+        <div class="t-card t-card--wide t-card--quote t-card--ink">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;I&rsquo;m extremely picky about scent and this is honestly one of the best-smelling hair products I&rsquo;ve ever used. It&rsquo;s warm and clean at the same time &mdash; not overly floral, not perfume-y.&rdquo;</p>
+          <div class="t-name">&mdash; Brittany</div>
+        </div>
+
+        <div class="t-card">
+          <video class="t-video" src="testimonial-2.mp4?v=1" poster="testimonial-2-poster.jpg?v=1"
+            autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+            disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+            aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+
+        <div class="t-card t-card--name">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-name">Jessica</div>
+        </div>
+
+        <div class="t-card">
+          <video class="t-video" src="testimonial-3.mp4?v=1" poster="testimonial-3-poster.jpg?v=1"
+            autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+            disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+            aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+
+        <div class="t-card t-card--wide t-card--quote t-card--paper">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;I didn&rsquo;t expect this to replace so many products for me&hellip; now I just use a few drops of this and my hair looks healthy and finished. It somehow feels lightweight but still makes a huge difference.&rdquo;</p>
+          <div class="t-name">&mdash; Yasmine</div>
+        </div>
+
+        <div class="t-card t-card--name">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-name">Ashley</div>
+        </div>
+
+        <div class="t-card">
+          <video class="t-video" src="testimonial-4.mp4?v=1" poster="testimonial-4-poster.jpg?v=1"
+            autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+            disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+            aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+
+        <div class="t-card t-card--name">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-name">Megan</div>
+        </div>
+
+        <div class="t-card t-card--wide t-card--quote t-card--ink">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;This sounds dramatic but this product made me like my hair again. After a couple weeks it looked softer, shinier, and actually felt good to touch. I&rsquo;ve been wearing my hair down way more because of it.&rdquo;</p>
+          <div class="t-name">&mdash; Rita</div>
+        </div>
+
+        <div class="t-card">
+          <video class="t-video" src="testimonial-5.mp4?v=1" poster="testimonial-5-poster.jpg?v=1"
+            autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+            disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+            aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+
+        <div class="t-card t-card--name">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-name">Priya</div>
+        </div>
+
+        <div class="t-card t-card--wide t-card--quote t-card--paper">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;I really like this so much. I never thought 5 drops would be enough for me, but they truly are. Sometimes I need more, sometimes less.&rdquo;</p>
+          <div class="t-name">&mdash; T.S.</div>
+        </div>
+
+        <div class="t-card t-card--name">
+          <div class="t-stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-name">Sarah</div>
+        </div>
+
+        <div class="t-card t-card--cta">
+          <p class="t-cta-label">Lived with the elixir?</p>
+          <a class="t-cta-btn" href="product.html#reviews">Share Your Story</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -1492,6 +1701,48 @@
       invInput.select();
     }
   });
+</script>
+
+<script>
+  /* ─── TESTIMONIALS SCROLLER ARROWS ─── */
+  (function () {
+    var scroller = document.getElementById('tScroller');
+    if (!scroller) return;
+    var prev = document.querySelector('.t-arrow.prev');
+    var next = document.querySelector('.t-arrow.next');
+
+    function getStep() {
+      var card = scroller.querySelector('.t-card');
+      if (!card) return 240;
+      var cs = getComputedStyle(scroller);
+      var gap = parseInt(cs.gap || cs.columnGap || '16', 10);
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    // Mandatory scroll-snap can fight a programmatic smooth scrollBy in some
+    // browsers (the container snaps straight back to its start position).
+    // Suspend snapping for the duration of the animated scroll, then restore it.
+    function scrollByStep(dir) {
+      scroller.style.scrollSnapType = 'none';
+      scroller.scrollBy({ left: dir * getStep() * 2, behavior: 'smooth' });
+      clearTimeout(scroller._snapRestoreTimer);
+      scroller._snapRestoreTimer = setTimeout(function () {
+        scroller.style.scrollSnapType = '';
+      }, 500);
+    }
+
+    prev.addEventListener('click', function () { scrollByStep(-1); });
+    next.addEventListener('click', function () { scrollByStep(1); });
+
+    function updateArrows() {
+      prev.disabled = scroller.scrollLeft <= 4;
+      next.disabled = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 4;
+    }
+
+    scroller.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    setTimeout(updateArrows, 100);
+  })();
 </script>
 
 <script src="assets/chat.js?v=5" defer></script>
