@@ -126,7 +126,7 @@
     padding:0;
   }
 
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; scroll-snap-type:y mandatory; }
 
   html,body{
     background:var(--paper);
@@ -433,10 +433,12 @@
   /* ══ CINEMATIC SLIDE STACK — each full-screen slide slides up over the last ══ */
   .slides{ position:relative; z-index:1; }
   .slide{
-    position:sticky; top:0;
-    height:100vh; height:100svh; min-height:520px;
+    position:relative;
+    height:100vh; height:100svh;
     overflow:hidden; background:var(--navy-deep);
     display:flex; align-items:flex-end; justify-content:center;
+    /* Full-screen snap: each slide fills the view and locks firmly into place. */
+    scroll-snap-align:start; scroll-snap-stop:always;
   }
   .slide-media{
     position:absolute; inset:0; width:100%; height:100%;
@@ -482,7 +484,9 @@
     padding:100px 56px;
     background:var(--paper);
     box-shadow:0 -22px 60px -10px rgba(0,0,0,0.42);
+    scroll-snap-align:start;
   }
+  footer{ scroll-snap-align:start; }
 
   .reservation-pane::before{
     display:none;
@@ -1217,7 +1221,7 @@
     </section>
 
     <section class="slide" id="slide-world">
-      <video class="slide-media" src="launch-film.mp4?v=1" poster="launch-film-poster.jpg?v=1"
+      <video class="slide-media" src="elixir-hero.mp4?v=1" poster="elixir-hero-poster.jpg?v=1"
         autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
         disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
         aria-hidden="true" onerror="this.style.display='none';"></video>
@@ -1323,68 +1327,9 @@
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
 
-  /* ─── SLIDE CUES — each slide's label glides the next slide up over it. ─── */
-  (function(){
-    var labels = document.querySelectorAll('.slide-label');
-    if (!labels.length) return;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    labels.forEach(function(cue){
-      cue.addEventListener('click', function(e){
-        var href = cue.getAttribute('href') || '';
-        if (href.charAt(0) !== '#') return;            // external links (patent) navigate normally
-        var target = document.getElementById(href.slice(1));
-        if (!target) return;
-        e.preventDefault();
-        glideTo(window.pageYOffset + target.getBoundingClientRect().top, 760);
-      });
-    });
-  })();
-
-  /* ─── SNAP-ON-STOP — the slides settle firmly into place once you lift your
-     hand, but scrolling stays free in both directions (never locked). ─── */
-  var __mdvGliding = false, __mdvCancel = false;
-  function glideTo(end, dur){
-    __mdvGliding = true; __mdvCancel = false;
-    var start = window.pageYOffset, t0 = null;
-    function ease(p){ return 1 - Math.pow(1 - p, 3); } // easeOutCubic
-    function step(ts){
-      if (__mdvCancel){ __mdvGliding = false; return; }   // user took over — never fight them
-      if (t0 === null) t0 = ts;
-      var p = Math.min(1, (ts - t0) / dur);
-      window.scrollTo({ top: start + (end - start) * ease(p), behavior: 'instant' });
-      if (p < 1) { requestAnimationFrame(step); } else { __mdvGliding = false; }
-    }
-    requestAnimationFrame(step);
-  }
-  window.addEventListener('wheel', function(){ if (__mdvGliding) __mdvCancel = true; }, { passive: true });
-  window.addEventListener('touchstart', function(){ if (__mdvGliding) __mdvCancel = true; }, { passive: true });
-  (function(){
-    var slidesEl = document.querySelector('.slides');
-    if (!slidesEl) return;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var reserve = document.getElementById('reserve');
-    var timer = null;
-    function targets(){
-      var ys = [];
-      document.querySelectorAll('.slide').forEach(function(s){ ys.push(s.offsetTop); });
-      if (reserve) ys.push(reserve.offsetTop);
-      return ys;
-    }
-    function settle(){
-      if (__mdvGliding) return;
-      var y = window.pageYOffset, vh = window.innerHeight;
-      var best = null, bestD = Infinity;
-      targets().forEach(function(t){ var d = Math.abs(t - y); if (d < bestD){ bestD = d; best = t; } });
-      // Snap only when reasonably near a slide edge; leave the footer & long content free.
-      if (best === null || bestD < 3 || bestD > vh * 0.6) return;
-      glideTo(best, 380);
-    }
-    window.addEventListener('scroll', function(){
-      if (__mdvGliding) return;
-      clearTimeout(timer);
-      timer = setTimeout(settle, 120);   // fire shortly after scrolling stops
-    }, { passive: true });
-  })();
+  /* Slide navigation + firm snapping are handled by CSS scroll-snap (mandatory)
+     plus native in-page anchor scrolling — no JS needed. Cue links that point to
+     other pages (patent, founder) navigate normally via the shared fade. */
 
   /* ─── HERO VIDEO — force autoplay where possible ─── */
   (function(){
