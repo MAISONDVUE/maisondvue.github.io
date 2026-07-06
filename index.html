@@ -1188,12 +1188,37 @@
     .wall-grid{ grid-template-columns:repeat(2, 1fr); grid-auto-rows:210px; }
   }
   @media (max-width:620px){
-    .wall{ padding:80px 0 64px; }
-    .wall-grid{ grid-template-columns:1fr; grid-auto-rows:280px; gap:12px; }
-    /* Keep the tall tile's double-row height even in the single-column
-       layout — collapsing it to one row crops these vertical selfie
-       clips down to little more than a mouth and chin. */
-    .wall-quote{ grid-column:span 1; padding:30px 26px; }
+    /* Dense thumbnail mosaic — every tile (all 5 videos, all 4 quotes, all
+       5 name-only reviews, the CTA) fits on one iPhone screen at once, no
+       scrolling through the wall. Traded legibility for completeness on
+       purpose: quote text clamps to a snippet, everything reads as an
+       overview rather than a fully readable card. Top padding must stay
+       above 72px to clear the fixed nav; everything else is squeezed. */
+    .wall{ padding:80px 0 12px; }
+    .wall-head{ margin:0 auto 10px; padding:0 14px; }
+    .wall-eyebrow{ font-size:9px; letter-spacing:0.2em; margin-bottom:5px; }
+    .wall-title{ font-size:19px; margin-bottom:5px; line-height:1.05; }
+    .wall-summary{ gap:6px; }
+    .wall-summary .stars{ font-size:10px; letter-spacing:1px; }
+    .wall-summary span:last-child{ font-size:9px; letter-spacing:0.1em; }
+
+    .wall-grid{
+      grid-template-columns:repeat(4, 1fr); grid-auto-rows:80px; gap:5px; padding:0 8px;
+    }
+    .wall-tile--tall{ grid-row:span 1; }
+    .wall-quote{ grid-column:span 2; grid-row:span 1; padding:7px 8px; gap:2px; }
+    .wall-quote-stars{ font-size:7px; letter-spacing:1px; }
+    .wall-quote-text{
+      font-size:8px; line-height:1.22;
+      display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden;
+    }
+    .wall-quote-name{ font-size:6px; letter-spacing:0.06em; }
+    .wall-name{ padding:5px; gap:2px; }
+    .wall-name .wall-quote-stars{ font-size:7px; }
+    .wall-name .wall-quote-name{ font-size:6px; }
+    .wall-cta{ grid-column:span 2; grid-row:span 1; padding:6px; gap:4px; }
+    .wall-cta-label{ font-size:8.5px; line-height:1.15; }
+    .wall-cta-btn{ padding:4px 7px; font-size:6.5px; letter-spacing:0.08em; }
   }
 </style>
 <link rel="stylesheet" href="assets/nav.css?v=12">
