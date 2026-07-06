@@ -133,10 +133,11 @@
     transition:border-color 220ms ease;
   }
   .pdp-cross-item:hover{ border-color:rgba(10,10,10,0.30); }
-  .pdp-cross-thumb{ flex:0 0 auto; width:64px; height:76px; background:var(--paper-2); overflow:hidden; }
+  .pdp-cross-thumb{ display:block; flex:0 0 auto; width:64px; height:76px; background:var(--paper-2); overflow:hidden; }
   .pdp-cross-thumb img{ width:100%; height:100%; object-fit:cover; }
   .pdp-cross-text{ flex:1 1 auto; display:flex; flex-direction:column; gap:5px; }
-  .pdp-cross-name{ font-family:var(--font-sans); font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
+  .pdp-cross-name{ font-family:var(--font-sans); font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); width:fit-content; }
+  .pdp-cross-name:hover{ text-decoration:underline; }
   .pdp-cross-sub{ font-family:var(--font-italic); font-style:italic; font-size:14px; color:var(--mid); }
   .pdp-cross-price{ font-size:13px; letter-spacing:0.06em; color:var(--ink); margin-top:2px; }
   /* the clickable square — adds silently to the real cart, no navigation */
@@ -253,9 +254,9 @@
       <div class="pdp-cross">
         <p class="pdp-cross-label">Travel with your Elixir</p>
         <div class="pdp-cross-item">
-          <span class="pdp-cross-thumb"><img src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir travel size"></span>
+          <a class="pdp-cross-thumb" href="elixir-voyage.html" aria-label="View The Voyage"><img src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir travel size"></a>
           <span class="pdp-cross-text">
-            <span class="pdp-cross-name">The Voyage</span>
+            <a class="pdp-cross-name" href="elixir-voyage.html">The Voyage</a>
             <span class="pdp-cross-sub">Ten millilitres, anywhere.</span>
             <span class="pdp-cross-price">10 ml &middot; $68</span>
           </span>
