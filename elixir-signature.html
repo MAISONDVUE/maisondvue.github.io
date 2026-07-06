@@ -83,9 +83,9 @@
   }
   .pdp-photo::after{ width:46px; height:46px; }
   .pdp-thumb.is-active{ outline:1px solid var(--ink); outline-offset:-1px; }
-  /* Media (video) fills its box, cropped to cover; hide the placeholder mark. */
-  .pdp-thumb video, .pdp-photo-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-  .pdp-thumb:has(video)::after, .pdp-photo.has-media::after{ display:none; }
+  /* Media (video or photo) fills its box, cropped to cover; hide the placeholder mark. */
+  .pdp-thumb video, .pdp-thumb img, .pdp-photo-video, .pdp-photo-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .pdp-thumb:has(video)::after, .pdp-thumb:has(img)::after, .pdp-photo.has-media::after{ display:none; }
   .pdp-thumb{ border:0; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 
   /* Right — info */
@@ -209,11 +209,13 @@
     <!-- LEFT — PHOTO PLACEHOLDERS: swap these boxes with product photography -->
     <div class="pdp-gallery">
       <div class="pdp-thumbs">
-        <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo one"></button>
-        <button class="pdp-thumb" type="button" data-media="video" data-src="signature-salon.mp4?v=1" data-poster="signature-salon-poster.jpg?v=1" aria-label="At the salon">
-          <video src="signature-salon.mp4?v=1" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
+        <button class="pdp-thumb is-active" type="button" data-media="image" data-src="maison-dvue-elixir-studio.jpg" aria-label="The Signature bottle">
+          <img src="maison-dvue-elixir-studio.jpg" alt="The Signature — MAISON D'VUE Hair Elixir in frosted cobalt glass with matte gold cap" loading="lazy">
         </button>
-        <button class="pdp-thumb is-active" type="button" data-media="video" data-src="signature-open.mp4?v=2" data-poster="signature-open-poster.jpg?v=2" aria-label="Opening the box">
+        <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-dropper-drop.jpg" aria-label="The dropper">
+          <img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single drop of MAISON D'VUE Hair Elixir suspended from the gold dropper" loading="lazy">
+        </button>
+        <button class="pdp-thumb" type="button" data-media="video" data-src="signature-open.mp4?v=2" data-poster="signature-open-poster.jpg?v=2" aria-label="Opening the box">
           <video src="signature-open.mp4?v=2" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
         </button>
         <button class="pdp-thumb" type="button" data-media="video" data-src="signature-apply.mp4?v=2" data-poster="signature-apply-poster.jpg?v=2" aria-label="Applying the elixir">
@@ -221,10 +223,11 @@
         </button>
       </div>
       <div class="pdp-photo has-media">
+        <img class="pdp-photo-img" src="maison-dvue-elixir-studio.jpg" alt="The Signature — MAISON D'VUE Hair Elixir in frosted cobalt glass with matte gold cap">
         <video class="pdp-photo-video" src="signature-open.mp4?v=2" poster="signature-open-poster.jpg?v=2"
           muted loop autoplay playsinline webkit-playsinline="true" preload="auto"
           disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
-          onerror="this.style.display='none';"></video>
+          style="display:none;" onerror="this.style.display='none';"></video>
       </div>
     </div>
 
@@ -283,8 +286,10 @@
         thumbs.forEach(function(x){ x.classList.remove('is-active'); });
         t.classList.add('is-active');
         var v = photo.querySelector('.pdp-photo-video');
+        var img = photo.querySelector('.pdp-photo-img');
         if (t.dataset.media === 'video'){
           photo.classList.add('has-media');
+          if (img) img.style.display = 'none';
           if (v){
             v.style.display = '';
             if ((v.getAttribute('src') || '') !== t.dataset.src){
@@ -294,9 +299,17 @@
             }
             v.play().catch(function(){});
           }
+        } else if (t.dataset.media === 'image'){
+          photo.classList.add('has-media');
+          if (v){ v.pause(); v.style.display = 'none'; }
+          if (img){
+            img.style.display = '';
+            if (img.getAttribute('src') !== t.dataset.src) img.setAttribute('src', t.dataset.src);
+          }
         } else {
           photo.classList.remove('has-media');   // reveal the placeholder mark
           if (v) v.style.display = 'none';
+          if (img) img.style.display = 'none';
         }
       });
     });
