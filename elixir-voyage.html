@@ -52,6 +52,10 @@
   }
   .pdp-photo::after{ width:46px; height:46px; }
   .pdp-thumb.is-active{ outline:1px solid var(--ink); outline-offset:-1px; }
+  /* Media (video or photo) fills its box, cropped to cover; hide the placeholder mark. */
+  .pdp-thumb video, .pdp-thumb img, .pdp-photo-video, .pdp-photo-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .pdp-thumb:has(video)::after, .pdp-thumb:has(img)::after, .pdp-photo.has-media::after{ display:none; }
+  .pdp-thumb{ border:0; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 
   .pdp-info{ padding-top:6px; max-width:520px; }
   .pdp-name{ font-family:var(--font-serif); font-weight:500; font-size:clamp(38px,4.6vw,60px); letter-spacing:0.01em; line-height:1; color:var(--ink); }
@@ -118,15 +122,20 @@
 <main class="pdp">
   <div class="pdp-grid">
 
-    <!-- LEFT — PHOTO PLACEHOLDERS: swap these boxes with product photography -->
+    <!-- LEFT — PHOTO PLACEHOLDERS: swap remaining boxes with product photography -->
     <div class="pdp-gallery">
       <div class="pdp-thumbs">
-        <div class="pdp-thumb is-active" aria-hidden="true"></div>
-        <div class="pdp-thumb" aria-hidden="true"></div>
-        <div class="pdp-thumb" aria-hidden="true"></div>
-        <div class="pdp-thumb" aria-hidden="true"></div>
+        <button class="pdp-thumb is-active" type="button" data-media="image" data-src="maison-dvue-elixir-voyage.jpg" aria-label="The Voyage bottle">
+          <img src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir held in hand" loading="lazy">
+        </button>
+        <!-- TODO: swap in the leather-bag travel lifestyle photo once saved to the repo -->
+        <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo two"></button>
+        <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo three"></button>
+        <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo four"></button>
       </div>
-      <div class="pdp-photo" aria-hidden="true"></div>
+      <div class="pdp-photo has-media">
+        <img class="pdp-photo-img" src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir held in hand">
+      </div>
     </div>
 
     <!-- RIGHT — INFO -->
@@ -173,6 +182,46 @@
   <div>Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></div>
 </footer>
 
+<script>
+  /* Gallery — click a thumbnail to show it in the main frame. */
+  (function(){
+    var thumbs = document.querySelectorAll('.pdp-gallery .pdp-thumb');
+    var photo = document.querySelector('.pdp-photo');
+    if (!thumbs.length || !photo) return;
+    thumbs.forEach(function(t){
+      t.addEventListener('click', function(){
+        thumbs.forEach(function(x){ x.classList.remove('is-active'); });
+        t.classList.add('is-active');
+        var v = photo.querySelector('.pdp-photo-video');
+        var img = photo.querySelector('.pdp-photo-img');
+        if (t.dataset.media === 'video'){
+          photo.classList.add('has-media');
+          if (img) img.style.display = 'none';
+          if (v){
+            v.style.display = '';
+            if ((v.getAttribute('src') || '') !== t.dataset.src){
+              v.setAttribute('src', t.dataset.src);
+              if (t.dataset.poster) v.setAttribute('poster', t.dataset.poster);
+              v.load();
+            }
+            v.play().catch(function(){});
+          }
+        } else if (t.dataset.media === 'image'){
+          photo.classList.add('has-media');
+          if (v){ v.pause(); v.style.display = 'none'; }
+          if (img){
+            img.style.display = '';
+            if (img.getAttribute('src') !== t.dataset.src) img.setAttribute('src', t.dataset.src);
+          }
+        } else {
+          photo.classList.remove('has-media');   // reveal the placeholder mark
+          if (v) v.style.display = 'none';
+          if (img) img.style.display = 'none';
+        }
+      });
+    });
+  })();
+</script>
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>
