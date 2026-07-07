@@ -129,13 +129,19 @@
         <button class="pdp-thumb is-active" type="button" data-media="image" data-src="maison-dvue-elixir-voyage.jpg" aria-label="The Voyage bottle">
           <img src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir held in hand" loading="lazy">
         </button>
+        <button class="pdp-thumb" type="button" data-media="video" data-src="voyage-portrait.mp4?v=1" data-poster="voyage-portrait-poster.jpg?v=1" aria-label="The Voyage, worn">
+          <video src="voyage-portrait.mp4?v=1" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
+        </button>
         <!-- TODO: swap in the leather-bag travel lifestyle photo once saved to the repo -->
-        <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo two"></button>
         <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo three"></button>
         <button class="pdp-thumb" type="button" data-media="placeholder" aria-label="Photo four"></button>
       </div>
       <div class="pdp-photo has-media">
         <img class="pdp-photo-img" src="maison-dvue-elixir-voyage.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir held in hand">
+        <video class="pdp-photo-video" src="voyage-portrait.mp4?v=1" poster="voyage-portrait-poster.jpg?v=1"
+          muted loop autoplay playsinline webkit-playsinline="true" preload="auto"
+          disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+          style="display:none;" onerror="this.style.display='none';"></video>
       </div>
     </div>
 
