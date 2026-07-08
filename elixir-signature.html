@@ -198,9 +198,11 @@
 
 <!-- ═══ CINEMATIC HERO (full-bleed video, nav overlaid) ═══ -->
 <section class="pdp-banner" aria-hidden="true">
-  <video class="pdp-banner-video" src="signature-banner.mp4?v=1" poster="signature-banner-poster.jpg?v=1"
+  <video class="pdp-banner-video" src="signature-banner.mp4?v=1" poster="signature-banner-poster-alt.jpg?v=1"
     muted loop autoplay playsinline webkit-playsinline="true" preload="auto"
     disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+    onloadedmetadata="this.currentTime=39"
+    ontimeupdate="if(this.currentTime&lt;1)this.currentTime=39"
     onerror="this.style.display='none';"></video>
 </section>
 
@@ -240,7 +242,7 @@
       <h1 class="pdp-name">The Signature</h1>
       <div class="pdp-subrow">
         <span class="pdp-cat">Hair Elixir &middot; 30 ml &middot; 1 fl oz</span>
-        <span class="pdp-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>5.0 (9)</span></span>
+        <span class="pdp-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>5.0 (28)</span></span>
       </div>
 
       <p class="pdp-desc">The house signature, in full. Fourteen rare botanical essences, drawn into affinity with the hair fiber &mdash; weightless nourishment, glass-like luminosity, and fluid movement from first light to last. Composed in Beverly Hills, scented in <em>&Acirc;me de Vue&trade;</em>. 30 ml &middot; 1 fl oz.</p>
