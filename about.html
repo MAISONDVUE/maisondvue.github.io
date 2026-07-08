@@ -82,16 +82,27 @@ button{font:inherit;cursor:pointer}
 .about-tab:not(.active){color:rgba(10, 10, 10,0.45)}
 .about-tab:not(.active):hover{color:var(--navy)}
 
-/* On the House panel, the tabs float transparently over the bottom of the cinematic banner instead of sitting in a white bar above it. */
+/* On the House panel, the banner runs flush under the nav (no body gap) so the
+   photo shows through the transparent nav, and the tabs float transparently
+   over the bottom of the banner instead of sitting in a white bar above it. */
+body:has(#panel-house.active){padding-top:0}
 body:has(#panel-house.active) .about-tabs{
-  position:absolute; top:calc(72px + 80vh - 132px); background:transparent; border-bottom:0; padding:28px 24px;
+  position:absolute; left:0; right:0; top:calc(80vh - 132px); background:transparent; border-bottom:0; padding:28px 24px;
 }
 body:has(#panel-house.active) .about-tab{color:var(--cream)}
 body:has(#panel-house.active) .about-tab::after{background:var(--cream)}
 body:has(#panel-house.active) .about-tab:not(.active){color:rgba(255,255,255,0.62)}
 body:has(#panel-house.active) .about-tab:not(.active):hover{color:var(--cream)}
+/* The nav ships as mdv-nav--light (a solid bar, !important text colors) for pages
+   with no dark hero behind it. The House panel has one, so drop the solid
+   background and flip the text to cream until the user scrolls past it. */
+body:has(#panel-house.active) .mdv-nav.mdv-nav--light:not(.scrolled){background:transparent !important;border-bottom-color:transparent !important}
+body:has(#panel-house.active) .mdv-nav.mdv-nav--light:not(.scrolled) .nav-logo,
+body:has(#panel-house.active) .mdv-nav.mdv-nav--light:not(.scrolled) .nav-bag{color:var(--cream) !important}
+body:has(#panel-house.active) .mdv-nav.mdv-nav--light:not(.scrolled) .nav-group a{color:rgba(255,255,255,0.82) !important}
+body:has(#panel-house.active) .mdv-nav.mdv-nav--light:not(.scrolled) .nav-group a:hover{color:var(--cream) !important}
 @media (max-width:860px){
-  body:has(#panel-house.active) .about-tabs{top:calc(72px + 62vh - 100px)}
+  body:has(#panel-house.active) .about-tabs{top:calc(62vh - 100px)}
 }
 
 /* PANELS */
