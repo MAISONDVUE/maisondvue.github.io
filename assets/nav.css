@@ -35,7 +35,7 @@
 /* WORLD carries a small filled square — the house's cultural-universe mark. */
 .mdv-nav .nav-group a[href="gallery.html"] { display: inline-flex; align-items: center; }
 .mdv-nav .nav-group a[href="gallery.html"]::before {
-  content: ""; flex: 0 0 auto; width: 7px; height: 7px;
+  content: ""; flex: 0 0 auto; width: 10px; height: 10px;
   background: currentColor; margin-right: 9px;
 }
 .mdv-nav .nav-bag {
