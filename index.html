@@ -593,18 +593,6 @@
     max-width:42ch;
   }
 
-  .res-body{
-    font-family:var(--font-sans);
-    font-style:normal;
-    font-weight:400;
-    font-size:15px;
-    line-height:1.75;
-    letter-spacing:0.005em;
-    color:var(--mid);
-    max-width:46ch;
-    margin:0;
-  }
-
   .res-promo{
     margin-top:28px;
     font-family:var(--font-sans);
@@ -1012,12 +1000,6 @@
       line-height:1.0;
     }
 
-    .res-body{
-      font-size:14px;
-      line-height:1.7;
-      margin:0;
-    }
-
     .res-scent{
       font-size:10px;
       letter-spacing:0.28em;
@@ -1382,10 +1364,6 @@
 
         <p class="res-scent">Fourteen rare essences &middot; Scented in &Acirc;me de Vue&trade;</p>
 
-        <p class="res-body">
-          Composed in Beverly Hills. Reserved by request. The August allocation opens to the list first.
-        </p>
-
         <p class="res-promo"><span class="res-promo-caps">Join the waitlist</span> for a gift with purchase.</p>
 
       </div>
@@ -1403,7 +1381,7 @@
           <div class="hp" aria-hidden="true">
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
-          <button type="submit" id="submitBtn">Reserve your elixir</button>
+          <button type="submit" id="submitBtn">Join the waitlist</button>
         </form>
 
         <!-- Consent line — beneath Reserve button -->
@@ -1665,7 +1643,7 @@
 
     btn.disabled = true;
     var origLabel = btn.textContent;
-    btn.textContent = 'Reserving...';
+    btn.textContent = 'Joining...';
 
     try {
       var fd = new FormData();
