@@ -49,8 +49,10 @@ falls back to Gmail, subject-tagged so you know the Zoho token needs renewing.
    change, so nothing in the HTML needs touching.
 3. Run **`selfTest`** (Run ▸ `selfTest`). It posts a real waitlist signup to
    your own address, then deletes the test row. The execution log reports
-   whether the row was written, the welcome letter sent, and the notice
-   delivered — check your inbox for both emails.
+   whether the row was written, the address added to Mailchimp, the welcome
+   letter sent, and the notice delivered — check your inbox for both emails.
+   (`selfTest` leaves no row behind, but it does add your address to the
+   audience; remove it there if you would rather not be on the list.)
 
 ---
 
@@ -60,7 +62,7 @@ Open the Web App URL in a browser. A healthy deployment answers:
 
 ```json
 {"ok":true,"message":"Maison d'Vue waitlist endpoint is live.",
- "waitlist":47,"letters":3,"reviews":1,"welcomeLetter":"on"}
+ "waitlist":47,"letters":3,"reviews":1,"welcomeLetter":"on","mailchimp":"on"}
 ```
 
 The counts are live row counts. Watching `waitlist` rise is the simplest proof
@@ -85,28 +87,52 @@ by Gmail rather than Zoho, from your own address instead of the house one.
 
 ---
 
-## 5 · The safety net
+## 5 · Mailchimp
 
-`index.html` does not depend on the script alone. If the endpoint errors or
-cannot be reached, the signup falls back to posting the address into the
-MAISON D’VUE Mailchimp audience (`us20`) through a hidden iframe — the same
-no-server method the Founder’s Circle form uses, which no CORS policy, redirect,
-or expired script URL can block.
+Every signup is mirrored into the **us20 “MAISON D’VUE”** audience (`3a9da7ab07`)
+as well as the sheet — waitlist entries tagged `waitlist`, product-popup entries
+tagged `letters`.
 
-Order of events:
+This is new. The homepage waitlist **never** fed the audience before, which is
+what made the disabled welcome letter so costly: it was switched off on the
+belief Mailchimp had the addresses and would write to them, and Mailchimp had
+never received them.
 
-1. Apps Script — sheet row, welcome letter to the guest, notice to the House.
-2. Mailchimp — address captured in the audience.
-3. Neither reachable *and* the browser offline — the page says so plainly rather
-   than confirming a place on a list the address never reached.
+**Set the API key first.** Project Settings ▸ Script Properties ▸
+`MAILCHIMP_API_KEY`, set to a key of the form `<key>-us20`. The datacenter is
+read from the suffix. The key never goes in this repo. Until it is set,
+addresses still reach the sheet and the health check reports
+`"mailchimp":"no api key"`.
 
-The fallback runs only after the primary has failed, so nobody is written to
-twice in the ordinary case.
+**Then backfill.** Run **`backfillMailchimp`** once from the editor to push the
+addresses already in the sheet up to the audience. It is safe to re-run, and it
+logs how many were sent, skipped, and failed. Hand-entered rows that hold a note
+where the email belongs are skipped.
+
+Members are added as **subscribed**, not *pending*, because the script's own
+welcome letter is the confirmation. Keep any Mailchimp welcome Journey switched
+off unless you also set `SEND_WELCOME_LETTER` to `false` — otherwise a new guest
+receives two letters.
+
+A Mailchimp outage costs the mirror, never the signup: the sheet row is written
+first, and the response reports each step separately.
+
+```json
+{"ok":true,"saved":true,"listed":true,"welcomed":true,"notified":true}
+```
+
+### The safety net in the page
+
+`index.html` does not depend on the script at all. If the endpoint errors or
+cannot be reached, the signup falls back to posting the address into the same
+Mailchimp audience through a hidden iframe — the no-server method the Founder's
+Circle form uses, which no CORS policy, redirect, or expired script URL can
+block. It runs only after the script has failed, so nobody is double-handled in
+the ordinary case. If the browser is offline too, the page says so plainly
+rather than confirming a place on a list the address never reached.
 
 **If addresses show up in Mailchimp but not in the sheet, the script is down.**
 That is the tell — start at §3.
-
----
 
 ## 6 · The sheet
 
@@ -134,5 +160,7 @@ Top of `waitlist.gs`:
 | --- | --- | --- |
 | `SEND_WELCOME_LETTER` | `true` | The guest’s welcome letter. Set `false` only once a Mailchimp Journey is confirmed sending it. |
 | `ALLOCATION_MONTH` | `'June'` | **Update when the allocation moves on** — the letter promises the guest these bottles by name. |
-| `NOTIFY_EMAIL` | `hello@maisondvue.com` | Where signup notices go. |
+| `NOTIFY_EMAIL` | `hello@maisondvue.com` | Where signup notices go. Comma-separate for several. |
+| `MC_AUDIENCE_ID` | `3a9da7ab07` | The us20 audience every address is mirrored into. |
+| `MC_TAG_WAITLIST` / `MC_TAG_LETTERS` | `waitlist` / `letters` | Tags applied in Mailchimp, so the two intakes stay separable. |
 | `FROM_EMAIL` / `FROM_NAME` | `hello@maisondvue.com` / `MAISON D'VUE` | Sender identity on Zoho mail. |

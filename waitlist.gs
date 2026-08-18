@@ -59,6 +59,23 @@ const SEND_WELCOME_LETTER = true;
 // moves on — the letter tells the guest which bottles they are waiting for.
 const ALLOCATION_MONTH = 'June';
 
+// -- Mailchimp -------------------------------------------------------------
+// Every signup is mirrored into the audience so the list lives somewhere other
+// than a spreadsheet. The API key lives in Script Properties (Project Settings
+// ▸ Script Properties) under MAILCHIMP_API_KEY so it never touches the repo;
+// the datacenter is read from the key's suffix.
+//
+// This script already calls UrlFetchApp for Zoho, so the external-request scope
+// is granted and no re-authorization is needed.
+//
+// Members are added with status_if_new "subscribed", NOT "pending": the welcome
+// letter above is the confirmation, so Mailchimp must not also send a
+// double-opt-in request. Keep any Mailchimp welcome Journey switched off unless
+// you also set SEND_WELCOME_LETTER to false, or guests receive two letters.
+const MC_AUDIENCE_ID = '3a9da7ab07';          // us20 "MAISON D'VUE" audience
+const MC_TAG_WAITLIST = 'waitlist';
+const MC_TAG_LETTERS = 'letters';
+
 function doPost(e) {
   try {
     var params = (e && e.parameter) || {};
@@ -96,10 +113,11 @@ function doPost(e) {
 
     // The row above is the commitment. Everything below is best-effort: a mail
     // outage must never be reported to the guest as a failed signup.
+    var listed = trySend(function () { mcSubscribe(email, name, MC_TAG_WAITLIST); });
     var welcomed = SEND_WELCOME_LETTER ? trySend(function () { sendWelcomeLetter(email, name); }) : false;
     var notified = trySend(function () { sendInternalNotification(name, email, source); });
 
-    return jsonResponse({ ok: true, saved: true, welcomed: welcomed, notified: notified });
+    return jsonResponse({ ok: true, saved: true, listed: listed, welcomed: welcomed, notified: notified });
   } catch (err) {
     return jsonResponse({ ok: false, error: err && err.toString() });
   }
@@ -183,9 +201,10 @@ function handleLetters(params) {
       'product-popup'
     ]);
 
+    var listed = trySend(function () { mcSubscribe(email, name, MC_TAG_LETTERS); });
     var notified = trySend(function () { sendLettersNotification(name, email); });
 
-    return jsonResponse({ ok: true, saved: true, notified: notified });
+    return jsonResponse({ ok: true, saved: true, listed: listed, notified: notified });
   } catch (err) {
     return jsonResponse({ ok: false, error: err && err.toString() });
   }
@@ -257,6 +276,118 @@ function getSheetByName(name) {
     sheet = ss.insertSheet(name);
   }
   return sheet;
+}
+
+// ============================================================
+// MAILCHIMP — mirror every address into the audience
+// ============================================================
+function mcKey() {
+  return PropertiesService.getScriptProperties().getProperty('MAILCHIMP_API_KEY') || '';
+}
+
+// Configured only once a real "<key>-<dc>" value is present in Script Properties.
+function mcConfigured() { return mcKey().indexOf('-') !== -1; }
+
+// API base for this key's datacenter (the part after the dash, e.g. "us20").
+function mcBase() {
+  var dc = mcKey().split('-')[1] || 'us20';
+  return 'https://' + dc + '.api.mailchimp.com/3.0';
+}
+
+function mcAuth() {
+  return 'Basic ' + Utilities.base64Encode('key:' + mcKey());
+}
+
+// Mailchimp's subscriber id is the MD5 of the lowercased email address.
+function mcHash(email) {
+  var bytes = Utilities.computeDigest(
+    Utilities.DigestAlgorithm.MD5, String(email).trim().toLowerCase(), Utilities.Charset.UTF_8);
+  return bytes.map(function (b) { return ('0' + (b & 0xff).toString(16)).slice(-2); }).join('');
+}
+
+/**
+ * Add or update one member, then tag them.
+ *
+ * Throws on failure so the caller's trySend records it -- the sheet row has
+ * already been written by then, so a Mailchimp outage costs the mirror, never
+ * the signup. An existing member keeps whatever status they already have;
+ * status_if_new only governs first contact.
+ */
+function mcSubscribe(email, firstName, tag) {
+  if (!mcConfigured()) {
+    throw new Error('MAILCHIMP_API_KEY is not set in Script Properties — address saved to the sheet only.');
+  }
+
+  var members = mcBase() + '/lists/' + MC_AUDIENCE_ID + '/members/' + mcHash(email);
+
+  var res = UrlFetchApp.fetch(members, {
+    method: 'put',
+    contentType: 'application/json',
+    headers: { Authorization: mcAuth() },
+    muteHttpExceptions: true,
+    payload: JSON.stringify({
+      email_address: email,
+      status_if_new: 'subscribed',
+      merge_fields: firstName ? { FNAME: firstName } : {}
+    })
+  });
+
+  var code = res.getResponseCode();
+  if (code < 200 || code >= 300) {
+    throw new Error('Mailchimp subscribe failed (' + code + '): ' + res.getContentText());
+  }
+
+  // Tagging is separate, and a tag failure must not undo a good subscribe.
+  if (tag) {
+    try {
+      UrlFetchApp.fetch(members + '/tags', {
+        method: 'post',
+        contentType: 'application/json',
+        headers: { Authorization: mcAuth() },
+        muteHttpExceptions: true,
+        payload: JSON.stringify({ tags: [{ name: tag, status: 'active' }] })
+      });
+    } catch (err) { console.error(err); }
+  }
+
+  return true;
+}
+
+/**
+ * One-time, and safe to re-run: push every address already in the sheet up to
+ * Mailchimp. The homepage waitlist never fed the audience, so the existing
+ * entries are not there. Run once from the editor after setting the API key.
+ */
+function backfillMailchimp() {
+  if (!mcConfigured()) throw new Error('Set MAILCHIMP_API_KEY in Script Properties first (Project Settings).');
+
+  var jobs = [
+    { tab: WAITLIST_TAB, nameCol: 0, emailCol: 1, tag: MC_TAG_WAITLIST },
+    { tab: LETTERS_TAB,  nameCol: 1, emailCol: 2, tag: MC_TAG_LETTERS }
+  ];
+  var added = 0, skipped = 0, failed = 0;
+
+  jobs.forEach(function (job) {
+    var sheet = getSheetByName(job.tab);
+    var last = sheet.getLastRow();
+    if (last < 2) return;
+
+    sheet.getRange(2, 1, last - 1, 5).getValues().forEach(function (row) {
+      var email = String(row[job.emailCol] || '').trim().toLowerCase();
+      // Hand-entered rows are ragged — some hold a note where the email belongs.
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { skipped++; return; }
+      try {
+        mcSubscribe(email, String(row[job.nameCol] || '').trim(), job.tag);
+        added++;
+      } catch (err) {
+        failed++;
+        console.error(email + ' — ' + err);
+      }
+    });
+  });
+
+  Logger.log('Mailchimp backfill: ' + added + ' sent, ' + skipped + ' skipped (no valid email), ' + failed + ' failed.');
+  return { added: added, skipped: skipped, failed: failed };
 }
 
 // ============================================================
@@ -495,7 +626,8 @@ function doGet(e) {
       waitlist: Math.max(0, getSheetByName(WAITLIST_TAB).getLastRow() - 1),
       letters: Math.max(0, getSheetByName(LETTERS_TAB).getLastRow() - 1),
       reviews: Math.max(0, getSheetByName(REVIEWS_TAB).getLastRow() - 1),
-      welcomeLetter: SEND_WELCOME_LETTER ? 'on' : 'off'
+      welcomeLetter: SEND_WELCOME_LETTER ? 'on' : 'off',
+      mailchimp: mcConfigured() ? 'on' : 'no api key'
     });
   } catch (err) {
     return jsonResponse({ ok: false, error: err && err.toString() });
@@ -529,7 +661,8 @@ function selfTest() {
   }
 
   Logger.log(res.ok
-    ? 'Row written. Welcome letter: ' + (res.welcomed ? 'sent' : 'FAILED') +
+    ? 'Row written. Mailchimp: ' + (res.listed ? 'added' : 'FAILED') +
+      '. Welcome letter: ' + (res.welcomed ? 'sent' : 'FAILED') +
       '. Notice to ' + NOTIFY_EMAIL + ': ' + (res.notified ? 'sent' : 'FAILED') +
       '. Test row removed.'
     : 'FAIL — ' + res.error);
