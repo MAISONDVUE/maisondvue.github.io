@@ -1529,7 +1529,8 @@
 </footer>
 
 <script>
-  const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
+  // Waitlist goes straight to Mailchimp via the maison Worker (no Google in the path).
+  const WAITLIST_ENDPOINT = "https://maisondvue-chat.masiela23.workers.dev/";
   const PRODUCT_URL = "/product.html";
   const INVITATION_CODE = "WELCOME26";
   const INVITATION_REDIRECT = PRODUCT_URL;
@@ -1636,24 +1637,19 @@
       return;
     }
 
-    if (WAITLIST_ENDPOINT.indexOf('REPLACE_') === 0){
-      setMsg('The reservation list is not yet wired. Paste your Apps Script URL into WAITLIST_ENDPOINT.', 'error');
-      return;
-    }
-
     btn.disabled = true;
     var origLabel = btn.textContent;
     btn.textContent = 'Joining...';
 
     try {
-      var fd = new FormData();
-      fd.append('email', email);
-      fd.append('firstName', firstName);
-      fd.append('source', 'homepage-reservation');
-      fd.append('userAgent', navigator.userAgent || '');
-      fd.append('referrer', document.referrer || '');
-
-      var res = await fetch(WAITLIST_ENDPOINT, { method:'POST', body:fd });
+      var res = await fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'subscribe',
+          profile: { email: email, firstName: firstName, source: 'homepage-reservation' }
+        })
+      });
       var ok = res.ok;
       try {
         var data = await res.json();

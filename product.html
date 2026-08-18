@@ -3628,7 +3628,10 @@
 </div>
 
 <script>
+  // Reviews still use Apps Script (a rating + body needs a sheet, not a mailing list).
   const REVIEW_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
+  // Email capture goes straight to Mailchimp via the maison Worker.
+  const SUBSCRIBE_ENDPOINT = "https://maisondvue-chat.masiela23.workers.dev/";
 
   /* ─── HERO VIDEO — force autoplay where possible ─── */
   (function(){
@@ -4003,12 +4006,14 @@
     lettersSubmit.textContent = 'Subscribing...';
 
     try {
-      const fd = new FormData();
-      fd.append('source', 'letters');
-      fd.append('firstName', name);
-      fd.append('email', email);
-
-      const res = await fetch(REVIEW_ENDPOINT, { method: 'POST', body: fd });
+      const res = await fetch(SUBSCRIBE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'subscribe',
+          profile: { email: email, firstName: name, source: 'letters' }
+        })
+      });
       let ok = res.ok;
       try {
         const data = await res.json();
