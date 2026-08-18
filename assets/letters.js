@@ -9,9 +9,10 @@
 
   // ── Configuration ───────────────────────────────────────────────────────────
   var SUBSCRIBE_ENDPOINT = "https://maisondvue-chat.masiela23.workers.dev/";
-  var DELAY_MS      = 4000;               // appears four seconds after landing
-  var COOKIE        = "mdv_letters_seen"; // shared with the product page popup
-  var COOKIE_DAYS   = 365;
+  var DELAY_MS       = 4000;               // appears four seconds after landing
+  var COOKIE         = "mdv_letters_seen"; // shared across every page
+  var DISMISS_DAYS   = 7;                  // merely seen it -> ask again in a week
+  var SUBSCRIBED_DAYS = 365;               // actually joined -> never nag again
   var SOURCE        = "letters";
 
   if (window.__mdvLettersLoaded) return;  // never mount twice on one page
@@ -274,7 +275,7 @@
     if (getCookie(COOKIE)) return;
     overlay.classList.add("visible");
     overlay.setAttribute("aria-hidden", "false");
-    setCookie(COOKIE, "shown", COOKIE_DAYS);
+    setCookie(COOKIE, "shown", DISMISS_DAYS);
   }
   function close() {
     overlay.classList.remove("visible");
@@ -342,6 +343,7 @@
       } catch (_) {}
 
       if (!ok) throw new Error("subscribe failed");
+      setCookie(COOKIE, "subscribed", SUBSCRIBED_DAYS);  // joined — don't ask again
       setMsg("Thank you. Your name is on the list.");
       modal.classList.add("submitted");
       form.reset();
