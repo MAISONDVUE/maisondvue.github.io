@@ -1,34 +1,38 @@
 /**
- * MAISON D'VUE - Waitlist & Letters backend (Google Apps Script)
+ * MAISON D'VUE - Waitlist, Letters & Reviews backend (Google Apps Script)
  * ---------------------------------------------------------------------------
- * The Web App behind the homepage reservation form. A Google Sheet is the data
- * store and the admin view - no server, no database, the same pattern the
- * Founding Creator Program uses.
+ * This is the live "MDV waitlist" Web App, recovered from Google Drive and put
+ * under version control so it can be read, reviewed, and repaired like the rest
+ * of the house. It was previously unversioned: when it misbehaved there was
+ * nothing to inspect.
  *
- *   POST  source=homepage-reservation   -> record a waitlist signup
- *   POST  source=letters                -> record a Letters subscription
- *   POST  source=product-review         -> record a product review
- *   GET   ?action=health                -> {ok, waitlist:<count>, reviews:<count>}
+ *   Script:      https://script.google.com/d/1zF2QxAy0X5WDPFkjU6WV82rDk3N8ZibzJLMf9lKqjvIebL1gw2O9eZfS/edit
+ *   Sheet:       MAISON D'VUE - Access Requests
+ *   Deployment:  Execute as: Me   |   Who has access: Anyone  (already correct)
  *
- * Every accepted signup does three things, in this order:
- *   1. Appends a row to the Waitlist tab           (the address is collected)
- *   2. Emails NOTIFY_EMAIL with who just joined    (the House is told)
- *   3. Emails the subscriber a confirmation        (the person is told)
- * and returns JSON so the page can confirm delivery rather than guess.
+ *   POST  source=homepage-reservation (or anything unrecognised) -> waitlist tab
+ *   POST  source=letters                                         -> letters tab
+ *   POST  source=product-review                                  -> reviews tab
+ *   GET   -> a health payload with live row counts
  *
- * -- DEPLOY (about a minute, nothing to edit) --------------------------------
- *  1. Open a blank Google Sheet (sheets.new).
- *  2. Extensions > Apps Script. Delete the placeholder, paste this whole file.
- *     (Leave SHEET_ID empty - a bound script uses its own sheet automatically.)
- *  3. Run `setup` once (Run > setup) and authorize.
- *  4. Deploy > New deployment > Web app.
- *       Execute as: Me   |   Who has access: Anyone
- *     "Anyone" is required. "Anyone with Google account" makes every browser
- *     POST bounce off a sign-in page and the form silently fails - which is
- *     exactly how a waitlist stops collecting addresses.
- *  5. Paste the Web App URL into WAITLIST_ENDPOINT in index.html and
- *     REVIEW_ENDPOINT in product.html.
- *  6. Run `selfTest` to prove the whole chain end to end.
+ * -- WHAT WAS REPAIRED (three faults, all of them silent) --------------------
+ *
+ *  1. The subscriber never heard back. The call to sendWelcomeLetter was
+ *     commented out, with a note that Mailchimp had taken the email over. It
+ *     evidently does not, so nobody was written to at all. Now governed by
+ *     SEND_WELCOME_LETTER below, and on by default.
+ *
+ *  2. A mail outage was reported to the visitor as a failed signup. Mail is
+ *     sent through the Zoho API, which throws when its OAuth token is stale.
+ *     That exception escaped into doPost's catch, so a signup whose row had
+ *     ALREADY been written to the sheet answered {ok:false} and the page told
+ *     the guest their signup had faltered. Mail is now best-effort: the row is
+ *     the commitment, and the JSON reports separately what was saved and what
+ *     was sent.
+ *
+ *  3. When Zoho was down the House was told nothing. The internal notice now
+ *     falls back to Gmail (MailApp), so a signup still reaches you even when
+ *     the Zoho token needs renewing.
  *
  * -- AFTER EVERY EDIT --------------------------------------------------------
  * Deploy > Manage deployments > (pencil) > Version: New version > Deploy.
@@ -36,307 +40,514 @@
  * ---------------------------------------------------------------------------
  */
 
-// -- Configuration ------------------------------------------------------------
-// Leave SHEET_ID empty when this script is bound to its sheet (the normal case:
-// created via Extensions > Apps Script). Only set it if you run the script
-// standalone, pointing at a sheet by ID from its URL (.../d/<ID>/edit).
-var SHEET_ID = "";
+const SHEET_ID = '16eemn0c4P3mSQwCWNhhr_yO87sCqfTo-hL5qc9vQP8A';
+const FROM_EMAIL = 'hello@maisondvue.com';
+const FROM_NAME = "MAISON D'VUE";
+const NOTIFY_EMAIL = 'hello@maisondvue.com';
 
-// Where the "someone just joined" notice goes ("" to disable).
-// Comma-separate for several recipients.
-var NOTIFY_EMAIL = "hello@maisondvue.com";
+// Tab names — must match the tabs in your sheet exactly (case-sensitive)
+const WAITLIST_TAB = 'waitlist';
+const REVIEWS_TAB = 'reviews';
+const LETTERS_TAB = 'letters';
 
-// Display name and reply address on the automated emails.
-var SENDER_NAME = "MAISON D'VUE";
-var REPLY_TO = "hello@maisondvue.com";
+// Send the guest their own welcome letter. This was commented out on the
+// assumption Mailchimp had taken it over; it had not, so signups went
+// unanswered. Set false only once a Mailchimp Journey is confirmed sending.
+const SEND_WELCOME_LETTER = true;
 
-// Send the subscriber their own confirmation. Set false only if a Mailchimp
-// Journey has taken over that email, so nobody is written to twice.
-var SEND_SUBSCRIBER_CONFIRMATION = true;
+// The allocation the welcome letter promises. UPDATE THIS when the allocation
+// moves on — the letter tells the guest which bottles they are waiting for.
+const ALLOCATION_MONTH = 'June';
 
-// Notify the House about new reviews as well as new signups.
-var NOTIFY_ON_REVIEW = true;
-
-// -- Tabs ---------------------------------------------------------------------
-var WAITLIST_TAB = "Waitlist";
-var REVIEWS_TAB = "Reviews";
-
-var WAITLIST_HEADERS = [
-  "Date", "First Name", "Email", "Source", "Times Joined", "Last Seen",
-  "Confirmation Sent", "Referrer", "User Agent"
-];
-
-var REVIEW_HEADERS = [
-  "Date", "Name", "Rating", "Review", "Status", "Source", "Referrer", "User Agent"
-];
-
-// -- Intake --------------------------------------------------------------------
 function doPost(e) {
   try {
-    var p = (e && e.parameter) || {};
+    var params = (e && e.parameter) || {};
+    if ((!params.email && !params.reviewBody) && e && e.postData && e.postData.contents) {
+      try { params = JSON.parse(e.postData.contents); } catch (_) {}
+    }
 
-    // Honeypot - silently accept and discard.
-    if (p.website) return json({ ok: true });
+    var source = String(params.source || 'Website').trim();
 
-    var source = clean(p.source) || "homepage-reservation";
+    // Route review submissions to handleReview; letters to handleLetters; everything else is waitlist
+    if (source.toLowerCase() === 'product-review') {
+      return handleReview(params);
+    }
+    if (source.toLowerCase() === 'letters') {
+      return handleLetters(params);
+    }
 
-    if (source === "product-review") return recordReview(p, source);
-    return recordSignup(p, source);
+    // ===== WAITLIST FLOW =====
+    var name   = String(params.firstName || params.name || '').trim();
+    var email  = String(params.email || '').trim().toLowerCase();
+
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      return jsonResponse({ ok: false, error: 'Invalid email' });
+    }
+
+    var sheet = getSheetByName(WAITLIST_TAB);
+    sheet.appendRow([
+      name,
+      email,
+      new Date().toLocaleDateString(),
+      'Pending',
+      source
+    ]);
+
+    // The row above is the commitment. Everything below is best-effort: a mail
+    // outage must never be reported to the guest as a failed signup.
+    var welcomed = SEND_WELCOME_LETTER ? trySend(function () { sendWelcomeLetter(email, name); }) : false;
+    var notified = trySend(function () { sendInternalNotification(name, email, source); });
+
+    return jsonResponse({ ok: true, saved: true, welcomed: welcomed, notified: notified });
   } catch (err) {
-    // Surface the reason rather than a bare failure: the page logs it and the
-    // founder can read it by POSTing from the browser console.
-    return json({ ok: false, error: String(err) });
+    return jsonResponse({ ok: false, error: err && err.toString() });
   }
 }
 
-function recordSignup(p, source) {
-  var email = String(p.email || "").trim().toLowerCase();
-  if (!isEmail(email)) return json({ ok: false, error: "A valid email is required." });
-
-  var firstName = clean(p.firstName, 80);
-  var sheet = tab(WAITLIST_TAB, WAITLIST_HEADERS);
-  var now = new Date();
-  var existing = findEmailRow(sheet, email);
-
-  if (existing) {
-    // Already on the list: keep one row per person, note the repeat visit,
-    // and do not write to them again.
-    sheet.getRange(existing.row, 5).setValue((Number(existing.times) || 1) + 1);
-    sheet.getRange(existing.row, 6).setValue(now);
-    if (firstName && !existing.firstName) sheet.getRange(existing.row, 2).setValue(firstName);
-    return json({ ok: true, duplicate: true, email: email });
-  }
-
-  var confirmed = SEND_SUBSCRIBER_CONFIRMATION ? sendWaitlistConfirmation(email, firstName) : false;
-
-  sheet.appendRow([
-    now,
-    firstName,
-    email,
-    source,
-    1,
-    now,
-    confirmed ? "Yes" : (SEND_SUBSCRIBER_CONFIRMATION ? "Failed" : "Off"),
-    clean(p.referrer, 300),
-    clean(p.userAgent, 300)
-  ]);
-
-  notifyHouseOfSignup(email, firstName, source, p, sheet.getLastRow() - 1);
-
-  return json({ ok: true, email: email, confirmationSent: confirmed });
-}
-
-function recordReview(p, source) {
-  var body = clean(p.reviewBody, 4000);
-  if (!body) return json({ ok: false, error: "A review is required." });
-
-  var name = clean(p.reviewName, 120);
-  var rating = clean(p.reviewRating, 10);
-  var sheet = tab(REVIEWS_TAB, REVIEW_HEADERS);
-
-  sheet.appendRow([
-    new Date(), name, rating, body, "Pending", source,
-    clean(p.referrer, 300), clean(p.userAgent, 300)
-  ]);
-
-  if (NOTIFY_ON_REVIEW && NOTIFY_EMAIL) {
-    trySend(function () {
-      MailApp.sendEmail(NOTIFY_EMAIL, "New review - " + (rating || "?") + " stars from " + (name || "a guest"), [
-        "A new product review is awaiting moderation.",
-        "",
-        "Name: " + (name || "(not given)"),
-        "Rating: " + (rating || "(not given)"),
-        "",
-        body,
-        "",
-        "Approve or decline it in the Reviews tab."
-      ].join("\n"));
-    });
-  }
-
-  return json({ ok: true });
-}
-
-// -- Health --------------------------------------------------------------------
-// Open the /exec URL in a browser to confirm the list is live and see how many
-// addresses it holds. This is the quickest way to tell a working deployment
-// from a dead one.
-function doGet(e) {
-  var p = (e && e.parameter) || {};
-  if (p.action && p.action !== "health") return json({ ok: false, error: "Unknown action." });
-
+// ============================================================
+// REVIEW HANDLER — saves to reviews tab, notifies Masiela
+// ============================================================
+function handleReview(params) {
   try {
-    return json({
-      ok: true,
-      service: "MAISON D'VUE waitlist",
-      waitlist: Math.max(0, tab(WAITLIST_TAB, WAITLIST_HEADERS).getLastRow() - 1),
-      reviews: Math.max(0, tab(REVIEWS_TAB, REVIEW_HEADERS).getLastRow() - 1),
-      notify: NOTIFY_EMAIL ? "on" : "off",
-      confirmations: SEND_SUBSCRIBER_CONFIRMATION ? "on" : "off"
-    });
+    var reviewName   = String(params.reviewName || '').trim();
+    var reviewRating = parseInt(params.reviewRating, 10) || 0;
+    var reviewBody   = String(params.reviewBody || '').trim();
+    var userAgent    = String(params.userAgent || '').trim();
+    var referrer     = String(params.referrer || '').trim();
+
+    if (!reviewName) {
+      return jsonResponse({ ok: false, error: 'Name required' });
+    }
+    if (reviewRating < 1 || reviewRating > 5) {
+      return jsonResponse({ ok: false, error: 'Rating must be between 1 and 5' });
+    }
+    if (!reviewBody) {
+      return jsonResponse({ ok: false, error: 'Review text required' });
+    }
+
+    var sheet = getSheetByName(REVIEWS_TAB);
+
+    // Initialize headers if the tab is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Date', 'Name', 'Rating', 'Review', 'Status', 'User Agent', 'Referrer']);
+      sheet.getRange(1, 1, 1, 7).setFontWeight('bold');
+      sheet.setFrozenRows(1);
+    }
+
+    sheet.appendRow([
+      new Date().toLocaleDateString(),
+      reviewName,
+      reviewRating,
+      reviewBody,
+      'Pending',
+      userAgent,
+      referrer
+    ]);
+
+    var notified = trySend(function () { sendReviewNotification(reviewName, reviewRating, reviewBody); });
+
+    return jsonResponse({ ok: true, saved: true, notified: notified });
   } catch (err) {
-    return json({ ok: false, error: String(err) });
+    return jsonResponse({ ok: false, error: err && err.toString() });
   }
 }
 
-// -- Emails ---------------------------------------------------------------------
-// The subscriber's confirmation is the one email that must not fail quietly:
-// its outcome is written into the sheet's Confirmation Sent column and returned
-// to the page.
-function sendWaitlistConfirmation(email, first) {
+// ============================================================
+// LETTERS HANDLER — saves to letters tab, notifies Masiela
+// ============================================================
+function handleLetters(params) {
   try {
-    MailApp.sendEmail({
-      to: email,
-      name: SENDER_NAME,
-      replyTo: REPLY_TO,
-      subject: "You are on the list",
-      htmlBody: emailShell(
-        "You Are on the List",
-        "<p>" + greeting(first) + "</p>" +
-        "<p>Your place on the waitlist for <em>The Hair Elixir</em> is confirmed. Fourteen rare essences, scented in &Acirc;me de Vue&trade;.</p>" +
-        "<p>You will have first access when the Allocation opens, and a gift accompanies your first purchase.</p>" +
-        "<p>Nothing further is required of you. A letter will follow.</p>" +
-        "<p style='margin-top:28px'>Warm regards,<br>MAISON D&rsquo;VUE</p>"
-      )
-    });
-    return true;
+    var name  = String(params.firstName || params.name || '').trim();
+    var email = String(params.email || '').trim().toLowerCase();
+
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      return jsonResponse({ ok: false, error: 'Invalid email' });
+    }
+
+    var sheet = getSheetByName(LETTERS_TAB);
+
+    // Initialize headers if the tab is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Date', 'Name', 'Email', 'Status', 'Source']);
+      sheet.getRange(1, 1, 1, 5).setFontWeight('bold');
+      sheet.setFrozenRows(1);
+    }
+
+    sheet.appendRow([
+      new Date().toLocaleDateString(),
+      name,
+      email,
+      'Active',
+      'product-popup'
+    ]);
+
+    var notified = trySend(function () { sendLettersNotification(name, email); });
+
+    return jsonResponse({ ok: true, saved: true, notified: notified });
   } catch (err) {
-    return false;
+    return jsonResponse({ ok: false, error: err && err.toString() });
   }
 }
 
-function notifyHouseOfSignup(email, first, source, p, total) {
-  if (!NOTIFY_EMAIL) return;
-  trySend(function () {
-    MailApp.sendEmail({
-      to: NOTIFY_EMAIL,
-      name: SENDER_NAME,
-      replyTo: email,          // reply goes straight to the person who joined
-      subject: "New waitlist signup - " + (first ? first + " (" + email + ")" : email),
-      body: [
-        (first || "Someone") + " just joined the waitlist.",
-        "",
-        "Name: " + (first || "(not given)"),
-        "Email: " + email,
-        "Source: " + source,
-        "Referrer: " + (clean(p.referrer, 300) || "(direct)"),
-        "Joined: " + new Date(),
-        "",
-        "That makes " + total + " on the list.",
-        "Reply to this message to write to them directly."
-      ].join("\n")
-    });
+// ============================================================
+// Internal notification when a new review comes in
+// ============================================================
+function sendReviewNotification(name, rating, body) {
+  var subject = 'New review — ' + name + ' (' + rating + ' star' + (rating === 1 ? '' : 's') + ')';
+
+  var stars = '';
+  for (var i = 0; i < rating; i++) { stars += '&#9733;'; }
+  for (var j = rating; j < 5; j++) { stars += '<span style="color:#D9C9A8;">&#9733;</span>'; }
+
+  var htmlBody =
+    '<div style="font-family: Georgia, serif; font-size: 14px; line-height: 1.7; color: #1A130D; max-width: 560px;">' +
+      '<p style="font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #A88A52; margin: 0 0 16px 0;">A new review has been submitted</p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Name:</strong> ' + escapeHtml(name) + '</p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Rating:</strong> <span style="color:#C9A96E;font-size:16px;letter-spacing:0.08em;">' + stars + '</span></p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Time:</strong> ' + new Date().toLocaleString() + '</p>' +
+      '<p style="margin: 24px 0 8px 0;"><strong>Review:</strong></p>' +
+      '<blockquote style="font-style: italic; color: #6E6055; border-left: 2px solid #C9A96E; padding: 6px 0 6px 16px; margin: 0 0 24px 8px;">' +
+        escapeHtml(body) +
+      '</blockquote>' +
+      '<p style="font-size: 12px; color: #8A7C6E; border-top: 1px solid #E4D7B8; padding-top: 16px; margin-top: 28px;">' +
+        'Open the <em>reviews</em> tab in MAISON D\'VUE — Access Requests. Change Status to <strong>Approved</strong> or <strong>Rejected</strong>. Approved reviews can then be added to product.html.' +
+      '</p>' +
+    '</div>';
+
+  sendNotice(NOTIFY_EMAIL, subject, htmlBody);
+}
+
+// ============================================================
+// Internal notification when a new letters subscription comes in
+// ============================================================
+function sendLettersNotification(name, email) {
+  var subject = 'New letters subscriber — ' + (name || email);
+
+  var htmlBody =
+    '<div style="font-family: Georgia, serif; font-size: 14px; line-height: 1.7; color: #1A130D; max-width: 560px;">' +
+      '<p style="font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #A88A52; margin: 0 0 16px 0;">A new letters subscriber</p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Name:</strong> ' + escapeHtml(name || '(not provided)') + '</p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Email:</strong> ' + escapeHtml(email) + '</p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Source:</strong> Product page popup</p>' +
+      '<p style="margin: 0 0 6px 0;"><strong>Time:</strong> ' + new Date().toLocaleString() + '</p>' +
+      '<p style="font-size: 12px; color: #8A7C6E; border-top: 1px solid #E4D7B8; padding-top: 16px; margin-top: 28px;">' +
+        'Open the <em>letters</em> tab in MAISON D\'VUE — Access Requests to view all subscribers. Status defaults to <strong>Active</strong>.' +
+      '</p>' +
+    '</div>';
+
+  sendNotice(NOTIFY_EMAIL, subject, htmlBody);
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getSheetByName(name) {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sheet = ss.getSheetByName(name);
+  if (!sheet) {
+    sheet = ss.insertSheet(name);
+  }
+  return sheet;
+}
+
+// ============================================================
+// ZOHO MAIL API — fetches a fresh access token using refresh token
+// ============================================================
+function getZohoAccessToken() {
+  var props = PropertiesService.getScriptProperties();
+  var clientId     = props.getProperty('ZOHO_CLIENT_ID');
+  var clientSecret = props.getProperty('ZOHO_CLIENT_SECRET');
+  var refreshToken = props.getProperty('ZOHO_REFRESH_TOKEN');
+
+  var response = UrlFetchApp.fetch('https://accounts.zoho.com/oauth/v2/token', {
+    method: 'post',
+    payload: {
+      grant_type:    'refresh_token',
+      client_id:     clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken
+    },
+    muteHttpExceptions: true
   });
+
+  var data = JSON.parse(response.getContentText());
+  if (!data.access_token) {
+    throw new Error('Zoho token error: ' + response.getContentText());
+  }
+  return data.access_token;
 }
 
-function greeting(first) {
-  first = clean(first);
-  return first ? ("Dear " + first + ",") : "Dear Friend of the House,";
-}
+// ============================================================
+// Send email via Zoho Mail REST API
+// ============================================================
+function sendViaZoho(toEmail, subject, htmlBody) {
+  var props = PropertiesService.getScriptProperties();
+  var accountId   = props.getProperty('ZOHO_ACCOUNT_ID');
+  var accessToken = getZohoAccessToken();
 
-// A restrained cream/navy serif email frame, in the house register.
-function emailShell(title, inner) {
-  return "" +
-    "<div style='background:#F4EDE1;padding:40px 0;font-family:Georgia,\"Times New Roman\",serif;color:#0B1F3A'>" +
-    "<div style='max-width:560px;margin:0 auto;background:#FBF7F0;padding:48px 44px;border:1px solid rgba(11,31,58,0.12)'>" +
-    "<div style='font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#0B1F3A;text-align:center'>MAISON D&rsquo;VUE</div>" +
-    "<h1 style='font-weight:400;font-size:26px;text-align:center;margin:24px 0 28px;color:#0B1F3A'>" + title + "</h1>" +
-    "<div style='font-size:16px;line-height:1.7;color:#0B1F3A'>" + inner + "</div>" +
-    "</div>" +
-    "<div style='max-width:560px;margin:18px auto 0;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a8170'>Hand-sealed &middot; Beverly Hills</div>" +
-    "</div>";
-}
+  var payload = {
+    fromAddress: '"' + FROM_NAME + '" <' + FROM_EMAIL + '>',
+    toAddress:   toEmail,
+    subject:     subject,
+    content:     htmlBody,
+    mailFormat:  'html'
+  };
 
-// -- Setup & verification --------------------------------------------------------
-function setup() {
-  tab(WAITLIST_TAB, WAITLIST_HEADERS);
-  tab(REVIEWS_TAB, REVIEW_HEADERS);
-  var sh = tab(WAITLIST_TAB, WAITLIST_HEADERS);
-  sh.setColumnWidth(1, 150);   // Date
-  sh.setColumnWidth(3, 260);   // Email
-  sh.setColumnWidth(9, 220);   // User Agent
+  var response = UrlFetchApp.fetch(
+    'https://mail.zoho.com/api/accounts/' + accountId + '/messages',
+    {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { 'Authorization': 'Zoho-oauthtoken ' + accessToken },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    }
+  );
+
+  var responseText = response.getContentText();
+  var responseCode = response.getResponseCode();
+  if (responseCode !== 200) {
+    throw new Error('Zoho send error (' + responseCode + '): ' + responseText);
+  }
+  return JSON.parse(responseText);
 }
 
 /**
- * Proves the whole chain: writes a row, emails the House, emails the address,
- * then removes the row again. Run it after deploying, and any time the form
- * looks doubtful. Read the execution log for the verdict.
+ * An internal notice, by whatever route still works.
+ *
+ * Zoho is preferred because it sends from hello@maisondvue.com. When its token
+ * is stale the notice falls back to Gmail rather than vanishing -- being told
+ * late from the wrong address beats not being told at all. Throws only if both
+ * routes fail, so trySend can record it.
  */
-function selfTest() {
-  var email = Session.getEffectiveUser().getEmail();
-  var res = JSON.parse(recordSignup(
-    { email: email, firstName: "Self Test", referrer: "selfTest()" },
-    "self-test"
-  ).getContent());
-
-  if (res.duplicate) {
-    // That address is a genuine subscriber - leave the row alone.
-    Logger.log("SKIPPED - " + email + " is already on the list, so nothing was written. " +
-               "Run selfTest from an account that has not signed up, or remove the row first.");
-    return res;
+function sendNotice(toEmail, subject, htmlBody) {
+  try {
+    return sendViaZoho(toEmail, subject, htmlBody);
+  } catch (zohoErr) {
+    MailApp.sendEmail({
+      to: toEmail,
+      name: FROM_NAME,
+      subject: subject + ' [sent via Gmail — the Zoho token needs renewing]',
+      htmlBody: htmlBody
+    });
+    return { fallback: 'gmail', zohoError: String(zohoErr) };
   }
-
-  var sheet = tab(WAITLIST_TAB, WAITLIST_HEADERS);
-  var row = findEmailRow(sheet, String(email).toLowerCase());
-  if (row) sheet.deleteRow(row.row);
-
-  Logger.log(res.ok
-    ? "PASS - row written, confirmation " + (res.confirmationSent ? "sent" : "FAILED") +
-      ", notice sent to " + (NOTIFY_EMAIL || "(disabled)") + ". Test row removed."
-    : "FAIL - " + res.error);
-  return res;
 }
 
-// -- Helpers ---------------------------------------------------------------------
-// The waitlist spreadsheet: the bound sheet by default, or one named by
-// SHEET_ID when running standalone. Lets the same script work either way.
-function book() {
-  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
-}
-
-function tab(name, headers) {
-  var ss = book();
-  var sh = ss.getSheetByName(name);
-  if (!sh) {
-    sh = ss.insertSheet(name);
-  } else if (sh.getLastRow() > 0) {
-    return sh;
-  }
-  sh.appendRow(headers);
-  sh.getRange(1, 1, 1, headers.length).setFontWeight("bold");
-  sh.setFrozenRows(1);
-  return sh;
-}
-
-// One row per address. Returns {row, times, firstName} or null.
-function findEmailRow(sheet, email) {
-  var last = sheet.getLastRow();
-  if (last < 2) return null;
-  var rows = sheet.getRange(2, 1, last - 1, 5).getValues();
-  for (var i = 0; i < rows.length; i++) {
-    if (String(rows[i][2]).trim().toLowerCase() === email) {
-      return { row: i + 2, times: rows[i][4], firstName: String(rows[i][1] || "").trim() };
-    }
-  }
-  return null;
-}
-
-function isEmail(v) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || ""));
-}
-
-// Notifications are best-effort: a mail hiccup must never lose the address.
+/**
+ * Run fn, report whether it worked, and never let it escape.
+ *
+ * Mail is not the commitment -- the sheet row is. This keeps a mail failure
+ * from turning a recorded signup into an error on the page.
+ */
 function trySend(fn) {
-  try { fn(); } catch (err) { /* best-effort */ }
+  try { fn(); return true; } catch (err) { console.error(err); return false; }
 }
 
-function clean(v, max) {
-  var s = (typeof v === "string" ? v : String(v == null ? "" : v)).trim();
-  return s.slice(0, max || 200);
+// ============================================================
+// Welcome letter to new sign-up
+// ============================================================
+function sendWelcomeLetter(toEmail, name) {
+  var subject = "A note from MAISON D'VUE";
+
+  var htmlBody =
+    '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head>' +
+      '<meta charset="UTF-8">' +
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+      '<title>A note from Maison d&rsquo;Vue</title>' +
+      '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">' +
+      '<style>' +
+        'a, a:hover, a:active, a:visited { color: #A88A52; text-decoration: none; }' +
+        '@media only screen and (max-width: 600px) {' +
+          '.mdv-card { padding: 36px 24px !important; }' +
+          '.mdv-body { font-size: 17px !important; }' +
+          '.mdv-note { font-size: 17px !important; }' +
+          '.mdv-wordmark { font-size: 14px !important; letter-spacing: 0.32em !important; }' +
+        '}' +
+      '</style>' +
+    '</head>' +
+    '<body style="margin: 0; padding: 0; background-color: #F4EFE3; font-family: \'Cormorant Garamond\', Garamond, Georgia, serif; color: #1A130D; -webkit-font-smoothing: antialiased;">' +
+
+      '<div style="display: none; font-size: 1px; color: #F4EFE3; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">' +
+        'You are on the list.' +
+      '</div>' +
+
+      '<table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #F4EFE3;">' +
+        '<tr><td align="center" style="padding: 48px 16px;">' +
+
+          '<table cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 620px;">' +
+            '<tr><td align="center" style="padding-bottom: 24px;">' +
+              '<div class="mdv-wordmark" style="font-family: \'Cormorant Garamond\', Garamond, Georgia, serif; font-weight: 500; font-size: 16px; letter-spacing: 0.42em; text-transform: uppercase; color: #1A130D; padding-left: 0.42em;">' +
+                'Maison d&rsquo;Vue' +
+              '</div>' +
+            '</td></tr>' +
+          '</table>' +
+
+          '<table cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 620px; background-color: #FBF8F1; border: 1px solid #E4D7B8;">' +
+            '<tr><td class="mdv-card" style="padding: 56px 56px 48px 56px; font-family: \'Cormorant Garamond\', Garamond, Georgia, serif; color: #1A130D; line-height: 1.7;">' +
+
+              '<table cellspacing="0" cellpadding="0" border="0" width="100%">' +
+                '<tr><td align="center" style="padding-bottom: 32px;">' +
+                  '<table cellspacing="0" cellpadding="0" border="0"><tr>' +
+                    '<td width="32" height="1" style="background-color: #C9A96E; font-size: 1px; line-height: 1px;">&nbsp;</td>' +
+                  '</tr></table>' +
+                '</td></tr>' +
+              '</table>' +
+
+              '<p class="mdv-note" style="font-style: italic; color: #A88A52; font-size: 20px; line-height: 1.5; text-align: center; margin: 0 0 40px 0;">' +
+                'You are on the list.' +
+              '</p>' +
+
+              '<p class="mdv-body" style="font-size: 18px; line-height: 1.75; margin: 0 0 22px 0;">' +
+                '<strong style="font-weight: 500; letter-spacing: 0.04em;">MAISON D&rsquo;VUE</strong> is an American house, hand-sealed in Beverly Hills. The Hair Elixir is a ritual of fourteen rare botanical essences.' +
+              '</p>' +
+
+              '<p class="mdv-body" style="font-size: 18px; line-height: 1.75; margin: 0 0 32px 0;">' +
+                'When the ' + ALLOCATION_MONTH + ' bottles are ready, you will be the first to know. A second letter will follow, with instructions on how to claim yours.' +
+              '</p>' +
+
+              '<p class="mdv-note" style="font-style: italic; color: #A88A52; font-size: 20px; line-height: 1.5; text-align: center; margin: 0 0 44px 0;">' +
+                '(And the people who keep returning tend to have very good hair.)' +
+              '</p>' +
+
+              '<p class="mdv-body" style="font-size: 18px; line-height: 1.5; margin: 0 0 6px 0;">With care,</p>' +
+              '<p style="font-family: \'Cormorant Garamond\', Garamond, Georgia, serif; font-weight: 500; font-size: 14px; letter-spacing: 0.42em; text-transform: uppercase; color: #1A130D; margin: 0; padding-left: 0.42em;">' +
+                'The House' +
+              '</p>' +
+
+              '<table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 48px;">' +
+                '<tr><td height="1" style="background-color: #E4D7B8; font-size: 1px; line-height: 1px;">&nbsp;</td></tr>' +
+              '</table>' +
+
+              '<table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 28px;">' +
+                '<tr><td style="font-family: \'Cormorant Garamond\', Garamond, Georgia, serif;">' +
+                  '<div style="font-weight: 500; font-size: 14px; letter-spacing: 0.36em; text-transform: uppercase; color: #1A130D; padding-left: 0.36em; margin-bottom: 10px;">Maison d&rsquo;Vue</div>' +
+                  '<div style="font-style: italic; font-size: 15px; color: #6E6055; margin-bottom: 6px;">Rare by origin. Refined by design.</div>' +
+                  '<div style="font-size: 13px; color: #8A7C6E; letter-spacing: 0.04em;">Hand-sealed in Beverly Hills</div>' +
+                '</td></tr>' +
+              '</table>' +
+
+            '</td></tr>' +
+          '</table>' +
+
+          '<table cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 620px;">' +
+            '<tr><td align="center" style="padding-top: 28px; font-family: \'Cormorant Garamond\', Garamond, Georgia, serif;">' +
+              '<p style="font-style: italic; font-size: 14px; color: #8A7C6E; line-height: 1.6; margin: 0;">' +
+                'If you have any questions, write to <a href="mailto:hello@maisondvue.com" style="color: #A88A52; text-decoration: none; border-bottom: 1px solid #D9C9A8; padding-bottom: 1px;">hello@maisondvue.com</a>.' +
+              '</p>' +
+            '</td></tr>' +
+            '<tr><td align="center" style="padding-top: 16px;">' +
+              '<p style="font-family: Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: #B3A795; margin: 0; padding-left: 0.32em;">' +
+                'MDV Group, LLC &nbsp;&middot;&nbsp; Beverly Hills, California' +
+              '</p>' +
+            '</td></tr>' +
+          '</table>' +
+
+        '</td></tr>' +
+      '</table>' +
+
+    '</body>' +
+    '</html>';
+
+  sendViaZoho(toEmail, subject, htmlBody);
 }
 
-function json(obj) {
+// ============================================================
+// Internal notification to Masiela (waitlist signups)
+// ============================================================
+function sendInternalNotification(name, email, source) {
+  var subject = 'New reservation — ' + (name || email);
+
+  var htmlBody =
+    '<div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6;">' +
+      '<p>New reservation received.</p>' +
+      '<p><strong>Name:</strong> ' + (name || '(not provided)') + '<br>' +
+      '<strong>Email:</strong> ' + email + '<br>' +
+      '<strong>Source:</strong> ' + source + '<br>' +
+      '<strong>Time:</strong> ' + new Date().toLocaleString() + '</p>' +
+    '</div>';
+
+  sendNotice(NOTIFY_EMAIL, subject, htmlBody);
+}
+
+// ============================================================
+// Endpoints
+// ============================================================
+// Open the /exec URL in a browser to confirm the list is live and see how many
+// addresses it holds. Row counts are the quickest way to tell a working
+// deployment from a dead one.
+function doGet(e) {
+  try {
+    return jsonResponse({
+      ok: true,
+      message: "Maison d'Vue waitlist endpoint is live.",
+      waitlist: Math.max(0, getSheetByName(WAITLIST_TAB).getLastRow() - 1),
+      letters: Math.max(0, getSheetByName(LETTERS_TAB).getLastRow() - 1),
+      reviews: Math.max(0, getSheetByName(REVIEWS_TAB).getLastRow() - 1),
+      welcomeLetter: SEND_WELCOME_LETTER ? 'on' : 'off'
+    });
+  } catch (err) {
+    return jsonResponse({ ok: false, error: err && err.toString() });
+  }
+}
+
+function jsonResponse(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ============================================================
+// TEST FUNCTIONS — run from editor to verify
+// ============================================================
+
+/**
+ * The one to run after any change. Walks the whole waitlist chain with a real
+ * address, then removes the test row. Read the execution log for the verdict.
+ */
+function selfTest() {
+  var email = Session.getEffectiveUser().getEmail();
+  var res = JSON.parse(doPost({
+    parameter: { email: email, firstName: 'Self Test', source: 'self-test' }
+  }).getContent());
+
+  var sheet = getSheetByName(WAITLIST_TAB);
+  var last = sheet.getLastRow();
+  if (last > 1 && String(sheet.getRange(last, 5).getValue()) === 'self-test') {
+    sheet.deleteRow(last);
+  }
+
+  Logger.log(res.ok
+    ? 'Row written. Welcome letter: ' + (res.welcomed ? 'sent' : 'FAILED') +
+      '. Notice to ' + NOTIFY_EMAIL + ': ' + (res.notified ? 'sent' : 'FAILED') +
+      '. Test row removed.'
+    : 'FAIL — ' + res.error);
+  return res;
+}
+
+function testWelcomeLetter() {
+  sendWelcomeLetter('masielal@yahoo.com', 'Masiela');
+}
+
+function testGetToken() {
+  Logger.log(getZohoAccessToken());
+}
+
+function testReviewNotification() {
+  sendReviewNotification('Masiela', 5, 'This is a test review submitted from the Apps Script editor to verify the notification flow works.');
+}
+
+function testLettersNotification() {
+  sendLettersNotification('Test User', 'test@example.com');
 }
