@@ -1247,13 +1247,13 @@
 <script>
   (function () {
     var nav = document.getElementById('mdvNav');
-    var reserve = null;
+    var lightSection = null;
     /* Transparent (white) over every cinematic slide — the Saint Laurent way —
-       and only solid once the light reservation section rises to meet the nav.
-       (#reserve is parsed after this script, so look it up lazily.) */
+       and only solid once the first light section rises to meet the nav.
+       (It is parsed after this script, so look it up lazily.) */
     function onScroll() {
-      if (!reserve) reserve = document.getElementById('reserve');
-      var solid = reserve && reserve.getBoundingClientRect().top <= 72;
+      if (!lightSection) lightSection = document.getElementById('testimonials');
+      var solid = lightSection && lightSection.getBoundingClientRect().top <= 72;
       nav.classList.toggle('scrolled', !!solid);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -1296,68 +1296,6 @@
 <!-- ═══ MAIN — full-bleed hero then reservation ═══ -->
 <main id="top">
 
-  <section class="reservation-pane" id="reserve">
-    <div class="reservation-frame reveal">
-
-      <!-- LEFT COLUMN: Editorial caption -->
-      <div class="res-caption">
-        <p class="res-eyebrow">The House of Affinity Compositions<span class="tm">&trade;</span></p>
-
-        <h1 class="res-headline">The Hair Elixir</h1>
-
-        <p class="res-scent">Fourteen rare essences &middot; Scented in &Acirc;me de Vue&trade;</p>
-
-        <p class="res-promo"><span class="res-promo-caps">Join the waitlist</span> for a gift with purchase.</p>
-
-      </div>
-
-      <!-- RIGHT COLUMN: Reservation form -->
-      <div class="res-action" id="resAction">
-
-        <form id="reservationForm" class="reservation" novalidate>
-          <div class="field">
-            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="First name">
-          </div>
-          <div class="field">
-            <input type="email" id="email" name="email" autocomplete="email" required placeholder="Email address">
-          </div>
-          <div class="hp" aria-hidden="true">
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-          <button type="submit" id="submitBtn">Join the waitlist</button>
-        </form>
-
-        <!-- Consent line — beneath Reserve button -->
-        <p class="res-consent">
-          By joining the list, I agree to receive letters from MAISON D&rsquo;VUE. Read our <a href="privacy.html">Privacy Notice</a>.
-        </p>
-
-        <!-- Subscriber promise — single line, italic gold-muted -->
-        <div class="res-promise">
-          <span>First access to each Allocation.</span>
-        </div>
-
-        <div class="invitation-block">
-          <label for="invitationCode" class="invitation-label">One of us?</label>
-          <form id="invitationForm" class="invitation-form" novalidate>
-            <input type="text" id="invitationCode" name="invitationCode" placeholder="Invitation code" autocomplete="off" autocapitalize="characters" spellcheck="false">
-            <button type="submit" aria-label="Submit invitation code">&rarr;</button>
-          </form>
-          <span class="invitation-feedback" id="invitationFeedback" role="status" aria-live="polite"></span>
-        </div>
-
-        <div class="res-message" id="message" role="status" aria-live="polite"></div>
-
-        <!-- House-voice confirmation — revealed when .res-action has .submitted -->
-        <div class="res-confirm" id="resConfirm" role="status" aria-live="polite">
-          <div class="res-confirm-line">Thank you. You are on the list.</div>
-          <div class="res-confirm-sub">A letter will follow.</div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
 
   <!-- ═══ CINEMATIC SLIDE STACK — each slides up over the last (Saint Laurent) ═══
        Slides 2–3 use existing imagery as placeholders; swap in final media. -->
@@ -1529,12 +1467,6 @@
 </footer>
 
 <script>
-  // Waitlist goes straight to Mailchimp via the maison Worker (no Google in the path).
-  const WAITLIST_ENDPOINT = "https://maisondvue-chat.masiela23.workers.dev/";
-  const PRODUCT_URL = "/product.html";
-  const INVITATION_CODE = "WELCOME26";
-  const INVITATION_REDIRECT = PRODUCT_URL;
-
   document.querySelectorAll('.reveal').forEach(function(el, i){
     setTimeout(function(){ el.classList.add('in'); }, 120 + i * 220);
   });
@@ -1599,102 +1531,9 @@
     document.getElementById('promoRibbon').classList.add('dismissed');
   }
 
-  /* ─── RESERVATION FORM ─── */
-  var form = document.getElementById('reservationForm');
-  var btn = document.getElementById('submitBtn');
-  var msg = document.getElementById('message');
-  var resAction = document.getElementById('resAction');
-  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  function setMsg(text, type){
-    msg.textContent = text || '';
-    msg.classList.remove('success','error');
-    if (type) msg.classList.add(type);
-  }
-
-  function enterConfirmState(){
-    // Smooth transition: clear any transient message, then add submitted state
-    setMsg('');
-    resAction.classList.add('submitted');
-  }
-
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    setMsg('');
-    var email = form.email.value.trim();
-    var firstName = form.firstName.value.trim();
-    var honey = form.website.value.trim();
-
-    if (honey){
-      enterConfirmState();
-      form.reset();
-      return;
-    }
-
-    if (!emailRe.test(email)){
-      setMsg('A complete email, please.', 'error');
-      form.email.focus();
-      return;
-    }
-
-    btn.disabled = true;
-    var origLabel = btn.textContent;
-    btn.textContent = 'Joining...';
-
-    try {
-      var res = await fetch(WAITLIST_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'subscribe',
-          profile: { email: email, firstName: firstName, source: 'homepage-reservation' }
-        })
-      });
-      var ok = res.ok;
-      try {
-        var data = await res.json();
-        ok = ok && data && data.ok !== false;
-      } catch(_){}
-
-      if (ok){
-        form.reset();
-        enterConfirmState();
-      } else {
-        throw new Error('Server returned an error');
-      }
-    } catch(err){
-      setMsg('Forgive us — something faltered in transit. Write to hello@maisondvue.com.', 'error');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = origLabel;
-    }
-  });
-
-  /* ─── INVITATION CODE ─── */
-  var invForm = document.getElementById('invitationForm');
-  var invInput = document.getElementById('invitationCode');
-  var invFeedback = document.getElementById('invitationFeedback');
-
-  invForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    invFeedback.textContent = '';
-    var entered = (invInput.value || '').trim().toUpperCase();
-
-    if (!entered){
-      invFeedback.textContent = 'A code, please.';
-      invInput.focus();
-      return;
-    }
-
-    if (entered === INVITATION_CODE){
-      window.location.href = INVITATION_REDIRECT;
-    } else {
-      invFeedback.textContent = 'This code is not recognized.';
-      invInput.select();
-    }
-  });
 </script>
 
+<script src="assets/letters.js?v=2" defer></script>
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>

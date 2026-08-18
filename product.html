@@ -1998,191 +1998,6 @@
     display: none;
   }
 
-  /* ═══════════════════════════════════════════════════════════
-     LETTERS POPUP
-     ═══════════════════════════════════════════════════════════ */
-  .letters-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.42);
-    backdrop-filter: blur(6px);
-    z-index: 300;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
-  .letters-overlay.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .letters-modal {
-    position: relative;
-    width: 100%;
-    max-width: 520px;
-    background: var(--warm-white);
-    border: 1px solid rgba(10, 10, 10, 0.12);
-    padding: 64px 56px 48px;
-    text-align: left;
-    transform: translateY(20px) scale(0.98);
-    transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
-  .letters-overlay.visible .letters-modal {
-    transform: translateY(0) scale(1);
-  }
-
-  .letters-close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    width: 28px;
-    height: 28px;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    color: var(--navy);
-    font-size: 20px;
-    line-height: 1;
-    padding: 0;
-    transition: color 200ms ease;
-  }
-
-  .letters-close:hover {
-    color: var(--gold-muted);
-  }
-
-  .letters-label {
-    font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-bottom: 14px;
-    line-height: 1;
-    font-weight: 500;
-  }
-
-  .letters-headline {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.55;
-    letter-spacing: 0.01em;
-    color: var(--navy);
-    margin-bottom: 28px;
-  }
-
-  .letters-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .letters-input-row {
-    display: flex;
-    align-items: stretch;
-    border-bottom: 1px solid var(--navy);
-    padding-bottom: 8px;
-  }
-
-  .letters-input {
-    flex: 1;
-    background: transparent;
-    border: 0;
-    color: var(--navy);
-    font-family: var(--font-display);
-    font-size: 15px;
-    padding: 8px 0;
-    outline: none;
-    letter-spacing: 0.01em;
-  }
-
-  .letters-input::placeholder {
-    color: rgba(10, 10, 10, 0.45);
-    font-family: var(--font-display);
-    letter-spacing: 0.02em;
-  }
-
-  .letters-submit {
-    background: transparent;
-    border: 0;
-    color: var(--navy);
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: color 240ms ease;
-    white-space: nowrap;
-  }
-
-  .letters-submit:hover {
-    color: var(--gold-muted);
-  }
-
-  .letters-submit:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .letters-consent {
-    margin-top: 18px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-family: var(--font-display);
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--mid);
-    letter-spacing: 0.01em;
-  }
-
-  .letters-consent input[type="checkbox"] {
-    margin-top: 3px;
-    flex-shrink: 0;
-    accent-color: var(--navy);
-    cursor: pointer;
-  }
-
-  .letters-consent a {
-    color: var(--navy);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .letters-feedback {
-    margin-top: 16px;
-    min-height: 20px;
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 14px;
-    color: var(--gold-muted);
-    line-height: 1.5;
-  }
-
-  .letters-feedback.error {
-    color: #B26A6A;
-  }
-
-  .letters-modal.submitted .letters-form,
-  .letters-modal.submitted .letters-consent {
-    display: none;
-  }
-
-  .letters-hp {
-    position: absolute;
-    left: -9999px;
-    opacity: 0;
-  }
-
   /* ─── FINAL BUY (NAVY) ─── */
   .final-buy {
     --gold: #FFFFFF;
@@ -2777,10 +2592,6 @@
     .reviews-carousel-wrap { margin-bottom: 64px; }
 
     .review-form-wrap { padding-top: 56px; }
-
-    .letters-modal {
-      padding: 48px 28px 36px;
-    }
 
     footer { padding: 64px 0 36px; }
     .footer-inner { padding: 0 24px; }
@@ -3597,35 +3408,6 @@
 </footer>
 
 <!-- ═══ LETTERS POPUP ═══ -->
-<div class="letters-overlay" id="lettersOverlay" aria-hidden="true" role="dialog" aria-labelledby="lettersHeadline">
-  <div class="letters-modal" id="lettersModal">
-    <button class="letters-close" type="button" onclick="closeLetters()" aria-label="Close">&times;</button>
-
-    <p class="letters-label">Welcome to MAISON D&rsquo;VUE</p>
-    <p class="letters-headline" id="lettersHeadline">Subscribe for first looks at each Allocation, letters from the maison, and rare access.</p>
-
-    <form class="letters-form" id="lettersForm" novalidate>
-      <div class="letters-input-row">
-        <input type="text" class="letters-input" id="lettersName" name="lettersName" placeholder="Enter your first name" autocomplete="given-name" required>
-      </div>
-      <div class="letters-input-row">
-        <input type="email" class="letters-input" id="lettersEmail" name="lettersEmail" placeholder="Enter your email address" autocomplete="email" required>
-        <button type="submit" class="letters-submit" id="lettersSubmit">OK &gt;</button>
-      </div>
-
-      <div class="letters-hp" aria-hidden="true">
-        <input type="text" id="lettersHp" name="lettersHp" tabindex="-1" autocomplete="off">
-      </div>
-    </form>
-
-    <label class="letters-consent">
-      <input type="checkbox" id="lettersConsent" checked>
-      <span>By clicking submit, I agree to MAISON D&rsquo;VUE&rsquo;s <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms &amp; Conditions of Use</a>.</span>
-    </label>
-
-    <p class="letters-feedback" id="lettersFeedback" role="status" aria-live="polite"></p>
-  </div>
-</div>
 
 <script>
   // Reviews still use Apps Script (a rating + body needs a sheet, not a mailing list).
@@ -3819,38 +3601,6 @@
     setTimeout(updateArrows, 100);
   })();
 
-  /* ─── LETTERS POPUP ─── */
-  const LETTERS_COOKIE = 'mdv_letters_seen';
-  const LETTERS_COOKIE_DAYS = 365;
-  const LETTERS_DELAY_MS = 4000;
-
-  function getCookie(name) {
-    const value = '; ' + document.cookie;
-    const parts = value.split('; ' + name + '=');
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-  }
-
-  function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
-  }
-
-  function showLetters() {
-    if (getCookie(LETTERS_COOKIE)) return;
-    const overlay = document.getElementById('lettersOverlay');
-    overlay.classList.add('visible');
-    overlay.setAttribute('aria-hidden', 'false');
-    setCookie(LETTERS_COOKIE, 'shown', LETTERS_COOKIE_DAYS);
-  }
-
-  function closeLetters() {
-    const overlay = document.getElementById('lettersOverlay');
-    overlay.classList.remove('visible');
-    overlay.setAttribute('aria-hidden', 'true');
-  }
-
   function toggleMatrix() {
     const toggle = document.getElementById('matrixToggle');
     const panel = document.getElementById('matrixPanel');
@@ -3944,96 +3694,8 @@
 
   if (location.hash) openSectionFromHash(location.hash);
 
-  setTimeout(showLetters, LETTERS_DELAY_MS);
 
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      const overlay = document.getElementById('lettersOverlay');
-      if (overlay.classList.contains('visible')) closeLetters();
-    }
-  });
 
-  document.getElementById('lettersOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeLetters();
-  });
-
-  const lettersForm = document.getElementById('lettersForm');
-  const lettersSubmit = document.getElementById('lettersSubmit');
-  const lettersFeedback = document.getElementById('lettersFeedback');
-  const lettersModal = document.getElementById('lettersModal');
-
-  function setLettersMsg(text, type) {
-    lettersFeedback.textContent = text || '';
-    lettersFeedback.classList.remove('error');
-    if (type === 'error') lettersFeedback.classList.add('error');
-  }
-
-  lettersForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    setLettersMsg('');
-
-    const name = document.getElementById('lettersName').value.trim();
-    const email = document.getElementById('lettersEmail').value.trim();
-    const honey = document.getElementById('lettersHp').value.trim();
-    const consent = document.getElementById('lettersConsent').checked;
-
-    if (honey) {
-      setLettersMsg('Thank you. Your name is on the list.');
-      lettersModal.classList.add('submitted');
-      setTimeout(closeLetters, 2400);
-      return;
-    }
-
-    if (!name) {
-      setLettersMsg('Your first name, please.', 'error');
-      document.getElementById('lettersName').focus();
-      return;
-    }
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setLettersMsg('A valid email, please.', 'error');
-      document.getElementById('lettersEmail').focus();
-      return;
-    }
-
-    if (!consent) {
-      setLettersMsg('Please agree to the terms to continue.', 'error');
-      return;
-    }
-
-    lettersSubmit.disabled = true;
-    const origLabel = lettersSubmit.textContent;
-    lettersSubmit.textContent = 'Subscribing...';
-
-    try {
-      const res = await fetch(SUBSCRIBE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'subscribe',
-          profile: { email: email, firstName: name, source: 'letters' }
-        })
-      });
-      let ok = res.ok;
-      try {
-        const data = await res.json();
-        ok = ok && data && data.ok !== false;
-      } catch (_) {}
-
-      if (ok) {
-        setLettersMsg('Thank you. Your name is on the list.');
-        lettersModal.classList.add('submitted');
-        setTimeout(closeLetters, 2800);
-      } else {
-        throw new Error('Server returned an error');
-      }
-    } catch (err) {
-      setLettersMsg('Forgive us \u2014 something faltered. Try again, or write to hello@maisondvue.com.', 'error');
-    } finally {
-      lettersSubmit.disabled = false;
-      lettersSubmit.textContent = origLabel;
-    }
-  });
 </script>
 
 <script>
@@ -4121,6 +3783,7 @@
   })();
 </script>
 
+<script src="assets/letters.js?v=2" defer></script>
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>
