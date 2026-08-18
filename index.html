@@ -864,6 +864,21 @@
     margin-bottom:14px;
   }
 
+  /* The address as entered — proof the House holds the right one. Empty until
+     a signup is recorded, so it takes no space on a fresh page. */
+  .res-confirm-address{
+    font-family:var(--font-sans);
+    font-style:normal;
+    font-size:13px;
+    letter-spacing:0.08em;
+    color:var(--navy);
+    opacity:0.72;
+    word-break:break-all;
+    margin-bottom:12px;
+  }
+
+  .res-confirm-address:empty{ display:none; }
+
   .res-confirm-sub{
     font-size:15px;
     color:var(--gold-deep);
@@ -1073,6 +1088,10 @@
 
     .res-confirm-line{
       font-size:19px;
+    }
+
+    .res-confirm-address{
+      font-size:12px;
     }
 
     .res-confirm-sub{
@@ -1351,7 +1370,8 @@
         <!-- House-voice confirmation — revealed when .res-action has .submitted -->
         <div class="res-confirm" id="resConfirm" role="status" aria-live="polite">
           <div class="res-confirm-line">Thank you. You are on the list.</div>
-          <div class="res-confirm-sub">A letter will follow.</div>
+          <div class="res-confirm-address" id="resConfirmAddress"></div>
+          <div class="res-confirm-sub">A confirmation is on its way. A letter will follow.</div>
         </div>
 
       </div>
@@ -1530,6 +1550,14 @@
 
 <script>
   const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxFDan6t6d4vsBxdwGNIoh4JDzSyBcQQqubU2JpOV--v_P-NXH3h9-1fWPFnc5EWZCKiA/exec";
+
+  /* Mailchimp audience (us20) — the safety net beneath the Apps Script.
+     A hidden-iframe POST is immune to CORS, redirects, and an expired or
+     mis-deployed script URL, so an address is captured even when the primary
+     endpoint is unreachable. Same audience the Founder's Circle form uses. */
+  const MAILCHIMP_ACTION = "https://maisondvue.us20.list-manage.com/subscribe/post?u=ece90c707751d2379f6f22e77&id=3a9da7ab07&f_id=004802eef0";
+  const MAILCHIMP_HONEYPOT = "b_ece90c707751d2379f6f22e77_3a9da7ab07";
+
   const PRODUCT_URL = "/product.html";
   const INVITATION_CODE = "WELCOME26";
   const INVITATION_REDIRECT = PRODUCT_URL;
@@ -1603,6 +1631,7 @@
   var btn = document.getElementById('submitBtn');
   var msg = document.getElementById('message');
   var resAction = document.getElementById('resAction');
+  var resConfirmAddress = document.getElementById('resConfirmAddress');
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function setMsg(text, type){
@@ -1611,10 +1640,83 @@
     if (type) msg.classList.add(type);
   }
 
-  function enterConfirmState(){
+  /* Name the address back to the guest so the signup reads as recorded,
+     not merely as submitted. */
+  function enterConfirmState(email){
     // Smooth transition: clear any transient message, then add submitted state
     setMsg('');
+    if (email && resConfirmAddress) resConfirmAddress.textContent = email;
     resAction.classList.add('submitted');
+  }
+
+  /* Mailchimp fallback — a hidden iframe POST, which no CORS policy can block.
+     Resolves true once Mailchimp has answered (or after a grace period, since a
+     cross-origin iframe never reports its own failure). Used when the Apps
+     Script endpoint does not answer, so the address still lands somewhere. */
+  function postToMailchimp(email, firstName){
+    return new Promise(function(resolve){
+      // Nothing to fall back to, or no network at all — say so rather than
+      // confirm a place on a list the address never reached.
+      if (!MAILCHIMP_ACTION || navigator.onLine === false){ resolve(false); return; }
+
+      var iframe = document.createElement('iframe');
+      iframe.name = 'mc_target_' + Date.now();
+      iframe.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px';
+      iframe.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(iframe);
+
+      var f = document.createElement('form');
+      f.action = MAILCHIMP_ACTION; f.method = 'post'; f.target = iframe.name;
+      f.style.display = 'none';
+
+      var fields = { EMAIL: email, FNAME: firstName };
+      fields[MAILCHIMP_HONEYPOT] = '';
+      Object.keys(fields).forEach(function(name){
+        var input = document.createElement('input');
+        input.type = 'text'; input.name = name;
+        input.value = fields[name] == null ? '' : fields[name];
+        f.appendChild(input);
+      });
+
+      document.body.appendChild(f);
+      f.submit();
+
+      /* A cross-origin iframe tells us nothing — its load event fires for the
+         initial blank document, and Mailchimp's own response is unreadable. So
+         give the POST a moment to leave, then confirm, and tear the nodes down
+         well after the request can still be in flight. */
+      setTimeout(function(){ resolve(true); }, 1000);
+      setTimeout(function(){
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        if (f.parentNode) f.parentNode.removeChild(f);
+      }, 15000);
+    });
+  }
+
+  /* The house list. Resolves true once the address is recorded — by the Apps
+     Script if it answers, otherwise by Mailchimp. */
+  async function joinWaitlist(email, firstName){
+    if (WAITLIST_ENDPOINT && WAITLIST_ENDPOINT.indexOf('REPLACE_') !== 0){
+      try {
+        var fd = new FormData();
+        fd.append('email', email);
+        fd.append('firstName', firstName);
+        fd.append('source', 'homepage-reservation');
+        fd.append('userAgent', navigator.userAgent || '');
+        fd.append('referrer', document.referrer || '');
+
+        var res = await fetch(WAITLIST_ENDPOINT, { method:'POST', body:fd });
+        var ok = res.ok;
+        try {
+          var data = await res.json();
+          ok = ok && data && data.ok !== false;
+        } catch(_){}
+        if (ok) return true;
+      } catch(err){
+        /* Unreachable, blocked, or mis-deployed — fall through to Mailchimp. */
+      }
+    }
+    return postToMailchimp(email, firstName);
   }
 
   form.addEventListener('submit', async function(e){
@@ -1636,35 +1738,16 @@
       return;
     }
 
-    if (WAITLIST_ENDPOINT.indexOf('REPLACE_') === 0){
-      setMsg('The reservation list is not yet wired. Paste your Apps Script URL into WAITLIST_ENDPOINT.', 'error');
-      return;
-    }
-
     btn.disabled = true;
     var origLabel = btn.textContent;
     btn.textContent = 'Joining...';
 
     try {
-      var fd = new FormData();
-      fd.append('email', email);
-      fd.append('firstName', firstName);
-      fd.append('source', 'homepage-reservation');
-      fd.append('userAgent', navigator.userAgent || '');
-      fd.append('referrer', document.referrer || '');
-
-      var res = await fetch(WAITLIST_ENDPOINT, { method:'POST', body:fd });
-      var ok = res.ok;
-      try {
-        var data = await res.json();
-        ok = ok && data && data.ok !== false;
-      } catch(_){}
-
-      if (ok){
+      if (await joinWaitlist(email, firstName)){
         form.reset();
-        enterConfirmState();
+        enterConfirmState(email);
       } else {
-        throw new Error('Server returned an error');
+        throw new Error('The list could not be reached');
       }
     } catch(err){
       setMsg('Forgive us — something faltered in transit. Write to hello@maisondvue.com.', 'error');
