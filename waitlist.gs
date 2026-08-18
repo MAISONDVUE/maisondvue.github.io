@@ -50,10 +50,21 @@ const WAITLIST_TAB = 'waitlist';
 const REVIEWS_TAB = 'reviews';
 const LETTERS_TAB = 'letters';
 
-// Send the guest their own welcome letter. This was commented out on the
-// assumption Mailchimp had taken it over; it had not, so signups went
-// unanswered. Set false only once a Mailchimp Journey is confirmed sending.
-const SEND_WELCOME_LETTER = true;
+// Who writes the welcome letter.
+//
+// false = Mailchimp owns it, via a Customer Journey. This is the chosen setup.
+// true  = this script sends the letter below instead.
+//
+// This was false once before and the guests heard nothing, because the script
+// had no Mailchimp integration and the audience never received the addresses.
+// It does now (see mcSubscribe), so the arrangement holds -- but it rests on a
+// Journey actually existing and being switched on. Build it on the TAG trigger
+// ("waitlist"), not "signs up": contacts added through the API arrive already
+// subscribed, and the tag is the event this script can guarantee.
+//
+// If the Mailchimp mirror fails for a given signup, the script sends the letter
+// itself rather than leave that guest unanswered -- see doPost.
+const SEND_WELCOME_LETTER = false;
 
 // The allocation the welcome letter promises. UPDATE THIS when the allocation
 // moves on — the letter tells the guest which bottles they are waiting for.
@@ -114,10 +125,19 @@ function doPost(e) {
     // The row above is the commitment. Everything below is best-effort: a mail
     // outage must never be reported to the guest as a failed signup.
     var listed = trySend(function () { mcSubscribe(email, name, MC_TAG_WAITLIST); });
-    var welcomed = SEND_WELCOME_LETTER ? trySend(function () { sendWelcomeLetter(email, name); }) : false;
-    var notified = trySend(function () { sendInternalNotification(name, email, source); });
 
-    return jsonResponse({ ok: true, saved: true, listed: listed, welcomed: welcomed, notified: notified });
+    // Mailchimp is expected to write the welcome. If the address never reached
+    // Mailchimp, nobody is going to -- so send the house letter rather than let
+    // the signup go unanswered. Unanswered signups are the fault this file was
+    // recovered to fix; they must not return by a second route.
+    var welcomedBy = 'mailchimp';
+    if (SEND_WELCOME_LETTER || !listed) {
+      welcomedBy = trySend(function () { sendWelcomeLetter(email, name); }) ? 'house' : 'nobody';
+    }
+
+    var notified = trySend(function () { sendInternalNotification(name, email, source, welcomedBy); });
+
+    return jsonResponse({ ok: true, saved: true, listed: listed, welcomedBy: welcomedBy, notified: notified });
   } catch (err) {
     return jsonResponse({ ok: false, error: err && err.toString() });
   }
@@ -597,8 +617,19 @@ function sendWelcomeLetter(toEmail, name) {
 // ============================================================
 // Internal notification to Masiela (waitlist signups)
 // ============================================================
-function sendInternalNotification(name, email, source) {
+function sendInternalNotification(name, email, source, welcomedBy) {
   var subject = 'New reservation — ' + (name || email);
+
+  // Say plainly who wrote to this guest. A silent signup is the one failure
+  // worth interrupting you for, so it is stated here rather than left in a log.
+  var welcome = '';
+  if (welcomedBy === 'mailchimp') {
+    welcome = '<p style="color:#6E6055;">Their welcome letter is Mailchimp\'s to send — they were added to the audience and tagged <strong>' + MC_TAG_WAITLIST + '</strong>.</p>';
+  } else if (welcomedBy === 'house') {
+    welcome = '<p style="color:#6E6055;">The Mailchimp mirror did not take, so the House sent the welcome letter directly. Worth checking the API key.</p>';
+  } else if (welcomedBy === 'nobody') {
+    welcome = '<p style="color:#B26A6A;"><strong>This guest has not been written to.</strong> Mailchimp did not take the address and the welcome letter could not be sent. They are in the sheet — please write to them.</p>';
+  }
 
   var htmlBody =
     '<div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6;">' +
@@ -607,6 +638,7 @@ function sendInternalNotification(name, email, source) {
       '<strong>Email:</strong> ' + email + '<br>' +
       '<strong>Source:</strong> ' + source + '<br>' +
       '<strong>Time:</strong> ' + new Date().toLocaleString() + '</p>' +
+      welcome +
     '</div>';
 
   sendNotice(NOTIFY_EMAIL, subject, htmlBody);
@@ -626,7 +658,7 @@ function doGet(e) {
       waitlist: Math.max(0, getSheetByName(WAITLIST_TAB).getLastRow() - 1),
       letters: Math.max(0, getSheetByName(LETTERS_TAB).getLastRow() - 1),
       reviews: Math.max(0, getSheetByName(REVIEWS_TAB).getLastRow() - 1),
-      welcomeLetter: SEND_WELCOME_LETTER ? 'on' : 'off',
+      welcomeLetter: SEND_WELCOME_LETTER ? 'sent by the House' : 'sent by Mailchimp',
       mailchimp: mcConfigured() ? 'on' : 'no api key'
     });
   } catch (err) {
@@ -661,8 +693,9 @@ function selfTest() {
   }
 
   Logger.log(res.ok
-    ? 'Row written. Mailchimp: ' + (res.listed ? 'added' : 'FAILED') +
-      '. Welcome letter: ' + (res.welcomed ? 'sent' : 'FAILED') +
+    ? 'Row written. Mailchimp: ' + (res.listed ? 'added + tagged' : 'FAILED') +
+      '. Welcome letter: ' + res.welcomedBy +
+      (res.welcomedBy === 'mailchimp' ? ' (confirm the Journey actually fired — check the inbox)' : '') +
       '. Notice to ' + NOTIFY_EMAIL + ': ' + (res.notified ? 'sent' : 'FAILED') +
       '. Test row removed.'
     : 'FAIL — ' + res.error);

@@ -22,8 +22,11 @@ control, with the faults below repaired.
 Three faults, none of which announced itself.
 
 **The guest never heard back.** The call to `sendWelcomeLetter` was commented
-out, with a note saying Mailchimp had taken the email over. It had not, so
-signups went unanswered. Governed now by `SEND_WELCOME_LETTER`, on by default.
+out, with a note saying Mailchimp had taken the email over. It had not — the
+script had no Mailchimp integration at all, so the audience never received the
+addresses and no Journey could fire. Mailchimp owns the welcome again now, but
+this time it is actually fed (§5), and the script covers the gap if the mirror
+ever fails.
 
 **A mail outage was shown to the guest as a failed signup.** Mail goes through
 the Zoho API, which throws when its OAuth token is stale. That exception escaped
@@ -49,10 +52,13 @@ falls back to Gmail, subject-tagged so you know the Zoho token needs renewing.
    change, so nothing in the HTML needs touching.
 3. Run **`selfTest`** (Run ▸ `selfTest`). It posts a real waitlist signup to
    your own address, then deletes the test row. The execution log reports
-   whether the row was written, the address added to Mailchimp, the welcome
-   letter sent, and the notice delivered — check your inbox for both emails.
-   (`selfTest` leaves no row behind, but it does add your address to the
-   audience; remove it there if you would rather not be on the list.)
+   whether the row was written, the address added to Mailchimp, who owes the
+   welcome letter, and whether the notice was delivered.
+   **If it logs `mailchimp`, the script has done its part — now confirm the
+   Journey actually fired by watching for the letter in your inbox.** That
+   handover is the one thing this script cannot verify for you, and the one
+   that failed last time. (`selfTest` leaves no row behind, but it does add your
+   address to the audience; remove it there if you would rather not be listed.)
 
 ---
 
@@ -61,8 +67,8 @@ falls back to Gmail, subject-tagged so you know the Zoho token needs renewing.
 Open the Web App URL in a browser. A healthy deployment answers:
 
 ```json
-{"ok":true,"message":"Maison d'Vue waitlist endpoint is live.",
- "waitlist":47,"letters":3,"reviews":1,"welcomeLetter":"on","mailchimp":"on"}
+{"ok":true,"message":"Maison d'Vue waitlist endpoint is live.","waitlist":47,
+ "letters":3,"reviews":1,"welcomeLetter":"sent by Mailchimp","mailchimp":"on"}
 ```
 
 The counts are live row counts. Watching `waitlist` rise is the simplest proof
@@ -109,17 +115,38 @@ addresses already in the sheet up to the audience. It is safe to re-run, and it
 logs how many were sent, skipped, and failed. Hand-entered rows that hold a note
 where the email belongs are skipped.
 
-Members are added as **subscribed**, not *pending*, because the script's own
-welcome letter is the confirmation. Keep any Mailchimp welcome Journey switched
-off unless you also set `SEND_WELCOME_LETTER` to `false` — otherwise a new guest
-receives two letters.
+### Mailchimp sends the welcome letter
 
-A Mailchimp outage costs the mirror, never the signup: the sheet row is written
-first, and the response reports each step separately.
+`SEND_WELCOME_LETTER` is `false`: the welcome is a Mailchimp Customer Journey's
+to send, and the script stays quiet so nobody is written to twice.
+
+**Build the Journey on the `waitlist` tag, not on “signs up.”** Contacts added
+through the API arrive already subscribed, so a signup-form trigger may never
+fire for them. The tag is the event this script can guarantee — the same reason
+the creator program drives its Journeys from tags.
+
+Members are added as **subscribed**, not *pending*, so Mailchimp does not send a
+double-opt-in request competing with the welcome.
+
+**The guard.** If the address never reaches Mailchimp — bad API key, outage,
+audience full — then no Journey can fire and nobody would write to that guest.
+So the script sends its own letter in that case, and says so in your
+notification. Unanswered signups are the fault this file was recovered to fix;
+they must not return by a second route. `welcomedBy` in the response records
+which happened:
+
+| `welcomedBy` | Meaning |
+| --- | --- |
+| `mailchimp` | Added and tagged. The Journey owes them a letter. |
+| `house` | The mirror failed, so the script sent the letter. Check the API key. |
+| `nobody` | Both failed. Your notification says so in red — write to them by hand. |
 
 ```json
-{"ok":true,"saved":true,"listed":true,"welcomed":true,"notified":true}
+{"ok":true,"saved":true,"listed":true,"welcomedBy":"mailchimp","notified":true}
 ```
+
+A Mailchimp or mail outage costs the letter, never the signup: the sheet row is
+written first.
 
 ### The safety net in the page
 
@@ -158,8 +185,8 @@ Top of `waitlist.gs`:
 
 | Setting | Default | Purpose |
 | --- | --- | --- |
-| `SEND_WELCOME_LETTER` | `true` | The guest’s welcome letter. Set `false` only once a Mailchimp Journey is confirmed sending it. |
-| `ALLOCATION_MONTH` | `'June'` | **Update when the allocation moves on** — the letter promises the guest these bottles by name. |
+| `SEND_WELCOME_LETTER` | `false` | Mailchimp's Journey sends the welcome. Set `true` to have the script send it instead. Either way, a guest the mirror could not reach gets the script's letter. |
+| `ALLOCATION_MONTH` | `'June'` | The month named in the script's letter — which now only goes out to cover a failed mirror. **Update when the allocation moves on**, and update the Mailchimp Journey's copy too. |
 | `NOTIFY_EMAIL` | `hello@maisondvue.com` | Where signup notices go. Comma-separate for several. |
 | `MC_AUDIENCE_ID` | `3a9da7ab07` | The us20 audience every address is mirrored into. |
 | `MC_TAG_WAITLIST` / `MC_TAG_LETTERS` | `waitlist` / `letters` | Tags applied in Mailchimp, so the two intakes stay separable. |
