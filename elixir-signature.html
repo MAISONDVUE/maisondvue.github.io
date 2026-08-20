@@ -69,11 +69,11 @@
 
   /* Left — photo placeholders (swap with product photography) */
   .pdp-gallery{ display:grid; grid-template-columns:66px 1fr; gap:16px; }
-  .pdp-thumbs{ display:flex; flex-direction:column; gap:14px; }
+  .pdp-thumbs{ display:grid; grid-auto-rows:1fr; gap:12px; min-height:0; }
   .pdp-thumb, .pdp-photo{
     position:relative; background:var(--paper-2); overflow:hidden;
   }
-  .pdp-thumb{ aspect-ratio:1; }
+  .pdp-thumb{ min-height:0; }
   .pdp-photo{ aspect-ratio:1/1; }
   /* placeholder mark */
   .pdp-thumb::after, .pdp-photo::after{
@@ -172,7 +172,15 @@
     .pdp-info{ max-width:none; }
   }
   @media (max-width:520px){
-    .pdp-gallery{ grid-template-columns:52px 1fr; }
+    /* Too narrow for a side rail — photo on top, thumbs as a swipeable strip beneath. */
+    .pdp-gallery{ grid-template-columns:1fr; gap:12px; }
+    .pdp-photo{ grid-row:1; }
+    .pdp-thumbs{
+      grid-row:2; grid-auto-flow:column; grid-auto-columns:64px; grid-auto-rows:auto;
+      gap:10px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    }
+    .pdp-thumbs::-webkit-scrollbar{ display:none; }
+    .pdp-thumb{ aspect-ratio:1; }
   }
 </style>
 
@@ -217,6 +225,15 @@
         </button>
         <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-dropper-drop.jpg" aria-label="The dropper">
           <img src="maison-dvue-elixir-dropper-drop.jpg" alt="A single drop of MAISON D'VUE Hair Elixir suspended from the gold dropper" loading="lazy">
+        </button>
+        <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-coffret-sealed.jpg" aria-label="The sealed coffret">
+          <img src="maison-dvue-elixir-coffret-sealed.jpg" alt="The MAISON D'VUE coffret, closed and hand-sealed with the cobalt wax monogram" loading="lazy">
+        </button>
+        <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-coffret-open.jpg" aria-label="The coffret, opened">
+          <img src="maison-dvue-elixir-coffret-open.jpg" alt="The MAISON D'VUE coffret opened, the Hair Elixir seated within the gold-lined doors" loading="lazy">
+        </button>
+        <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-coffret-detail.jpg" aria-label="The bottle in the coffret">
+          <img src="maison-dvue-elixir-coffret-detail.jpg" alt="Close detail of the MAISON D'VUE Hair Elixir in its coffret, gold monogram and Powered by VUE 14 in relief" loading="lazy">
         </button>
         <button class="pdp-thumb" type="button" data-media="video" data-src="signature-open.mp4?v=2" data-poster="signature-open-poster.jpg?v=2" aria-label="Opening the box">
           <video src="signature-open.mp4?v=2" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
