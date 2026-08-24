@@ -90,10 +90,11 @@
     content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(to bottom,
       rgba(0,0,0,0.18) 0%,
-      rgba(0,0,0,0.00) 30%,
-      rgba(0,0,0,0.24) 58%,
-      rgba(0,0,0,0.58) 82%,
-      rgba(0,0,0,0.72) 100%);
+      rgba(0,0,0,0.00) 28%,
+      rgba(0,0,0,0.40) 50%,
+      rgba(0,0,0,0.56) 66%,
+      rgba(0,0,0,0.68) 84%,
+      rgba(0,0,0,0.74) 100%);
   }
   .hero-copy{
     position:relative;z-index:2;
@@ -103,27 +104,32 @@
     text-shadow:0 1px 26px rgba(0,0,0,0.34);
   }
   .hero-copy .eyebrow{color:rgba(255,255,255,0.86)}
+  /* The composition line — small, widely tracked, the way a house sets a
+     specification rather than a headline. */
   .hero h1{
-    margin-top:16px;
-    font-size:clamp(26px,7.4vw,44px);
-    font-weight:400;line-height:1.12;
-    letter-spacing:0.03em;text-transform:uppercase;
-    text-wrap:balance;
+    margin-top:18px;
+    font-size:clamp(11px,2.7vw,15px);
+    font-weight:400;line-height:1.6;
+    letter-spacing:0.26em;text-transform:uppercase;
+    color:rgba(255,255,255,0.88);
   }
   /* Above the fold on a laptop the line holds together — never break it
      mid-phrase. Sized off the viewport so it shrinks rather than wraps. */
   @media (min-width:861px){
-    .hero h1{white-space:nowrap;font-size:min(4.5vw,58px)}
+    .hero h1{white-space:nowrap;font-size:min(2.1vw,26px);letter-spacing:0.22em}
   }
+  /* The offer carries the frame. */
   .hero .sub{
-    margin:20px auto 0;max-width:32em;
-    font-size:clamp(13px,1.5vw,16px);line-height:1.7;
-    color:rgba(255,255,255,0.92);
+    margin:26px auto 0;max-width:19em;
+    font-size:clamp(23px,5.6vw,46px);
+    font-weight:300;line-height:1.22;letter-spacing:0.004em;
+    color:#FFFFFF;
+    text-wrap:balance;
   }
   /* The one action, in Chanel's white rectangle. */
   .hero-btn{
-    display:inline-block;margin-top:30px;
-    padding:16px 44px;
+    display:inline-block;margin-top:36px;
+    padding:17px 52px;
     background:#FFFFFF;color:var(--ink);
     font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:400;
     text-decoration:none;text-shadow:none;
