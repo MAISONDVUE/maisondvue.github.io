@@ -536,6 +536,49 @@
     els.forEach(function(el){ io.observe(el); });
   })();
 
+  /* Keep every film running whenever it is on screen.
+     The autoplay attribute fires once and never again: a backgrounded tab
+     pauses playback, and returning to it leaves a frozen frame. Playback is
+     driven here instead — started as each film nears the viewport, stopped
+     once it leaves, and resumed whenever the page comes back into view. */
+  (function(){
+    var vids = [].slice.call(document.querySelectorAll('video'));
+    if (!vids.length) return;
+
+    function play(v){
+      var p = v.play();
+      /* A refusal is not an error — the poster simply stands in. */
+      if (p && p.catch) p.catch(function(){});
+    }
+    function onScreen(v){
+      var r = v.getBoundingClientRect();
+      return r.bottom > 0 && r.top < (window.innerHeight || 0);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) play(e.target);
+          else if (!e.target.paused) e.target.pause();
+        });
+      }, { rootMargin: '300px 0px', threshold: 0.01 });
+      vids.forEach(function(v){ io.observe(v); });
+    } else {
+      vids.forEach(play);
+    }
+
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) return;
+      vids.forEach(function(v){ if (onScreen(v)) play(v); });
+    });
+
+    /* Safari fires this on back/forward cache restores, where the tab is
+       visible but playback did not resume. */
+    window.addEventListener('pageshow', function(){
+      vids.forEach(function(v){ if (onScreen(v)) play(v); });
+    });
+  })();
+
   /* The form posts straight to Mailchimp through a hidden iframe, so the
      visitor never leaves the page. Same audience and honeypot as the Circle. */
   (function(){
