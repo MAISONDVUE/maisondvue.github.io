@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>The Sapphire &mdash; MAISON D&rsquo;VUE</title>
+<meta name="description" content="Join the list for the September Allocation of the VUE 14&trade; Hair Elixir, and enter to win a raw sapphire necklace in 14k gold.">
+
+<link rel="canonical" href="https://maisondvue.com/sapphire">
+
+<meta property="og:title" content="The Sapphire &mdash; MAISON D&rsquo;VUE">
+<meta property="og:description" content="First access to the September Allocation. And one raw sapphire necklace, in 14k gold, for one name on the list.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com/sapphire">
+<meta property="og:site_name" content="MAISON D&rsquo;VUE">
+<meta property="og:image" content="https://maisondvue.com/sapphire/elixir.jpg?v=2">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+<link rel="shortcut icon" href="/favicon.ico?v=4">
+<meta name="theme-color" content="#FFFFFF">
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     THE WAITLIST — a capture point, not the house.
+     One page, one action. No nav, no rooms, no shop.
+     House register: Helvetica, black on white, wide tracking, hairlines.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  :root{
+    --paper:#FFFFFF;
+    --ink:#0A0A0A;
+    --mid:rgba(10,10,10,0.58);
+    --soft:rgba(10,10,10,0.40);
+    --line:rgba(10,10,10,0.14);
+    --line-soft:rgba(10,10,10,0.08);
+    --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --ease:cubic-bezier(0.22,1,0.36,1);
+    --gut:clamp(22px,6vw,40px);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--paper);-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font);font-weight:300;font-size:16px;line-height:1.7;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  }
+  a{color:inherit}
+  button,input{font:inherit;color:inherit}
+  img{display:block;max-width:100%}
+
+  /* Shared type ---------------------------------------------------------- */
+  .eyebrow{
+    font-size:10px;letter-spacing:0.30em;text-transform:uppercase;
+    font-weight:400;color:var(--soft);
+  }
+  .rule{width:34px;height:1px;background:var(--ink);opacity:0.30;margin:0 auto}
+
+  /* Masthead — the wordmark alone. No navigation. ------------------------ */
+  .masthead{
+    padding:30px var(--gut);text-align:center;
+  }
+  .wordmark{
+    display:inline-block;
+    font-size:clamp(15px,2.4vw,19px);font-weight:500;
+    letter-spacing:0.36em;text-transform:uppercase;
+    text-decoration:none;
+  }
+
+  /* Hero — full-bleed film still, type laid over the lower third. --------- */
+  .hero{
+    position:relative;
+    height:clamp(520px,86vh,880px);
+    display:flex;align-items:flex-end;justify-content:center;
+    overflow:hidden;background:#20160E;
+  }
+  .hero-img{
+    position:absolute;inset:0;
+    width:100%;height:100%;object-fit:cover;object-position:center center;
+    display:block;
+  }
+  /* Scrim — the film is already dark, so this only weights the foot of the
+     frame enough to seat the type. Lighter than a photograph would need. */
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to bottom,
+      rgba(0,0,0,0.18) 0%,
+      rgba(0,0,0,0.00) 28%,
+      rgba(0,0,0,0.40) 50%,
+      rgba(0,0,0,0.56) 66%,
+      rgba(0,0,0,0.68) 84%,
+      rgba(0,0,0,0.74) 100%);
+  }
+  .hero-copy{
+    position:relative;z-index:2;
+    width:100%;max-width:1180px;
+    padding:0 var(--gut) clamp(44px,7vh,76px);
+    text-align:center;color:#FFFFFF;
+    text-shadow:0 1px 26px rgba(0,0,0,0.34);
+  }
+  .hero-copy .eyebrow{color:rgba(255,255,255,0.86)}
+  /* The composition line — small, widely tracked, the way a house sets a
+     specification rather than a headline. */
+  .hero h1{
+    margin-top:18px;
+    font-size:clamp(11px,2.7vw,15px);
+    font-weight:400;line-height:1.6;
+    letter-spacing:0.26em;text-transform:uppercase;
+    color:rgba(255,255,255,0.88);
+  }
+  /* Above the fold on a laptop the line holds together — never break it
+     mid-phrase. Sized off the viewport so it shrinks rather than wraps. */
+  @media (min-width:861px){
+    .hero h1{white-space:nowrap;font-size:min(2.1vw,26px);letter-spacing:0.22em}
+  }
+  /* The offer carries the frame. */
+  .hero .sub{
+    margin:26px auto 0;max-width:19em;
+    font-size:clamp(23px,5.6vw,46px);
+    font-weight:300;line-height:1.22;letter-spacing:0.004em;
+    color:#FFFFFF;
+    text-wrap:balance;
+  }
+  /* One line wherever the measure allows it. Sized off the viewport so it
+     shrinks to hold rather than breaking; below 861px the line is too long
+     to set at a readable size, so it wraps there instead. */
+  @media (min-width:861px){
+    .hero .sub{
+      max-width:none;white-space:nowrap;
+      font-size:min(3.5vw,42px);
+    }
+  }
+  /* The one action, in Chanel's white rectangle. */
+  .hero-btn{
+    display:inline-block;margin-top:36px;
+    padding:17px 52px;
+    background:#FFFFFF;color:var(--ink);
+    font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:400;
+    text-decoration:none;text-shadow:none;
+    transition:background 260ms var(--ease),color 260ms var(--ease);
+  }
+  .hero-btn:hover{background:var(--ink);color:#FFFFFF}
+
+  /* The product — one clean image, price, what it replaces --------------- */
+  .product{
+    padding:clamp(48px,8vw,86px) var(--gut) 0;
+    max-width:1080px;margin:0 auto;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(32px,6vw,76px);align-items:center;
+  }
+  .product-figure{background:#F7F6F4}
+  .product-figure img{width:100%;height:auto}
+  .product-detail .eyebrow{display:block}
+  .product-name{
+    margin-top:16px;
+    font-size:clamp(20px,2.6vw,28px);font-weight:300;line-height:1.28;
+  }
+  .product-meta{
+    margin-top:14px;font-size:13px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--soft);
+  }
+  .price{
+    margin-top:26px;padding-top:22px;border-top:1px solid var(--line-soft);
+    font-size:clamp(19px,2.2vw,24px);font-weight:300;
+  }
+  .price .alt{
+    display:block;margin-top:6px;
+    font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--soft);
+  }
+  .replaces{
+    margin-top:26px;padding-top:22px;border-top:1px solid var(--line-soft);
+    font-size:14px;color:var(--mid);line-height:1.8;
+  }
+  .replaces strong{font-weight:500;color:var(--ink)}
+
+  /* Buy — outlined, not filled. The page's one action is the list; this is
+     the door for anyone who would rather not wait, and must not outrank it. */
+  .buy{margin-top:26px}
+  .buy-btn{
+    display:block;width:100%;padding:15px 20px;
+    background:transparent;color:var(--ink);border:1px solid var(--ink);
+    font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:400;
+    text-align:center;cursor:pointer;border-radius:0;
+    transition:background 260ms var(--ease),color 260ms var(--ease);
+  }
+  .buy-btn:hover{background:var(--ink);color:#FFFFFF}
+  .buy-note{
+    margin-top:11px;font-size:11px;color:var(--soft);text-align:center;
+  }
+
+  /* The story ------------------------------------------------------------ */
+  .story{
+    padding:clamp(56px,9vw,104px) var(--gut) 0;
+    max-width:640px;margin:0 auto;text-align:center;
+  }
+  .story p{
+    margin-top:18px;
+    font-size:clamp(15px,1.7vw,17px);color:var(--mid);line-height:1.85;
+  }
+  .story p:first-of-type{margin-top:22px}
+  .story .sig{
+    margin-top:30px;font-size:11px;letter-spacing:0.24em;
+    text-transform:uppercase;color:var(--soft);
+  }
+
+  /* Timing — stated plainly ---------------------------------------------- */
+  .timing{
+    margin-top:clamp(54px,8vw,92px);
+    padding:clamp(34px,5vw,48px) var(--gut);
+    border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+    text-align:center;
+  }
+  .timing .month{
+    margin-top:12px;
+    font-size:clamp(24px,4vw,40px);font-weight:300;letter-spacing:0.02em;
+  }
+  .timing .note{
+    margin-top:12px;font-size:13px;color:var(--soft);
+  }
+
+  /* Reviews — two films, muted, looping. Social proof before the ask. ---- */
+  .wall{
+    padding:clamp(54px,8vw,96px) var(--gut) 0;
+    max-width:840px;margin:0 auto;text-align:center;
+  }
+  .wall-stars{
+    margin-top:14px;font-size:13px;letter-spacing:0.30em;
+  }
+  .wall-summary{
+    margin-top:8px;font-size:11px;letter-spacing:0.20em;
+    text-transform:uppercase;color:var(--soft);
+  }
+  .wall-grid{
+    margin-top:32px;
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2.5vw,22px);
+  }
+  .wall-tile{
+    position:relative;overflow:hidden;background:#F2F1EF;
+    aspect-ratio:9/16;
+  }
+  .wall-tile video{
+    position:absolute;inset:0;
+    width:100%;height:100%;object-fit:cover;object-position:center 20%;
+    display:block;
+  }
+  .wall-name{
+    margin-top:11px;
+    font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--soft);
+  }
+
+  /* The form — email, and an optional first name. Nothing else. ---------- */
+  .capture{
+    padding:clamp(54px,8vw,96px) var(--gut) 0;
+    max-width:520px;margin:0 auto;text-align:center;
+  }
+  .capture h2{
+    margin-top:16px;
+    font-size:clamp(21px,3vw,30px);font-weight:300;line-height:1.25;
+  }
+  .capture .lede{
+    margin:16px auto 0;max-width:30em;font-size:14px;color:var(--mid);
+  }
+  .form{margin-top:36px;text-align:left}
+  .field + .field{margin-top:20px}
+  .field label{
+    display:block;
+    font-size:10px;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:9px;
+  }
+  .field label .opt{letter-spacing:0.12em;text-transform:none;font-style:italic}
+  .field input{
+    width:100%;padding:13px 2px;
+    background:transparent;border:0;border-bottom:1px solid var(--line);
+    font-size:16px;font-weight:300;letter-spacing:0.01em;
+    border-radius:0;-webkit-appearance:none;
+    transition:border-color 260ms var(--ease);
+  }
+  .field input::placeholder{color:rgba(10,10,10,0.26)}
+  .field input:focus{outline:none;border-bottom-color:var(--ink)}
+
+  .submit{
+    display:block;width:100%;margin-top:34px;padding:17px 20px;
+    background:var(--ink);color:#fff;border:1px solid var(--ink);
+    font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:400;
+    cursor:pointer;border-radius:0;
+    transition:background 260ms var(--ease),color 260ms var(--ease);
+  }
+  .submit:hover{background:transparent;color:var(--ink)}
+  .submit:disabled{opacity:0.45;cursor:default}
+
+  .feedback{
+    margin-top:16px;min-height:1.4em;
+    font-size:13px;color:var(--mid);text-align:center;
+  }
+  .feedback.error{color:#8A1C1C}
+
+  .fineprint{
+    margin-top:22px;font-size:11px;line-height:1.75;color:var(--soft);text-align:center;
+  }
+  .fineprint a{text-decoration:underline;text-underline-offset:2px}
+
+  /* Honeypot — present, hidden, untouched. */
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  /* Success — replaces the form in place. -------------------------------- */
+  /* Direct children only — .success carries its own eyebrow and h2. */
+  .capture.submitted > .form,
+  .capture.submitted > .lede,
+  .capture.submitted > h2,
+  .capture.submitted > .eyebrow,
+  .capture.submitted > .feedback,
+  .capture.submitted > .fineprint{display:none}
+  .success{display:none}
+  .success.visible{display:block;animation:rise 700ms var(--ease) both}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .success h2{
+    margin-top:16px;font-size:clamp(21px,3vw,30px);font-weight:300;line-height:1.3;
+  }
+  .success p{margin-top:18px;font-size:14px;color:var(--mid)}
+  .success .sig{
+    margin-top:26px;font-size:11px;letter-spacing:0.24em;
+    text-transform:uppercase;color:var(--soft);
+  }
+
+  /* Foot — the minimum. -------------------------------------------------- */
+  .foot{
+    margin-top:clamp(64px,9vw,110px);
+    padding:30px var(--gut) 40px;
+    border-top:1px solid var(--line-soft);
+    text-align:center;
+    font-size:10px;letter-spacing:0.20em;text-transform:uppercase;color:var(--soft);
+  }
+  .foot a{text-decoration:none}
+  .foot a:hover{color:var(--ink)}
+  .foot .sep{opacity:0.4;padding:0 10px}
+
+  /* Quiet entrance ------------------------------------------------------- */
+  .rev{opacity:0;transform:translateY(14px)}
+  .rev.in{opacity:1;transform:none;transition:opacity 780ms var(--ease),transform 780ms var(--ease)}
+
+  @media (max-width:760px){
+    .product{grid-template-columns:1fr;text-align:center}
+    .product-figure{order:-1;max-width:300px;margin:0 auto;width:100%}
+    .replaces,.price{text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .rev,.rev.in{opacity:1;transform:none;transition:none}
+    .success.visible{animation:none}
+  }
+</style>
+</head>
+<body>
+
+  <!-- Masthead — wordmark only. No navigation by design. -->
+  <header class="masthead">
+    <a class="wordmark" href="/">Maison d&rsquo;Vue</a>
+  </header>
+
+  <!-- ═══ HEADLINE — the product promise, over the film still ═══ -->
+  <section class="hero">
+    <!-- The film carries the hero; the poster stands in until it decodes, and
+         remains the whole hero if a browser refuses to play it. -->
+    <video class="hero-img" src="hero.mp4" poster="hero-poster.jpg"
+           autoplay muted loop playsinline webkit-playsinline="true"
+           preload="auto" disablepictureinpicture
+           controlslist="nodownload nofullscreen noremoteplayback"
+           aria-hidden="true"></video>
+    <div class="hero-copy">
+      <p class="eyebrow">The September Allocation</p>
+      <h1>14 oils. 6 continents. 5 drops.</h1>
+      <p class="sub">Enter to win a raw sapphire necklace in 14k gold.</p>
+      <a class="hero-btn" href="#capture">Join the List</a>
+    </div>
+  </section>
+
+  <!-- ═══ THE PRODUCT — one image, the price, what it replaces ═══ -->
+  <section class="product rev">
+    <figure class="product-figure">
+      <img src="elixir.jpg?v=2" srcset="elixir-sm.jpg?v=2 600w, elixir.jpg?v=2 1200w"
+           sizes="(max-width:760px) 88vw, 50vw"
+           width="1200" height="1600"
+           alt="The MAISON D&rsquo;VUE VUE 14 Hair &Eacute;lixir in its cobalt glass bottle with a gold dropper cap." fetchpriority="high">
+    </figure>
+    <div class="product-detail">
+      <p class="eyebrow">The Signature</p>
+      <p class="product-name">VUE 14&trade; Hair &Eacute;lixir</p>
+      <p class="product-meta">30 ml &middot; Hand-sealed &middot; Beverly Hills</p>
+
+      <p class="price">
+        $125
+        <span class="alt">The Voyage, in 10 ml &mdash; $68</span>
+      </p>
+
+      <p class="replaces">
+        <strong>What it replaces.</strong>
+        A leave-in, a shine serum, a frizz cream, and a treatment for dry ends &mdash;
+        four bottles down to five drops. No silicones, sulfates, parabens, or mineral oils.
+      </p>
+
+      <!-- Adds the 30ml Signature and hands the guest straight to checkout.
+           Variant id verified live against the shop before wiring. -->
+      <form class="buy" method="post" action="https://shop.maisondvue.com/cart/add">
+        <input type="hidden" name="id" value="48287241339128">
+        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" name="return_to" value="/checkout">
+        <button type="submit" class="buy-btn">Buy the Elixir &mdash; $125</button>
+      </form>
+      <p class="buy-note">The Signature, 30 ml &middot; ships from Beverly Hills</p>
+    </div>
+  </section>
+
+  <!-- ═══ THE STORY — why VUE 14 exists ═══ -->
+  <section class="story rev">
+    <p class="eyebrow">Why It Exists</p>
+    <p>Every oil on the shelf asks the hair to accept it; none asks what the hair already recognises.</p>
+    <p>VUE 14 was composed from affinity instead &mdash; fourteen botanicals chosen for how each behaves against the fibre, from Amazonian ungurahua, whose fatty-acid profile is nearly identical to human sebum, to camellia, light enough to pass between the cuticle&rsquo;s scales. Making fourteen essences behave as one took three years and a patent-pending system. It is the only thing this house makes.</p>
+    <p class="sig">Masiela Lusha &middot; Founder</p>
+  </section>
+
+  <!-- ═══ TIMING — stated plainly ═══ -->
+  <section class="timing rev">
+    <p class="eyebrow">The Allocation Opens</p>
+    <p class="month">September 2026</p>
+    <p class="note">Hand-sealed in limited volume. The list is served first.</p>
+  </section>
+
+  <!-- ═══ REVIEWS — two films, before the ask ═══ -->
+  <section class="wall rev">
+    <p class="eyebrow">In Their Words</p>
+    <div class="wall-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <p class="wall-summary">5.0 &middot; 9 Reviews</p>
+
+    <div class="wall-grid">
+      <div>
+        <div class="wall-tile">
+          <video src="review-1.mp4" poster="review-1-poster.jpg"
+                 autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+                 disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+                 aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+        <p class="wall-name">Cindy</p>
+      </div>
+      <div>
+        <div class="wall-tile">
+          <video src="review-2.mp4" poster="review-2-poster.jpg"
+                 autoplay muted loop playsinline webkit-playsinline="true" preload="metadata"
+                 disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
+                 aria-hidden="true" onerror="this.style.display='none';"></video>
+        </div>
+        <p class="wall-name">Xhesika</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ THE FORM — email, and an optional first name ═══ -->
+  <section class="capture rev" id="capture">
+    <p class="eyebrow">Join the List</p>
+    <h2>First access, and one sapphire.</h2>
+    <p class="lede">Everyone on the list is written to before the Allocation opens. One name, drawn at launch, receives a raw sapphire necklace in 14k gold.</p>
+
+    <form class="form" id="waitForm" method="post"
+          action="https://maisondvue.us20.list-manage.com/subscribe/post?u=ece90c707751d2379f6f22e77&amp;id=3a9da7ab07&amp;f_id=004802eef0"
+          target="_self" novalidate>
+
+      <div class="field">
+        <label for="mce-EMAIL">Email</label>
+        <input type="email" id="mce-EMAIL" name="EMAIL" required
+               autocomplete="email" inputmode="email" placeholder="your@email.com">
+      </div>
+
+      <div class="field">
+        <label for="mce-FNAME">First name <span class="opt">(optional)</span></label>
+        <input type="text" id="mce-FNAME" name="FNAME" autocomplete="given-name" placeholder="So the letter opens properly">
+      </div>
+
+      <!-- Drops every entry into the Sapphire Entrants tag on arrival, so the
+           giveaway list stays separable from the Founder's Circle, which posts
+           to this same audience. -->
+      <input type="hidden" name="tags" value="Sapphire Entrants">
+
+      <!-- HONEYPOT — must remain present, hidden, and untouched -->
+      <div class="hp" aria-hidden="true">
+        <label for="b_ece90c707751d2379f6f22e77_3a9da7ab07">Leave this field empty</label>
+        <input type="text" name="b_ece90c707751d2379f6f22e77_3a9da7ab07"
+               id="b_ece90c707751d2379f6f22e77_3a9da7ab07" tabindex="-1" value="" autocomplete="off">
+      </div>
+
+      <button type="submit" class="submit" id="waitSubmit">Join the List</button>
+    </form>
+
+    <p class="feedback" id="waitFeedback" role="status" aria-live="polite"></p>
+
+    <p class="fineprint">
+      Open to legal residents of the United States, 18 or older. Void where prohibited.
+      One entry per email. No purchase necessary to enter or win. The winner is drawn when the
+      Allocation opens and notified at the email given here.
+      Your details are received in confidence &mdash; you may withdraw at any moment.
+      <a href="/privacy.html">Privacy</a>
+    </p>
+
+    <!-- SUCCESS — replaces the form in place -->
+    <div class="success" id="waitSuccess">
+      <p class="eyebrow">You are on the list</p>
+      <h2>A letter will follow before the Allocation opens.</h2>
+      <p>Your entry for the sapphire is recorded. Nothing further is needed.</p>
+      <p class="sig">&mdash; Masiela</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="/">Maison d&rsquo;Vue</a>
+    <span class="sep">&middot;</span>
+    <a href="/privacy.html">Privacy</a>
+    <span class="sep">&middot;</span>
+    <a href="/terms.html">Terms</a>
+  </footer>
+
+<script>
+  /* Quiet entrance — each block eases up once, as it arrives. */
+  (function(){
+    var els = document.querySelectorAll('.rev');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  /* The form posts straight to Mailchimp through a hidden iframe, so the
+     visitor never leaves the page. Same audience and honeypot as the Circle. */
+  (function(){
+    var form     = document.getElementById('waitForm');
+    var submit   = document.getElementById('waitSubmit');
+    var feedback = document.getElementById('waitFeedback');
+    var capture  = document.getElementById('capture');
+    var success  = document.getElementById('waitSuccess');
+    var email    = document.getElementById('mce-EMAIL');
+    var hp       = document.getElementById('b_ece90c707751d2379f6f22e77_3a9da7ab07');
+
+    function setMsg(text, type){
+      feedback.textContent = text || '';
+      feedback.classList.toggle('error', type === 'error');
+    }
+
+    function land(){
+      capture.classList.add('submitted');
+      success.classList.add('visible');
+      success.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      setMsg('');
+
+      /* Bots fill the honeypot. Show them the door politely, submit nothing. */
+      if (hp.value.trim()) { land(); return; }
+
+      var value = email.value.trim();
+      if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setMsg('A valid email, please.', 'error');
+        email.focus();
+        return;
+      }
+
+      submit.disabled = true;
+      var orig = submit.textContent;
+      submit.textContent = 'One moment…';
+
+      var iframe = document.createElement('iframe');
+      iframe.name = 'mc_wait_target_' + Date.now();
+      iframe.setAttribute('aria-hidden', 'true');
+      iframe.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px';
+      document.body.appendChild(iframe);
+
+      var done = false;
+      function finish(){
+        if (done) return;
+        done = true;
+        land();
+        submit.disabled = false;
+        submit.textContent = orig;
+        setTimeout(function(){
+          if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        }, 2000);
+      }
+
+      /* Mailchimp answers with its own response page; the load event is our
+         signal. The welcome automation sends regardless of what we show. */
+      iframe.addEventListener('load', finish);
+      form.target = iframe.name;
+      form.submit();
+
+      /* Safety net, so no one is ever stranded on "One moment…". */
+      setTimeout(finish, 4000);
+    });
+  })();
+</script>
+
+</body>
+</html>
