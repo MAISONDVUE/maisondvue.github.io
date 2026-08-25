@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://maisondvue.com/waitlist">
 <meta property="og:site_name" content="MAISON D&rsquo;VUE">
-<meta property="og:image" content="https://maisondvue.com/waitlist/elixir.jpg">
+<meta property="og:image" content="https://maisondvue.com/waitlist/elixir.jpg?v=2">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
@@ -177,6 +177,21 @@
     font-size:14px;color:var(--mid);line-height:1.8;
   }
   .replaces strong{font-weight:500;color:var(--ink)}
+
+  /* Buy — outlined, not filled. The page's one action is the list; this is
+     the door for anyone who would rather not wait, and must not outrank it. */
+  .buy{margin-top:26px}
+  .buy-btn{
+    display:block;width:100%;padding:15px 20px;
+    background:transparent;color:var(--ink);border:1px solid var(--ink);
+    font-size:11px;letter-spacing:0.26em;text-transform:uppercase;font-weight:400;
+    text-align:center;cursor:pointer;border-radius:0;
+    transition:background 260ms var(--ease),color 260ms var(--ease);
+  }
+  .buy-btn:hover{background:var(--ink);color:#FFFFFF}
+  .buy-note{
+    margin-top:11px;font-size:11px;color:var(--soft);text-align:center;
+  }
 
   /* The story ------------------------------------------------------------ */
   .story{
@@ -366,9 +381,9 @@
   <!-- ═══ THE PRODUCT — one image, the price, what it replaces ═══ -->
   <section class="product rev">
     <figure class="product-figure">
-      <img src="elixir.jpg" srcset="elixir-sm.jpg 700w, elixir.jpg 1400w"
+      <img src="elixir.jpg?v=2" srcset="elixir-sm.jpg?v=2 600w, elixir.jpg?v=2 1200w"
            sizes="(max-width:760px) 88vw, 50vw"
-           width="1400" height="1400"
+           width="1200" height="1600"
            alt="The MAISON D&rsquo;VUE VUE 14 Hair &Eacute;lixir in its cobalt glass bottle with a gold dropper cap." fetchpriority="high">
     </figure>
     <div class="product-detail">
@@ -386,6 +401,16 @@
         A leave-in, a shine serum, a frizz cream, and a treatment for dry ends &mdash;
         four bottles down to five drops. No silicones, sulfates, parabens, or mineral oils.
       </p>
+
+      <!-- Adds the 30ml Signature and hands the guest straight to checkout.
+           Variant id verified live against the shop before wiring. -->
+      <form class="buy" method="post" action="https://shop.maisondvue.com/cart/add">
+        <input type="hidden" name="id" value="48287241339128">
+        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" name="return_to" value="/checkout">
+        <button type="submit" class="buy-btn">Buy the Elixir &mdash; $125</button>
+      </form>
+      <p class="buy-note">The Signature, 30 ml &middot; ships from Beverly Hills</p>
     </div>
   </section>
 
