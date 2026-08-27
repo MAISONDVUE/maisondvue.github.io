@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Cache freshness: always serve the current page, never a stale cached copy -->
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+  /* If the browser restores this page from its back/forward cache, reload it
+     so the logo and nav never land on an outdated version of the site. */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>VUE 14 Sapphire Necklace Drawing &mdash; Official Rules</title>
+<meta name="description" content="Official Rules for the MAISON D'VUE VUE 14 Sapphire Necklace Drawing. No purchase or payment of any kind is necessary to enter or win.">
+<meta name="robots" content="noindex">
+<meta name="author" content="MAISON D'VUE">
+<meta name="theme-color" content="#FFFFFF">
+
+<link rel="canonical" href="https://maisondvue.com/vue-14-official-rules">
+
+<meta property="og:title" content="VUE 14 Sapphire Necklace Drawing — Official Rules">
+<meta property="og:description" content="Official Rules for the MAISON D'VUE VUE 14 Sapphire Necklace Drawing.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisondvue.com/vue-14-official-rules">
+<meta property="og:site_name" content="MAISON D'VUE">
+<meta property="og:locale" content="en_US">
+<meta name="facebook-domain-verification" content="xovk96y253pwkwx7uffhiztogf5oob" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --paper-2: #F6F5F2;
+    --ink: #0A0A0A;
+    --navy: #0A0A0A;
+    --sapphire: #1A1A1A;
+    --gold: #0A0A0A;
+    --gold-deep: #0A0A0A;
+    --mid: rgba(10, 10, 10, 0.60);
+    --soft: rgba(10, 10, 10, 0.40);
+    --line: rgba(10, 10, 10, 0.14);
+    --line-soft: rgba(10, 10, 10, 0.08);
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --page: 1180px;
+    --nav-h: 72px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--paper); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ===== UNIFIED NAV (solid on paper — text page, no hero) ===== */
+  .mdv-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--line-soft);
+    transition: background 320ms ease, border-color 320ms ease;
+  }
+  .mdv-nav .nav-logo {
+    font-family: var(--font-display); font-weight: 500; font-size: 20px;
+    letter-spacing: 0.34em; text-transform: uppercase; color: var(--navy); white-space: nowrap;
+    transition: color 320ms ease;
+  }
+  .mdv-nav .nav-links { display: flex; gap: 40px; }
+  .mdv-nav .nav-links a, .mdv-nav .nav-right a {
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400;
+    color: rgba(10, 10, 10, 0.62); transition: color 220ms ease;
+  }
+  .mdv-nav .nav-right { display: flex; align-items: center; gap: 18px; }
+  .mdv-nav .nav-links a:hover, .mdv-nav .nav-right a:hover { color: var(--navy); }
+  .mdv-nav.scrolled {
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom-color: rgba(10, 10, 10, 0.12);
+  }
+  @media (max-width: 860px) {
+    .mdv-nav { padding: 0 22px; }
+    .mdv-nav .nav-links { display: none; }
+    .mdv-nav .nav-logo { font-size: 16px; letter-spacing: 0.26em; }
+  }
+
+  /* ===== PAGE HEADER (eyebrow + serif title) ===== */
+  .policy-hero {
+    padding: calc(var(--nav-h) + 96px) 0 64px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .policy-hero-inner {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .policy-eyebrow {
+    font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--gold-deep); font-weight: 400; margin-bottom: 24px;
+  }
+  .policy-hero h1 {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: clamp(40px, 5.4vw, 68px); line-height: 1.04;
+    color: var(--navy); letter-spacing: 0.005em;
+  }
+  .policy-hero .policy-lede {
+    font-family: var(--font-italic); font-style: italic;
+    font-size: clamp(17px, 1.7vw, 20px); color: var(--mid);
+    margin-top: 18px; max-width: 620px;
+  }
+  .policy-date {
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--soft); margin-top: 26px;
+  }
+
+  /* ===== POLICY BODY ===== */
+  .policy-body {
+    background: var(--paper);
+    padding: 80px 0 110px;
+  }
+  .policy-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .policy-section { margin-bottom: 56px; }
+  .policy-section:last-child { margin-bottom: 0; }
+
+  .policy-section h2 {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    font-weight: 500; color: var(--navy);
+    padding-bottom: 16px; margin-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .policy-section p {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--navy);
+    margin-bottom: 20px;
+    letter-spacing: 0.005em;
+  }
+  .policy-section p:last-child { margin-bottom: 0; }
+
+  .policy-section strong {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .policy-section a {
+    color: var(--gold-deep);
+    border-bottom: 1px solid rgba(10, 10, 10, 0.4);
+    transition: color 240ms ease, border-color 240ms ease;
+  }
+  .policy-section a:hover {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+  }
+
+  /* ===== ELIGIBILITY NOTICE (required legal prominence) ===== */
+  .rules-notice {
+    border: 1px solid var(--navy);
+    background: var(--paper-2);
+    padding: 30px 34px;
+    margin-bottom: 64px;
+  }
+  .rules-notice p {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 0.08em;
+    color: var(--navy);
+    margin: 0;
+  }
+  @media (max-width: 860px) {
+    .rules-notice { padding: 24px 22px; margin-bottom: 48px; }
+    .rules-notice p { font-size: 13px; letter-spacing: 0.06em; }
+  }
+
+  .ornament {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 56px 0;
+    gap: 12px;
+  }
+  .ornament .line { width: 28px; height: 1px; background: var(--gold); }
+  .ornament .diamond {
+    width: 4px; height: 4px;
+    transform: rotate(45deg);
+    background: var(--gold);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 30px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 18px; flex-wrap: wrap;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--soft);
+  }
+  footer a { color: var(--mid); }
+  footer a:hover { color: var(--navy); }
+  footer .foot-pref { display: inline-flex; vertical-align: middle; align-items: center; line-height: 0; border: 0; }
+
+  @media (max-width: 860px) {
+    .policy-hero { padding: calc(var(--nav-h) + 56px) 0 48px; }
+    .policy-hero-inner { padding: 0 22px; }
+    .policy-body { padding: 56px 0 80px; }
+    .policy-inner { padding: 0 22px; }
+    .policy-section p { font-size: 18px; }
+    footer { padding: 26px 22px; }
+  }
+</style>
+<link rel="stylesheet" href="/assets/nav.css?v=13">
+<link rel="stylesheet" href="/assets/house.css?v=4">
+</head>
+
+<body>
+
+<!-- ═══ PROMO RIBBON (kept hidden so shared JS still resolves the node) ═══ -->
+<div class="promo-ribbon" id="promoRibbon" style="display:none" aria-hidden="true"></div>
+
+<!-- ═══ UNIFIED NAV ═══ -->
+<nav class="mdv-nav mdv-nav-split mdv-nav--light" id="mdvNav">
+  <div class="nav-group nav-group-left">
+    <a href="/product.html">The Elixir</a>
+    <a href="/product.html#ritual">The Ritual</a>
+  </div>
+  <a href="/index.html" class="nav-logo">MAISON D&rsquo;VUE</a>
+  <div class="nav-right-cluster">
+    <div class="nav-group nav-group-right">
+      <a href="/about.html">The House</a>
+      <a href="/gallery.html">World</a>
+    </div>
+    <a class="nav-bag" href="https://shop.maisondvue.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></a>
+  </div>
+</nav>
+<script>
+  (function () {
+    var nav = document.getElementById('mdvNav');
+    function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 16); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<!-- ═══ MOBILE MENU OVERLAY (kept hidden so shared JS still resolves the node) ═══ -->
+<nav class="mobile-menu" id="mobileMenu" style="display:none" aria-hidden="true"></nav>
+
+<main>
+
+  <section class="policy-hero">
+    <div class="policy-hero-inner">
+      <p class="policy-eyebrow">MAISON D&rsquo;VUE</p>
+      <h1>VUE 14&trade; Sapphire Necklace Drawing</h1>
+      <p class="policy-lede">Official Rules</p>
+      <p class="policy-date">Last updated 27 August 2026</p>
+    </div>
+  </section>
+
+  <section class="policy-body">
+    <div class="policy-inner">
+
+      <div class="rules-notice">
+        <p>NO PURCHASE OR PAYMENT OF ANY KIND IS NECESSARY TO ENTER OR WIN. A PURCHASE WILL NOT INCREASE YOUR CHANCES OF WINNING. VOID WHERE PROHIBITED BY LAW.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>1. Sponsor</h2>
+        <p>MDV Group, LLC, d/b/a MAISON D&rsquo;VUE, 132 S Lasky Dr, Floor 2, Unit #523, Beverly Hills, CA 90212, United States (&ldquo;Sponsor&rdquo;).</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>2. Eligibility</h2>
+        <p>The Drawing is open only to legal residents of the fifty (50) United States and the District of Columbia who are eighteen (18) years of age or older at the time of entry. Employees, officers, and directors of Sponsor, and its parent companies, affiliates, subsidiaries, advertising and promotion agencies, and the immediate family members (spouse, parent, child, sibling, and their respective spouses) and household members of each are not eligible. Void in Puerto Rico, all U.S. territories and possessions, and wherever prohibited or restricted by law.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>3. Entry Period</h2>
+        <p>The Drawing begins on <strong>August 27, 2026 at 12:00:01 a.m. Pacific Time</strong> and ends on <strong>November 22, 2026 at 11:59:59 p.m. Pacific Time</strong> (the &ldquo;Entry Period&rdquo;). Sponsor&rsquo;s computer is the official time-keeping device for the Drawing.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>4. How to Enter</h2>
+        <p><strong>Online entry.</strong> During the Entry Period, submit your first name and email address through the MAISON D&rsquo;VUE lead form on Facebook or Instagram. Your submission constitutes one (1) entry.</p>
+        <p><strong>Free alternate method of entry.</strong> To enter without submitting the online form, hand-print your full name, complete mailing address, email address, date of birth, and daytime telephone number on a 3&quot; x 5&quot; card and mail it in a #10 envelope with proper postage to: <strong>VUE 14 Sapphire Necklace Drawing, 132 S Lasky Dr, Floor 2, Unit #523, Beverly Hills, CA 90212</strong>. Mail-in entries must be postmarked by November 22, 2026 and received by November 27, 2026. Each mail-in entry must be mailed separately. Mechanically reproduced entries are void.</p>
+        <p><strong>Limit: one (1) entry per person for the entire Entry Period</strong>, regardless of method. Entries received from any person in excess of the stated limit will be void. Use of any automated system, bot, script, or multiple email addresses to enter is prohibited and will result in disqualification. All entries become the property of Sponsor and will not be acknowledged or returned. Sponsor is not responsible for lost, late, misdirected, incomplete, illegible, or postage-due entries.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>5. Prize</h2>
+        <p><strong>One (1) prize:</strong> one (1) sapphire necklace. <strong>Approximate Retail Value (&ldquo;ARV&rdquo;): $50.00 USD.</strong></p>
+        <p>Total ARV of all prizes: $50.00 USD. No cash or other substitution, assignment, or transfer of the prize is permitted, except that Sponsor reserves the right to substitute a prize of equal or greater value if the advertised prize becomes unavailable. All costs and expenses not expressly stated as being provided as part of the prize are the sole responsibility of the winner. The prize will be shipped only to a valid street address within the fifty United States or the District of Columbia.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>6. Odds</h2>
+        <p>Odds of winning depend on the total number of eligible entries received during the Entry Period.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>7. Winner Selection and Notification</h2>
+        <p>The potential winner will be selected in a <strong>random drawing from among all eligible entries on or about November 23, 2026</strong>, conducted by Sponsor, whose decisions are final and binding in all matters relating to the Drawing.</p>
+        <p>The potential winner will be notified by email at the address provided at entry within three (3) business days of the drawing. The potential winner must respond within five (5) days of the date of notification and, if requested, complete and return an Affidavit of Eligibility and Liability/Publicity Release. If a potential winner cannot be contacted, fails to respond within the stated period, is found ineligible, declines the prize, or if the notification is returned as undeliverable, the prize may be forfeited and an alternate winner may be selected at random from among the remaining eligible entries, time permitting.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>8. Taxes</h2>
+        <p>All federal, state, and local taxes on the prize are the sole responsibility of the winner.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>9. Publicity</h2>
+        <p>Except where prohibited by law, acceptance of the prize constitutes the winner&rsquo;s consent to Sponsor&rsquo;s use of the winner&rsquo;s first name and state of residence for promotional purposes in any media, worldwide, without further payment or consideration.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>10. General Conditions</h2>
+        <p>By entering, entrants agree to be bound by these Official Rules and by Sponsor&rsquo;s decisions, which are final and binding. Sponsor reserves the right, in its sole discretion, to disqualify any individual it finds to be tampering with the entry process or the operation of the Drawing, acting in violation of these Official Rules, or acting in an unsportsmanlike or disruptive manner.</p>
+        <p>If for any reason the Drawing is not capable of running as planned &mdash; including infection by computer virus, bugs, tampering, unauthorized intervention, fraud, technical failures, or any other cause beyond Sponsor&rsquo;s reasonable control &mdash; Sponsor reserves the right, in its sole discretion, to cancel, terminate, modify, or suspend the Drawing and to select the winner from among all eligible entries received prior to the action taken.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>11. Limitation of Liability</h2>
+        <p>By entering, entrants release and hold harmless Sponsor and its parent companies, affiliates, subsidiaries, advertising and promotion agencies, and each of their respective officers, directors, employees, and agents from any and all liability for any injury, loss, or damage of any kind arising from or in connection with the Drawing or acceptance, possession, or use of the prize. Some jurisdictions do not allow the limitation or exclusion of liability for incidental or consequential damages, so the above may not apply to you.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>12. Privacy</h2>
+        <p>Information collected from entrants is subject to Sponsor&rsquo;s Privacy Policy, available at <strong><a href="https://shop.maisondvue.com/policies/privacy-policy">https://shop.maisondvue.com/policies/privacy-policy</a></strong>. By entering, you agree that Sponsor may use your name and email address to administer the Drawing, to notify the winner, and to send you marketing communications about VUE 14&trade; and MAISON D&rsquo;VUE. You may unsubscribe at any time using the link in any marketing email.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>13. Platform Disclaimer</h2>
+        <p><strong>This promotion is in no way sponsored, endorsed or administered by, or associated with, Meta Platforms, Inc.</strong> Entrants are providing information to Sponsor and not to Meta. Any questions, comments, or complaints regarding the Drawing must be directed to Sponsor, not to Meta.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>14. Winner List</h2>
+        <p>For the name of the winner, send a self-addressed stamped envelope to <strong>VUE 14 Sapphire Necklace Drawing &mdash; Winner Request, 132 S Lasky Dr, Floor 2, Unit #523, Beverly Hills, CA 90212</strong>, to be received no later than December 23, 2026.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>15. Governing Law</h2>
+        <p>All issues and questions concerning the construction, validity, interpretation, and enforceability of these Official Rules, or the rights and obligations of entrants and Sponsor, shall be governed by and construed in accordance with the laws of the State of California, without giving effect to any choice of law or conflict of law rules.</p>
+      </div>
+
+      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>&copy; 2026 MAISON D&rsquo;VUE &middot; Hand-sealed &middot; Beverly Hills</span>
+  <span>Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a> &nbsp;&middot;&nbsp; <a class="foot-pref" href="https://www.google.com/preferences/source?q=maisondvue.com" target="_blank" rel="noopener" aria-label="Set MAISON D&rsquo;VUE as a preferred source on Google" title="Set MAISON D&rsquo;VUE as a preferred source on Google"><svg width="15" height="15" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg></a></span>
+</footer>
+
+<script src="/assets/chat.js?v=5" defer></script>
+<script src="/assets/menu.js?v=10" defer></script>
+<script src="/assets/house.js?v=1" defer></script>
+
+</body>
+</html>
