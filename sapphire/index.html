@@ -81,7 +81,12 @@
   }
   .hero-img{
     position:absolute;inset:0;
-    width:100%;height:100%;object-fit:cover;object-position:center center;
+    /* The pendant sits at the middle of a portrait frame. On a landscape
+       viewport the film is cropped top and bottom, and centring it would seat
+       the stone behind the type — holding the window low keeps it in the
+       clear air above. On a phone the frame is taller than it is wide, so
+       there is nothing to crop and this has no effect. */
+    width:100%;height:100%;object-fit:cover;object-position:center 58%;
     display:block;
   }
   /* Scrim — the film is already dark, so this only weights the foot of the
@@ -365,7 +370,7 @@
   <section class="hero">
     <!-- The film carries the hero; the poster stands in until it decodes, and
          remains the whole hero if a browser refuses to play it. -->
-    <video class="hero-img" src="hero.mp4" poster="hero-poster.jpg"
+    <video class="hero-img" src="hero.mp4?v=2" poster="hero-poster.jpg?v=2"
            autoplay muted loop playsinline webkit-playsinline="true"
            preload="auto" disablepictureinpicture
            controlslist="nodownload nofullscreen noremoteplayback"
