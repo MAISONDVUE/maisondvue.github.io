@@ -33,6 +33,15 @@
     --font-serif:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif;
     --nav-h:72px;
   }
+
+  /* The shared letters popup (assets/letters.js) paints itself from the older
+     house palette. Alias those names onto this page's tokens, scoped to the
+     overlay so the front page's own palette stays untouched. */
+  .letters-overlay{
+    --warm-white:#FFFFFF; --navy:#0A0A0A; --gold-muted:#0A0A0A;
+    --font-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --font-italic:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
   *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; background:var(--paper); }
   body{
@@ -287,6 +296,7 @@
   <div>Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></div>
 </footer>
 
+<script src="assets/letters.js?v=5" defer></script>
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>
