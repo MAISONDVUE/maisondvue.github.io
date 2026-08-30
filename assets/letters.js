@@ -222,7 +222,7 @@
     <button class="letters-close" type="button" aria-label="Close">&times;</button>
 
     <p class="letters-label">Welcome to MAISON D&rsquo;VUE</p>
-    <p class="letters-headline" id="lettersHeadline">Subscribe for first looks at each Allocation, letters from the maison, and rare access.</p>
+    <p class="letters-headline" id="lettersHeadline">This sapphire looks good on you. Enter the draw for a chance to win a sapphire necklace on November 23rd.</p>
 
     <form class="letters-form" id="lettersForm" novalidate>
       <div class="letters-input-row">
