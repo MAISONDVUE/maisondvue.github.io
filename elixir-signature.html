@@ -69,7 +69,15 @@
 
   /* Left — photo placeholders (swap with product photography) */
   .pdp-gallery{ display:grid; grid-template-columns:clamp(72px,6vw,104px) minmax(0,1fr); gap:clamp(12px,1vw,18px); }
-  .pdp-thumbs{ display:grid; grid-auto-rows:max-content; gap:12px; }
+  /* height:0 keeps the rail from driving the row's height; min-height:100% then
+     stretches it to whatever the photograph beside it measures, so a long album
+     scrolls within the frame instead of running past the bottom of it. */
+  .pdp-thumbs{
+    display:grid; grid-auto-rows:max-content; gap:12px;
+    height:0; min-height:100%; overflow-y:auto;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .pdp-thumbs::-webkit-scrollbar{ display:none; }
   .pdp-thumb, .pdp-photo{
     position:relative; background:var(--paper-2); overflow:hidden;
   }
@@ -178,6 +186,8 @@
     .pdp-thumbs{
       grid-row:2; grid-auto-flow:column; grid-auto-columns:64px; grid-auto-rows:auto;
       gap:10px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+      /* Drop the side rail's height binding — here the strip sizes to its own thumbs. */
+      height:auto; min-height:0; overflow-y:visible;
     }
     .pdp-thumbs::-webkit-scrollbar{ display:none; }
     .pdp-thumb{ aspect-ratio:1; }
@@ -226,11 +236,17 @@
         <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-coffret-detail.jpg" aria-label="The bottle in the coffret">
           <img src="maison-dvue-elixir-coffret-detail.jpg" alt="Close detail of the MAISON D'VUE Hair Elixir in its coffret, gold monogram and Powered by VUE 14 in relief" loading="lazy">
         </button>
+        <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-hair-bottle.jpg" aria-label="The elixir against the length">
+          <img src="maison-dvue-elixir-hair-bottle.jpg" alt="The MAISON D'VUE Hair Elixir held against long, glossy hair" loading="lazy">
+        </button>
         <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-coffret-sealed.jpg" aria-label="The sealed coffret">
           <img src="maison-dvue-elixir-coffret-sealed.jpg" alt="The MAISON D'VUE coffret, closed and hand-sealed with the cobalt wax monogram" loading="lazy">
         </button>
         <button class="pdp-thumb" type="button" data-media="video" data-src="signature-apply.mp4?v=2" data-poster="signature-apply-poster.jpg?v=2" aria-label="Applying the elixir">
           <video src="signature-apply.mp4?v=2" muted loop autoplay playsinline webkit-playsinline="true" preload="metadata"></video>
+        </button>
+        <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-hair-dropper.jpg" aria-label="A drop, released">
+          <img src="maison-dvue-elixir-hair-dropper.jpg" alt="A golden drop of the elixir falling from the gold dropper onto glossy hair" loading="lazy">
         </button>
         <button class="pdp-thumb" type="button" data-media="image" data-src="maison-dvue-elixir-signature-studio-white.jpg" aria-label="The bottle in studio light">
           <img src="maison-dvue-elixir-signature-studio-white.jpg" alt="The MAISON D'VUE Hair Elixir, 30ml cobalt frosted glass with gold cap, lit against white" loading="lazy">
