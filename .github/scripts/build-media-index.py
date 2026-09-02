@@ -58,7 +58,10 @@ def card(name, kind, size):
       </button>
       <p class="name" title="{n}">{n}</p>
       <p class="meta">{kind} &middot; {human_size(size)}</p>
-      <button class="copy" type="button" data-url="{u}">Copy link</button>
+      <div class="actions">
+        <button class="btn copy" type="button" data-url="{u}">Copy link</button>
+        <a class="btn dl" href="{u}" download="{n}">Download</a>
+      </div>
     </li>"""
 
 
@@ -146,12 +149,17 @@ def build(items):
   }}
   .meta {{ margin: 0 0 10px; color: #8b8578; font-size: 12px; }}
 
-  .copy {{
-    width: 100%; padding: 9px; font-size: 13px; cursor: pointer;
-    color: #121109; background: #c9c2ae; border: 0; border-radius: 5px;
+  .actions {{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }}
+  .btn {{
+    display: block; width: 100%; padding: 10px 6px; font: inherit; font-size: 13px;
+    text-align: center; text-decoration: none; cursor: pointer;
+    border: 0; border-radius: 5px;
   }}
+  .copy {{ color: #121109; background: #c9c2ae; }}
   .copy:hover {{ background: #e0d9c4; }}
   .copy.done {{ background: #7f9b74; color: #fff; }}
+  .dl {{ color: #ecebe6; background: #2b2920; border: 1px solid #423f33; }}
+  .dl:hover {{ background: #383528; }}
 
   dialog {{
     padding: 0; border: 0; background: transparent; max-width: 92vw; width: 1100px;
@@ -166,10 +174,12 @@ def build(items):
     margin-top: 12px; color: #ecebe6;
   }}
   .bar p {{ margin: 0; font-size: 14px; overflow: hidden; text-overflow: ellipsis; }}
-  .bar button {{
-    flex: none; padding: 9px 16px; font-size: 13px; cursor: pointer;
-    border: 0; border-radius: 5px; background: #c9c2ae; color: #121109;
+  .bar button, .bar a {{
+    flex: none; padding: 9px 16px; font: inherit; font-size: 13px; cursor: pointer;
+    text-decoration: none; border: 0; border-radius: 5px;
+    background: #c9c2ae; color: #121109;
   }}
+  .bar #vdl {{ background: #2b2920; color: #ecebe6; border: 1px solid #423f33; }}
   .bar .close {{ background: #2b2920; color: #ecebe6; }}
 </style>
 </head>
@@ -190,6 +200,7 @@ def build(items):
   <div class="bar">
     <p id="vname"></p>
     <button type="button" id="vcopy">Copy link</button>
+    <a id="vdl" download>Download</a>
     <button type="button" class="close" id="vclose">Close</button>
   </div>
 </dialog>
@@ -250,12 +261,15 @@ def build(items):
   var stage = document.getElementById('stage');
   var vname = document.getElementById('vname');
   var vcopy = document.getElementById('vcopy');
+  var vdl = document.getElementById('vdl');
   var current = '';
 
   document.querySelectorAll('.tile[data-url]').forEach(function (tile) {{
     tile.addEventListener('click', function () {{
       current = tile.dataset.url;
       vname.textContent = tile.dataset.name;
+      vdl.href = current;
+      vdl.setAttribute('download', tile.dataset.name);
       stage.innerHTML = tile.dataset.kind === 'video'
         ? '<video src="' + current + '" controls autoplay playsinline></video>'
         : '<img src="' + current + '" alt="">';

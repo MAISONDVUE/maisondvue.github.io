@@ -17,6 +17,10 @@ Gallery: https://maisondvue.com/media/
 3. Wait about a minute. The gallery rebuilds itself and the new file
    appears as a tile with a Copy link button.
 
+Every tile also carries a **Download** button, and so does the lightbox.
+The files sit on the same domain as the page, so the browser saves them
+straight to the device rather than opening them in a tab.
+
 The page cannot take the upload itself. Pages is static hosting with no
 server behind it, and an upload endpoint on an unlisted public page would
 let anyone holding the URL write files onto the site. The + sends you to
