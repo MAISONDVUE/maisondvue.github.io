@@ -9,6 +9,7 @@ import html
 import os
 
 BASE = "https://maisondvue.com/media/"
+UPLOAD = "https://github.com/MAISONDVUE/maisondvue.github.io/upload/main/media"
 MEDIA_DIR = "media"
 VIDEO_EXT = {".mp4", ".mov"}
 IMAGE_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
@@ -40,38 +41,43 @@ def collect():
 
 def card(name, kind, size):
     url = BASE + name
-    safe_url = html.escape(url, quote=True)
-    safe_name = html.escape(name)
+    u = html.escape(url, quote=True)
+    n = html.escape(name)
     if kind == "video":
-        preview = (
-            f'<video src="{safe_url}" preload="metadata" muted playsinline '
-            f'controls></video>'
+        # #t=0.1 makes the browser seek a hair in and paint that frame,
+        # rather than leaving the tile black until someone hovers it.
+        media = (
+            f'<video src="{u}#t=0.1" preload="metadata" muted playsinline '
+            f'loop></video><span class="play" aria-hidden="true"></span>'
         )
     else:
-        preview = f'<img src="{safe_url}" alt="{safe_name}" loading="lazy">'
+        media = f'<img src="{u}" alt="{n}" loading="lazy">'
     return f"""    <li class="card">
-      <div class="frame">{preview}</div>
-      <p class="name">{safe_name}</p>
+      <button class="tile" type="button" data-kind="{kind}" data-url="{u}" data-name="{n}">
+        {media}
+      </button>
+      <p class="name" title="{n}">{n}</p>
       <p class="meta">{kind} &middot; {human_size(size)}</p>
-      <input class="url" value="{safe_url}" readonly aria-label="URL for {safe_name}">
-      <button class="copy" type="button" data-url="{safe_url}">Copy link</button>
+      <button class="copy" type="button" data-url="{u}">Copy link</button>
     </li>"""
 
 
 def build(items):
-    if items:
-        body = (
-            f'  <p class="count">{len(items)} '
-            f'file{"s" if len(items) != 1 else ""}</p>\n'
-            '  <ul class="grid">\n'
-            + "\n".join(card(*i) for i in items)
-            + "\n  </ul>"
-        )
-    else:
-        body = (
-            '  <p class="empty">Nothing here yet. Drop files into the '
-            '<code>media</code> folder on GitHub and this page rebuilds itself.</p>'
-        )
+    add_tile = f"""    <li class="card add">
+      <a class="tile addtile" href="{UPLOAD}" target="_blank" rel="noopener">
+        <span class="plus" aria-hidden="true">+</span>
+        <span class="addlabel">Add a video</span>
+      </a>
+      <p class="name">Upload</p>
+      <p class="meta">opens GitHub &middot; drag, then Commit changes</p>
+    </li>"""
+
+    grid = "\n".join([add_tile] + [card(*i) for i in items])
+    count = (
+        f'{len(items)} file{"s" if len(items) != 1 else ""}'
+        if items
+        else "Nothing here yet"
+    )
 
     return f"""<!doctype html>
 <html lang="en">
@@ -83,72 +89,184 @@ def build(items):
 <style>
   * {{ box-sizing: border-box; }}
   body {{
-    margin: 0; padding: 32px 24px 64px;
+    margin: 0; padding: 30px 26px 70px;
     font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    color: #e8e6e1; background: #15140f;
+    color: #ecebe6; background: #121109;
   }}
-  h1 {{ margin: 0 0 4px; font-size: 20px; font-weight: 500; letter-spacing: .02em; }}
-  .sub {{ margin: 0 0 4px; color: #8d887c; font-size: 13px; }}
-  .count {{ margin: 20px 0 12px; color: #8d887c; font-size: 13px; }}
-  .empty {{ margin: 28px 0; color: #8d887c; }}
-  code {{ background: #232118; padding: 1px 5px; border-radius: 3px; }}
+  header {{ max-width: 1500px; margin: 0 auto 26px; }}
+  h1 {{ margin: 0 0 6px; font-size: 21px; font-weight: 500; letter-spacing: .04em; }}
+  .sub {{ margin: 0; color: #8b8578; font-size: 13px; }}
+  .count {{ margin: 14px 0 0; color: #8b8578; font-size: 13px; }}
+
   .grid {{
-    list-style: none; margin: 0; padding: 0; display: grid; gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    list-style: none; margin: 0 auto; padding: 0; max-width: 1500px;
+    display: grid; gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }}
-  .card {{ background: #1d1c15; border: 1px solid #2c2a20; border-radius: 8px; padding: 12px; }}
-  .frame {{
-    background: #000; border-radius: 5px; overflow: hidden;
-    aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center;
+  .card {{ min-width: 0; }}
+
+  .tile {{
+    display: block; position: relative; width: 100%; padding: 0;
+    aspect-ratio: 16 / 9; overflow: hidden; cursor: pointer;
+    background: #000; border: 1px solid #2b2920; border-radius: 9px;
   }}
-  .frame video, .frame img {{ width: 100%; height: 100%; object-fit: contain; }}
-  .name {{ margin: 10px 0 2px; font-size: 14px; word-break: break-all; }}
-  .meta {{ margin: 0 0 10px; color: #8d887c; font-size: 12px; }}
-  .url {{
-    width: 100%; padding: 7px 8px; margin-bottom: 8px;
-    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
-    color: #b9b4a6; background: #14130e; border: 1px solid #2c2a20;
-    border-radius: 4px;
+  .tile video, .tile img {{
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }}
+  .tile:hover {{ border-color: #6d6552; }}
+  .tile:focus-visible {{ outline: 2px solid #c9c2ae; outline-offset: 2px; }}
+
+  .play {{
+    position: absolute; inset: 0; margin: auto; width: 54px; height: 54px;
+    border-radius: 50%; background: rgba(12,11,7,.62);
+    border: 1px solid rgba(236,235,230,.45);
+    transition: opacity .18s;
+  }}
+  .play::after {{
+    content: ''; position: absolute; inset: 0; margin: auto;
+    width: 0; height: 0; margin-left: 21px;
+    border-left: 15px solid #ecebe6;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+  }}
+  .tile:hover .play {{ opacity: 0; }}
+
+  .addtile {{
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 8px; text-decoration: none;
+    background: #191811; border: 1px dashed #4a463a; color: #a8a292;
+  }}
+  .addtile:hover {{ border-color: #c9c2ae; color: #ecebe6; background: #1f1e15; }}
+  .plus {{ font-size: 46px; line-height: 1; font-weight: 200; }}
+  .addlabel {{ font-size: 13px; letter-spacing: .04em; }}
+
+  .name {{
+    margin: 11px 0 2px; font-size: 14px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }}
+  .meta {{ margin: 0 0 10px; color: #8b8578; font-size: 12px; }}
+
   .copy {{
     width: 100%; padding: 9px; font-size: 13px; cursor: pointer;
-    color: #15140f; background: #c9c2ae; border: 0; border-radius: 4px;
+    color: #121109; background: #c9c2ae; border: 0; border-radius: 5px;
   }}
-  .copy:hover {{ background: #ded7c2; }}
+  .copy:hover {{ background: #e0d9c4; }}
   .copy.done {{ background: #7f9b74; color: #fff; }}
+
+  dialog {{
+    padding: 0; border: 0; background: transparent; max-width: 92vw; width: 1100px;
+  }}
+  dialog::backdrop {{ background: rgba(8,7,4,.9); }}
+  dialog video, dialog img {{
+    width: 100%; max-height: 78vh; display: block;
+    background: #000; border-radius: 9px;
+  }}
+  .bar {{
+    display: flex; gap: 12px; align-items: center; justify-content: space-between;
+    margin-top: 12px; color: #ecebe6;
+  }}
+  .bar p {{ margin: 0; font-size: 14px; overflow: hidden; text-overflow: ellipsis; }}
+  .bar button {{
+    flex: none; padding: 9px 16px; font-size: 13px; cursor: pointer;
+    border: 0; border-radius: 5px; background: #c9c2ae; color: #121109;
+  }}
+  .bar .close {{ background: #2b2920; color: #ecebe6; }}
 </style>
 </head>
 <body>
+<header>
   <h1>Media</h1>
-  <p class="sub">Direct file URLs for ad platforms. Unlisted &mdash; anyone with a link can view it.</p>
-  <p class="sub">Base: {BASE}</p>
-{body}
+  <p class="sub">Direct file URLs for ad platforms. Unlisted &mdash; anyone holding a link can view the file.</p>
+  <p class="count">{count}</p>
+</header>
+
+<ul class="grid">
+{grid}
+</ul>
+
+<dialog id="viewer">
+  <div id="stage"></div>
+  <div class="bar">
+    <p id="vname"></p>
+    <button type="button" id="vcopy">Copy link</button>
+    <button type="button" class="close" id="vclose">Close</button>
+  </div>
+</dialog>
+
 <script>
-document.querySelectorAll('.copy').forEach(function (btn) {{
-  btn.addEventListener('click', function () {{
-    var url = btn.dataset.url;
-    var done = function () {{
-      var was = btn.textContent;
-      btn.textContent = 'Copied';
-      btn.classList.add('done');
-      setTimeout(function () {{
-        btn.textContent = was;
-        btn.classList.remove('done');
-      }}, 1400);
-    }};
+(function () {{
+  function flash(btn, label) {{
+    var was = btn.textContent;
+    btn.textContent = label;
+    btn.classList.add('done');
+    setTimeout(function () {{
+      btn.textContent = was;
+      btn.classList.remove('done');
+    }}, 1400);
+  }}
+
+  function copy(url, btn) {{
     if (navigator.clipboard && window.isSecureContext) {{
-      navigator.clipboard.writeText(url).then(done, function () {{ fallback(); }});
+      navigator.clipboard.writeText(url).then(
+        function () {{ flash(btn, 'Copied'); }},
+        function () {{ legacy(url, btn); }}
+      );
     }} else {{
-      fallback();
+      legacy(url, btn);
     }}
-    function fallback() {{
-      var field = btn.parentNode.querySelector('.url');
-      field.focus();
-      field.select();
-      try {{ document.execCommand('copy'); done(); }} catch (e) {{}}
-    }}
+  }}
+
+  function legacy(url, btn) {{
+    var f = document.createElement('textarea');
+    f.value = url;
+    f.setAttribute('readonly', '');
+    f.style.position = 'fixed';
+    f.style.opacity = '0';
+    document.body.appendChild(f);
+    f.select();
+    try {{ document.execCommand('copy'); flash(btn, 'Copied'); }} catch (e) {{}}
+    document.body.removeChild(f);
+  }}
+
+  document.querySelectorAll('.copy').forEach(function (btn) {{
+    btn.addEventListener('click', function () {{ copy(btn.dataset.url, btn); }});
   }});
-}});
+
+  // Hover preview on the video tiles.
+  document.querySelectorAll('.tile video').forEach(function (v) {{
+    var tile = v.closest('.tile');
+    tile.addEventListener('mouseenter', function () {{
+      var p = v.play();
+      if (p && p.catch) {{ p.catch(function () {{}}); }}
+    }});
+    tile.addEventListener('mouseleave', function () {{
+      v.pause();
+      v.currentTime = 0;
+    }});
+  }});
+
+  var dlg = document.getElementById('viewer');
+  var stage = document.getElementById('stage');
+  var vname = document.getElementById('vname');
+  var vcopy = document.getElementById('vcopy');
+  var current = '';
+
+  document.querySelectorAll('.tile[data-url]').forEach(function (tile) {{
+    tile.addEventListener('click', function () {{
+      current = tile.dataset.url;
+      vname.textContent = tile.dataset.name;
+      stage.innerHTML = tile.dataset.kind === 'video'
+        ? '<video src="' + current + '" controls autoplay playsinline></video>'
+        : '<img src="' + current + '" alt="">';
+      if (dlg.showModal) {{ dlg.showModal(); }} else {{ window.open(current, '_blank'); }}
+    }});
+  }});
+
+  vcopy.addEventListener('click', function () {{ copy(current, vcopy); }});
+  document.getElementById('vclose').addEventListener('click', function () {{ dlg.close(); }});
+  dlg.addEventListener('click', function (e) {{ if (e.target === dlg) {{ dlg.close(); }} }});
+  dlg.addEventListener('close', function () {{ stage.innerHTML = ''; }});
+}})();
 </script>
 </body>
 </html>

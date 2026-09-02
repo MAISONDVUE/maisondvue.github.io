@@ -7,10 +7,17 @@ Gallery: https://maisondvue.com/media/
 
 ## How to add a video
 
-1. Go to https://github.com/MAISONDVUE/maisondvue.github.io/tree/main/media
-2. **Add file** > **Upload files**, drag the video in, then **Commit changes**.
+1. Open the gallery and press the **+** tile. It opens GitHub's upload
+   screen for this folder. (Direct link:
+   https://github.com/MAISONDVUE/maisondvue.github.io/upload/main/media)
+2. Drag the video in, then **Commit changes**.
 3. Wait about a minute. The gallery rebuilds itself and the new file
-   appears with a Copy link button.
+   appears as a tile with a Copy link button.
+
+The page cannot take the upload itself. Pages is static hosting with no
+server behind it, and an upload endpoint on an unlisted public page would
+let anyone holding the URL write files onto the site. The + sends you to
+GitHub, which already has a login in front of it.
 
 Deleting works the same way: open the file on GitHub, hit the bin icon,
 commit. The gallery drops it on the next rebuild.
