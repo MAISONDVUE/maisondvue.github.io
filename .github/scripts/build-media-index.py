@@ -72,7 +72,7 @@ def build(items):
         <span class="addlabel">Add a video</span>
       </a>
       <p class="name">Upload</p>
-      <p class="meta">opens GitHub &middot; sign in first &middot; 25 MB a file, max</p>
+      <p class="meta">opens GitHub &middot; sign in first &middot; 25 MB max here, more through git</p>
     </li>"""
 
     grid = "\n".join([add_tile] + [card(*i) for i in items])
@@ -188,7 +188,7 @@ def build(items):
   <h1>Media</h1>
   <p class="sub">Direct file URLs for ad platforms. Unlisted &mdash; anyone holding a link can view the file.</p>
   <p class="sub">Adding a file needs you signed in to GitHub. Signed out, the + lands on &ldquo;Uploads are disabled&rdquo;.</p>
-  <p class="sub">The + hands off to GitHub&rsquo;s browser uploader, which refuses anything over <strong>25 MB a file</strong>. Compress first &mdash; the recipe is in media/README.md.</p>
+  <p class="sub">The + hands off to GitHub&rsquo;s browser uploader, which refuses anything over <strong>25 MB a file</strong>. That cap is the uploader&rsquo;s, not the folder&rsquo;s &mdash; a master up to 100 MB goes in untouched through git. See media/README.md.</p>
   <p class="count">{count}</p>
 </header>
 
