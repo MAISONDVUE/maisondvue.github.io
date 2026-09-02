@@ -7,6 +7,9 @@ Gallery: https://maisondvue.com/media/
 
 ## How to add a video
 
+0. **Be signed in to GitHub in that browser.** Signed out, GitHub answers
+   the upload screen with "Uploads are disabled. File uploads require push
+   access to this repository." Signing in is the whole fix.
 1. Open the gallery and press the **+** tile. It opens GitHub's upload
    screen for this folder. (Direct link:
    https://github.com/MAISONDVUE/maisondvue.github.io/upload/main/media)
