@@ -2,13 +2,87 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>media</title>
+<title>Media</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 24px 64px;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #e8e6e1; background: #15140f;
+  }
+  h1 { margin: 0 0 4px; font-size: 20px; font-weight: 500; letter-spacing: .02em; }
+  .sub { margin: 0 0 4px; color: #8d887c; font-size: 13px; }
+  .count { margin: 20px 0 12px; color: #8d887c; font-size: 13px; }
+  .empty { margin: 28px 0; color: #8d887c; }
+  code { background: #232118; padding: 1px 5px; border-radius: 3px; }
+  .grid {
+    list-style: none; margin: 0; padding: 0; display: grid; gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .card { background: #1d1c15; border: 1px solid #2c2a20; border-radius: 8px; padding: 12px; }
+  .frame {
+    background: #000; border-radius: 5px; overflow: hidden;
+    aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center;
+  }
+  .frame video, .frame img { width: 100%; height: 100%; object-fit: contain; }
+  .name { margin: 10px 0 2px; font-size: 14px; word-break: break-all; }
+  .meta { margin: 0 0 10px; color: #8d887c; font-size: 12px; }
+  .url {
+    width: 100%; padding: 7px 8px; margin-bottom: 8px;
+    font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #b9b4a6; background: #14130e; border: 1px solid #2c2a20;
+    border-radius: 4px;
+  }
+  .copy {
+    width: 100%; padding: 9px; font-size: 13px; cursor: pointer;
+    color: #15140f; background: #c9c2ae; border: 0; border-radius: 4px;
+  }
+  .copy:hover { background: #ded7c2; }
+  .copy.done { background: #7f9b74; color: #fff; }
+</style>
 </head>
 <body>
-<p>Direct media files. Base: https://maisondvue.com/media/</p>
-<ul>
-<li><a href="https://maisondvue.com/media/README.md">https://maisondvue.com/media/README.md</a></li>
-</ul>
+  <h1>Media</h1>
+  <p class="sub">Direct file URLs for ad platforms. Unlisted &mdash; anyone with a link can view it.</p>
+  <p class="sub">Base: https://maisondvue.com/media/</p>
+  <p class="count">1 file</p>
+  <ul class="grid">
+    <li class="card">
+      <div class="frame"><video src="https://maisondvue.com/media/ritual-drops.mp4" preload="metadata" muted playsinline controls></video></div>
+      <p class="name">ritual-drops.mp4</p>
+      <p class="meta">video &middot; 220.0 KB</p>
+      <input class="url" value="https://maisondvue.com/media/ritual-drops.mp4" readonly aria-label="URL for ritual-drops.mp4">
+      <button class="copy" type="button" data-url="https://maisondvue.com/media/ritual-drops.mp4">Copy link</button>
+    </li>
+  </ul>
+<script>
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var url = btn.dataset.url;
+    var done = function () {
+      var was = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function () {
+        btn.textContent = was;
+        btn.classList.remove('done');
+      }, 1400);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(done, function () { fallback(); });
+    } else {
+      fallback();
+    }
+    function fallback() {
+      var field = btn.parentNode.querySelector('.url');
+      field.focus();
+      field.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+    }
+  });
+});
+</script>
 </body>
 </html>
