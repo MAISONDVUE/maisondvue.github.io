@@ -149,23 +149,40 @@ function doPost(e) {
     // Fall back to a Gmail receipt only when Mailchimp isn't handling it.
     if (!MC_OWNS_APPLICANT_EMAILS) sendApplicationReceived(email, clean(p.firstName));
 
+    // The full application lands in NOTIFY_EMAIL (hello@maisondvue.com) so the
+    // House can read and answer it straight from the inbox - Reply goes to the
+    // applicant, not back to the script's own account.
     if (NOTIFY_EMAIL) {
       try {
-        MailApp.sendEmail(
-          NOTIFY_EMAIL,
-          "New Founding Creator application - " + clean(p.firstName) + " " + clean(p.lastName),
-          [
-            "A new application has been received.",
-            "",
-            "Name: " + clean(p.firstName) + " " + clean(p.lastName),
-            "Email: " + email,
-            "Instagram: " + clean(p.instagram),
-            "TikTok: " + clean(p.tiktok),
-            "Followers: " + clean(p.followers),
-            "",
-            "Review and approve in the program sheet."
-          ].join("\n")
-        );
+        var applicant = (clean(p.firstName) + " " + clean(p.lastName)).trim();
+        var body = [
+          "A new application has been received.",
+          "",
+          "Name: " + (applicant || "-"),
+          "Email: " + email,
+          "Instagram: " + (clean(p.instagram) || "-"),
+          "TikTok: " + (clean(p.tiktok) || "-"),
+          "Followers: " + (clean(p.followers) || "-"),
+          "Source: " + (clean(p.source) || "creators-page"),
+          ""
+        ];
+
+        var note = clean(p.note, 1000);
+        if (note) body.push(note, "");
+
+        var shipping = clean(p.shipping, 500);
+        if (shipping) body.push("Shipping: " + shipping, "");
+
+        body.push("Reply to this email to answer " + (applicant || "the applicant") + " directly.");
+        body.push("Review and approve in the program sheet.");
+
+        MailApp.sendEmail({
+          to: NOTIFY_EMAIL,
+          replyTo: email,
+          name: SENDER_NAME,
+          subject: "New Founding Creator application - " + (applicant || email),
+          body: body.join("\n")
+        });
       } catch (mailErr) { /* notification is best-effort */ }
     }
 

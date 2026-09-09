@@ -409,8 +409,12 @@ src="https://www.facebook.com/tr?id=1164156712458976&ev=PageView&noscript=1"/></
               <input type="text" id="followers" name="followers" placeholder="E.g. 25K">
             </div>
             <div class="field">
-              <label for="engagement">Engagement Rate (approx.)</label>
-              <input type="text" id="engagement" name="engagement" placeholder="E.g. 3.5%">
+              <label for="productOnly">Accept Product-Only Posts?</label>
+              <select id="productOnly" name="productOnly" class="placeholder">
+                <option value="" disabled selected>Select yes or no</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
             </div>
             <div class="field col-2">
               <label for="contentFocus">Content Focus</label>
@@ -494,7 +498,7 @@ src="https://www.facebook.com/tr?id=1164156712458976&ev=PageView&noscript=1"/></
     var lines = [];
     if (d.country) lines.push('Country: ' + d.country);
     if (d.platform) lines.push('Primary platform: ' + d.platform);
-    if (d.engagement) lines.push('Engagement: ' + d.engagement);
+    if (d.productOnly) lines.push('Accepts product-only posts: ' + d.productOnly);
     if (d.contentFocus) lines.push('Content focus: ' + d.contentFocus);
     if (d.content) lines.push('', 'Content: ' + d.content);
     if (d.why) lines.push('', 'Why MDV: ' + d.why);
@@ -580,12 +584,13 @@ src="https://www.facebook.com/tr?id=1164156712458976&ev=PageView&noscript=1"/></
       if (!instagram) { setMsg('An Instagram handle, please.', 'error'); form.instagram.focus(); return; }
       if (!form.platform.value) { setMsg('Please select your primary platform.', 'error'); form.platform.focus(); return; }
       if (!form.followers.value.trim()) { setMsg('Your follower count, please.', 'error'); form.followers.focus(); return; }
+      if (!form.productOnly.value) { setMsg('Please tell us whether you accept product-only posts.', 'error'); form.productOnly.focus(); return; }
       if (!form.consent.checked) { setMsg('Please confirm you wish to be considered.', 'error'); form.consent.focus(); return; }
 
       var extras = {
         country: form.country.value,
         platform: form.platform.value,
-        engagement: form.engagement.value.trim(),
+        productOnly: form.productOnly.value,
         contentFocus: form.contentFocus.value,
         content: form.content.value.trim(),
         why: form.why.value.trim()
