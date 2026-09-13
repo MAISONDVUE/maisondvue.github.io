@@ -432,7 +432,7 @@ fbq('track', 'ViewContent', {
 
         <input type="hidden" name="id" id="pdpVariantId" value="48287241339128">
         <input type="hidden" name="selling_plan" id="pdpSellingPlan" value="" disabled>
-        <input type="hidden" name="return_to" value="/checkout">
+        <input type="hidden" name="return_to" value="/cart">
 
         <div class="pdp-buyrow">
           <select class="pdp-qty" name="quantity" aria-label="Quantity">
@@ -597,10 +597,11 @@ fbq('track', 'ViewContent', {
 
   render();
 
-  // Add to Bag goes straight to checkout: the form posts to Shopify's
-  // /cart/add with return_to=/checkout, so the item is added and the shopper
-  // lands on the payment page. The pixel is given a brief moment to report
-  // first, but never holds the sale up for more than a blink.
+  // Add to Bag posts to Shopify's /cart/add with return_to=/cart, so the
+  // bottle is added and the shopper lands on the cart, where quantities can be
+  // changed, the gift message written and the reviews read before checkout.
+  // The pixel is given a brief moment to report first, but never holds the
+  // sale up for more than a blink.
   var form = document.querySelector('.pdp-buy-form');
   var buyBtn = form ? form.querySelector('.pdp-buy') : null;
   if(form && buyBtn){
@@ -611,7 +612,7 @@ fbq('track', 'ViewContent', {
       going = true;
 
       var qty = parseInt(form.querySelector('.pdp-qty').value, 10) || 1;
-      buyBtn.innerHTML = 'Taking you to checkout\u2026';
+      buyBtn.innerHTML = 'Taking you to your bag\u2026';
 
       form.dispatchEvent(new CustomEvent('mdv:added', { detail: {
         variantId: idField.value,
