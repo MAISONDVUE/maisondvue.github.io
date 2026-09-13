@@ -102,6 +102,7 @@
     font-family:var(--font-serif); font-weight:500;
     font-size:clamp(38px,4.6vw,60px); letter-spacing:0.01em; line-height:1; color:var(--ink);
   }
+  .pdp-tm{ font-size:0.30em; vertical-align:super; letter-spacing:0.02em; font-weight:400; }
   .pdp-subrow{
     display:flex; align-items:center; justify-content:space-between; gap:20px;
     margin-top:22px; padding-bottom:26px; border-bottom:1px solid var(--line);
@@ -129,6 +130,90 @@
   .pdp-terms{ margin-top:6px; font-size:12px; color:var(--mid); letter-spacing:0.02em; }
   .pdp-provenance{ margin-top:28px; padding-top:26px; border-top:1px solid var(--line);
     font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--soft); }
+
+  /* ── SIZE + BUY (pill selector, quantity, price inside the button) ── */
+  .pdp-opt{ margin:26px 0 22px; }
+  .pdp-opt-label{
+    display:block; font-family:var(--font-sans); font-size:11px; font-weight:500;
+    letter-spacing:0.22em; text-transform:uppercase; color:var(--soft); margin-bottom:12px;
+  }
+  .pdp-sizes{ display:flex; gap:10px; flex-wrap:wrap; }
+  .pdp-size{
+    min-width:104px; padding:13px 22px; cursor:pointer;
+    background:transparent; color:var(--ink);
+    border:1px solid var(--line); border-radius:999px;
+    font-family:var(--font-sans); font-size:11.5px; font-weight:500;
+    letter-spacing:0.2em; text-transform:uppercase;
+    transition:border-color 200ms ease, background 200ms ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .pdp-size:hover{ border-color:rgba(10,10,10,0.34); }
+  .pdp-size.is-active{ border-color:var(--ink); border-width:1.4px; background:var(--paper); }
+  .pdp-size:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+  /* Frequency — one-time vs subscription */
+  .pdp-freq{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .pdp-freq-card{
+    position:relative; display:flex; align-items:center; gap:10px;
+    padding:16px 14px; cursor:pointer; background:var(--paper);
+    border:1px solid var(--line); text-align:left;
+    transition:border-color 200ms ease, opacity 200ms ease;
+  }
+  .pdp-freq-card:hover{ border-color:rgba(10,10,10,0.34); }
+  .pdp-freq-card.is-active{ border-color:var(--ink); border-width:1.4px; }
+  .pdp-freq-card.is-disabled{ opacity:0.42; cursor:not-allowed; }
+  .pdp-freq-dot{
+    flex:0 0 auto; width:15px; height:15px; border-radius:50%;
+    border:1.4px solid rgba(10,10,10,0.34); position:relative;
+  }
+  .pdp-freq-card.is-active .pdp-freq-dot{ border-color:var(--ink); }
+  .pdp-freq-card.is-active .pdp-freq-dot::after{
+    content:""; position:absolute; inset:3px; border-radius:50%; background:var(--ink);
+  }
+  .pdp-freq-text{
+    font-family:var(--font-sans); font-size:11.5px; font-weight:500;
+    letter-spacing:0.14em; text-transform:uppercase; line-height:1.45; color:var(--ink);
+  }
+  .pdp-freq-badge{
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    background:var(--ink); color:#FFFFFF; padding:3px 12px; white-space:nowrap;
+    font-family:var(--font-sans); font-size:9px; font-weight:500;
+    letter-spacing:0.2em; text-transform:uppercase;
+  }
+  .pdp-freq-info{
+    margin-left:auto; flex:0 0 auto; width:17px; height:17px; border-radius:50%;
+    border:1px solid rgba(10,10,10,0.34); color:var(--mid);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-italic); font-style:italic; font-size:11px; line-height:1;
+    background:transparent; cursor:help; padding:0;
+  }
+  .pdp-freq-note{
+    margin-top:12px; font-size:12px; line-height:1.6; color:var(--mid); letter-spacing:0.02em;
+  }
+  .pdp-cadence{ margin-top:12px; display:none; }
+  .pdp-cadence.is-visible{ display:block; }
+  .pdp-cadence select{
+    width:100%; padding:13px 14px; cursor:pointer;
+    background:var(--paper); color:var(--ink); border:1px solid var(--line); border-radius:0;
+    font-family:var(--font-sans); font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    -webkit-appearance:none; appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%230A0A0A' stroke-width='1.2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 14px center; background-size:10px;
+  }
+  @media (max-width:420px){ .pdp-freq{ grid-template-columns:1fr; } .pdp-freq-badge{ left:auto; right:14px; transform:none; } }
+
+  .pdp-buyrow{ display:flex; align-items:stretch; gap:10px; margin-top:8px; }
+  .pdp-qty{
+    flex:0 0 auto; width:86px; padding:0 14px; cursor:pointer;
+    background:var(--paper); color:var(--ink); border:1px solid var(--line);
+    font-family:var(--font-sans); font-size:13px; letter-spacing:0.06em;
+    -webkit-appearance:none; appearance:none; border-radius:0;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%230A0A0A' stroke-width='1.2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 14px center; background-size:10px;
+  }
+  .pdp-buyrow .pdp-buy{ flex:1 1 auto; margin-top:0; gap:14px; }
+  .pdp-buy-sep{ opacity:0.45; font-weight:300; }
+  .pdp-installments{ margin-top:14px; font-size:12px; color:var(--mid); letter-spacing:0.02em; }
 
   /* ── TRAVEL WITH YOUR ELIXIR (cross-sell, click the square to add) ── */
   .pdp-cross{ margin-top:40px; }
@@ -195,7 +280,8 @@
   }
 </style>
 
-<link rel="stylesheet" href="assets/nav.css?v=13">
+<link rel="stylesheet" href="assets/nav.css?v=14">
+<link rel="stylesheet" href="assets/mdv-ui.css?v=3">
 <link rel="stylesheet" href="assets/house.css?v=4">
 <!-- Meta Pixel Code -->
 <script>
@@ -293,36 +379,75 @@ fbq('track', 'ViewContent', {
 
     <!-- RIGHT — INFO -->
     <div class="pdp-info">
-      <h1 class="pdp-name">The Signature</h1>
+      <h1 class="pdp-name" id="pdpName">VUE 14<span class="pdp-tm">&trade;</span> Hair Elixir</h1>
       <div class="pdp-subrow">
-        <span class="pdp-cat">Hair Elixir &middot; 30 ml &middot; 1 fl oz</span>
-        <span class="pdp-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>5.0 (28)</span></span>
+        <span class="pdp-cat" id="pdpCat">The Signature &middot; 30 ml &middot; 1 fl oz</span>
+        <span class="pdp-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>(2,183)</span></span>
       </div>
 
-      <p class="pdp-desc">The house signature, in full. Fourteen rare botanical essences, drawn into affinity with the hair fiber &mdash; weightless nourishment, glass-like luminosity, and fluid movement from first light to last. Composed in Beverly Hills, scented in <em>&Acirc;me de Vue&trade;</em>. 30 ml &middot; 1 fl oz.</p>
+      <p class="pdp-desc" id="pdpDesc">The house signature, in full. Fourteen rare botanical essences, drawn into affinity with the hair fiber &mdash; weightless nourishment, glass-like luminosity, and fluid movement from first light to last. Hand-sealed in Beverly Hills, scented in <em>&Acirc;me de Vue&trade;</em>. 30 ml &middot; 1 fl oz.</p>
 
       <form class="pdp-buy-form" method="post" action="https://shop.maisondvue.com/cart/add">
-        <input type="hidden" name="id" value="48287241339128">
-        <input type="hidden" name="quantity" value="1">
+        <div class="pdp-opt">
+          <span class="pdp-opt-label" id="pdpSizeLabel">Choose Your Size</span>
+          <div class="pdp-sizes" role="radiogroup" aria-labelledby="pdpSizeLabel">
+            <button type="button" class="pdp-size is-active" role="radio" aria-checked="true"
+              data-variant="48287241339128" data-price="125" data-sub="1"
+              data-cat="The Signature &middot; 30 ml &middot; 1 fl oz"
+              data-img="maison-dvue-elixir-hair-bottle.jpg"
+              data-desc="The house signature, in full. Fourteen rare botanical essences, drawn into affinity with the hair fiber &mdash; weightless nourishment, glass-like luminosity, and fluid movement from first light to last. Hand-sealed in Beverly Hills, scented in <em>&Acirc;me de Vue&trade;</em>. 30 ml &middot; 1 fl oz.">30 ML</button>
+            <button type="button" class="pdp-size" role="radio" aria-checked="false"
+              data-variant="49653578531064" data-price="68" data-sub="0"
+              data-cat="The Voyage &middot; 10 ml &middot; 0.33 fl oz"
+              data-img="maison-dvue-elixir-voyage-gloves.jpg"
+              data-desc="The Signature, reduced to its essential. Ten millilitres of the Hair Elixir in cobalt frosted glass &mdash; the full ritual, taken anywhere. Fourteen rare essences, scented in <em>&Acirc;me de Vue&trade;</em>. 10 ml &middot; 0.33 fl oz.">10 ML</button>
+          </div>
+        </div>
+
+        <div class="pdp-opt">
+          <span class="pdp-opt-label" id="pdpFreqLabel">Choose Your Frequency</span>
+          <div class="pdp-freq" role="radiogroup" aria-labelledby="pdpFreqLabel">
+            <button type="button" class="pdp-freq-card is-active" id="pdpOnce" role="radio" aria-checked="true" data-mode="once">
+              <span class="pdp-freq-dot" aria-hidden="true"></span>
+              <span class="pdp-freq-text">One-Time<br>Purchase</span>
+            </button>
+            <button type="button" class="pdp-freq-card" id="pdpSub" role="radio" aria-checked="false" data-mode="sub">
+              <span class="pdp-freq-badge">Best Value</span>
+              <span class="pdp-freq-dot" aria-hidden="true"></span>
+              <span class="pdp-freq-text">Subscribe</span>
+              <span class="pdp-freq-info" role="img" tabindex="0"
+                aria-label="Subscribe and save: ten percent off every delivery, on the cadence you choose. Pause or cancel at any time."
+                title="Ten percent off every delivery, on the cadence you choose. Pause or cancel at any time.">i</span>
+            </button>
+          </div>
+          <div class="pdp-cadence" id="pdpCadence">
+            <select id="pdpPlan" aria-label="Delivery cadence">
+              <option value="6231851256">Deliver every 2 months &mdash; 10% off</option>
+              <option value="6231818488" selected>Deliver every 3 months &mdash; 10% off</option>
+              <option value="6231884024">Deliver every 4 months &mdash; 10% off</option>
+            </select>
+          </div>
+          <p class="pdp-freq-note" id="pdpFreqNote" hidden>Subscription is offered on the 30 ml Signature. The Voyage is a one-time purchase.</p>
+        </div>
+
+        <input type="hidden" name="id" id="pdpVariantId" value="48287241339128">
+        <input type="hidden" name="selling_plan" id="pdpSellingPlan" value="" disabled>
         <input type="hidden" name="return_to" value="/checkout">
-        <button class="pdp-buy" type="submit">Buy The Signature &mdash; $125</button>
+
+        <div class="pdp-buyrow">
+          <select class="pdp-qty" name="quantity" aria-label="Quantity">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button class="pdp-buy" type="submit">Add to Bag <span class="pdp-buy-sep">|</span> <span class="pdp-buy-price">$125</span></button>
+        </div>
       </form>
+      <p class="pdp-installments">Or four interest-free payments of <span class="pdp-inst-amt">$31.25</span> with Shop Pay.</p>
       <p class="pdp-pay">Hand-sealed in Beverly Hills &middot; Free US shipping.</p>
       <p class="pdp-terms">Sales tax calculated at checkout. International: duties and taxes included.</p>
-
-      <!-- TRAVEL WITH YOUR ELIXIR -->
-      <div class="pdp-cross">
-        <p class="pdp-cross-label">Travel with your Elixir</p>
-        <div class="pdp-cross-item">
-          <a class="pdp-cross-thumb" href="elixir-voyage.html" aria-label="View The Voyage"><img src="maison-dvue-elixir-voyage-gloves.jpg" alt="The Voyage — 10ml MAISON D'VUE Hair Elixir held in a white cotton glove"></a>
-          <span class="pdp-cross-text">
-            <a class="pdp-cross-name" href="elixir-voyage.html">The Voyage</a>
-            <span class="pdp-cross-sub">Ten millilitres, anywhere.</span>
-            <span class="pdp-cross-price">10 ml &middot; $68</span>
-          </span>
-          <button class="pdp-cross-add" type="button" data-variant-id="49653578531064" data-qty="1" data-label="The Voyage" aria-label="Add The Voyage to your bag"></button>
-        </div>
-      </div>
 
       <p class="pdp-provenance">Hand-sealed &middot; Beverly Hills</p>
     </div>
@@ -332,7 +457,7 @@ fbq('track', 'ViewContent', {
 
 <footer>
   <div class="footer-logo">MAISON D&rsquo;VUE</div>
-  <div>&copy; 2026 MAISON D&rsquo;VUE &middot; Composed in Beverly Hills</div>
+  <div>&copy; 2026 MAISON D&rsquo;VUE &middot; Hand-sealed in Beverly Hills</div>
   <div><a href="/vue-14-official-rules">Official Rules</a></div>
   <div>Questions? <a href="mailto:hello@maisondvue.com">hello@maisondvue.com</a></div>
 </footer>
@@ -380,50 +505,156 @@ fbq('track', 'ViewContent', {
 <script src="assets/chat.js?v=5" defer></script>
 <script src="assets/menu.js?v=10" defer></script>
 <script src="assets/house.js?v=1" defer></script>
-<script src="assets/cart.js?v=1" defer></script>
-<!-- Meta Pixel — AddToCart on the buy button -->
+
+<!-- Size + frequency — 30 ml leads; subscription applies to the 30 ml only. -->
+<script>
+(function(){
+  var sizes = document.querySelectorAll('.pdp-size');
+  if(!sizes.length) return;
+
+  var idField   = document.getElementById('pdpVariantId');
+  var planField = document.getElementById('pdpSellingPlan');
+  var planSel   = document.getElementById('pdpPlan');
+  var cadence   = document.getElementById('pdpCadence');
+  var onceBtn   = document.getElementById('pdpOnce');
+  var subBtn    = document.getElementById('pdpSub');
+  var freqNote  = document.getElementById('pdpFreqNote');
+
+  var priceEl = document.querySelector('.pdp-buy-price');
+  var instRow = document.querySelector('.pdp-installments');
+  var instEl  = document.querySelector('.pdp-inst-amt');
+  var catEl   = document.getElementById('pdpCat');
+  var descEl  = document.getElementById('pdpDesc');
+  var photoEl = document.querySelector('.pdp-photo-img');
+  var videoEl = document.querySelector('.pdp-photo-video');
+
+  var SUB_DISCOUNT = 0.10;
+  var current = sizes[0];
+  var mode = 'once';
+
+  function money(n){
+    return '$' + (n % 1 === 0 ? n.toFixed(0) : n.toFixed(2));
+  }
+
+  function render(){
+    var base = parseFloat(current.dataset.price);
+    var subscribable = current.dataset.sub === '1';
+    var subscribing = subscribable && mode === 'sub';
+    var price = subscribing ? base * (1 - SUB_DISCOUNT) : base;
+
+    idField.value = current.dataset.variant;
+    priceEl.textContent = money(price);
+
+    // Shopify only accepts selling_plan when a subscription is actually chosen.
+    planField.value = subscribing ? planSel.value : '';
+    planField.disabled = !subscribing;
+
+    onceBtn.classList.toggle('is-active', !subscribing);
+    onceBtn.setAttribute('aria-checked', !subscribing ? 'true' : 'false');
+    subBtn.classList.toggle('is-active', subscribing);
+    subBtn.setAttribute('aria-checked', subscribing ? 'true' : 'false');
+    subBtn.classList.toggle('is-disabled', !subscribable);
+    subBtn.setAttribute('aria-disabled', subscribable ? 'false' : 'true');
+    cadence.classList.toggle('is-visible', subscribing);
+    freqNote.hidden = subscribable;
+
+    // Shop Pay instalments do not apply to subscriptions.
+    if(instRow){
+      instRow.hidden = subscribing;
+      if(instEl) instEl.textContent = '$' + (price / 4).toFixed(2);
+    }
+  }
+
+  function selectSize(btn){
+    current = btn;
+    sizes.forEach(function(b){
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    if(catEl)  catEl.innerHTML  = btn.dataset.cat;
+    if(descEl) descEl.innerHTML = btn.dataset.desc;
+    if(photoEl && btn.dataset.img){
+      photoEl.src = btn.dataset.img;
+      photoEl.style.display = 'block';
+      if(videoEl) videoEl.style.display = 'none';
+    }
+    if(btn.dataset.sub !== '1') mode = 'once';
+    render();
+  }
+
+  sizes.forEach(function(btn){
+    btn.addEventListener('click', function(){ selectSize(btn); });
+  });
+
+  onceBtn.addEventListener('click', function(){ mode = 'once'; render(); });
+  subBtn.addEventListener('click', function(){
+    if(current.dataset.sub !== '1') return;
+    mode = 'sub';
+    render();
+  });
+  planSel.addEventListener('change', render);
+
+  render();
+
+  // Add to Bag without leaving the page: post silently to the Shopify cart,
+  // then bump the nav badge (which fills the bag icon) and confirm on the
+  // button itself. The bag icon links through to the cart for checkout.
+  var form = document.querySelector('.pdp-buy-form');
+  var buyBtn = form ? form.querySelector('.pdp-buy') : null;
+  if(form && buyBtn){
+    form.addEventListener('submit', function(e){
+      if(!window.MDVCart || typeof window.MDVCart.silentAdd !== 'function') return; // fall back to a normal post
+      e.preventDefault();
+
+      var qty = parseInt(form.querySelector('.pdp-qty').value, 10) || 1;
+      var plan = planField.disabled ? '' : planField.value;
+      window.MDVCart.silentAdd(idField.value, qty, plan);
+
+      form.dispatchEvent(new CustomEvent('mdv:added', { detail: {
+        variantId: idField.value,
+        name: current.dataset.cat ? current.dataset.cat.replace(/&middot;.*$/, '').trim() : 'VUE 14 Hair Elixir',
+        value: parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) * qty
+      }}));
+
+      var original = buyBtn.innerHTML;
+      buyBtn.innerHTML = 'Added to Bag \u2713';
+      buyBtn.disabled = true;
+      clearTimeout(buyBtn._mdvTimer);
+      buyBtn._mdvTimer = setTimeout(function(){
+        buyBtn.innerHTML = original;
+        buyBtn.disabled = false;
+      }, 1600);
+    });
+  }
+})();
+</script>
+
+<script src="assets/cart.js?v=2" defer></script>
+<!-- Meta Pixel — AddToCart, fired alongside the silent cart add.
+     The bag is filled in place now, so this only reports the event; it must
+     never submit the form itself (a programmatic submit bypasses the page's
+     own handler and would send the shopper off to checkout). -->
 <script>
 (function () {
   var form = document.querySelector('.pdp-buy-form');
   if (!form) return;
-  var fired = false;
 
-  form.addEventListener('submit', function (e) {
-    // Rapid second click: let the native POST through untouched.
-    if (fired) return;
-    // No pixel at all (ad blocker stripped it): behave exactly as before.
+  form.addEventListener('mdv:added', function (e) {
     if (typeof fbq !== 'function') return;
-    fired = true;
-
-    var submitted = false;
-    var go = function () {
-      if (submitted) return;   // callback and timeout can both land — submit once
-      submitted = true;
-      form.submit();           // programmatic: bypasses this listener, same POST
-    };
-
-    try {
-      e.preventDefault();
-    } catch (err) {
-      return;                  // couldn't hold it — the native submit still runs
-    }
-
-    // Armed BEFORE the pixel is touched, so the sale never waits on it.
-    setTimeout(go, 250);
-
+    var d = e.detail || {};
     try {
       fbq('track', 'AddToCart', {
-        content_ids: ['48287241339128'],
+        content_ids: [d.variantId || '48287241339128'],
         content_type: 'product',
-        content_name: 'VUE 14 Hair Elixir',
-        value: 125.00,
+        content_name: d.name || 'VUE 14 Hair Elixir',
+        value: d.value || 125.00,
         currency: 'USD'
       });
-    } catch (err) {
-      go();                    // pixel threw — go now rather than wait out the 250ms
-    }
+    } catch (err) { /* pixel is best-effort — never block the bag */ }
   });
 })();
 </script>
+<script src="assets/mdv-ui.js?v=2" defer></script>
 </body>
 </html>

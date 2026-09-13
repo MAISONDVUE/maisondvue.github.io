@@ -1,0 +1,170 @@
+/* MAISON D'VUE — shared shop furniture: the announcement banner and the
+   15% signup popup. Loaded on every page alongside nav.css; the markup is
+   injected by assets/mdv-ui.js so a single file governs both. */
+
+:root{
+  --mdv-banner-h: 38px;
+}
+
+/* ── ANNOUNCEMENT BANNER ───────────────────────────────────────────── */
+.mdv-ship-banner{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 210;
+  height: var(--mdv-banner-h); background: #0A0A0A; color: #FFFFFF;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 0 16px; overflow: hidden;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10.5px; font-weight: 400; letter-spacing: 0.18em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.mdv-ship-banner span{ display: inline-flex; align-items: center; gap: 9px; }
+.mdv-ship-banner svg{ width: 15px; height: 15px; flex: 0 0 auto; }
+.mdv-ship-banner .sep{ opacity: 0.42; gap: 0; }
+body.mdv-has-banner{ padding-top: var(--mdv-banner-h); }
+body.mdv-has-banner .mdv-nav{ top: var(--mdv-banner-h); }
+@media (max-width: 700px){
+  .mdv-ship-banner{ font-size: 9px; letter-spacing: 0.12em; gap: 10px; }
+  .mdv-ship-banner svg{ width: 13px; height: 13px; }
+}
+@media (max-width: 430px){
+  .mdv-ship-banner{ flex-direction: column; justify-content: center; gap: 1px; line-height: 1.25; }
+  .mdv-ship-banner .sep{ display: none; }
+}
+
+/* ── SIGNUP POPUP ──────────────────────────────────────────────────── */
+.mdv-pop{
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(10,10,10,0.62);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; visibility: hidden; transition: opacity 320ms ease, visibility 320ms ease;
+}
+.mdv-pop.is-open{ opacity: 1; visibility: visible; }
+
+.mdv-pop__panel{
+  position: relative; display: grid;
+  /* The media column is sized from its own 3:4 height, so the photograph —
+     which is 1200x1600 — fills it corner to corner with no mat around it.
+     The copy takes whatever remains. */
+  grid-template-columns: auto minmax(300px, 460px);
+  width: auto; max-width: min(960px, 100%); max-height: min(92vh, 760px);
+  background: #FFFFFF; overflow: hidden;
+  transform: translateY(14px); transition: transform 380ms cubic-bezier(.2,.7,.3,1);
+}
+.mdv-pop.is-open .mdv-pop__panel{ transform: none; }
+
+/* The whole bottle, edge to edge: the column carries the photograph's own
+   3:4 ratio, so cover and contain amount to the same frame — nothing cropped,
+   nothing matted. */
+.mdv-pop__media{ background: #F1EFEB; height: min(72vh, 700px); aspect-ratio: 3 / 4; }
+.mdv-pop__media img{ width: 100%; height: 100%; display: block; object-fit: cover; }
+
+/* The two screens sit side by side and slide as one. */
+.mdv-pop__stage{ position: relative; overflow: hidden; }
+.mdv-pop__rail{
+  display: flex; width: 200%; height: 100%;
+  transition: transform 520ms cubic-bezier(.3,.7,.2,1);
+}
+.mdv-pop.is-done .mdv-pop__rail{ transform: translateX(-50%); }
+.mdv-pop__screen{
+  width: 50%; flex: 0 0 50%;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 44px 46px; overflow-y: auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #0A0A0A;
+}
+
+.mdv-pop__mark{ width: 44px; height: 44px; margin: 0 auto 26px; display: block; }
+.mdv-pop__mark--big{ width: 84px; height: 84px; margin-bottom: 34px; }
+
+.mdv-pop__eyebrow{
+  font-size: 12px; letter-spacing: 0.34em; text-transform: uppercase;
+  text-align: center; color: rgba(10,10,10,0.62); margin: 0 0 10px;
+}
+.mdv-pop__figure{
+  font-family: 'Bodoni Moda','Didot','Bodoni MT',Georgia,serif; font-weight: 500;
+  font-size: clamp(46px, 6vw, 68px); line-height: 0.95; letter-spacing: 0.01em;
+  text-align: center; margin: 0;
+}
+.mdv-pop__sub{
+  font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+  text-align: center; margin: 14px 0 28px; color: #0A0A0A;
+}
+
+.mdv-pop__field{
+  width: 100%; padding: 15px 16px; margin-bottom: 12px;
+  border: 1px solid rgba(10,10,10,0.28); border-radius: 0; background: #FFFFFF;
+  font-family: inherit; font-size: 14px; color: #0A0A0A;
+}
+.mdv-pop__field::placeholder{ color: rgba(10,10,10,0.42); }
+.mdv-pop__field:focus{ outline: none; border-color: #0A0A0A; }
+.mdv-pop__field.is-error{ border-color: #9B2C2C; }
+
+.mdv-pop__cta{
+  width: 100%; padding: 15px 18px; margin-bottom: 10px; cursor: pointer;
+  background: #0A0A0A; color: #FFFFFF; border: 1px solid #0A0A0A;
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.35;
+  transition: opacity 200ms ease;
+}
+.mdv-pop__cta:hover{ opacity: 0.86; }
+.mdv-pop__cta small{
+  display: block; margin-top: 5px;
+  font-size: 10.5px; font-weight: 300; letter-spacing: 0.08em; text-transform: none;
+  opacity: 0.8;
+}
+.mdv-pop__decline{
+  width: 100%; padding: 14px 18px; cursor: pointer;
+  background: transparent; color: #0A0A0A; border: 1px solid #0A0A0A;
+  font-family: inherit; font-size: 12px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  transition: background 200ms ease, color 200ms ease;
+}
+.mdv-pop__decline:hover{ background: #0A0A0A; color: #FFFFFF; }
+
+.mdv-pop__fine{
+  margin: 18px 0 0; font-size: 10.5px; line-height: 1.6;
+  color: rgba(10,10,10,0.52); text-align: center;
+}
+.mdv-pop__fine a{ color: inherit; text-decoration: underline; }
+
+.mdv-pop__close{
+  position: absolute; top: 12px; right: 14px; z-index: 3;
+  width: 40px; height: 40px; padding: 0; cursor: pointer;
+  background: transparent; border: 0; color: #0A0A0A;
+  font-size: 26px; line-height: 1;
+}
+
+.mdv-pop__title{
+  font-family: 'Bodoni Moda','Didot','Bodoni MT',Georgia,serif; font-weight: 500;
+  font-size: clamp(26px, 3.4vw, 34px); letter-spacing: 0.01em;
+  text-align: center; margin: 0 0 14px;
+}
+.mdv-pop__body{
+  font-size: 14px; line-height: 1.7; text-align: center;
+  color: rgba(10,10,10,0.72); margin: 0;
+}
+
+/* Reopen tab, bottom-left, the way YSL keeps the offer within reach. */
+.mdv-pop-tab{
+  position: fixed; left: 0; bottom: 0; z-index: 300;
+  display: none; align-items: center; gap: 14px;
+  padding: 13px 18px; cursor: pointer;
+  background: #0A0A0A; color: #FFFFFF; border: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+}
+.mdv-pop-tab.is-visible{ display: inline-flex; }
+.mdv-pop-tab__x{ font-size: 15px; line-height: 1; opacity: 0.7; }
+
+/* Side by side for as long as it reads: the copy column narrows first. */
+@media (max-width: 900px){
+  .mdv-pop__panel{ grid-template-columns: auto minmax(260px, 1fr); }
+  .mdv-pop__media{ height: min(64vh, 560px); }
+  .mdv-pop__screen{ padding: 34px 30px; }
+}
+/* Below this the photograph would squeeze the copy to nothing, so it steps
+   aside rather than sitting in a band of empty paper. */
+@media (max-width: 620px){
+  .mdv-pop__panel{ grid-template-columns: 1fr; width: min(420px, 100%); }
+  .mdv-pop__media{ display: none; }
+  .mdv-pop__screen{ padding: 40px 26px 34px; }
+  .mdv-pop__mark{ width: 38px; height: 38px; margin-bottom: 20px; }
+}

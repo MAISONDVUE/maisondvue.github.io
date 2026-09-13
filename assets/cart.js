@@ -16,6 +16,10 @@
 
   function renderBadges() {
     var n = getCount();
+    // A bag holding something reads as filled; empty stays outlined.
+    document.querySelectorAll('.nav-bag').forEach(function (bag) {
+      bag.classList.toggle('has-items', n > 0);
+    });
     document.querySelectorAll('.nav-bag-count').forEach(function (el) {
       if (n > 0) {
         el.textContent = n > 9 ? '9+' : String(n);
@@ -32,7 +36,7 @@
     renderBadges();
   }
 
-  var frame, form, idInput, qtyInput;
+  var frame, form, idInput, qtyInput, planInput;
   function ensureFrame() {
     if (frame) return;
     frame = document.createElement('iframe');
@@ -49,15 +53,21 @@
     form.style.display = 'none';
     idInput = document.createElement('input'); idInput.name = 'id';
     qtyInput = document.createElement('input'); qtyInput.name = 'quantity';
+    planInput = document.createElement('input'); planInput.name = 'selling_plan';
     form.appendChild(idInput);
     form.appendChild(qtyInput);
+    form.appendChild(planInput);
     document.body.appendChild(form);
   }
 
-  function silentAdd(variantId, qty) {
+  function silentAdd(variantId, qty, sellingPlan) {
     ensureFrame();
     idInput.value = variantId;
     qtyInput.value = qty || 1;
+    // Shopify rejects an empty selling_plan, so the field is only sent
+    // when a subscription cadence was actually chosen.
+    planInput.value = sellingPlan || '';
+    planInput.disabled = !sellingPlan;
     form.submit();
     bumpCount(qty || 1);
   }
