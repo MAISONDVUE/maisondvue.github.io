@@ -13,7 +13,7 @@
   var MC_ACTION   = 'https://maisondvue.us20.list-manage.com/subscribe/post?u=ece90c707751d2379f6f22e77&id=3a9da7ab07&f_id=004802eef0';
   var MC_HONEYPOT = 'b_ece90c707751d2379f6f22e77_3a9da7ab07';
   var STORE_KEY   = 'mdv_popup_state';
-  var DELAY_MS    = 8000;          // a breath before the offer appears
+  var DELAY_MS    = 1800;          // straight away — just past the cover fade
   var SNOOZE_DAYS = 30;            // after "no thanks" or a close
   var MARK        = 'monogram-bw.svg';
   var MEDIA       = 'maison-dvue-elixir-smoke.jpg';
