@@ -54,7 +54,7 @@ body.mdv-has-banner .mdv-nav{ top: var(--mdv-banner-h); }
 /* The whole bottle, edge to edge: the column carries the photograph's own
    3:4 ratio, so cover and contain amount to the same frame — nothing cropped,
    nothing matted. */
-.mdv-pop__media{ background: #F1EFEB; height: min(72vh, 700px); aspect-ratio: 3 / 4; }
+.mdv-pop__media{ background: #FFFFFF; height: min(72vh, 700px); aspect-ratio: 3 / 4; }
 .mdv-pop__media img{ width: 100%; height: 100%; display: block; object-fit: cover; }
 
 /* The two screens sit side by side and slide as one. */
