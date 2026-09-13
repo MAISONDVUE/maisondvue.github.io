@@ -597,19 +597,21 @@ fbq('track', 'ViewContent', {
 
   render();
 
-  // Add to Bag without leaving the page: post silently to the Shopify cart,
-  // then bump the nav badge (which fills the bag icon) and confirm on the
-  // button itself. The bag icon links through to the cart for checkout.
+  // Add to Bag goes straight to checkout: the form posts to Shopify's
+  // /cart/add with return_to=/checkout, so the item is added and the shopper
+  // lands on the payment page. The pixel is given a brief moment to report
+  // first, but never holds the sale up for more than a blink.
   var form = document.querySelector('.pdp-buy-form');
   var buyBtn = form ? form.querySelector('.pdp-buy') : null;
   if(form && buyBtn){
+    var going = false;
     form.addEventListener('submit', function(e){
-      if(!window.MDVCart || typeof window.MDVCart.silentAdd !== 'function') return; // fall back to a normal post
+      if(going) return;               // second click: let the native post run
       e.preventDefault();
+      going = true;
 
       var qty = parseInt(form.querySelector('.pdp-qty').value, 10) || 1;
-      var plan = planField.disabled ? '' : planField.value;
-      window.MDVCart.silentAdd(idField.value, qty, plan);
+      buyBtn.innerHTML = 'Taking you to checkout\u2026';
 
       form.dispatchEvent(new CustomEvent('mdv:added', { detail: {
         variantId: idField.value,
@@ -617,14 +619,14 @@ fbq('track', 'ViewContent', {
         value: parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) * qty
       }}));
 
-      var original = buyBtn.innerHTML;
-      buyBtn.innerHTML = 'Added to Bag \u2713';
-      buyBtn.disabled = true;
-      clearTimeout(buyBtn._mdvTimer);
-      buyBtn._mdvTimer = setTimeout(function(){
-        buyBtn.innerHTML = original;
-        buyBtn.disabled = false;
-      }, 1600);
+      // The believed bag count still moves, for the badge on the way back.
+      if(window.MDVCart && typeof window.MDVCart.getCount === 'function'){
+        try {
+          localStorage.setItem('mdv_cart_count', String(window.MDVCart.getCount() + qty));
+        } catch (err) { /* private mode - the badge simply waits */ }
+      }
+
+      setTimeout(function(){ form.submit(); }, 220);
     });
   }
 })();
