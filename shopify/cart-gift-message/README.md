@@ -33,5 +33,9 @@ to the cart as it is typed, so a refresh never loses a written message.
 ## Installing
 
 Apply to an unpublished theme, preview the cart, then publish from the Shopify
-admin. `Dawn — gift message 2026-09-14` is a duplicate of the live theme,
-already waiting for these two files.
+admin.
+
+Both files are already on `Dawn — gift message 2026-09-14` (theme
+`165792252152`), a duplicate of the live theme. Preview it at
+`shop.maisondvue.com/cart?preview_theme_id=165792252152`; publishing is done
+from the admin, by hand.
