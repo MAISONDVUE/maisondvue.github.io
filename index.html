@@ -44,28 +44,34 @@
   a{ color:inherit; text-decoration:none; }
   img{ display:block; }
 
-  /* ══ COLLECTION HEADER — editorial type on paper, no media ══ */
-  /* The nav is fixed, so the header carries its own clearance — with the video
-     gone there is no full-bleed media left for the nav to float over. */
-  .shop-banner{
-    position:relative; background:var(--paper);
-    border-bottom:1px solid var(--line); padding-top:var(--nav-h);
+  /* ══ CINEMATIC BANNER — placeholder; swap the media with a film or full-bleed image ══ */
+  /* The frame holds the whole video at its native 16:9 — nothing cropped. */
+  .shop-banner{ position:relative; background:var(--navy-deep); }
+  .shop-banner-frame{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; }
+  .shop-banner-media{
+    position:absolute; inset:0; z-index:1;
+    width:100%; height:100%; object-fit:cover; display:block;
   }
-  .shop-banner-inner{
-    text-align:center; padding:clamp(78px,11vw,150px) clamp(24px,5vw,72px) clamp(56px,7vw,96px);
+  .shop-banner-frame::after{ /* scrim so the overlaid title stays legible */
+    content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(to bottom,
+      rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.06) 36%,
+      rgba(0,0,0,0.12) 58%, rgba(0,0,0,0.66) 100%);
   }
+  /* Desktop: title overlaid on the lower band of the video. */
+  .shop-banner-inner{ position:absolute; left:0; right:0; bottom:0; z-index:3; text-align:center; padding:0 24px 6vh; }
   .shop-banner-eyebrow{
     font-family:var(--font-sans); font-size:11px; font-weight:500;
-    letter-spacing:0.42em; text-transform:uppercase; color:var(--soft);
+    letter-spacing:0.42em; text-transform:uppercase; color:rgba(255,255,255,0.72);
     margin-bottom:24px;
   }
   .shop-banner-title{
     font-family:var(--font-serif); font-weight:500;
-    font-size:clamp(46px,7.4vw,94px); letter-spacing:0.02em; color:var(--ink); line-height:1;
+    font-size:clamp(46px,7.4vw,94px); letter-spacing:0.02em; color:#FFFFFF; line-height:1;
   }
   .shop-banner-sub{
     font-family:'EB Garamond',Georgia,serif; font-style:italic;
-    font-size:clamp(15px,1.5vw,19px); color:var(--mid); margin-top:22px;
+    font-size:clamp(15px,1.5vw,19px); color:rgba(255,255,255,0.82); margin-top:22px;
   }
 
   /* ══ PRODUCTS ══ */
@@ -134,10 +140,14 @@
   footer a:hover{ opacity:0.75; }
 
   @media (max-width:760px){
-    /* iPhone: the header sits close to the nav — the products carry the page. */
-    .shop-banner-inner{ padding:56px 22px 44px; }
-    .shop-banner-eyebrow{ margin-bottom:16px; }
-    .shop-banner-title{ font-size:clamp(34px,8.6vw,54px); }
+    /* iPhone: show the whole 16:9 video full-width (shrunk to fit), then the
+       title stacked beneath it on paper — nothing cramped or cropped. */
+    .shop-banner{ background:var(--paper); }
+    .shop-banner-frame::after{ display:none; }
+    .shop-banner-inner{ position:static; padding:30px 22px 26px; }
+    .shop-banner-eyebrow{ color:var(--soft); margin-bottom:16px; }
+    .shop-banner-title{ color:var(--ink); font-size:clamp(34px,8.6vw,54px); }
+    .shop-banner-sub{ color:var(--mid); }
     .shop-grid{ grid-template-columns:1fr; gap:64px; max-width:440px; }
   }
 </style>
@@ -215,7 +225,7 @@ src="https://www.facebook.com/tr?id=1164156712458976&ev=PageView&noscript=1"/></
 <body>
 
 <!-- ═══ UNIFIED NAV — transparent over the banner, solid on scroll ═══ -->
-<nav class="mdv-nav mdv-nav-split mdv-nav--light" id="mdvNav">
+<nav class="mdv-nav mdv-nav-split" id="mdvNav">
   <div class="nav-group nav-group-left">
     <a href="product.html">The Elixir</a>
     <a href="product.html#ritual">The Ritual</a>
@@ -232,8 +242,15 @@ src="https://www.facebook.com/tr?id=1164156712458976&ev=PageView&noscript=1"/></
 
 <main>
 
-  <!-- ═══ COLLECTION HEADER ═══ -->
+  <!-- ═══ CINEMATIC BANNER — PLACEHOLDER: replace .shop-banner-media with a
+       full-bleed image or looping video when the final banner is ready ═══ -->
   <section class="shop-banner">
+    <div class="shop-banner-frame">
+      <video class="shop-banner-media" src="signature-banner.mp4?v=3" poster="reserve-banner-poster-alt.jpg?v=3"
+        muted loop autoplay playsinline webkit-playsinline="true" preload="auto"
+        disablepictureinpicture aria-hidden="true"
+        onerror="this.style.display='none';"></video>
+    </div>
     <div class="shop-banner-inner">
       <p class="shop-banner-eyebrow">The Collection</p>
       <h1 class="shop-banner-title">The Hair Elixir</h1>
