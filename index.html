@@ -45,7 +45,12 @@
   img{ display:block; }
 
   /* ══ COLLECTION HEADER — editorial type on paper, no media ══ */
-  .shop-banner{ position:relative; background:var(--paper); border-bottom:1px solid var(--line); }
+  /* The nav is fixed, so the header carries its own clearance — with the video
+     gone there is no full-bleed media left for the nav to float over. */
+  .shop-banner{
+    position:relative; background:var(--paper);
+    border-bottom:1px solid var(--line); padding-top:var(--nav-h);
+  }
   .shop-banner-inner{
     text-align:center; padding:clamp(78px,11vw,150px) clamp(24px,5vw,72px) clamp(56px,7vw,96px);
   }
