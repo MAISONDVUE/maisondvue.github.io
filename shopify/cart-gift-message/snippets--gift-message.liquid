@@ -252,7 +252,7 @@
       autosize() {
         if (this.write.hidden) return;
         this.field.style.height = 'auto';
-        this.field.style.height = `${this.field.scrollHeight}px`;
+        this.field.style.height = this.field.scrollHeight + 'px';
       }
 
       debounce(fn) {
@@ -267,14 +267,14 @@
         const chosen = this.querySelector('input[type="radio"]:checked');
         const choice = chosen ? chosen.value : 'No card';
 
-        fetch(`${window.routes.cart_update_url}`, {
+        fetch(window.routes.cart_update_url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             note: choice === 'Write a message' ? this.field.value : '',
             attributes: { 'Gift card': choice },
           }),
-        }).catch(() => {
+        }).catch(function () {
           /* Offline or refused: the form submit at checkout still carries it. */
         });
       }
