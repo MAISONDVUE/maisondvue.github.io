@@ -1,0 +1,285 @@
+{% comment %}
+  MAISON D'VUE — the gift message on the cart.
+
+  Structure follows the couture convention: a ruled section heading, a line of
+  explanation, then a choice of three — no card, a blank house card, or a
+  message we write by hand. The writing field only appears once the shopper
+  asks for it, so the cart stays quiet for everyone else.
+
+  Two pieces of data leave with the order:
+    · attributes[Gift card] — which of the three was chosen
+    · note                  — the message itself, verbatim
+
+  Both sit inside form#cart, so a shopper with no JavaScript still carries
+  them through to checkout on submit. With JavaScript, every change is saved
+  to the cart straight away, so a refresh never loses a written message.
+{% endcomment %}
+
+{%- liquid
+  assign gift_choice = cart.attributes['Gift card'] | default: 'No card'
+  assign gift_limit = 180
+-%}
+
+<gift-message class="gift-message" data-limit="{{ gift_limit }}">
+  <h2 class="gift-message__heading">Gift message</h2>
+
+  <p class="gift-message__intro">
+    A card travels with every order, with our compliments. Choose a blank house
+    card, or write your message and we will set it down by hand.
+  </p>
+
+  <fieldset class="gift-message__choices">
+    <legend class="visually-hidden">Gift card options</legend>
+
+    {%- assign options = 'No card,A blank house card,Write a message' | split: ',' -%}
+    {%- for option in options -%}
+      <div class="gift-message__choice">
+        <input
+          type="radio"
+          form="cart"
+          name="attributes[Gift card]"
+          id="GiftCard-{{ forloop.index }}"
+          value="{{ option | escape }}"
+          {% if gift_choice == option %}checked{% endif %}
+        >
+        <label for="GiftCard-{{ forloop.index }}">{{ option }}</label>
+      </div>
+    {%- endfor -%}
+  </fieldset>
+
+  <div
+    class="gift-message__write"
+    {% unless gift_choice == 'Write a message' %}hidden{% endunless %}
+  >
+    <h3 class="gift-message__note-heading">Please note</h3>
+    <p class="gift-message__note">
+      Up to {{ gift_limit }} characters, so the message stays legible in a single
+      hand. It is written on a house card and sealed inside your order — it never
+      appears on the invoice.
+    </p>
+
+    <label class="visually-hidden" for="GiftMessage">Your message</label>
+    <textarea
+      class="gift-message__field"
+      form="cart"
+      name="note"
+      id="GiftMessage"
+      rows="2"
+      maxlength="{{ gift_limit }}"
+      placeholder="Enter your message here"
+    >{{ cart.note }}</textarea>
+    <p class="gift-message__count" aria-live="polite">
+      <span class="gift-message__count-value">{{ cart.note.size | default: 0 }}</span>/{{ gift_limit }}
+    </p>
+  </div>
+</gift-message>
+
+<style>
+  .gift-message {
+    display: block;
+    margin: 0 0 4rem;
+  }
+
+  .gift-message__heading {
+    margin: 0 0 1.6rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 1);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .gift-message__intro {
+    margin: 0 0 2.4rem;
+    max-width: 52rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .gift-message__choices {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .gift-message__choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1.4rem;
+  }
+
+  /* Hand-drawn radios: a thin ring that takes a solid centre when chosen. */
+  .gift-message__choice input[type='radio'] {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 auto;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0.4rem 0 0;
+    border: 0.1rem solid rgba(var(--color-foreground), 0.55);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .gift-message__choice input[type='radio']:checked {
+    border-color: rgb(var(--color-foreground));
+    box-shadow: inset 0 0 0 0.35rem rgb(var(--color-foreground));
+  }
+
+  .gift-message__choice input[type='radio']:focus-visible {
+    outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+    outline-offset: 0.2rem;
+  }
+
+  .gift-message__choice label {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .gift-message__write {
+    margin: 2.4rem 0 0;
+    padding-left: 2.6rem;
+    max-width: 52rem;
+  }
+
+  .gift-message__write[hidden] {
+    display: none;
+  }
+
+  .gift-message__note-heading {
+    margin: 0 0 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+  }
+
+  .gift-message__note {
+    margin: 0 0 2rem;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  /* One ruled line to write on, in the manner of a house card. */
+  .gift-message__field {
+    display: block;
+    width: 100%;
+    padding: 0 0 0.8rem;
+    border: 0;
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.4);
+    border-radius: 0;
+    background: transparent;
+    color: rgb(var(--color-foreground));
+    font-family: inherit;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    letter-spacing: inherit;
+    resize: none;
+    overflow: hidden;
+  }
+
+  .gift-message__field::placeholder {
+    color: rgba(var(--color-foreground), 0.45);
+  }
+
+  .gift-message__field:focus {
+    outline: 0;
+    border-bottom-color: rgb(var(--color-foreground));
+  }
+
+  .gift-message__count {
+    margin: 0.8rem 0 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.04rem;
+    color: rgba(var(--color-foreground), 0.55);
+  }
+
+  @media screen and (max-width: 749px) {
+    .gift-message__write {
+      padding-left: 0;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    if (customElements.get('gift-message')) return;
+
+    class GiftMessage extends HTMLElement {
+      connectedCallback() {
+        this.write = this.querySelector('.gift-message__write');
+        this.field = this.querySelector('.gift-message__field');
+        this.count = this.querySelector('.gift-message__count-value');
+        this.radios = this.querySelectorAll('input[type="radio"]');
+
+        this.radios.forEach((radio) => {
+          radio.addEventListener('change', () => this.onChoice(radio));
+        });
+
+        this.field.addEventListener('input', () => {
+          this.tally();
+          this.autosize();
+          this.debounce(() => this.save());
+        });
+
+        this.tally();
+        this.autosize();
+      }
+
+      onChoice(radio) {
+        const writing = radio.value === 'Write a message';
+        this.write.hidden = !writing;
+        if (writing) {
+          this.field.focus();
+          this.autosize();
+        }
+        this.save();
+      }
+
+      tally() {
+        this.count.textContent = this.field.value.length;
+      }
+
+      /* The field grows with the message rather than scrolling inside itself. */
+      autosize() {
+        if (this.write.hidden) return;
+        this.field.style.height = 'auto';
+        this.field.style.height = this.field.scrollHeight + 'px';
+      }
+
+      debounce(fn) {
+        clearTimeout(this.timer);
+        this.timer = setTimeout(fn, 400);
+      }
+
+      /* Saved to the cart as it is typed, so a refresh never loses the words.
+         The fields also sit in form#cart, so checkout carries them even if
+         this request never lands. */
+      save() {
+        const chosen = this.querySelector('input[type="radio"]:checked');
+        const choice = chosen ? chosen.value : 'No card';
+
+        fetch(window.routes.cart_update_url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            note: choice === 'Write a message' ? this.field.value : '',
+            attributes: { 'Gift card': choice },
+          }),
+        }).catch(function () {
+          /* Offline or refused: the form submit at checkout still carries it. */
+        });
+      }
+    }
+
+    customElements.define('gift-message', GiftMessage);
+  })();
+</script>
