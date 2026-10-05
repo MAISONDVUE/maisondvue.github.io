@@ -366,11 +366,13 @@ fbq('track', 'ViewContent', {
           <div class="pdp-sizes" role="radiogroup" aria-labelledby="pdpSizeLabel">
             <button type="button" class="pdp-size is-active" role="radio" aria-checked="true"
               data-variant="48287241339128" data-price="125" data-sub="1"
+              data-plans='[{"id":"6231818488","label":"Deliver every 3 months &mdash; 10% off"},{"id":"6231851256","label":"Deliver every 5 months &mdash; 10% off"}]'
               data-cat="The Signature &middot; 30 ml &middot; 1 fl oz"
               data-img="maison-dvue-elixir-hair-bottle.jpg"
               data-desc="The house signature, in full. Fourteen rare botanical essences, drawn into affinity with the hair fiber &mdash; weightless nourishment, glass-like luminosity, and fluid movement from first light to last. Hand-sealed in Beverly Hills, scented in <em>&Acirc;me de Vue&trade;</em>. 30 ml &middot; 1 fl oz.">30 ML</button>
             <button type="button" class="pdp-size" role="radio" aria-checked="false"
-              data-variant="49653578531064" data-price="68" data-sub="0"
+              data-variant="49653578531064" data-price="56" data-sub="1"
+              data-plans='[{"id":"6293225720","label":"Deliver every 2 months &mdash; 10% off"},{"id":"6293258488","label":"Deliver every 3 months &mdash; 10% off"}]'
               data-cat="The Voyage &middot; 10 ml &middot; 0.33 fl oz"
               data-img="maison-dvue-elixir-voyage-gloves.jpg"
               data-desc="The Signature, reduced to its essential. Ten millilitres of the Hair Elixir in cobalt frosted glass &mdash; the full ritual, taken anywhere. Fourteen rare essences, scented in <em>&Acirc;me de Vue&trade;</em>. 10 ml &middot; 0.33 fl oz.">10 ML</button>
@@ -537,6 +539,21 @@ fbq('track', 'ViewContent', {
     }
   }
 
+  function updatePlans(btn){
+    if(!planSel) return;
+    var plans = [];
+    try {
+      plans = JSON.parse(btn.dataset.plans || '[]');
+    } catch(e){}
+    if(plans.length){
+      var prevVal = planSel.value;
+      planSel.innerHTML = plans.map(function(p, i){
+        var sel = (p.id === prevVal || (i === 0 && !plans.some(function(x){ return x.id === prevVal; }))) ? ' selected' : '';
+        return '<option value="' + p.id + '"' + sel + '>' + p.label + '</option>';
+      }).join('');
+    }
+  }
+
   function selectSize(btn){
     current = btn;
     sizes.forEach(function(b){
@@ -551,6 +568,7 @@ fbq('track', 'ViewContent', {
       photoEl.style.display = 'block';
       if(videoEl) videoEl.style.display = 'none';
     }
+    updatePlans(btn);
     if(btn.dataset.sub !== '1') mode = 'once';
     render();
   }
@@ -567,6 +585,7 @@ fbq('track', 'ViewContent', {
   });
   planSel.addEventListener('change', render);
 
+  updatePlans(current);
   render();
 
   // Add to Bag posts to Shopify's /cart/add with return_to=/cart, so the
